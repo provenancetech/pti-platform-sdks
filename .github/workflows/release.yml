@@ -1,0 +1,39 @@
+name: Release SDK's
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_branch:
+        description: 'Tag/Branch to release'
+        type: string
+        required: true
+      version:
+        description: 'version to release'
+        type: string
+        required: true
+
+env:
+  GIT_KEY: ${{ secrets.CI_TOKEN }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.tag_branch }}
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with: 
+          distribution: corretto
+          java-version: 17
+
+      - name: Build and push Java
+        run: |
+          cd java
+          echo "version=${{ inputs.tag_branch }}" > gradle.properties
+          ./gradlew publish

@@ -1,10 +1,10 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'maven-publish'
 }
 
 group = 'com.pti.sdk'
-version = '1.0.0'
 
 repositories {
     mavenCentral()
@@ -19,4 +19,22 @@ dependencies {
     api "com.fasterxml.jackson.core:jackson-databind"
     api "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
     api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/provenancetech/pti-platform-sdks")
+            credentials {
+                username = project.findProperty("gpr.user") ?: "builder"
+                password = project.findProperty("gpr.key") ?: System.getenv("GIT_KEY")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from components.java
+        }
+    }
 }
