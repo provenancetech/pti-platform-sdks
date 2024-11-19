@@ -12,9 +12,6 @@ on:
         type: string
         required: true
 
-env:
-  GIT_KEY: ${{ secrets.CI_TOKEN }}
-
 jobs:
   build:
     name: Build & Release
@@ -33,6 +30,8 @@ jobs:
           java-version: 17
 
       - name: Build and push Java
+        env:
+          GIT_KEY: ${{ secrets.CI_TOKEN }}
         run: |
           cd java
           echo "version=${{ inputs.version }}" > gradle.properties
