@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    name: Build
+    name: Build & Release
     runs-on: ubuntu-latest
 
     steps:
@@ -35,5 +35,5 @@ jobs:
       - name: Build and push Java
         run: |
           cd java
-          echo "version=${{ inputs.tag_branch }}" > gradle.properties
+          echo "version=${{ inputs.version }}" > gradle.properties
           ./gradlew publish
