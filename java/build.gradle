@@ -8,6 +8,7 @@ group = 'com.pti.sdk'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 ext {

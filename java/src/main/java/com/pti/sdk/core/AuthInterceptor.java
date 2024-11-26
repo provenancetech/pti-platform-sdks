@@ -3,6 +3,7 @@ package com.pti.sdk.core;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.RSAKey;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import okio.Buffer;
@@ -37,15 +38,24 @@ public class AuthInterceptor implements Interceptor {
         var clientId = request.header("x-pti-client-id");
         
         var body = "";
+        var contentType = "";
         if (request.body() != null) {
-            var requestCopy = request.newBuilder().build();
             var buffer = new Buffer();
-            //noinspection DataFlowIssue
-            requestCopy.body().writeTo(buffer);
-            body = buffer.toString();
+            request.body().writeTo(buffer);
+            body = buffer.readUtf8();
+            contentType = request.body().contentType().toString();
+            // Special case for file uploads, where we only need to grab the part named 'metaInformation' 
+            if (request.body() instanceof MultipartBody multipartBody) {
+                Optional<MultipartBody.Part> partOptional = multipartBody.parts().stream().filter(p -> p.headers().toString().contains("\"metaInformation\"")).findAny();
+                if (partOptional.isPresent()) {
+                    buffer = new Buffer();
+                    partOptional.get().body().writeTo(buffer);
+                    body = buffer.readUtf8();
+                }
+            }
         }
 
-        var payload = buildPayload(request.method(), body, date, request.url().toString(), clientId);
+        var payload = buildPayload(request.method(), body, date, request.url().toString(), clientId, contentType);
         String signature;
         try {
             signature = signPayload(clientId, privateKey, payload);
@@ -58,8 +68,6 @@ public class AuthInterceptor implements Interceptor {
                 .addHeader("x-pti-signature", signature)
                 .build();
 
-        System.out.println(request);
-        
         return chain.proceed(request);
     }
 
@@ -67,10 +75,6 @@ public class AuthInterceptor implements Interceptor {
         final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM, yyyy hh:mm:ss z");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(new Date());
-    }
-
-    public String buildPayload(String method, String payload, String date, String path, String clientId) throws MalformedURLException {
-        return buildPayload(method, payload, date, path, clientId, "content-type:application/json");
     }
 
     public String buildPayload(String method, String payload, String date, String urlOrPath, String clientId, String contentType) throws MalformedURLException {
@@ -83,7 +87,7 @@ public class AuthInterceptor implements Interceptor {
         if (Set.of("POST", "PUT", "PATCH").contains(method)) {
             return method + "\n" +
                     Objects.requireNonNull(getContentSha256(payload)).toUpperCase() + "\n" +
-                    contentType + "\n" +
+                    "content-type:" + contentType + "\n" +
                     "date:" + date + "\n" +
                     "x-pti-client-id:" + clientId + "\n" +
                     path;

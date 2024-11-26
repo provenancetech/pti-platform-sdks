@@ -32,16 +32,16 @@ public final class Address {
 
   private final Optional<String> postalCode;
 
-  private final Optional<StateCode> stateCode;
+  private final Optional<String> stateCode;
 
-  private final Optional<CountryCode> country;
+  private final Optional<String> country;
 
   private final Optional<Boolean> default_;
 
   private final Map<String, Object> additionalProperties;
 
   private Address(Optional<String> streetAddress, Optional<String> city,
-      Optional<String> postalCode, Optional<StateCode> stateCode, Optional<CountryCode> country,
+      Optional<String> postalCode, Optional<String> stateCode, Optional<String> country,
       Optional<Boolean> default_, Map<String, Object> additionalProperties) {
     this.streetAddress = streetAddress;
     this.city = city;
@@ -68,12 +68,12 @@ public final class Address {
   }
 
   @JsonProperty("stateCode")
-  public Optional<StateCode> getStateCode() {
+  public Optional<String> getStateCode() {
     return stateCode;
   }
 
   @JsonProperty("country")
-  public Optional<CountryCode> getCountry() {
+  public Optional<String> getCountry() {
     return country;
   }
 
@@ -121,9 +121,9 @@ public final class Address {
 
     private Optional<String> postalCode = Optional.empty();
 
-    private Optional<StateCode> stateCode = Optional.empty();
+    private Optional<String> stateCode = Optional.empty();
 
-    private Optional<CountryCode> country = Optional.empty();
+    private Optional<String> country = Optional.empty();
 
     private Optional<Boolean> default_ = Optional.empty();
 
@@ -189,12 +189,12 @@ public final class Address {
         value = "stateCode",
         nulls = Nulls.SKIP
     )
-    public Builder stateCode(Optional<StateCode> stateCode) {
+    public Builder stateCode(Optional<String> stateCode) {
       this.stateCode = stateCode;
       return this;
     }
 
-    public Builder stateCode(StateCode stateCode) {
+    public Builder stateCode(String stateCode) {
       this.stateCode = Optional.ofNullable(stateCode);
       return this;
     }
@@ -203,12 +203,12 @@ public final class Address {
         value = "country",
         nulls = Nulls.SKIP
     )
-    public Builder country(Optional<CountryCode> country) {
+    public Builder country(Optional<String> country) {
       this.country = country;
       return this;
     }
 
-    public Builder country(CountryCode country) {
+    public Builder country(String country) {
       this.country = Optional.ofNullable(country);
       return this;
     }
