@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
 import com.pti.sdk.types.DocumentMetaInformation;
-import com.pti.sdk.types.IdDocumentMetadataValue;
+import com.pti.sdk.types.IdDocumentMetadata;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -29,13 +29,12 @@ import java.util.Optional;
 public final class UploadDocumentRequest {
   private final Optional<DocumentMetaInformation> metaInformation;
 
-  private final Optional<Map<String, IdDocumentMetadataValue>> idDocumentMetaData;
+  private final Optional<IdDocumentMetadata> idDocumentMetaData;
 
   private final Map<String, Object> additionalProperties;
 
   private UploadDocumentRequest(Optional<DocumentMetaInformation> metaInformation,
-      Optional<Map<String, IdDocumentMetadataValue>> idDocumentMetaData,
-      Map<String, Object> additionalProperties) {
+      Optional<IdDocumentMetadata> idDocumentMetaData, Map<String, Object> additionalProperties) {
     this.metaInformation = metaInformation;
     this.idDocumentMetaData = idDocumentMetaData;
     this.additionalProperties = additionalProperties;
@@ -47,7 +46,7 @@ public final class UploadDocumentRequest {
   }
 
   @JsonProperty("idDocumentMetaData")
-  public Optional<Map<String, IdDocumentMetadataValue>> getIdDocumentMetaData() {
+  public Optional<IdDocumentMetadata> getIdDocumentMetaData() {
     return idDocumentMetaData;
   }
 
@@ -86,7 +85,7 @@ public final class UploadDocumentRequest {
   public static final class Builder {
     private Optional<DocumentMetaInformation> metaInformation = Optional.empty();
 
-    private Optional<Map<String, IdDocumentMetadataValue>> idDocumentMetaData = Optional.empty();
+    private Optional<IdDocumentMetadata> idDocumentMetaData = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -118,13 +117,12 @@ public final class UploadDocumentRequest {
         value = "idDocumentMetaData",
         nulls = Nulls.SKIP
     )
-    public Builder idDocumentMetaData(
-        Optional<Map<String, IdDocumentMetadataValue>> idDocumentMetaData) {
+    public Builder idDocumentMetaData(Optional<IdDocumentMetadata> idDocumentMetaData) {
       this.idDocumentMetaData = idDocumentMetaData;
       return this;
     }
 
-    public Builder idDocumentMetaData(Map<String, IdDocumentMetadataValue> idDocumentMetaData) {
+    public Builder idDocumentMetaData(IdDocumentMetadata idDocumentMetaData) {
       this.idDocumentMetaData = Optional.ofNullable(idDocumentMetaData);
       return this;
     }

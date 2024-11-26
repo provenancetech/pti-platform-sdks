@@ -44,6 +44,10 @@ public final class OneOfExternalPaymentInformation {
     return new OneOfExternalPaymentInformation(new TokenValue(value));
   }
 
+  public static OneOfExternalPaymentInformation crypto(CryptoPaymentInformation value) {
+    return new OneOfExternalPaymentInformation(new CryptoValue(value));
+  }
+
   public boolean isBankAccount() {
     return value instanceof BankAccountValue;
   }
@@ -54,6 +58,10 @@ public final class OneOfExternalPaymentInformation {
 
   public boolean isToken() {
     return value instanceof TokenValue;
+  }
+
+  public boolean isCrypto() {
+    return value instanceof CryptoValue;
   }
 
   public boolean _isUnknown() {
@@ -81,6 +89,13 @@ public final class OneOfExternalPaymentInformation {
     return Optional.empty();
   }
 
+  public Optional<CryptoPaymentInformation> getCrypto() {
+    if (isCrypto()) {
+      return Optional.of(((CryptoValue) value).value);
+    }
+    return Optional.empty();
+  }
+
   public Optional<Object> _getUnknown() {
     if (_isUnknown()) {
       return Optional.of(((_UnknownValue) value).value);
@@ -100,6 +115,8 @@ public final class OneOfExternalPaymentInformation {
 
     T visitToken(CryptoPaymentInformation token);
 
+    T visitCrypto(CryptoPaymentInformation crypto);
+
     T _visitUnknown(Object unknownType);
   }
 
@@ -112,7 +129,8 @@ public final class OneOfExternalPaymentInformation {
   @JsonSubTypes({
       @JsonSubTypes.Type(BankAccountValue.class),
       @JsonSubTypes.Type(EncryptedCreditCardValue.class),
-      @JsonSubTypes.Type(TokenValue.class)
+      @JsonSubTypes.Type(TokenValue.class),
+      @JsonSubTypes.Type(CryptoValue.class)
   })
   @JsonIgnoreProperties(
       ignoreUnknown = true
@@ -230,6 +248,47 @@ public final class OneOfExternalPaymentInformation {
     }
 
     private boolean equalTo(TokenValue other) {
+      return value.equals(other.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "OneOfExternalPaymentInformation{" + "value: " + value + "}";
+    }
+  }
+
+  @JsonTypeName("CRYPTO")
+  private static final class CryptoValue implements Value {
+    @JsonUnwrapped
+    private CryptoPaymentInformation value;
+
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
+    )
+    private CryptoValue() {
+    }
+
+    private CryptoValue(CryptoPaymentInformation value) {
+      this.value = value;
+    }
+
+    @Override
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor.visitCrypto(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof CryptoValue && equalTo((CryptoValue) other);
+    }
+
+    private boolean equalTo(CryptoValue other) {
       return value.equals(other.value);
     }
 
