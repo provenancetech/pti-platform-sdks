@@ -40,10 +40,6 @@ public final class OneOfExternalPaymentInformation {
     return new OneOfExternalPaymentInformation(new EncryptedCreditCardValue(value));
   }
 
-  public static OneOfExternalPaymentInformation token(CryptoPaymentInformation value) {
-    return new OneOfExternalPaymentInformation(new TokenValue(value));
-  }
-
   public static OneOfExternalPaymentInformation crypto(CryptoPaymentInformation value) {
     return new OneOfExternalPaymentInformation(new CryptoValue(value));
   }
@@ -54,10 +50,6 @@ public final class OneOfExternalPaymentInformation {
 
   public boolean isEncryptedCreditCard() {
     return value instanceof EncryptedCreditCardValue;
-  }
-
-  public boolean isToken() {
-    return value instanceof TokenValue;
   }
 
   public boolean isCrypto() {
@@ -78,13 +70,6 @@ public final class OneOfExternalPaymentInformation {
   public Optional<EncryptedCreditCardPaymentInformation> getEncryptedCreditCard() {
     if (isEncryptedCreditCard()) {
       return Optional.of(((EncryptedCreditCardValue) value).value);
-    }
-    return Optional.empty();
-  }
-
-  public Optional<CryptoPaymentInformation> getToken() {
-    if (isToken()) {
-      return Optional.of(((TokenValue) value).value);
     }
     return Optional.empty();
   }
@@ -113,8 +98,6 @@ public final class OneOfExternalPaymentInformation {
 
     T visitEncryptedCreditCard(EncryptedCreditCardPaymentInformation encryptedCreditCard);
 
-    T visitToken(CryptoPaymentInformation token);
-
     T visitCrypto(CryptoPaymentInformation crypto);
 
     T _visitUnknown(Object unknownType);
@@ -129,7 +112,6 @@ public final class OneOfExternalPaymentInformation {
   @JsonSubTypes({
       @JsonSubTypes.Type(BankAccountValue.class),
       @JsonSubTypes.Type(EncryptedCreditCardValue.class),
-      @JsonSubTypes.Type(TokenValue.class),
       @JsonSubTypes.Type(CryptoValue.class)
   })
   @JsonIgnoreProperties(
@@ -207,47 +189,6 @@ public final class OneOfExternalPaymentInformation {
     }
 
     private boolean equalTo(EncryptedCreditCardValue other) {
-      return value.equals(other.value);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(this.value);
-    }
-
-    @Override
-    public String toString() {
-      return "OneOfExternalPaymentInformation{" + "value: " + value + "}";
-    }
-  }
-
-  @JsonTypeName("TOKEN")
-  private static final class TokenValue implements Value {
-    @JsonUnwrapped
-    private CryptoPaymentInformation value;
-
-    @JsonCreator(
-        mode = JsonCreator.Mode.PROPERTIES
-    )
-    private TokenValue() {
-    }
-
-    private TokenValue(CryptoPaymentInformation value) {
-      this.value = value;
-    }
-
-    @Override
-    public <T> T visit(Visitor<T> visitor) {
-      return visitor.visitToken(value);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-      if (this == other) return true;
-      return other instanceof TokenValue && equalTo((TokenValue) other);
-    }
-
-    private boolean equalTo(TokenValue other) {
       return value.equals(other.value);
     }
 

@@ -46,9 +46,9 @@ public final class TradeTransaction implements ITransactionType {
 
   private final Optional<Map<String, Object>> clientMeta;
 
-  private final Optional<TokenPaymentMethodDestination> destinationMethod;
+  private final Optional<CryptoPaymentMethodDestination> destinationMethod;
 
-  private final Optional<TokenPaymentMethodSource> sourceMethod;
+  private final Optional<CryptoPaymentMethodSource> sourceMethod;
 
   private final Map<String, Object> additionalProperties;
 
@@ -56,8 +56,8 @@ public final class TradeTransaction implements ITransactionType {
       Optional<String> subClientId, Optional<Total> transactionTotal, double usdValue,
       double amount, String date, OneOfUserSubTypes initiator,
       Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
-      Optional<TokenPaymentMethodDestination> destinationMethod,
-      Optional<TokenPaymentMethodSource> sourceMethod, Map<String, Object> additionalProperties) {
+      Optional<CryptoPaymentMethodDestination> destinationMethod,
+      Optional<CryptoPaymentMethodSource> sourceMethod, Map<String, Object> additionalProperties) {
     this.type = type;
     this.transactionGroupId = transactionGroupId;
     this.subClientId = subClientId;
@@ -143,12 +143,12 @@ public final class TradeTransaction implements ITransactionType {
   }
 
   @JsonProperty("destinationMethod")
-  public Optional<TokenPaymentMethodDestination> getDestinationMethod() {
+  public Optional<CryptoPaymentMethodDestination> getDestinationMethod() {
     return destinationMethod;
   }
 
   @JsonProperty("sourceMethod")
-  public Optional<TokenPaymentMethodSource> getSourceMethod() {
+  public Optional<CryptoPaymentMethodSource> getSourceMethod() {
     return sourceMethod;
   }
 
@@ -226,13 +226,13 @@ public final class TradeTransaction implements ITransactionType {
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
-    _FinalStage destinationMethod(Optional<TokenPaymentMethodDestination> destinationMethod);
+    _FinalStage destinationMethod(Optional<CryptoPaymentMethodDestination> destinationMethod);
 
-    _FinalStage destinationMethod(TokenPaymentMethodDestination destinationMethod);
+    _FinalStage destinationMethod(CryptoPaymentMethodDestination destinationMethod);
 
-    _FinalStage sourceMethod(Optional<TokenPaymentMethodSource> sourceMethod);
+    _FinalStage sourceMethod(Optional<CryptoPaymentMethodSource> sourceMethod);
 
-    _FinalStage sourceMethod(TokenPaymentMethodSource sourceMethod);
+    _FinalStage sourceMethod(CryptoPaymentMethodSource sourceMethod);
   }
 
   @JsonIgnoreProperties(
@@ -249,9 +249,9 @@ public final class TradeTransaction implements ITransactionType {
 
     private OneOfUserSubTypes initiator;
 
-    private Optional<TokenPaymentMethodSource> sourceMethod = Optional.empty();
+    private Optional<CryptoPaymentMethodSource> sourceMethod = Optional.empty();
 
-    private Optional<TokenPaymentMethodDestination> destinationMethod = Optional.empty();
+    private Optional<CryptoPaymentMethodDestination> destinationMethod = Optional.empty();
 
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
@@ -326,7 +326,7 @@ public final class TradeTransaction implements ITransactionType {
     }
 
     @Override
-    public _FinalStage sourceMethod(TokenPaymentMethodSource sourceMethod) {
+    public _FinalStage sourceMethod(CryptoPaymentMethodSource sourceMethod) {
       this.sourceMethod = Optional.ofNullable(sourceMethod);
       return this;
     }
@@ -336,13 +336,13 @@ public final class TradeTransaction implements ITransactionType {
         value = "sourceMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage sourceMethod(Optional<TokenPaymentMethodSource> sourceMethod) {
+    public _FinalStage sourceMethod(Optional<CryptoPaymentMethodSource> sourceMethod) {
       this.sourceMethod = sourceMethod;
       return this;
     }
 
     @Override
-    public _FinalStage destinationMethod(TokenPaymentMethodDestination destinationMethod) {
+    public _FinalStage destinationMethod(CryptoPaymentMethodDestination destinationMethod) {
       this.destinationMethod = Optional.ofNullable(destinationMethod);
       return this;
     }
@@ -353,7 +353,7 @@ public final class TradeTransaction implements ITransactionType {
         nulls = Nulls.SKIP
     )
     public _FinalStage destinationMethod(
-        Optional<TokenPaymentMethodDestination> destinationMethod) {
+        Optional<CryptoPaymentMethodDestination> destinationMethod) {
       this.destinationMethod = destinationMethod;
       return this;
     }

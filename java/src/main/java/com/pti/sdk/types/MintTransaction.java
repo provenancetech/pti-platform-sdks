@@ -48,7 +48,7 @@ public final class MintTransaction implements ITransactionType {
 
   private final Optional<OneOfUserSubTypes> destination;
 
-  private final Optional<TokenPaymentMethod> destinationMethod;
+  private final Optional<CryptoPaymentMethod> destinationMethod;
 
   private final Map<String, Object> additionalProperties;
 
@@ -56,7 +56,7 @@ public final class MintTransaction implements ITransactionType {
       Optional<String> subClientId, Optional<Total> transactionTotal, double usdValue,
       double amount, String date, OneOfUserSubTypes initiator,
       Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
-      Optional<OneOfUserSubTypes> destination, Optional<TokenPaymentMethod> destinationMethod,
+      Optional<OneOfUserSubTypes> destination, Optional<CryptoPaymentMethod> destinationMethod,
       Map<String, Object> additionalProperties) {
     this.type = type;
     this.transactionGroupId = transactionGroupId;
@@ -148,7 +148,7 @@ public final class MintTransaction implements ITransactionType {
   }
 
   @JsonProperty("destinationMethod")
-  public Optional<TokenPaymentMethod> getDestinationMethod() {
+  public Optional<CryptoPaymentMethod> getDestinationMethod() {
     return destinationMethod;
   }
 
@@ -230,9 +230,9 @@ public final class MintTransaction implements ITransactionType {
 
     _FinalStage destination(OneOfUserSubTypes destination);
 
-    _FinalStage destinationMethod(Optional<TokenPaymentMethod> destinationMethod);
+    _FinalStage destinationMethod(Optional<CryptoPaymentMethod> destinationMethod);
 
-    _FinalStage destinationMethod(TokenPaymentMethod destinationMethod);
+    _FinalStage destinationMethod(CryptoPaymentMethod destinationMethod);
   }
 
   @JsonIgnoreProperties(
@@ -249,7 +249,7 @@ public final class MintTransaction implements ITransactionType {
 
     private OneOfUserSubTypes initiator;
 
-    private Optional<TokenPaymentMethod> destinationMethod = Optional.empty();
+    private Optional<CryptoPaymentMethod> destinationMethod = Optional.empty();
 
     private Optional<OneOfUserSubTypes> destination = Optional.empty();
 
@@ -326,7 +326,7 @@ public final class MintTransaction implements ITransactionType {
     }
 
     @Override
-    public _FinalStage destinationMethod(TokenPaymentMethod destinationMethod) {
+    public _FinalStage destinationMethod(CryptoPaymentMethod destinationMethod) {
       this.destinationMethod = Optional.ofNullable(destinationMethod);
       return this;
     }
@@ -336,7 +336,7 @@ public final class MintTransaction implements ITransactionType {
         value = "destinationMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage destinationMethod(Optional<TokenPaymentMethod> destinationMethod) {
+    public _FinalStage destinationMethod(Optional<CryptoPaymentMethod> destinationMethod) {
       this.destinationMethod = destinationMethod;
       return this;
     }
