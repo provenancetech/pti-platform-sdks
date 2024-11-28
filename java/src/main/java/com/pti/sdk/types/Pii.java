@@ -24,18 +24,18 @@ import org.jetbrains.annotations.NotNull;
     builder = Pii.Builder.class
 )
 public final class Pii implements IPii {
-  private final String type;
+  private final PiiType type;
 
   private final Map<String, Object> additionalProperties;
 
-  private Pii(String type, Map<String, Object> additionalProperties) {
+  private Pii(PiiType type, Map<String, Object> additionalProperties) {
     this.type = type;
     this.additionalProperties = additionalProperties;
   }
 
   @JsonProperty("type")
   @Override
-  public String getType() {
+  public PiiType getType() {
     return type;
   }
 
@@ -69,7 +69,7 @@ public final class Pii implements IPii {
   }
 
   public interface TypeStage {
-    _FinalStage type(@NotNull String type);
+    _FinalStage type(@NotNull PiiType type);
 
     Builder from(Pii other);
   }
@@ -82,7 +82,7 @@ public final class Pii implements IPii {
       ignoreUnknown = true
   )
   public static final class Builder implements TypeStage, _FinalStage {
-    private String type;
+    private PiiType type;
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -98,7 +98,7 @@ public final class Pii implements IPii {
 
     @Override
     @JsonSetter("type")
-    public _FinalStage type(@NotNull String type) {
+    public _FinalStage type(@NotNull PiiType type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }

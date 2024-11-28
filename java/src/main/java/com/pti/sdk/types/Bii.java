@@ -9,55 +9,39 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = Bii.Builder.class
 )
 public final class Bii implements IBii {
-  private final Optional<String> value;
-
   private final Map<String, Object> additionalProperties;
 
-  private Bii(Optional<String> value, Map<String, Object> additionalProperties) {
-    this.value = value;
+  private Bii(Map<String, Object> additionalProperties) {
     this.additionalProperties = additionalProperties;
   }
 
-  @JsonProperty("value")
+  @JsonProperty("type")
   @Override
-  public Optional<String> getValue() {
-    return value;
+  public String getType() {
+    return "EIN";
   }
 
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof Bii && equalTo((Bii) other);
+    return other instanceof Bii;
   }
 
   @JsonAnyGetter
   public Map<String, Object> getAdditionalProperties() {
     return this.additionalProperties;
-  }
-
-  private boolean equalTo(Bii other) {
-    return value.equals(other.value);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.value);
   }
 
   @Override
@@ -73,8 +57,6 @@ public final class Bii implements IBii {
       ignoreUnknown = true
   )
   public static final class Builder {
-    private Optional<String> value = Optional.empty();
-
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -82,26 +64,11 @@ public final class Bii implements IBii {
     }
 
     public Builder from(Bii other) {
-      value(other.getValue());
-      return this;
-    }
-
-    @JsonSetter(
-        value = "value",
-        nulls = Nulls.SKIP
-    )
-    public Builder value(Optional<String> value) {
-      this.value = value;
-      return this;
-    }
-
-    public Builder value(String value) {
-      this.value = Optional.ofNullable(value);
       return this;
     }
 
     public Bii build() {
-      return new Bii(value, additionalProperties);
+      return new Bii(additionalProperties);
     }
   }
 }

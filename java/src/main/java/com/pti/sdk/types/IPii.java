@@ -4,8 +4,6 @@
 
 package com.pti.sdk.types;
 
-import java.lang.String;
-
 public interface IPii {
-  String getType();
+  PiiType getType();
 }

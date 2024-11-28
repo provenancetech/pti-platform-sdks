@@ -26,13 +26,13 @@ import org.jetbrains.annotations.NotNull;
     builder = Itin.Builder.class
 )
 public final class Itin implements IPii {
-  private final String type;
+  private final PiiType type;
 
   private final Optional<String> value;
 
   private final Map<String, Object> additionalProperties;
 
-  private Itin(String type, Optional<String> value, Map<String, Object> additionalProperties) {
+  private Itin(PiiType type, Optional<String> value, Map<String, Object> additionalProperties) {
     this.type = type;
     this.value = value;
     this.additionalProperties = additionalProperties;
@@ -40,7 +40,7 @@ public final class Itin implements IPii {
 
   @JsonProperty("type")
   @Override
-  public String getType() {
+  public PiiType getType() {
     return type;
   }
 
@@ -82,7 +82,7 @@ public final class Itin implements IPii {
   }
 
   public interface TypeStage {
-    _FinalStage type(@NotNull String type);
+    _FinalStage type(@NotNull PiiType type);
 
     Builder from(Itin other);
   }
@@ -99,7 +99,7 @@ public final class Itin implements IPii {
       ignoreUnknown = true
   )
   public static final class Builder implements TypeStage, _FinalStage {
-    private String type;
+    private PiiType type;
 
     private Optional<String> value = Optional.empty();
 
@@ -118,7 +118,7 @@ public final class Itin implements IPii {
 
     @Override
     @JsonSetter("type")
-    public _FinalStage type(@NotNull String type) {
+    public _FinalStage type(@NotNull PiiType type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }

@@ -27,29 +27,25 @@ import java.util.Optional;
 public final class Ein implements IBii {
   private final Optional<String> value;
 
-  private final Optional<String> number;
-
   private final Map<String, Object> additionalProperties;
 
-  private Ein(Optional<String> value, Optional<String> number,
-      Map<String, Object> additionalProperties) {
+  private Ein(Optional<String> value, Map<String, Object> additionalProperties) {
     this.value = value;
-    this.number = number;
     this.additionalProperties = additionalProperties;
   }
 
-  @JsonProperty("value")
+  @JsonProperty("type")
   @Override
-  public Optional<String> getValue() {
-    return value;
+  public String getType() {
+    return "EIN";
   }
 
   /**
    * @return Ein number, properly formatted, example 12-3456789
    */
-  @JsonProperty("number")
-  public Optional<String> getNumber() {
-    return number;
+  @JsonProperty("value")
+  public Optional<String> getValue() {
+    return value;
   }
 
   @Override
@@ -64,12 +60,12 @@ public final class Ein implements IBii {
   }
 
   private boolean equalTo(Ein other) {
-    return value.equals(other.value) && number.equals(other.number);
+    return value.equals(other.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.value, this.number);
+    return Objects.hash(this.value);
   }
 
   @Override
@@ -87,8 +83,6 @@ public final class Ein implements IBii {
   public static final class Builder {
     private Optional<String> value = Optional.empty();
 
-    private Optional<String> number = Optional.empty();
-
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -97,7 +91,6 @@ public final class Ein implements IBii {
 
     public Builder from(Ein other) {
       value(other.getValue());
-      number(other.getNumber());
       return this;
     }
 
@@ -115,22 +108,8 @@ public final class Ein implements IBii {
       return this;
     }
 
-    @JsonSetter(
-        value = "number",
-        nulls = Nulls.SKIP
-    )
-    public Builder number(Optional<String> number) {
-      this.number = number;
-      return this;
-    }
-
-    public Builder number(String number) {
-      this.number = Optional.ofNullable(number);
-      return this;
-    }
-
     public Ein build() {
-      return new Ein(value, number, additionalProperties);
+      return new Ein(value, additionalProperties);
     }
   }
 }

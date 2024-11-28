@@ -27,7 +27,9 @@ import java.util.Optional;
 public final class WirePaymentMethod {
   private final Optional<String> currency;
 
-  private final Optional<String> transactionDescription;
+  private final Optional<String> purposeOfPayment;
+
+  private final Optional<String> memo;
 
   private final Optional<String> billingEmail;
 
@@ -35,11 +37,13 @@ public final class WirePaymentMethod {
 
   private final Map<String, Object> additionalProperties;
 
-  private WirePaymentMethod(Optional<String> currency, Optional<String> transactionDescription,
-      Optional<String> billingEmail, Optional<OneOfFiatPaymentInformation> paymentInformation,
+  private WirePaymentMethod(Optional<String> currency, Optional<String> purposeOfPayment,
+      Optional<String> memo, Optional<String> billingEmail,
+      Optional<OneOfFiatPaymentInformation> paymentInformation,
       Map<String, Object> additionalProperties) {
     this.currency = currency;
-    this.transactionDescription = transactionDescription;
+    this.purposeOfPayment = purposeOfPayment;
+    this.memo = memo;
     this.billingEmail = billingEmail;
     this.paymentInformation = paymentInformation;
     this.additionalProperties = additionalProperties;
@@ -50,9 +54,14 @@ public final class WirePaymentMethod {
     return currency;
   }
 
-  @JsonProperty("transactionDescription")
-  public Optional<String> getTransactionDescription() {
-    return transactionDescription;
+  @JsonProperty("purposeOfPayment")
+  public Optional<String> getPurposeOfPayment() {
+    return purposeOfPayment;
+  }
+
+  @JsonProperty("memo")
+  public Optional<String> getMemo() {
+    return memo;
   }
 
   @JsonProperty("billingEmail")
@@ -77,12 +86,12 @@ public final class WirePaymentMethod {
   }
 
   private boolean equalTo(WirePaymentMethod other) {
-    return currency.equals(other.currency) && transactionDescription.equals(other.transactionDescription) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
+    return currency.equals(other.currency) && purposeOfPayment.equals(other.purposeOfPayment) && memo.equals(other.memo) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.currency, this.transactionDescription, this.billingEmail, this.paymentInformation);
+    return Objects.hash(this.currency, this.purposeOfPayment, this.memo, this.billingEmail, this.paymentInformation);
   }
 
   @Override
@@ -100,7 +109,9 @@ public final class WirePaymentMethod {
   public static final class Builder {
     private Optional<String> currency = Optional.empty();
 
-    private Optional<String> transactionDescription = Optional.empty();
+    private Optional<String> purposeOfPayment = Optional.empty();
+
+    private Optional<String> memo = Optional.empty();
 
     private Optional<String> billingEmail = Optional.empty();
 
@@ -114,7 +125,8 @@ public final class WirePaymentMethod {
 
     public Builder from(WirePaymentMethod other) {
       currency(other.getCurrency());
-      transactionDescription(other.getTransactionDescription());
+      purposeOfPayment(other.getPurposeOfPayment());
+      memo(other.getMemo());
       billingEmail(other.getBillingEmail());
       paymentInformation(other.getPaymentInformation());
       return this;
@@ -135,16 +147,30 @@ public final class WirePaymentMethod {
     }
 
     @JsonSetter(
-        value = "transactionDescription",
+        value = "purposeOfPayment",
         nulls = Nulls.SKIP
     )
-    public Builder transactionDescription(Optional<String> transactionDescription) {
-      this.transactionDescription = transactionDescription;
+    public Builder purposeOfPayment(Optional<String> purposeOfPayment) {
+      this.purposeOfPayment = purposeOfPayment;
       return this;
     }
 
-    public Builder transactionDescription(String transactionDescription) {
-      this.transactionDescription = Optional.ofNullable(transactionDescription);
+    public Builder purposeOfPayment(String purposeOfPayment) {
+      this.purposeOfPayment = Optional.ofNullable(purposeOfPayment);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "memo",
+        nulls = Nulls.SKIP
+    )
+    public Builder memo(Optional<String> memo) {
+      this.memo = memo;
+      return this;
+    }
+
+    public Builder memo(String memo) {
+      this.memo = Optional.ofNullable(memo);
       return this;
     }
 
@@ -177,7 +203,7 @@ public final class WirePaymentMethod {
     }
 
     public WirePaymentMethod build() {
-      return new WirePaymentMethod(currency, transactionDescription, billingEmail, paymentInformation, additionalProperties);
+      return new WirePaymentMethod(currency, purposeOfPayment, memo, billingEmail, paymentInformation, additionalProperties);
     }
   }
 }
