@@ -11,19 +11,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public final class RequestOptions {
-  private final String token;
-
-  private final String ptiClientId;
+  private final String forwardedForIpAddress;
 
   private final Optional<Integer> timeout;
 
   private final TimeUnit timeoutTimeUnit;
 
-  private RequestOptions(String token, String ptiClientId, Optional<Integer> timeout,
-      TimeUnit timeoutTimeUnit) {
-    this.token = token;
-    this.ptiClientId = ptiClientId;
+  private RequestOptions(String forwardedForIpAddress, Optional<Integer> timeout,
+                         TimeUnit timeoutTimeUnit) {
+    this.forwardedForIpAddress = forwardedForIpAddress;
     this.timeout = timeout;
     this.timeoutTimeUnit = timeoutTimeUnit;
   }
@@ -38,11 +36,8 @@ public final class RequestOptions {
 
   public Map<String, String> getHeaders() {
     Map<String, String> headers = new HashMap<>();
-    if (this.token != null) {
-      headers.put("Authorization", "Bearer " + this.token);
-    }
-    if (this.ptiClientId != null) {
-      headers.put("x-pti-client-id", this.ptiClientId);
+    if (this.forwardedForIpAddress != null) {
+      headers.put("X-Forwarded-For", this.forwardedForIpAddress);
     }
     return headers;
   }
@@ -51,22 +46,16 @@ public final class RequestOptions {
     return new Builder();
   }
 
+  @SuppressWarnings("unused")
   public static final class Builder {
-    private String token = null;
-
-    private String ptiClientId = null;
+    private String forwardedForIpAddress = null;
 
     private Optional<Integer> timeout = Optional.empty();
 
     private TimeUnit timeoutTimeUnit = TimeUnit.SECONDS;
 
-    public Builder token(String token) {
-      this.token = token;
-      return this;
-    }
-
-    public Builder ptiClientId(String ptiClientId) {
-      this.ptiClientId = ptiClientId;
+    public Builder forwardedForIpAddress(String forwardedForIpAddress) {
+      this.forwardedForIpAddress = forwardedForIpAddress;
       return this;
     }
 
@@ -82,7 +71,7 @@ public final class RequestOptions {
     }
 
     public RequestOptions build() {
-      return new RequestOptions(token, ptiClientId, timeout, timeoutTimeUnit);
+      return new RequestOptions(forwardedForIpAddress, timeout, timeoutTimeUnit);
     }
   }
 }
