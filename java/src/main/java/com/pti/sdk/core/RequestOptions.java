@@ -16,14 +16,17 @@ public final class RequestOptions {
 
   private final String ptiClientId;
 
+  private final String forwardedFor;
+
   private final Optional<Integer> timeout;
 
   private final TimeUnit timeoutTimeUnit;
 
-  private RequestOptions(String token, String ptiClientId, Optional<Integer> timeout,
+  private RequestOptions(String token, String ptiClientId, String forwardedFor, Optional<Integer> timeout,
       TimeUnit timeoutTimeUnit) {
     this.token = token;
     this.ptiClientId = ptiClientId;
+    this.forwardedFor = forwardedFor;
     this.timeout = timeout;
     this.timeoutTimeUnit = timeoutTimeUnit;
   }
@@ -44,6 +47,9 @@ public final class RequestOptions {
     if (this.ptiClientId != null) {
       headers.put("x-pti-client-id", this.ptiClientId);
     }
+    if (this.forwardedFor != null) {
+      headers.put("X-Forwarded-For", this.forwardedFor);
+    }
     return headers;
   }
 
@@ -55,6 +61,8 @@ public final class RequestOptions {
     private String token = null;
 
     private String ptiClientId = null;
+
+    private String forwardedFor = null;
 
     private Optional<Integer> timeout = Optional.empty();
 
@@ -70,6 +78,11 @@ public final class RequestOptions {
       return this;
     }
 
+    public Builder forwardedFor(String forwardedFor) {
+      this.forwardedFor = forwardedFor;
+      return this;
+    }
+
     public Builder timeout(Integer timeout) {
       this.timeout = Optional.of(timeout);
       return this;
@@ -82,7 +95,7 @@ public final class RequestOptions {
     }
 
     public RequestOptions build() {
-      return new RequestOptions(token, ptiClientId, timeout, timeoutTimeUnit);
+      return new RequestOptions(token, ptiClientId, forwardedFor, timeout, timeoutTimeUnit);
     }
   }
 }
