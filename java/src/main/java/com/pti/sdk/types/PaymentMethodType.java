@@ -12,11 +12,11 @@ public enum PaymentMethodType {
 
   WIRE("WIRE"),
 
-  TOKEN("TOKEN"),
-
   CREDIT_CARD("CREDIT_CARD"),
 
-  WALLET("WALLET");
+  WALLET("WALLET"),
+
+  CRYPTO("CRYPTO");
 
   private final String value;
 

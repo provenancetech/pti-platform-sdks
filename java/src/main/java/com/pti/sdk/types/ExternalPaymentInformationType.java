@@ -12,7 +12,7 @@ public enum ExternalPaymentInformationType {
 
   ENCRYPTED_CREDIT_CARD("ENCRYPTED_CREDIT_CARD"),
 
-  TOKEN("TOKEN");
+  CRYPTO("CRYPTO");
 
   private final String value;
 

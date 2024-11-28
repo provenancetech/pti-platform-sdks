@@ -22,14 +22,14 @@ import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
-    builder = TokenPaymentMethodSource.Builder.class
+    builder = CryptoPaymentMethodDestination.Builder.class
 )
-public final class TokenPaymentMethodSource {
+public final class CryptoPaymentMethodDestination {
   private final Optional<CryptoPaymentInformation> paymentInformation;
 
   private final Map<String, Object> additionalProperties;
 
-  private TokenPaymentMethodSource(Optional<CryptoPaymentInformation> paymentInformation,
+  private CryptoPaymentMethodDestination(Optional<CryptoPaymentInformation> paymentInformation,
       Map<String, Object> additionalProperties) {
     this.paymentInformation = paymentInformation;
     this.additionalProperties = additionalProperties;
@@ -43,7 +43,7 @@ public final class TokenPaymentMethodSource {
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof TokenPaymentMethodSource && equalTo((TokenPaymentMethodSource) other);
+    return other instanceof CryptoPaymentMethodDestination && equalTo((CryptoPaymentMethodDestination) other);
   }
 
   @JsonAnyGetter
@@ -51,7 +51,7 @@ public final class TokenPaymentMethodSource {
     return this.additionalProperties;
   }
 
-  private boolean equalTo(TokenPaymentMethodSource other) {
+  private boolean equalTo(CryptoPaymentMethodDestination other) {
     return paymentInformation.equals(other.paymentInformation);
   }
 
@@ -81,7 +81,7 @@ public final class TokenPaymentMethodSource {
     private Builder() {
     }
 
-    public Builder from(TokenPaymentMethodSource other) {
+    public Builder from(CryptoPaymentMethodDestination other) {
       paymentInformation(other.getPaymentInformation());
       return this;
     }
@@ -100,8 +100,8 @@ public final class TokenPaymentMethodSource {
       return this;
     }
 
-    public TokenPaymentMethodSource build() {
-      return new TokenPaymentMethodSource(paymentInformation, additionalProperties);
+    public CryptoPaymentMethodDestination build() {
+      return new CryptoPaymentMethodDestination(paymentInformation, additionalProperties);
     }
   }
 }

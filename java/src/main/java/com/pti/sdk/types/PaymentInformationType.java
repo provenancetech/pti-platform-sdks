@@ -12,7 +12,7 @@ public enum PaymentInformationType {
 
   ENCRYPTED_CREDIT_CARD("ENCRYPTED_CREDIT_CARD"),
 
-  TOKEN("TOKEN"),
+  CRYPTO("CRYPTO"),
 
   WALLET("WALLET");
 
