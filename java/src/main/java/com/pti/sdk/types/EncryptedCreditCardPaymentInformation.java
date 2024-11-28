@@ -161,7 +161,7 @@ public final class EncryptedCreditCardPaymentInformation implements IExternalPay
   }
 
   /**
-   * @return first name of card holder
+   * @return last name of card holder
    */
   @JsonProperty("cardHolderLastName")
   public Optional<String> getCardHolderLastName() {
@@ -169,7 +169,7 @@ public final class EncryptedCreditCardPaymentInformation implements IExternalPay
   }
 
   /**
-   * @return cc address
+   * @return card holder address
    */
   @JsonProperty("creditCardAddress")
   public Optional<Address> getCreditCardAddress() {

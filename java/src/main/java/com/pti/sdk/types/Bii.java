@@ -4,104 +4,160 @@
 
 package com.pti.sdk.types;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.pti.sdk.core.ObjectMappers;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.Object;
 import java.lang.String;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-@JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(
-    builder = Bii.Builder.class
-)
-public final class Bii implements IBii {
-  private final Optional<String> value;
+public final class Bii {
+  private final Value value;
 
-  private final Map<String, Object> additionalProperties;
-
-  private Bii(Optional<String> value, Map<String, Object> additionalProperties) {
+  @JsonCreator(
+      mode = JsonCreator.Mode.DELEGATING
+  )
+  private Bii(Value value) {
     this.value = value;
-    this.additionalProperties = additionalProperties;
   }
 
-  @JsonProperty("value")
-  @Override
-  public Optional<String> getValue() {
-    return value;
+  public <T> T visit(Visitor<T> visitor) {
+    return value.visit(visitor);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    return other instanceof Bii && equalTo((Bii) other);
+  public static Bii ein(Ein value) {
+    return new Bii(new EinValue(value));
   }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
+  public boolean isEin() {
+    return value instanceof EinValue;
   }
 
-  private boolean equalTo(Bii other) {
-    return value.equals(other.value);
+  public boolean _isUnknown() {
+    return value instanceof _UnknownValue;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.value);
+  public Optional<Ein> getEin() {
+    if (isEin()) {
+      return Optional.of(((EinValue) value).value);
+    }
+    return Optional.empty();
   }
 
-  @Override
-  public String toString() {
-    return ObjectMappers.stringify(this);
+  public Optional<Object> _getUnknown() {
+    if (_isUnknown()) {
+      return Optional.of(((_UnknownValue) value).value);
+    }
+    return Optional.empty();
   }
 
-  public static Builder builder() {
-    return new Builder();
+  @JsonValue
+  private Value getValue() {
+    return this.value;
   }
 
+  public interface Visitor<T> {
+    T visitEin(Ein ein);
+
+    T _visitUnknown(Object unknownType);
+  }
+
+  @JsonTypeInfo(
+      use = JsonTypeInfo.Id.NAME,
+      property = "type",
+      visible = true,
+      defaultImpl = _UnknownValue.class
+  )
+  @JsonSubTypes(@JsonSubTypes.Type(EinValue.class))
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder {
-    private Optional<String> value = Optional.empty();
+  private interface Value {
+    <T> T visit(Visitor<T> visitor);
+  }
 
-    @JsonAnySetter
-    private Map<String, Object> additionalProperties = new HashMap<>();
+  @JsonTypeName("EIN")
+  private static final class EinValue implements Value {
+    @JsonUnwrapped
+    private Ein value;
 
-    private Builder() {
-    }
-
-    public Builder from(Bii other) {
-      value(other.getValue());
-      return this;
-    }
-
-    @JsonSetter(
-        value = "value",
-        nulls = Nulls.SKIP
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
     )
-    public Builder value(Optional<String> value) {
+    private EinValue() {
+    }
+
+    private EinValue(Ein value) {
       this.value = value;
-      return this;
     }
 
-    public Builder value(String value) {
-      this.value = Optional.ofNullable(value);
-      return this;
+    @Override
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor.visitEin(value);
     }
 
-    public Bii build() {
-      return new Bii(value, additionalProperties);
+    @Override
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof EinValue && equalTo((EinValue) other);
+    }
+
+    private boolean equalTo(EinValue other) {
+      return value.equals(other.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "Bii{" + "value: " + value + "}";
+    }
+  }
+
+  private static final class _UnknownValue implements Value {
+    private String type;
+
+    @JsonValue
+    private Object value;
+
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
+    )
+    private _UnknownValue(@JsonProperty("value") Object value) {
+    }
+
+    @Override
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor._visitUnknown(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
+    }
+
+    private boolean equalTo(_UnknownValue other) {
+      return type.equals(other.type) && value.equals(other.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.type, this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "Bii{" + "type: " + type + ", value: " + value + "}";
     }
   }
 }
