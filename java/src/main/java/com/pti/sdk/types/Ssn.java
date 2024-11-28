@@ -19,29 +19,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = Ssn.Builder.class
 )
-public final class Ssn implements IPii {
-  private final String type;
-
+public final class Ssn {
   private final Optional<String> value;
 
   private final Map<String, Object> additionalProperties;
 
-  private Ssn(String type, Optional<String> value, Map<String, Object> additionalProperties) {
-    this.type = type;
+  private Ssn(Optional<String> value, Map<String, Object> additionalProperties) {
     this.value = value;
     this.additionalProperties = additionalProperties;
-  }
-
-  @JsonProperty("type")
-  @Override
-  public String getType() {
-    return type;
   }
 
   /**
@@ -64,12 +54,12 @@ public final class Ssn implements IPii {
   }
 
   private boolean equalTo(Ssn other) {
-    return type.equals(other.type) && value.equals(other.value);
+    return value.equals(other.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.type, this.value);
+    return Objects.hash(this.value);
   }
 
   @Override
@@ -77,30 +67,14 @@ public final class Ssn implements IPii {
     return ObjectMappers.stringify(this);
   }
 
-  public static TypeStage builder() {
+  public static Builder builder() {
     return new Builder();
-  }
-
-  public interface TypeStage {
-    _FinalStage type(@NotNull String type);
-
-    Builder from(Ssn other);
-  }
-
-  public interface _FinalStage {
-    Ssn build();
-
-    _FinalStage value(Optional<String> value);
-
-    _FinalStage value(String value);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, _FinalStage {
-    private String type;
-
+  public static final class Builder {
     private Optional<String> value = Optional.empty();
 
     @JsonAnySetter
@@ -109,43 +83,27 @@ public final class Ssn implements IPii {
     private Builder() {
     }
 
-    @Override
     public Builder from(Ssn other) {
-      type(other.getType());
       value(other.getValue());
       return this;
     }
 
-    @Override
-    @JsonSetter("type")
-    public _FinalStage type(@NotNull String type) {
-      this.type = Objects.requireNonNull(type, "type must not be null");
-      return this;
-    }
-
-    /**
-     * <p>Valid us formatted SSN, example 222-22-2222</p>
-     * @return Reference to {@code this} so that method calls can be chained together.
-     */
-    @Override
-    public _FinalStage value(String value) {
-      this.value = Optional.ofNullable(value);
-      return this;
-    }
-
-    @Override
     @JsonSetter(
         value = "value",
         nulls = Nulls.SKIP
     )
-    public _FinalStage value(Optional<String> value) {
+    public Builder value(Optional<String> value) {
       this.value = value;
       return this;
     }
 
-    @Override
+    public Builder value(String value) {
+      this.value = Optional.ofNullable(value);
+      return this;
+    }
+
     public Ssn build() {
-      return new Ssn(type, value, additionalProperties);
+      return new Ssn(value, additionalProperties);
     }
   }
 }

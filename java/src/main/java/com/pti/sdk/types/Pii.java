@@ -4,108 +4,221 @@
 
 package com.pti.sdk.types;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.pti.sdk.core.ObjectMappers;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.Object;
 import java.lang.String;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
-@JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(
-    builder = Pii.Builder.class
-)
-public final class Pii implements IPii {
-  private final String type;
+public final class Pii {
+  private final Value value;
 
-  private final Map<String, Object> additionalProperties;
-
-  private Pii(String type, Map<String, Object> additionalProperties) {
-    this.type = type;
-    this.additionalProperties = additionalProperties;
+  @JsonCreator(
+      mode = JsonCreator.Mode.DELEGATING
+  )
+  private Pii(Value value) {
+    this.value = value;
   }
 
-  @JsonProperty("type")
-  @Override
-  public String getType() {
-    return type;
+  public <T> T visit(Visitor<T> visitor) {
+    return value.visit(visitor);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    return other instanceof Pii && equalTo((Pii) other);
+  public static Pii ssn(Ssn value) {
+    return new Pii(new SsnValue(value));
   }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
+  public static Pii itin(Itin value) {
+    return new Pii(new ItinValue(value));
   }
 
-  private boolean equalTo(Pii other) {
-    return type.equals(other.type);
+  public boolean isSsn() {
+    return value instanceof SsnValue;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.type);
+  public boolean isItin() {
+    return value instanceof ItinValue;
   }
 
-  @Override
-  public String toString() {
-    return ObjectMappers.stringify(this);
+  public boolean _isUnknown() {
+    return value instanceof _UnknownValue;
   }
 
-  public static TypeStage builder() {
-    return new Builder();
+  public Optional<Ssn> getSsn() {
+    if (isSsn()) {
+      return Optional.of(((SsnValue) value).value);
+    }
+    return Optional.empty();
   }
 
-  public interface TypeStage {
-    _FinalStage type(@NotNull String type);
-
-    Builder from(Pii other);
+  public Optional<Itin> getItin() {
+    if (isItin()) {
+      return Optional.of(((ItinValue) value).value);
+    }
+    return Optional.empty();
   }
 
-  public interface _FinalStage {
-    Pii build();
+  public Optional<Object> _getUnknown() {
+    if (_isUnknown()) {
+      return Optional.of(((_UnknownValue) value).value);
+    }
+    return Optional.empty();
   }
 
+  @JsonValue
+  private Value getValue() {
+    return this.value;
+  }
+
+  public interface Visitor<T> {
+    T visitSsn(Ssn ssn);
+
+    T visitItin(Itin itin);
+
+    T _visitUnknown(Object unknownType);
+  }
+
+  @JsonTypeInfo(
+      use = JsonTypeInfo.Id.NAME,
+      property = "type",
+      visible = true,
+      defaultImpl = _UnknownValue.class
+  )
+  @JsonSubTypes({
+      @JsonSubTypes.Type(SsnValue.class),
+      @JsonSubTypes.Type(ItinValue.class)
+  })
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, _FinalStage {
+  private interface Value {
+    <T> T visit(Visitor<T> visitor);
+  }
+
+  @JsonTypeName("SSN")
+  private static final class SsnValue implements Value {
+    @JsonUnwrapped
+    private Ssn value;
+
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
+    )
+    private SsnValue() {
+    }
+
+    private SsnValue(Ssn value) {
+      this.value = value;
+    }
+
+    @Override
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor.visitSsn(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof SsnValue && equalTo((SsnValue) other);
+    }
+
+    private boolean equalTo(SsnValue other) {
+      return value.equals(other.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "Pii{" + "value: " + value + "}";
+    }
+  }
+
+  @JsonTypeName("ITIN")
+  private static final class ItinValue implements Value {
+    @JsonUnwrapped
+    private Itin value;
+
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
+    )
+    private ItinValue() {
+    }
+
+    private ItinValue(Itin value) {
+      this.value = value;
+    }
+
+    @Override
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor.visitItin(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof ItinValue && equalTo((ItinValue) other);
+    }
+
+    private boolean equalTo(ItinValue other) {
+      return value.equals(other.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "Pii{" + "value: " + value + "}";
+    }
+  }
+
+  private static final class _UnknownValue implements Value {
     private String type;
 
-    @JsonAnySetter
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    @JsonValue
+    private Object value;
 
-    private Builder() {
+    @JsonCreator(
+        mode = JsonCreator.Mode.PROPERTIES
+    )
+    private _UnknownValue(@JsonProperty("value") Object value) {
     }
 
     @Override
-    public Builder from(Pii other) {
-      type(other.getType());
-      return this;
+    public <T> T visit(Visitor<T> visitor) {
+      return visitor._visitUnknown(value);
     }
 
     @Override
-    @JsonSetter("type")
-    public _FinalStage type(@NotNull String type) {
-      this.type = Objects.requireNonNull(type, "type must not be null");
-      return this;
+    public boolean equals(Object other) {
+      if (this == other) return true;
+      return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
+    }
+
+    private boolean equalTo(_UnknownValue other) {
+      return type.equals(other.type) && value.equals(other.value);
     }
 
     @Override
-    public Pii build() {
-      return new Pii(type, additionalProperties);
+    public int hashCode() {
+      return Objects.hash(this.type, this.value);
+    }
+
+    @Override
+    public String toString() {
+      return "Pii{" + "type: " + type + ", value: " + value + "}";
     }
   }
 }

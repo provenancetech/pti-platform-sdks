@@ -28,27 +28,31 @@ import org.jetbrains.annotations.NotNull;
     builder = WalletCreation.Builder.class
 )
 public final class WalletCreation {
-  private final String walletId;
+  private final Optional<String> walletId;
 
   private final CurrencyEnum currency;
 
   private final Optional<BlockChainEnum> network;
 
+  private final Optional<String> label;
+
   private final Optional<String> createDateTime;
 
   private final Map<String, Object> additionalProperties;
 
-  private WalletCreation(String walletId, CurrencyEnum currency, Optional<BlockChainEnum> network,
-      Optional<String> createDateTime, Map<String, Object> additionalProperties) {
+  private WalletCreation(Optional<String> walletId, CurrencyEnum currency,
+      Optional<BlockChainEnum> network, Optional<String> label, Optional<String> createDateTime,
+      Map<String, Object> additionalProperties) {
     this.walletId = walletId;
     this.currency = currency;
     this.network = network;
+    this.label = label;
     this.createDateTime = createDateTime;
     this.additionalProperties = additionalProperties;
   }
 
   @JsonProperty("walletId")
-  public String getWalletId() {
+  public Optional<String> getWalletId() {
     return walletId;
   }
 
@@ -60,6 +64,14 @@ public final class WalletCreation {
   @JsonProperty("network")
   public Optional<BlockChainEnum> getNetwork() {
     return network;
+  }
+
+  /**
+   * @return Optional readable label
+   */
+  @JsonProperty("label")
+  public Optional<String> getLabel() {
+    return label;
   }
 
   @JsonProperty("type")
@@ -84,12 +96,12 @@ public final class WalletCreation {
   }
 
   private boolean equalTo(WalletCreation other) {
-    return walletId.equals(other.walletId) && currency.equals(other.currency) && network.equals(other.network) && createDateTime.equals(other.createDateTime);
+    return walletId.equals(other.walletId) && currency.equals(other.currency) && network.equals(other.network) && label.equals(other.label) && createDateTime.equals(other.createDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.currency, this.network, this.createDateTime);
+    return Objects.hash(this.walletId, this.currency, this.network, this.label, this.createDateTime);
   }
 
   @Override
@@ -97,26 +109,30 @@ public final class WalletCreation {
     return ObjectMappers.stringify(this);
   }
 
-  public static WalletIdStage builder() {
+  public static CurrencyStage builder() {
     return new Builder();
-  }
-
-  public interface WalletIdStage {
-    CurrencyStage walletId(@NotNull String walletId);
-
-    Builder from(WalletCreation other);
   }
 
   public interface CurrencyStage {
     _FinalStage currency(@NotNull CurrencyEnum currency);
+
+    Builder from(WalletCreation other);
   }
 
   public interface _FinalStage {
     WalletCreation build();
 
+    _FinalStage walletId(Optional<String> walletId);
+
+    _FinalStage walletId(String walletId);
+
     _FinalStage network(Optional<BlockChainEnum> network);
 
     _FinalStage network(BlockChainEnum network);
+
+    _FinalStage label(Optional<String> label);
+
+    _FinalStage label(String label);
 
     _FinalStage createDateTime(Optional<String> createDateTime);
 
@@ -126,14 +142,16 @@ public final class WalletCreation {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements WalletIdStage, CurrencyStage, _FinalStage {
-    private String walletId;
-
+  public static final class Builder implements CurrencyStage, _FinalStage {
     private CurrencyEnum currency;
 
     private Optional<String> createDateTime = Optional.empty();
 
+    private Optional<String> label = Optional.empty();
+
     private Optional<BlockChainEnum> network = Optional.empty();
+
+    private Optional<String> walletId = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -146,14 +164,8 @@ public final class WalletCreation {
       walletId(other.getWalletId());
       currency(other.getCurrency());
       network(other.getNetwork());
+      label(other.getLabel());
       createDateTime(other.getCreateDateTime());
-      return this;
-    }
-
-    @Override
-    @JsonSetter("walletId")
-    public CurrencyStage walletId(@NotNull String walletId) {
-      this.walletId = Objects.requireNonNull(walletId, "walletId must not be null");
       return this;
     }
 
@@ -180,6 +192,26 @@ public final class WalletCreation {
       return this;
     }
 
+    /**
+     * <p>Optional readable label</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @Override
+    public _FinalStage label(String label) {
+      this.label = Optional.ofNullable(label);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "label",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage label(Optional<String> label) {
+      this.label = label;
+      return this;
+    }
+
     @Override
     public _FinalStage network(BlockChainEnum network) {
       this.network = Optional.ofNullable(network);
@@ -197,8 +229,24 @@ public final class WalletCreation {
     }
 
     @Override
+    public _FinalStage walletId(String walletId) {
+      this.walletId = Optional.ofNullable(walletId);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "walletId",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage walletId(Optional<String> walletId) {
+      this.walletId = walletId;
+      return this;
+    }
+
+    @Override
     public WalletCreation build() {
-      return new WalletCreation(walletId, currency, network, createDateTime, additionalProperties);
+      return new WalletCreation(walletId, currency, network, label, createDateTime, additionalProperties);
     }
   }
 }
