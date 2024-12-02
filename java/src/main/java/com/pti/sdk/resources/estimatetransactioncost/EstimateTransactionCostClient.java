@@ -46,7 +46,7 @@ public class EstimateTransactionCostClient {
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
-      .addPathSegments("transactions/trade/price-estimation")
+      .addPathSegments("transactions/trades/price-estimation")
       .build();
     RequestBody body;
     try {
