@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.lang.Object;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -327,12 +328,13 @@ public class WalletsClient {
     }
   }
 
-  public Wallet createWalletDepositAddress(String userId, String walletId) {
-    return createWalletDepositAddress(userId,walletId,null);
+  public Wallet createWalletDepositAddress(String userId, String walletId,
+      Map<String, Object> request) {
+    return createWalletDepositAddress(userId,walletId,request,null);
   }
 
   public Wallet createWalletDepositAddress(String userId, String walletId,
-      RequestOptions requestOptions) {
+      Map<String, Object> request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("users")
@@ -341,9 +343,16 @@ public class WalletsClient {
       .addPathSegment(walletId)
       .addPathSegments("deposit-address")
       .build();
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+    }
+    catch(JsonProcessingException e) {
+      throw new PTIClientException("Failed to serialize request", e);
+    }
     Request okhttpRequest = new Request.Builder()
       .url(httpUrl)
-      .method("POST", RequestBody.create("", null))
+      .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
       .build();
@@ -375,12 +384,13 @@ public class WalletsClient {
     }
   }
 
-  public Wallet createWalletVirtualBankAccount(String userId, String walletId) {
-    return createWalletVirtualBankAccount(userId,walletId,null);
+  public Wallet createWalletVirtualBankAccount(String userId, String walletId,
+      Map<String, Object> request) {
+    return createWalletVirtualBankAccount(userId,walletId,request,null);
   }
 
   public Wallet createWalletVirtualBankAccount(String userId, String walletId,
-      RequestOptions requestOptions) {
+      Map<String, Object> request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("users")
@@ -389,9 +399,16 @@ public class WalletsClient {
       .addPathSegment(walletId)
       .addPathSegments("virtual-bank-account")
       .build();
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+    }
+    catch(JsonProcessingException e) {
+      throw new PTIClientException("Failed to serialize request", e);
+    }
     Request okhttpRequest = new Request.Builder()
       .url(httpUrl)
-      .method("POST", RequestBody.create("", null))
+      .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
       .build();
