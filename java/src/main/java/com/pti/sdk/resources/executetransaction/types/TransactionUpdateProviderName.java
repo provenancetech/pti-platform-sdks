@@ -8,16 +8,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum TransactionUpdateProviderName {
-  CHECKOUT("CHECKOUT"),
-
-  ADMIN("ADMIN"),
-
-  CIRCLE("CIRCLE"),
-
-  COINBASE("COINBASE"),
-
-  FORTE("FORTE"),
-
   PTI_LEDGER("PTI_LEDGER"),
 
   UNKNOWN("UNKNOWN");
