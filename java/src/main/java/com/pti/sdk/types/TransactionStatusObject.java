@@ -50,7 +50,7 @@ public final class TransactionStatusObject implements IActionStatus {
 
   private final Optional<String> billingEmail;
 
-  private final Optional<Total> total;
+  private final Optional<Total> transactionTotal;
 
   private final Optional<String> currency;
 
@@ -63,9 +63,9 @@ public final class TransactionStatusObject implements IActionStatus {
       Optional<TransactionStatus> status, Optional<TransactionTypeEnum> transactionType,
       Optional<PaymentInformationType> paymentMethod,
       Optional<PaymentStatusDetail> paymentStatusDetail, Optional<Double> amount,
-      Optional<String> transactionGroupId, Optional<String> billingEmail, Optional<Total> total,
-      Optional<String> currency, Optional<Map<String, Object>> additionalInfos,
-      Map<String, Object> additionalProperties) {
+      Optional<String> transactionGroupId, Optional<String> billingEmail,
+      Optional<Total> transactionTotal, Optional<String> currency,
+      Optional<Map<String, Object>> additionalInfos, Map<String, Object> additionalProperties) {
     this.resourceType = resourceType;
     this.requestId = requestId;
     this.clientId = clientId;
@@ -78,7 +78,7 @@ public final class TransactionStatusObject implements IActionStatus {
     this.amount = amount;
     this.transactionGroupId = transactionGroupId;
     this.billingEmail = billingEmail;
-    this.total = total;
+    this.transactionTotal = transactionTotal;
     this.currency = currency;
     this.additionalInfos = additionalInfos;
     this.additionalProperties = additionalProperties;
@@ -152,9 +152,9 @@ public final class TransactionStatusObject implements IActionStatus {
     return billingEmail;
   }
 
-  @JsonProperty("total")
-  public Optional<Total> getTotal() {
-    return total;
+  @JsonProperty("transactionTotal")
+  public Optional<Total> getTransactionTotal() {
+    return transactionTotal;
   }
 
   @JsonProperty("currency")
@@ -182,12 +182,12 @@ public final class TransactionStatusObject implements IActionStatus {
   }
 
   private boolean equalTo(TransactionStatusObject other) {
-    return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && status.equals(other.status) && transactionType.equals(other.transactionType) && paymentMethod.equals(other.paymentMethod) && paymentStatusDetail.equals(other.paymentStatusDetail) && amount.equals(other.amount) && transactionGroupId.equals(other.transactionGroupId) && billingEmail.equals(other.billingEmail) && total.equals(other.total) && currency.equals(other.currency) && additionalInfos.equals(other.additionalInfos);
+    return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && status.equals(other.status) && transactionType.equals(other.transactionType) && paymentMethod.equals(other.paymentMethod) && paymentStatusDetail.equals(other.paymentStatusDetail) && amount.equals(other.amount) && transactionGroupId.equals(other.transactionGroupId) && billingEmail.equals(other.billingEmail) && transactionTotal.equals(other.transactionTotal) && currency.equals(other.currency) && additionalInfos.equals(other.additionalInfos);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.status, this.transactionType, this.paymentMethod, this.paymentStatusDetail, this.amount, this.transactionGroupId, this.billingEmail, this.total, this.currency, this.additionalInfos);
+    return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.status, this.transactionType, this.paymentMethod, this.paymentStatusDetail, this.amount, this.transactionGroupId, this.billingEmail, this.transactionTotal, this.currency, this.additionalInfos);
   }
 
   @Override
@@ -227,7 +227,7 @@ public final class TransactionStatusObject implements IActionStatus {
 
     private Optional<String> billingEmail = Optional.empty();
 
-    private Optional<Total> total = Optional.empty();
+    private Optional<Total> transactionTotal = Optional.empty();
 
     private Optional<String> currency = Optional.empty();
 
@@ -252,7 +252,7 @@ public final class TransactionStatusObject implements IActionStatus {
       amount(other.getAmount());
       transactionGroupId(other.getTransactionGroupId());
       billingEmail(other.getBillingEmail());
-      total(other.getTotal());
+      transactionTotal(other.getTransactionTotal());
       currency(other.getCurrency());
       additionalInfos(other.getAdditionalInfos());
       return this;
@@ -427,16 +427,16 @@ public final class TransactionStatusObject implements IActionStatus {
     }
 
     @JsonSetter(
-        value = "total",
+        value = "transactionTotal",
         nulls = Nulls.SKIP
     )
-    public Builder total(Optional<Total> total) {
-      this.total = total;
+    public Builder transactionTotal(Optional<Total> transactionTotal) {
+      this.transactionTotal = transactionTotal;
       return this;
     }
 
-    public Builder total(Total total) {
-      this.total = Optional.ofNullable(total);
+    public Builder transactionTotal(Total transactionTotal) {
+      this.transactionTotal = Optional.ofNullable(transactionTotal);
       return this;
     }
 
@@ -469,7 +469,7 @@ public final class TransactionStatusObject implements IActionStatus {
     }
 
     public TransactionStatusObject build() {
-      return new TransactionStatusObject(resourceType, requestId, clientId, userId, date, status, transactionType, paymentMethod, paymentStatusDetail, amount, transactionGroupId, billingEmail, total, currency, additionalInfos, additionalProperties);
+      return new TransactionStatusObject(resourceType, requestId, clientId, userId, date, status, transactionType, paymentMethod, paymentStatusDetail, amount, transactionGroupId, billingEmail, transactionTotal, currency, additionalInfos, additionalProperties);
     }
   }
 }
