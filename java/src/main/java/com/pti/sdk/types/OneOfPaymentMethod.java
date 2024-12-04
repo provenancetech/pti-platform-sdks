@@ -31,7 +31,7 @@ public final class OneOfPaymentMethod {
     return value.visit(visitor);
   }
 
-  public static OneOfPaymentMethod ach(FiatPaymentMethod value) {
+  public static OneOfPaymentMethod ach(AchPaymentMethod value) {
     return new OneOfPaymentMethod(new AchValue(value));
   }
 
@@ -75,7 +75,7 @@ public final class OneOfPaymentMethod {
     return value instanceof _UnknownValue;
   }
 
-  public Optional<FiatPaymentMethod> getAch() {
+  public Optional<AchPaymentMethod> getAch() {
     if (isAch()) {
       return Optional.of(((AchValue) value).value);
     }
@@ -123,7 +123,7 @@ public final class OneOfPaymentMethod {
   }
 
   public interface Visitor<T> {
-    T visitAch(FiatPaymentMethod ach);
+    T visitAch(AchPaymentMethod ach);
 
     T visitCreditCard(CreditCardPaymentMethod creditCard);
 
@@ -159,7 +159,7 @@ public final class OneOfPaymentMethod {
   @JsonTypeName("ACH")
   private static final class AchValue implements Value {
     @JsonUnwrapped
-    private FiatPaymentMethod value;
+    private AchPaymentMethod value;
 
     @JsonCreator(
         mode = JsonCreator.Mode.PROPERTIES
@@ -167,7 +167,7 @@ public final class OneOfPaymentMethod {
     private AchValue() {
     }
 
-    private AchValue(FiatPaymentMethod value) {
+    private AchValue(AchPaymentMethod value) {
       this.value = value;
     }
 

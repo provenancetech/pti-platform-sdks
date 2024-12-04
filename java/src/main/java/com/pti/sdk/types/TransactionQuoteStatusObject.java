@@ -35,19 +35,20 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
 
   private final Optional<String> date;
 
-  private final Optional<Total> total;
+  private final Optional<Total> transactionTotal;
 
   private final Map<String, Object> additionalProperties;
 
   private TransactionQuoteStatusObject(Optional<ResourceType> resourceType,
       Optional<String> requestId, Optional<String> clientId, Optional<String> userId,
-      Optional<String> date, Optional<Total> total, Map<String, Object> additionalProperties) {
+      Optional<String> date, Optional<Total> transactionTotal,
+      Map<String, Object> additionalProperties) {
     this.resourceType = resourceType;
     this.requestId = requestId;
     this.clientId = clientId;
     this.userId = userId;
     this.date = date;
-    this.total = total;
+    this.transactionTotal = transactionTotal;
     this.additionalProperties = additionalProperties;
   }
 
@@ -84,9 +85,9 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
     return date;
   }
 
-  @JsonProperty("total")
-  public Optional<Total> getTotal() {
-    return total;
+  @JsonProperty("transactionTotal")
+  public Optional<Total> getTransactionTotal() {
+    return transactionTotal;
   }
 
   @Override
@@ -101,12 +102,12 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
   }
 
   private boolean equalTo(TransactionQuoteStatusObject other) {
-    return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && total.equals(other.total);
+    return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && transactionTotal.equals(other.transactionTotal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.total);
+    return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.transactionTotal);
   }
 
   @Override
@@ -132,7 +133,7 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
 
     private Optional<String> date = Optional.empty();
 
-    private Optional<Total> total = Optional.empty();
+    private Optional<Total> transactionTotal = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -146,7 +147,7 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
       clientId(other.getClientId());
       userId(other.getUserId());
       date(other.getDate());
-      total(other.getTotal());
+      transactionTotal(other.getTransactionTotal());
       return this;
     }
 
@@ -221,21 +222,21 @@ public final class TransactionQuoteStatusObject implements IActionStatus {
     }
 
     @JsonSetter(
-        value = "total",
+        value = "transactionTotal",
         nulls = Nulls.SKIP
     )
-    public Builder total(Optional<Total> total) {
-      this.total = total;
+    public Builder transactionTotal(Optional<Total> transactionTotal) {
+      this.transactionTotal = transactionTotal;
       return this;
     }
 
-    public Builder total(Total total) {
-      this.total = Optional.ofNullable(total);
+    public Builder transactionTotal(Total transactionTotal) {
+      this.transactionTotal = Optional.ofNullable(transactionTotal);
       return this;
     }
 
     public TransactionQuoteStatusObject build() {
-      return new TransactionQuoteStatusObject(resourceType, requestId, clientId, userId, date, total, additionalProperties);
+      return new TransactionQuoteStatusObject(resourceType, requestId, clientId, userId, date, transactionTotal, additionalProperties);
     }
   }
 }
