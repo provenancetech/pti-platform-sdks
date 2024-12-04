@@ -17,7 +17,7 @@ import com.pti.sdk.errors.NotFoundError;
 import com.pti.sdk.errors.TooManyRequestsError;
 import com.pti.sdk.errors.UnauthorizedError;
 import com.pti.sdk.types.InvalidRequestError;
-import com.pti.sdk.types.ObjectReference;
+import com.pti.sdk.types.TradeQuote;
 import com.pti.sdk.types.TradeTransaction;
 import com.pti.sdk.types.UnmanagedError;
 import java.io.IOException;
@@ -38,11 +38,11 @@ public class EstimateTransactionCostClient {
     this.clientOptions = clientOptions;
   }
 
-  public ObjectReference estimationTransactionCost(TradeTransaction request) {
+  public TradeQuote estimationTransactionCost(TradeTransaction request) {
     return estimationTransactionCost(request,null);
   }
 
-  public ObjectReference estimationTransactionCost(TradeTransaction request,
+  public TradeQuote estimationTransactionCost(TradeTransaction request,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -68,7 +68,7 @@ public class EstimateTransactionCostClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ObjectReference.class);
+        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), TradeQuote.class);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       try {
