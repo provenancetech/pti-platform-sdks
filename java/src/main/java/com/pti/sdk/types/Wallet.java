@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
@@ -44,6 +45,8 @@ public final class Wallet {
 
   private final Optional<String> createDateTime;
 
+  private final Optional<Boolean> multiWalletAddress;
+
   private final Optional<String> type;
 
   private final Map<String, Object> additionalProperties;
@@ -51,7 +54,7 @@ public final class Wallet {
   private Wallet(Optional<String> walletId, Optional<String> label, Optional<CurrencyEnum> currency,
       Optional<BlockChainEnum> network, Optional<Double> balance, Optional<Double> inflightBalance,
       Optional<Double> availableBalance, Optional<Map<String, Object>> depositInstruction,
-      Optional<String> createDateTime, Optional<String> type,
+      Optional<String> createDateTime, Optional<Boolean> multiWalletAddress, Optional<String> type,
       Map<String, Object> additionalProperties) {
     this.walletId = walletId;
     this.label = label;
@@ -62,6 +65,7 @@ public final class Wallet {
     this.availableBalance = availableBalance;
     this.depositInstruction = depositInstruction;
     this.createDateTime = createDateTime;
+    this.multiWalletAddress = multiWalletAddress;
     this.type = type;
     this.additionalProperties = additionalProperties;
   }
@@ -114,6 +118,11 @@ public final class Wallet {
     return createDateTime;
   }
 
+  @JsonProperty("multiWalletAddress")
+  public Optional<Boolean> getMultiWalletAddress() {
+    return multiWalletAddress;
+  }
+
   @JsonProperty("type")
   public Optional<String> getType() {
     return type;
@@ -131,12 +140,12 @@ public final class Wallet {
   }
 
   private boolean equalTo(Wallet other) {
-    return walletId.equals(other.walletId) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && balance.equals(other.balance) && inflightBalance.equals(other.inflightBalance) && availableBalance.equals(other.availableBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && type.equals(other.type);
+    return walletId.equals(other.walletId) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && balance.equals(other.balance) && inflightBalance.equals(other.inflightBalance) && availableBalance.equals(other.availableBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.label, this.currency, this.network, this.balance, this.inflightBalance, this.availableBalance, this.depositInstruction, this.createDateTime, this.type);
+    return Objects.hash(this.walletId, this.label, this.currency, this.network, this.balance, this.inflightBalance, this.availableBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
   }
 
   @Override
@@ -170,6 +179,8 @@ public final class Wallet {
 
     private Optional<String> createDateTime = Optional.empty();
 
+    private Optional<Boolean> multiWalletAddress = Optional.empty();
+
     private Optional<String> type = Optional.empty();
 
     @JsonAnySetter
@@ -188,6 +199,7 @@ public final class Wallet {
       availableBalance(other.getAvailableBalance());
       depositInstruction(other.getDepositInstruction());
       createDateTime(other.getCreateDateTime());
+      multiWalletAddress(other.getMultiWalletAddress());
       type(other.getType());
       return this;
     }
@@ -319,6 +331,20 @@ public final class Wallet {
     }
 
     @JsonSetter(
+        value = "multiWalletAddress",
+        nulls = Nulls.SKIP
+    )
+    public Builder multiWalletAddress(Optional<Boolean> multiWalletAddress) {
+      this.multiWalletAddress = multiWalletAddress;
+      return this;
+    }
+
+    public Builder multiWalletAddress(Boolean multiWalletAddress) {
+      this.multiWalletAddress = Optional.ofNullable(multiWalletAddress);
+      return this;
+    }
+
+    @JsonSetter(
         value = "type",
         nulls = Nulls.SKIP
     )
@@ -333,7 +359,7 @@ public final class Wallet {
     }
 
     public Wallet build() {
-      return new Wallet(walletId, label, currency, network, balance, inflightBalance, availableBalance, depositInstruction, createDateTime, type, additionalProperties);
+      return new Wallet(walletId, label, currency, network, balance, inflightBalance, availableBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
     }
   }
 }

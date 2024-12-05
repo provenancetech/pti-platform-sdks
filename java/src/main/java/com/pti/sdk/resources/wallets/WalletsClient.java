@@ -17,6 +17,8 @@ import com.pti.sdk.errors.ForbiddenError;
 import com.pti.sdk.errors.NotFoundError;
 import com.pti.sdk.errors.TooManyRequestsError;
 import com.pti.sdk.errors.UnauthorizedError;
+import com.pti.sdk.resources.wallets.requests.DepositAddressRequest;
+import com.pti.sdk.resources.wallets.requests.GetWalletHistoryRequest;
 import com.pti.sdk.resources.wallets.requests.SimulatePaymentRequest;
 import com.pti.sdk.resources.wallets.requests.WalletCreation;
 import com.pti.sdk.types.CurrencyAsset;
@@ -329,13 +331,17 @@ public class WalletsClient {
     }
   }
 
+  public Wallet createWalletDepositAddress(String userId, String walletId) {
+    return createWalletDepositAddress(userId,walletId,DepositAddressRequest.builder().build());
+  }
+
   public Wallet createWalletDepositAddress(String userId, String walletId,
-      Map<String, Object> request) {
+      DepositAddressRequest request) {
     return createWalletDepositAddress(userId,walletId,request,null);
   }
 
   public Wallet createWalletDepositAddress(String userId, String walletId,
-      Map<String, Object> request, RequestOptions requestOptions) {
+      DepositAddressRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("users")
@@ -440,4 +446,61 @@ public class WalletsClient {
       throw new PTIClientException("Network error executing HTTP request", e);
     }
   }
-}
+
+  public Map<String, Object> getWalletHistory(String userId, String walletId) {
+    return getWalletHistory(userId,walletId,GetWalletHistoryRequest.builder().build());
+  }
+
+  public Map<String, Object> getWalletHistory(String userId, String walletId,
+      GetWalletHistoryRequest request) {
+    return getWalletHistory(userId,walletId,request,null);
+  }
+
+  public Map<String, Object> getWalletHistory(String userId, String walletId,
+      GetWalletHistoryRequest request, RequestOptions requestOptions) {
+    HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("users")
+      .addPathSegment(userId)
+      .addPathSegments("wallets")
+      .addPathSegment(walletId)
+      .addPathSegments("history");if (request.getPage().isPresent()) {
+        httpUrl.addQueryParameter("page", request.getPage().get().toString());
+      }
+      if (request.getSize().isPresent()) {
+        httpUrl.addQueryParameter("size", request.getSize().get().toString());
+      }
+      Request.Builder _requestBuilder = new Request.Builder()
+        .url(httpUrl.build())
+        .method("GET", null)
+        .headers(Headers.of(clientOptions.headers(requestOptions)))
+        .addHeader("Content-Type", "application/json");
+      Request okhttpRequest = _requestBuilder.build();
+      OkHttpClient client = clientOptions.httpClient();
+      if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+        client = clientOptions.httpClientWithTimeout(requestOptions);
+      }
+      try (Response response = client.newCall(okhttpRequest).execute()) {
+        ResponseBody responseBody = response.body();
+        if (response.isSuccessful()) {
+          return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), new TypeReference<Map<String, Object>>() {});
+        }
+        String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+        try {
+          switch (response.code()) {
+            case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
+            case 403:throw new ForbiddenError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+            case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+            case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          }
+        }
+        catch (JsonProcessingException ignored) {
+          // unable to map error response, throwing generic error
+        }
+        throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+      }
+      catch (IOException e) {
+        throw new PTIClientException("Network error executing HTTP request", e);
+      }
+    }
+  }

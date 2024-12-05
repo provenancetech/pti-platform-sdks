@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
 import com.pti.sdk.types.BlockChainEnum;
 import com.pti.sdk.types.CurrencyEnum;
+import java.lang.Boolean;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -36,17 +37,21 @@ public final class WalletCreation {
 
   private final Optional<String> label;
 
+  private final Optional<Boolean> multiWalletAddress;
+
   private final Optional<String> createDateTime;
 
   private final Map<String, Object> additionalProperties;
 
   private WalletCreation(Optional<String> walletId, CurrencyEnum currency,
-      Optional<BlockChainEnum> network, Optional<String> label, Optional<String> createDateTime,
+      Optional<BlockChainEnum> network, Optional<String> label,
+      Optional<Boolean> multiWalletAddress, Optional<String> createDateTime,
       Map<String, Object> additionalProperties) {
     this.walletId = walletId;
     this.currency = currency;
     this.network = network;
     this.label = label;
+    this.multiWalletAddress = multiWalletAddress;
     this.createDateTime = createDateTime;
     this.additionalProperties = additionalProperties;
   }
@@ -74,6 +79,11 @@ public final class WalletCreation {
     return label;
   }
 
+  @JsonProperty("multiWalletAddress")
+  public Optional<Boolean> getMultiWalletAddress() {
+    return multiWalletAddress;
+  }
+
   @JsonProperty("type")
   public String getType() {
     return "WALLET";
@@ -96,12 +106,12 @@ public final class WalletCreation {
   }
 
   private boolean equalTo(WalletCreation other) {
-    return walletId.equals(other.walletId) && currency.equals(other.currency) && network.equals(other.network) && label.equals(other.label) && createDateTime.equals(other.createDateTime);
+    return walletId.equals(other.walletId) && currency.equals(other.currency) && network.equals(other.network) && label.equals(other.label) && multiWalletAddress.equals(other.multiWalletAddress) && createDateTime.equals(other.createDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.currency, this.network, this.label, this.createDateTime);
+    return Objects.hash(this.walletId, this.currency, this.network, this.label, this.multiWalletAddress, this.createDateTime);
   }
 
   @Override
@@ -134,6 +144,10 @@ public final class WalletCreation {
 
     _FinalStage label(String label);
 
+    _FinalStage multiWalletAddress(Optional<Boolean> multiWalletAddress);
+
+    _FinalStage multiWalletAddress(Boolean multiWalletAddress);
+
     _FinalStage createDateTime(Optional<String> createDateTime);
 
     _FinalStage createDateTime(String createDateTime);
@@ -146,6 +160,8 @@ public final class WalletCreation {
     private CurrencyEnum currency;
 
     private Optional<String> createDateTime = Optional.empty();
+
+    private Optional<Boolean> multiWalletAddress = Optional.empty();
 
     private Optional<String> label = Optional.empty();
 
@@ -165,6 +181,7 @@ public final class WalletCreation {
       currency(other.getCurrency());
       network(other.getNetwork());
       label(other.getLabel());
+      multiWalletAddress(other.getMultiWalletAddress());
       createDateTime(other.getCreateDateTime());
       return this;
     }
@@ -189,6 +206,22 @@ public final class WalletCreation {
     )
     public _FinalStage createDateTime(Optional<String> createDateTime) {
       this.createDateTime = createDateTime;
+      return this;
+    }
+
+    @Override
+    public _FinalStage multiWalletAddress(Boolean multiWalletAddress) {
+      this.multiWalletAddress = Optional.ofNullable(multiWalletAddress);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "multiWalletAddress",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage multiWalletAddress(Optional<Boolean> multiWalletAddress) {
+      this.multiWalletAddress = multiWalletAddress;
       return this;
     }
 
@@ -246,7 +279,7 @@ public final class WalletCreation {
 
     @Override
     public WalletCreation build() {
-      return new WalletCreation(walletId, currency, network, label, createDateTime, additionalProperties);
+      return new WalletCreation(walletId, currency, network, label, multiWalletAddress, createDateTime, additionalProperties);
     }
   }
 }
