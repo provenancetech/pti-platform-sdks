@@ -4,6 +4,14 @@
 
 package com.pti.sdk;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.*;
+import com.nimbusds.jose.crypto.RSADecrypter;
+import com.nimbusds.jose.crypto.RSASSAVerifier;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.util.Base64URL;
 import com.pti.sdk.core.ClientOptions;
 import com.pti.sdk.core.Suppliers;
 import com.pti.sdk.resources.authorization.AuthorizationClient;
@@ -14,6 +22,9 @@ import com.pti.sdk.resources.marketplace.MarketplaceClient;
 import com.pti.sdk.resources.transactionassessment.TransactionAssessmentClient;
 import com.pti.sdk.resources.userassessment.UserAssessmentClient;
 import com.pti.sdk.resources.wallets.WalletsClient;
+
+import java.text.ParseException;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class PTIClient {
@@ -81,5 +92,30 @@ public class PTIClient {
 
   public static PTIClientBuilder builder() {
     return new PTIClientBuilder();
+  }
+  
+  public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    Map<String, String> payloadMap = mapper.readValue(payload, new TypeReference<>() {});
+    RSAKey privateKey = RSAKey.parse(clientOptions.privateKey());
+    JWEObject jweObject = new JWEObject(
+            Base64URL.from(payloadMap.get("protected")),
+            Base64URL.from(payloadMap.get("encrypted_key")),
+            Base64URL.from(payloadMap.get("iv")),
+            Base64URL.from(payloadMap.get("ciphertext")),
+            Base64URL.from(payloadMap.get("tag"))
+    );  
+    jweObject.decrypt(new RSADecrypter(privateKey));
+    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject(); 
+    JWSObject jwsObject = new JWSObject(
+            Base64URL.from((String) jwsParts.get("protected")),
+            Base64URL.from((String) jwsParts.get("payload")),
+            Base64URL.from((String) jwsParts.get("signature"))
+    );
+    RSAKey publicKey = RSAKey.parse(clientOptions.ptiPublicKey());
+    if (!jwsObject.verify(new RSASSAVerifier(publicKey))) {
+      throw new IllegalStateException("JWE verification failed");
+    }
+    return jwsObject.getPayload().toString();
   }
 }

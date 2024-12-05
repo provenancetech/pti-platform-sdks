@@ -5,7 +5,6 @@
 package com.pti.sdk.core;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +22,20 @@ public final class ClientOptions {
     private final Map<String, Supplier<String>> headerSuppliers;
 
     private final OkHttpClient httpClient;
+    
+    private final String privateKey;
+    
+    private final String  ptiPublicKey;
 
-    private ClientOptions(Environment environment, Map<String, String> headers,
+    private ClientOptions(Environment environment, String privateKey, String  ptiPublicKey, Map<String, String> headers,
                           Map<String, Supplier<String>> headerSuppliers, OkHttpClient httpClient) {
         this.environment = environment;
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
+        this.privateKey = privateKey;
+        this.ptiPublicKey = ptiPublicKey;
     }
 
     public Environment environment() {
@@ -59,6 +64,14 @@ public final class ClientOptions {
         return this.httpClient.newBuilder().callTimeout(requestOptions.getTimeout().get(), requestOptions.getTimeoutTimeUnit()).connectTimeout(0, TimeUnit.SECONDS).writeTimeout(0, TimeUnit.SECONDS).readTimeout(0, TimeUnit.SECONDS).build();
     }
 
+    public String privateKey() {
+        return this.privateKey;
+    }
+    
+    public String ptiPublicKey() {
+        return this.ptiPublicKey;
+    }
+    
     public static Builder builder() {
         return new Builder();
     }
@@ -72,8 +85,15 @@ public final class ClientOptions {
 
         private String privateKeyPath = null;
 
+        private String ptiPublicKeyPath = null;
+
         public Builder privateKeyPath(String privateKeyPath) {
             this.privateKeyPath = privateKeyPath;
+            return this;
+        }
+
+        public Builder ptiPublicKeyPath(String ptiPublicKeyPath) {
+            this.ptiPublicKeyPath = ptiPublicKeyPath;
             return this;
         }
 
@@ -92,26 +112,31 @@ public final class ClientOptions {
             return this;
         }
 
-        public ClientOptions build() {
-            // Check if privateKeyPath is valid
-            if (privateKeyPath == null) {
-                throw new IllegalArgumentException("privateKeyPath cannot be null");
+        private String getFileContent(String paramName, String paramPath) {
+            if (paramPath == null) {
+                throw new IllegalArgumentException(paramName + " cannot be null");
             }
-            File file = new File(privateKeyPath);
+            File file = new File(paramPath);
             if (!file.exists() || !file.isFile()) {
-                throw new IllegalArgumentException("privateKeyPath points to a non-existing file: " + privateKeyPath);
+                throw new IllegalArgumentException(paramName + " points to a non-existing file: " + paramPath);
             }
-            String privateKey;
+            String key;
             try {
-                privateKey = IOUtils.readFileToString(file);
+                key = IOUtils.readFileToString(file);
             } catch (Exception x) {
-                throw new IllegalArgumentException("Unable to read file: " + privateKeyPath);
+                throw new IllegalArgumentException("Unable to read file: " + paramPath);
             }
+            return key;
+        }
+        
+        public ClientOptions build() {
+            String privateKey = getFileContent("privateKeyPath", privateKeyPath);
+            String ptiPublicKey = getFileContent("ptiPublicKeyPath", ptiPublicKeyPath);
             OkHttpClient okhttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(privateKey))
                     .addInterceptor(new RetryInterceptor(3))
                     .build();
-            return new ClientOptions(environment, headers, headerSuppliers, okhttpClient);
+            return new ClientOptions(environment, privateKey, ptiPublicKey, headers, headerSuppliers, okhttpClient);
         }
     }
 }
