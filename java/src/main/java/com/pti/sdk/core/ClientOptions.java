@@ -25,9 +25,7 @@ public final class ClientOptions {
     
     private final String privateKey;
     
-    private final String  ptiPublicKey;
-
-    private ClientOptions(Environment environment, String privateKey, String  ptiPublicKey, Map<String, String> headers,
+    private ClientOptions(Environment environment, String privateKey, Map<String, String> headers,
                           Map<String, Supplier<String>> headerSuppliers, OkHttpClient httpClient) {
         this.environment = environment;
         this.headers = new HashMap<>();
@@ -35,7 +33,6 @@ public final class ClientOptions {
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
         this.privateKey = privateKey;
-        this.ptiPublicKey = ptiPublicKey;
     }
 
     public Environment environment() {
@@ -68,10 +65,6 @@ public final class ClientOptions {
         return this.privateKey;
     }
     
-    public String ptiPublicKey() {
-        return this.ptiPublicKey;
-    }
-    
     public static Builder builder() {
         return new Builder();
     }
@@ -85,15 +78,8 @@ public final class ClientOptions {
 
         private String privateKeyPath = null;
 
-        private String ptiPublicKeyPath = null;
-
         public Builder privateKeyPath(String privateKeyPath) {
             this.privateKeyPath = privateKeyPath;
-            return this;
-        }
-
-        public Builder ptiPublicKeyPath(String ptiPublicKeyPath) {
-            this.ptiPublicKeyPath = ptiPublicKeyPath;
             return this;
         }
 
@@ -112,31 +98,28 @@ public final class ClientOptions {
             return this;
         }
 
-        private String getFileContent(String paramName, String paramPath) {
-            if (paramPath == null) {
-                throw new IllegalArgumentException(paramName + " cannot be null");
+        private String getPrivateKeyFileContent() {
+            if (privateKeyPath == null) {
+                throw new IllegalArgumentException("privateKeyPath cannot be null");
             }
-            File file = new File(paramPath);
+            File file = new File(privateKeyPath);
             if (!file.exists() || !file.isFile()) {
-                throw new IllegalArgumentException(paramName + " points to a non-existing file: " + paramPath);
+                throw new IllegalArgumentException("privateKeyPath points to an invalid file: " + privateKeyPath);
             }
-            String key;
             try {
-                key = IOUtils.readFileToString(file);
+                return IOUtils.readFileToString(file);
             } catch (Exception x) {
-                throw new IllegalArgumentException("Unable to read file: " + paramPath);
+                throw new IllegalArgumentException("Unable to read file: " + privateKeyPath);
             }
-            return key;
         }
         
         public ClientOptions build() {
-            String privateKey = getFileContent("privateKeyPath", privateKeyPath);
-            String ptiPublicKey = getFileContent("ptiPublicKeyPath", ptiPublicKeyPath);
+            String privateKey = getPrivateKeyFileContent();
             OkHttpClient okhttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(privateKey))
                     .addInterceptor(new RetryInterceptor(3))
                     .build();
-            return new ClientOptions(environment, privateKey, ptiPublicKey, headers, headerSuppliers, okhttpClient);
+            return new ClientOptions(environment, privateKey, headers, headerSuppliers, okhttpClient);
         }
     }
 }

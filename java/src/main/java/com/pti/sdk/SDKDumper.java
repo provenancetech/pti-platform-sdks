@@ -14,12 +14,10 @@ import java.util.Optional;
 public class SDKDumper {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
         PTIClient client = new PTIClientBuilder()
-                .environment(Environment.DEFAULT)
+                .environment(Environment.STAGING)
                 .ptiClientId("3450582c-1955-11eb-adc1-0242ac120002")
                 .privateKeyPath("/Users/remicartier/Documents/cucumber_key.pem")
                 .build();
-
-//        System.out.println(client.wallets().getListOfAssets());
 
         // List all 'client' from base client
         for (Method clientMethod : client.getClass().getDeclaredMethods()) {
