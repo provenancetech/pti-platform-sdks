@@ -13,7 +13,7 @@ public final class PTIClientBuilder {
 
   private String ptiClientId = null;
 
-  private Environment environment = Environment.DEFAULT;
+  private Environment environment = Environment.STAGING;
 
   /**
    * Sets ptiClientId
@@ -27,12 +27,7 @@ public final class PTIClientBuilder {
     this.environment = environment;
     return this;
   }
-
-  public PTIClientBuilder url(String url) {
-    this.environment = Environment.custom(url);
-    return this;
-  }
-
+  
   public PTIClientBuilder privateKeyPath(String privateKeyPath) {
     this.clientOptionsBuilder.privateKeyPath(privateKeyPath);
     return this;

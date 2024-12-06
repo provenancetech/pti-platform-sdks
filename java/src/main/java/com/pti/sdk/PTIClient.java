@@ -4,7 +4,6 @@
 
 package com.pti.sdk;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
@@ -22,7 +21,10 @@ import com.pti.sdk.resources.marketplace.MarketplaceClient;
 import com.pti.sdk.resources.transactionassessment.TransactionAssessmentClient;
 import com.pti.sdk.resources.userassessment.UserAssessmentClient;
 import com.pti.sdk.resources.wallets.WalletsClient;
+import org.apache.commons.io.IOUtils;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -94,7 +96,7 @@ public class PTIClient {
     return new PTIClientBuilder();
   }
   
-  public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, JsonProcessingException {
+  public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, IOException {
     ObjectMapper mapper = new ObjectMapper();
     Map<String, String> payloadMap = mapper.readValue(payload, new TypeReference<>() {});
     RSAKey privateKey = RSAKey.parse(clientOptions.privateKey());
@@ -112,7 +114,8 @@ public class PTIClient {
             Base64URL.from((String) jwsParts.get("payload")),
             Base64URL.from((String) jwsParts.get("signature"))
     );
-    RSAKey publicKey = RSAKey.parse(clientOptions.ptiPublicKey());
+    String ptiPublicKey = IOUtils.resourceToString("/" + clientOptions.environment().getKeyName(), StandardCharsets.UTF_8);
+    RSAKey publicKey = RSAKey.parse(ptiPublicKey);
     if (!jwsObject.verify(new RSASSAVerifier(publicKey))) {
       throw new IllegalStateException("JWE verification failed");
     }

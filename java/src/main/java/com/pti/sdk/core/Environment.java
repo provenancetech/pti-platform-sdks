@@ -7,19 +7,27 @@ package com.pti.sdk.core;
 import java.lang.String;
 
 public final class Environment {
-  public static final Environment DEFAULT = new Environment("https://api.dev.fiant.io/v1");
+  public static final Environment STAGING = new Environment("https://api.staging.fiant.io/v1", "pti_public_staging.jwk");
+  public static final Environment PROD = new Environment("https://api.platform.fiant.io/v1", "pti_public_prod.jwk");
 
   private final String url;
+  
+  private final String keyName;
 
-  private Environment(String url) {
+  private Environment(String url, String keyName) {
     this.url = url;
+    this.keyName = keyName;
   }
 
   public String getUrl() {
     return this.url;
   }
+  
+  public String getKeyName() {
+    return this.keyName;
+  }
 
-  public static Environment custom(String url) {
-    return new Environment(url);
+  public static Environment custom(String url, String keyName) {
+    return new Environment(url, keyName);
   }
 }
