@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
 import com.pti.sdk.types.OneOfTransactionSubTypes;
+import java.lang.Boolean;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -33,14 +34,14 @@ public final class TransactionInformationAssessmentRequest {
 
   private final Optional<String> ptiSessionId;
 
-  private final Optional<String> ptiDisableWebhook;
+  private final Optional<Boolean> ptiDisableWebhook;
 
   private final OneOfTransactionSubTypes body;
 
   private final Map<String, Object> additionalProperties;
 
   private TransactionInformationAssessmentRequest(String ptiRequestId, String ptiScenarioId,
-      Optional<String> ptiSessionId, Optional<String> ptiDisableWebhook,
+      Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
       OneOfTransactionSubTypes body, Map<String, Object> additionalProperties) {
     this.ptiRequestId = ptiRequestId;
     this.ptiScenarioId = ptiScenarioId;
@@ -78,7 +79,7 @@ public final class TransactionInformationAssessmentRequest {
    * @return Set to true to disable webhook calls for this request.
    */
   @JsonProperty("x-pti-disable-webhook")
-  public Optional<String> getPtiDisableWebhook() {
+  public Optional<Boolean> getPtiDisableWebhook() {
     return ptiDisableWebhook;
   }
 
@@ -137,9 +138,9 @@ public final class TransactionInformationAssessmentRequest {
 
     _FinalStage ptiSessionId(String ptiSessionId);
 
-    _FinalStage ptiDisableWebhook(Optional<String> ptiDisableWebhook);
+    _FinalStage ptiDisableWebhook(Optional<Boolean> ptiDisableWebhook);
 
-    _FinalStage ptiDisableWebhook(String ptiDisableWebhook);
+    _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook);
   }
 
   @JsonIgnoreProperties(
@@ -152,7 +153,7 @@ public final class TransactionInformationAssessmentRequest {
 
     private OneOfTransactionSubTypes body;
 
-    private Optional<String> ptiDisableWebhook = Optional.empty();
+    private Optional<Boolean> ptiDisableWebhook = Optional.empty();
 
     private Optional<String> ptiSessionId = Optional.empty();
 
@@ -206,7 +207,7 @@ public final class TransactionInformationAssessmentRequest {
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
-    public _FinalStage ptiDisableWebhook(String ptiDisableWebhook) {
+    public _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook) {
       this.ptiDisableWebhook = Optional.ofNullable(ptiDisableWebhook);
       return this;
     }
@@ -216,7 +217,7 @@ public final class TransactionInformationAssessmentRequest {
         value = "x-pti-disable-webhook",
         nulls = Nulls.SKIP
     )
-    public _FinalStage ptiDisableWebhook(Optional<String> ptiDisableWebhook) {
+    public _FinalStage ptiDisableWebhook(Optional<Boolean> ptiDisableWebhook) {
       this.ptiDisableWebhook = ptiDisableWebhook;
       return this;
     }

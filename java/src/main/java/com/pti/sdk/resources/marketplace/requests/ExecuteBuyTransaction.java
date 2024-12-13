@@ -20,6 +20,8 @@ import com.pti.sdk.types.OneOfPaymentMethod;
 import com.pti.sdk.types.OneOfUserSubTypes;
 import com.pti.sdk.types.Total;
 import com.pti.sdk.types.TransactionTypeEnum;
+import java.lang.Boolean;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -42,7 +44,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
   private final Optional<Total> transactionTotal;
 
-  private final double usdValue;
+  private final Optional<Double> usdValue;
 
   private final double amount;
 
@@ -60,7 +62,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
   private final Optional<String> ptiSessionId;
 
-  private final Optional<String> ptiDisableWebhook;
+  private final Optional<Boolean> ptiDisableWebhook;
 
   private final Optional<String> ptiProviderName;
 
@@ -77,11 +79,11 @@ public final class ExecuteBuyTransaction implements ITransactionType {
   private final Map<String, Object> additionalProperties;
 
   private ExecuteBuyTransaction(TransactionTypeEnum type, Optional<String> transactionGroupId,
-      Optional<String> subClientId, Optional<Total> transactionTotal, double usdValue,
+      Optional<String> subClientId, Optional<Total> transactionTotal, Optional<Double> usdValue,
       double amount, String date, OneOfUserSubTypes initiator,
       Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
       String ptiRequestId, String ptiScenarioId, Optional<String> ptiSessionId,
-      Optional<String> ptiDisableWebhook, Optional<String> ptiProviderName,
+      Optional<Boolean> ptiDisableWebhook, Optional<String> ptiProviderName,
       Optional<DigitalItem> digitalItem, Optional<List<DigitalItem>> digitalItems,
       OneOfPaymentMethod sourceMethod, Optional<OneOfUserSubTypes> seller,
       Optional<List<FeeRecipient>> feeRecipients, Map<String, Object> additionalProperties) {
@@ -134,7 +136,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
   @JsonProperty("usdValue")
   @Override
-  public double getUsdValue() {
+  public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
@@ -205,7 +207,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
    * @return Set to true to disable webhook calls for this request.
    */
   @JsonProperty("x-pti-disable-webhook")
-  public Optional<String> getPtiDisableWebhook() {
+  public Optional<Boolean> getPtiDisableWebhook() {
     return ptiDisableWebhook;
   }
 
@@ -257,7 +259,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
   }
 
   private boolean equalTo(ExecuteBuyTransaction other) {
-    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue == other.usdValue && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && digitalItem.equals(other.digitalItem) && digitalItems.equals(other.digitalItems) && sourceMethod.equals(other.sourceMethod) && seller.equals(other.seller) && feeRecipients.equals(other.feeRecipients);
+    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && digitalItem.equals(other.digitalItem) && digitalItems.equals(other.digitalItems) && sourceMethod.equals(other.sourceMethod) && seller.equals(other.seller) && feeRecipients.equals(other.feeRecipients);
   }
 
   @Override
@@ -275,13 +277,9 @@ public final class ExecuteBuyTransaction implements ITransactionType {
   }
 
   public interface TypeStage {
-    UsdValueStage type(@NotNull TransactionTypeEnum type);
+    AmountStage type(@NotNull TransactionTypeEnum type);
 
     Builder from(ExecuteBuyTransaction other);
-  }
-
-  public interface UsdValueStage {
-    AmountStage usdValue(double usdValue);
   }
 
   public interface AmountStage {
@@ -323,6 +321,10 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
     _FinalStage transactionTotal(Total transactionTotal);
 
+    _FinalStage usdValue(Optional<Double> usdValue);
+
+    _FinalStage usdValue(Double usdValue);
+
     _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
 
     _FinalStage ptiMeta(Map<String, Object> ptiMeta);
@@ -335,9 +337,9 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
     _FinalStage ptiSessionId(String ptiSessionId);
 
-    _FinalStage ptiDisableWebhook(Optional<String> ptiDisableWebhook);
+    _FinalStage ptiDisableWebhook(Optional<Boolean> ptiDisableWebhook);
 
-    _FinalStage ptiDisableWebhook(String ptiDisableWebhook);
+    _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook);
 
     _FinalStage ptiProviderName(Optional<String> ptiProviderName);
 
@@ -363,10 +365,8 @@ public final class ExecuteBuyTransaction implements ITransactionType {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, UsdValueStage, AmountStage, DateStage, InitiatorStage, PtiRequestIdStage, PtiScenarioIdStage, SourceMethodStage, _FinalStage {
+  public static final class Builder implements TypeStage, AmountStage, DateStage, InitiatorStage, PtiRequestIdStage, PtiScenarioIdStage, SourceMethodStage, _FinalStage {
     private TransactionTypeEnum type;
-
-    private double usdValue;
 
     private double amount;
 
@@ -390,13 +390,15 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
     private Optional<String> ptiProviderName = Optional.empty();
 
-    private Optional<String> ptiDisableWebhook = Optional.empty();
+    private Optional<Boolean> ptiDisableWebhook = Optional.empty();
 
     private Optional<String> ptiSessionId = Optional.empty();
 
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
+
+    private Optional<Double> usdValue = Optional.empty();
 
     private Optional<Total> transactionTotal = Optional.empty();
 
@@ -437,15 +439,8 @@ public final class ExecuteBuyTransaction implements ITransactionType {
 
     @Override
     @JsonSetter("type")
-    public UsdValueStage type(@NotNull TransactionTypeEnum type) {
+    public AmountStage type(@NotNull TransactionTypeEnum type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
-      return this;
-    }
-
-    @Override
-    @JsonSetter("usdValue")
-    public AmountStage usdValue(double usdValue) {
-      this.usdValue = usdValue;
       return this;
     }
 
@@ -596,7 +591,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
-    public _FinalStage ptiDisableWebhook(String ptiDisableWebhook) {
+    public _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook) {
       this.ptiDisableWebhook = Optional.ofNullable(ptiDisableWebhook);
       return this;
     }
@@ -606,7 +601,7 @@ public final class ExecuteBuyTransaction implements ITransactionType {
         value = "x-pti-disable-webhook",
         nulls = Nulls.SKIP
     )
-    public _FinalStage ptiDisableWebhook(Optional<String> ptiDisableWebhook) {
+    public _FinalStage ptiDisableWebhook(Optional<Boolean> ptiDisableWebhook) {
       this.ptiDisableWebhook = ptiDisableWebhook;
       return this;
     }
@@ -668,6 +663,22 @@ public final class ExecuteBuyTransaction implements ITransactionType {
     )
     public _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta) {
       this.ptiMeta = ptiMeta;
+      return this;
+    }
+
+    @Override
+    public _FinalStage usdValue(Double usdValue) {
+      this.usdValue = Optional.ofNullable(usdValue);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "usdValue",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage usdValue(Optional<Double> usdValue) {
+      this.usdValue = usdValue;
       return this;
     }
 
