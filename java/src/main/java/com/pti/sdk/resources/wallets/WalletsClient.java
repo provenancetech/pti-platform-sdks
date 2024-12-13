@@ -25,6 +25,7 @@ import com.pti.sdk.types.CurrencyAsset;
 import com.pti.sdk.types.InvalidRequestError;
 import com.pti.sdk.types.UnmanagedError;
 import com.pti.sdk.types.Wallet;
+import com.pti.sdk.types.WalletHistoryPage;
 import java.io.IOException;
 import java.lang.Object;
 import java.lang.String;
@@ -447,16 +448,16 @@ public class WalletsClient {
     }
   }
 
-  public Map<String, Object> getWalletHistory(String userId, String walletId) {
+  public WalletHistoryPage getWalletHistory(String userId, String walletId) {
     return getWalletHistory(userId,walletId,GetWalletHistoryRequest.builder().build());
   }
 
-  public Map<String, Object> getWalletHistory(String userId, String walletId,
+  public WalletHistoryPage getWalletHistory(String userId, String walletId,
       GetWalletHistoryRequest request) {
     return getWalletHistory(userId,walletId,request,null);
   }
 
-  public Map<String, Object> getWalletHistory(String userId, String walletId,
+  public WalletHistoryPage getWalletHistory(String userId, String walletId,
       GetWalletHistoryRequest request, RequestOptions requestOptions) {
     HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -483,7 +484,7 @@ public class WalletsClient {
       try (Response response = client.newCall(okhttpRequest).execute()) {
         ResponseBody responseBody = response.body();
         if (response.isSuccessful()) {
-          return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), new TypeReference<Map<String, Object>>() {});
+          return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), WalletHistoryPage.class);
         }
         String responseBodyString = responseBody != null ? responseBody.string() : "{}";
         try {

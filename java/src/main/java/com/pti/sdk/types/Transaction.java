@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public final class Transaction implements ITransaction {
 
   private final Optional<Total> transactionTotal;
 
-  private final double usdValue;
+  private final Optional<Double> usdValue;
 
   private final double amount;
 
@@ -47,7 +48,7 @@ public final class Transaction implements ITransaction {
   private final Map<String, Object> additionalProperties;
 
   private Transaction(Optional<String> transactionGroupId, Optional<String> subClientId,
-      Optional<Total> transactionTotal, double usdValue, double amount, String date,
+      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
       Optional<Map<String, Object>> clientMeta, Map<String, Object> additionalProperties) {
     this.transactionGroupId = transactionGroupId;
@@ -82,7 +83,7 @@ public final class Transaction implements ITransaction {
 
   @JsonProperty("usdValue")
   @Override
-  public double getUsdValue() {
+  public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
@@ -137,7 +138,7 @@ public final class Transaction implements ITransaction {
   }
 
   private boolean equalTo(Transaction other) {
-    return transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue == other.usdValue && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta);
+    return transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta);
   }
 
   @Override
@@ -150,18 +151,14 @@ public final class Transaction implements ITransaction {
     return ObjectMappers.stringify(this);
   }
 
-  public static UsdValueStage builder() {
+  public static AmountStage builder() {
     return new Builder();
-  }
-
-  public interface UsdValueStage {
-    AmountStage usdValue(double usdValue);
-
-    Builder from(Transaction other);
   }
 
   public interface AmountStage {
     DateStage amount(double amount);
+
+    Builder from(Transaction other);
   }
 
   public interface DateStage {
@@ -187,6 +184,10 @@ public final class Transaction implements ITransaction {
 
     _FinalStage transactionTotal(Total transactionTotal);
 
+    _FinalStage usdValue(Optional<Double> usdValue);
+
+    _FinalStage usdValue(Double usdValue);
+
     _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
 
     _FinalStage ptiMeta(Map<String, Object> ptiMeta);
@@ -199,9 +200,7 @@ public final class Transaction implements ITransaction {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements UsdValueStage, AmountStage, DateStage, InitiatorStage, _FinalStage {
-    private double usdValue;
-
+  public static final class Builder implements AmountStage, DateStage, InitiatorStage, _FinalStage {
     private double amount;
 
     private String date;
@@ -211,6 +210,8 @@ public final class Transaction implements ITransaction {
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
+
+    private Optional<Double> usdValue = Optional.empty();
 
     private Optional<Total> transactionTotal = Optional.empty();
 
@@ -235,13 +236,6 @@ public final class Transaction implements ITransaction {
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
-      return this;
-    }
-
-    @Override
-    @JsonSetter("usdValue")
-    public AmountStage usdValue(double usdValue) {
-      this.usdValue = usdValue;
       return this;
     }
 
@@ -307,6 +301,22 @@ public final class Transaction implements ITransaction {
     )
     public _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta) {
       this.ptiMeta = ptiMeta;
+      return this;
+    }
+
+    @Override
+    public _FinalStage usdValue(Double usdValue) {
+      this.usdValue = Optional.ofNullable(usdValue);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "usdValue",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage usdValue(Optional<Double> usdValue) {
+      this.usdValue = usdValue;
       return this;
     }
 

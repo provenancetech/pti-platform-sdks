@@ -4,6 +4,7 @@
 
 package com.pti.sdk.types;
 
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.Map;
@@ -16,7 +17,7 @@ public interface ITransaction {
 
   Optional<Total> getTransactionTotal();
 
-  double getUsdValue();
+  Optional<Double> getUsdValue();
 
   double getAmount();
 

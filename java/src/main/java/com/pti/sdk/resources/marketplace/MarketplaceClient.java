@@ -90,7 +90,9 @@ public class MarketplaceClient {
     if (request.getTransactionTotal().isPresent()) {
       properties.put("transactionTotal", request.getTransactionTotal());
     }
-    properties.put("usdValue", request.getUsdValue());
+    if (request.getUsdValue().isPresent()) {
+      properties.put("usdValue", request.getUsdValue());
+    }
     properties.put("amount", request.getAmount());
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
@@ -118,7 +120,7 @@ public class MarketplaceClient {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
     if (request.getPtiDisableWebhook().isPresent()) {
-      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get());
+      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
     }
     if (request.getPtiProviderName().isPresent()) {
       _requestBuilder.addHeader("x-pti-provider-name", request.getPtiProviderName().get());
@@ -194,7 +196,9 @@ public class MarketplaceClient {
     if (request.getTransactionTotal().isPresent()) {
       properties.put("transactionTotal", request.getTransactionTotal());
     }
-    properties.put("usdValue", request.getUsdValue());
+    if (request.getUsdValue().isPresent()) {
+      properties.put("usdValue", request.getUsdValue());
+    }
     properties.put("amount", request.getAmount());
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
@@ -222,7 +226,7 @@ public class MarketplaceClient {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
     if (request.getPtiDisableWebhook().isPresent()) {
-      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get());
+      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
     }
     if (request.getPtiProviderName().isPresent()) {
       _requestBuilder.addHeader("x-pti-provider-name", request.getPtiProviderName().get());

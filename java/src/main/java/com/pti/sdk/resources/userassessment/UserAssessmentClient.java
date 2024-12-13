@@ -77,7 +77,7 @@ public class UserAssessmentClient {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
     if (request.getPtiDisableWebhook().isPresent()) {
-      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get());
+      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
     }
     Request okhttpRequest = _requestBuilder.build();
     OkHttpClient client = clientOptions.httpClient();

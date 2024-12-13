@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public final class SellTransaction implements ITransactionType {
 
   private final Optional<Total> transactionTotal;
 
-  private final double usdValue;
+  private final Optional<Double> usdValue;
 
   private final double amount;
 
@@ -57,7 +58,7 @@ public final class SellTransaction implements ITransactionType {
   private final Map<String, Object> additionalProperties;
 
   private SellTransaction(TransactionTypeEnum type, Optional<String> transactionGroupId,
-      Optional<String> subClientId, Optional<Total> transactionTotal, double usdValue,
+      Optional<String> subClientId, Optional<Total> transactionTotal, Optional<Double> usdValue,
       double amount, String date, OneOfUserSubTypes initiator,
       Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
       Optional<OneOfPaymentMethod> destinationMethod, Optional<OneOfPaymentMethod> sourceMethod,
@@ -106,7 +107,7 @@ public final class SellTransaction implements ITransactionType {
 
   @JsonProperty("usdValue")
   @Override
-  public double getUsdValue() {
+  public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
@@ -181,7 +182,7 @@ public final class SellTransaction implements ITransactionType {
   }
 
   private boolean equalTo(SellTransaction other) {
-    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue == other.usdValue && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod) && digitalItem.equals(other.digitalItem) && buyer.equals(other.buyer);
+    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod) && digitalItem.equals(other.digitalItem) && buyer.equals(other.buyer);
   }
 
   @Override
@@ -199,13 +200,9 @@ public final class SellTransaction implements ITransactionType {
   }
 
   public interface TypeStage {
-    UsdValueStage type(@NotNull TransactionTypeEnum type);
+    AmountStage type(@NotNull TransactionTypeEnum type);
 
     Builder from(SellTransaction other);
-  }
-
-  public interface UsdValueStage {
-    AmountStage usdValue(double usdValue);
   }
 
   public interface AmountStage {
@@ -235,6 +232,10 @@ public final class SellTransaction implements ITransactionType {
 
     _FinalStage transactionTotal(Total transactionTotal);
 
+    _FinalStage usdValue(Optional<Double> usdValue);
+
+    _FinalStage usdValue(Double usdValue);
+
     _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
 
     _FinalStage ptiMeta(Map<String, Object> ptiMeta);
@@ -263,10 +264,8 @@ public final class SellTransaction implements ITransactionType {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, UsdValueStage, AmountStage, DateStage, InitiatorStage, _FinalStage {
+  public static final class Builder implements TypeStage, AmountStage, DateStage, InitiatorStage, _FinalStage {
     private TransactionTypeEnum type;
-
-    private double usdValue;
 
     private double amount;
 
@@ -285,6 +284,8 @@ public final class SellTransaction implements ITransactionType {
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
+
+    private Optional<Double> usdValue = Optional.empty();
 
     private Optional<Total> transactionTotal = Optional.empty();
 
@@ -319,15 +320,8 @@ public final class SellTransaction implements ITransactionType {
 
     @Override
     @JsonSetter("type")
-    public UsdValueStage type(@NotNull TransactionTypeEnum type) {
+    public AmountStage type(@NotNull TransactionTypeEnum type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
-      return this;
-    }
-
-    @Override
-    @JsonSetter("usdValue")
-    public AmountStage usdValue(double usdValue) {
-      this.usdValue = usdValue;
       return this;
     }
 
@@ -457,6 +451,22 @@ public final class SellTransaction implements ITransactionType {
     )
     public _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta) {
       this.ptiMeta = ptiMeta;
+      return this;
+    }
+
+    @Override
+    public _FinalStage usdValue(Double usdValue) {
+      this.usdValue = Optional.ofNullable(usdValue);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "usdValue",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage usdValue(Optional<Double> usdValue) {
+      this.usdValue = usdValue;
       return this;
     }
 
