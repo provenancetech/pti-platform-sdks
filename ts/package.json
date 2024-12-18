@@ -1,0 +1,18 @@
+{
+  "name": "pti-ts-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/provenancetech/pti-platform-sdks",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "form-data": "^4.0.1",
+    "form-data-encoder": "^4.0.2",
+    "formdata-node": "^6.0.3",
+    "js-base64": "^3.7.7",
+    "node-fetch": "^3.3.2",
+    "node-jose": "^2.2.0",
+    "qs": "^6.13.1",
+    "url-join": "^5.0.0"
+  }
+}

@@ -36,7 +36,7 @@ compile "com.pti.sdk:pti-java-sdk:latest"
 ```
 
 ## Getting Started
-### Initiate PTI Client
+### initialize PTI Client
 You can initialize the PTI SDK by providing the parameters directly:
 
 ```java
