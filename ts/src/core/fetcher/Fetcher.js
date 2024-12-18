@@ -48,7 +48,7 @@ async function buildSignature(clientId, key, url, method, data) {
 }
 function fetcherImpl(args) {
   var _a;
-  return __awaiter(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, async function () {
     const headers = {};
     if (args.body !== undefined && args.contentType != null) {
       headers["Content-Type"] = args.contentType;
@@ -61,25 +61,23 @@ function fetcherImpl(args) {
       }
     }
     const url = (0, createRequestUrl_1.createRequestUrl)(args.url, args.queryParameters);
-    let requestBody = yield (0, getRequestBody_1.getRequestBody)(args.body, (_a = args.contentType) !== null && _a !== void 0 ? _a : "");
+    let requestBody = await (0, getRequestBody_1.getRequestBody)(args.body, (_a = args.contentType) !== null && _a !== void 0 ? _a : "");
 
     try {
-      const jwkKey = JWK.asKey(JSON.parse(args.headers["Authorization"].substring(7))).next();
+      const jwkKey = await JWK.asKey(JSON.parse(args.headers["Authorization"].substring(7)));
       console.log("jwkKey", jwkKey);
-      buildSignature(args.headers["x-pti-client-id"], jwkKey, url, args.method, args.body).then(signature => {
-         headers["x-pti-signature"] = signature
-      });
-      delete headers["Authorization"]
+      headers["x-pti-signature"] = await buildSignature(args.headers["x-pti-client-id"], jwkKey, url, args.method, args.body);
+      delete headers["Authorization"];
     } catch (e) {
       throw new Error(`Error building signature: ${e.message}`);
     }
 
-    const fetchFn = yield (0, getFetchFn_1.getFetchFn)();
+    const fetchFn = await (0, getFetchFn_1.getFetchFn)();
     try {
-      const response = yield (0, requestWithRetries_1.requestWithRetries)(() => __awaiter(this, void 0, void 0, function* () {
+      const response = await (0, requestWithRetries_1.requestWithRetries)(() => __awaiter(this, void 0, void 0, function* () {
         return (0, makeRequest_1.makeRequest)(fetchFn, url, args.method, headers, requestBody, args.timeoutMs, args.abortSignal, args.withCredentials);
       }), args.maxRetries);
-      let responseBody = yield (0, getResponseBody_1.getResponseBody)(response, args.responseType);
+      const responseBody = await (0, getResponseBody_1.getResponseBody)(response, args.responseType);
       if (response.status >= 200 && response.status < 400) {
         return {
           ok: true,
