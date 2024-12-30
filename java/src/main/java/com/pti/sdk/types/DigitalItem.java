@@ -75,7 +75,7 @@ public final class DigitalItem {
   }
 
   /**
-   * @return Mandatory when more than one item is provided in the payload. The cost of the item being paid by the user, or the estimated value of the item in question.
+   * @return Mandatory when more than one item is provided in the payload. The cost of the item being paid by the User, or the estimated value of the item in question.
    */
   @JsonProperty("itemUSDValue")
   public Optional<Double> getItemUsdValue() {
@@ -213,7 +213,7 @@ public final class DigitalItem {
     }
 
     /**
-     * <p>Mandatory when more than one item is provided in the payload. The cost of the item being paid by the user, or the estimated value of the item in question.</p>
+     * <p>Mandatory when more than one item is provided in the payload. The cost of the item being paid by the User, or the estimated value of the item in question.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override

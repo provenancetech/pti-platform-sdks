@@ -60,7 +60,7 @@ public final class AssessTransactionRequest {
   }
 
   /**
-   * @return Represents a user action under which transaction amounts will accumulated and will control the User assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
+   * @return Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
    */
   @JsonProperty("x-pti-scenario-id")
   public String getPtiScenarioId() {
@@ -68,7 +68,7 @@ public final class AssessTransactionRequest {
   }
 
   /**
-   * @return Session ID associated to a UI session for a specific user. Should match the value passed to the PTI SDK at initialization.
+   * @return Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.
    */
   @JsonProperty("x-pti-session-id")
   public Optional<String> getPtiSessionId() {
@@ -185,7 +185,7 @@ public final class AssessTransactionRequest {
     }
 
     /**
-     * <p>Represents a user action under which transaction amounts will accumulated and will control the User assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
+     * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
@@ -223,7 +223,7 @@ public final class AssessTransactionRequest {
     }
 
     /**
-     * <p>Session ID associated to a UI session for a specific user. Should match the value passed to the PTI SDK at initialization.</p>
+     * <p>Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override

@@ -54,7 +54,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   }
 
   /**
-   * @return Unique identifier for the payment information, must be used to refer to a payment information for a payment
+   * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
   @Override
@@ -63,7 +63,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   }
 
   /**
-   * @return Blockchain address for the wallet
+   * @return Blockchain address for the Wallet
    */
   @JsonProperty("walletAddress")
   public String getWalletAddress() {
@@ -71,7 +71,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   }
 
   /**
-   * @return Token symbol that your user is trading
+   * @return Token symbol that your User is trading
    */
   @JsonProperty("currency")
   public String getCurrency() {
@@ -195,7 +195,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     }
 
     /**
-     * <p>Blockchain address for the wallet</p>
+     * <p>Blockchain address for the Wallet</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
@@ -206,7 +206,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     }
 
     /**
-     * <p>Token symbol that your user is trading</p>
+     * <p>Token symbol that your User is trading</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
@@ -268,7 +268,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     }
 
     /**
-     * <p>Unique identifier for the payment information, must be used to refer to a payment information for a payment</p>
+     * <p>Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override

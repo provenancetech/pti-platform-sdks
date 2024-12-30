@@ -36,7 +36,7 @@ public final class ExternalPaymentInformation implements IExternalPaymentInforma
   }
 
   /**
-   * @return Unique identifier for the payment information, must be used to refer to a payment information for a payment
+   * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
   @Override
