@@ -106,7 +106,7 @@ public final class Wallet {
   }
 
   /**
-   * @return External reference to the wallet(could be bank account number, or blockchain address)
+   * @return External reference to the Wallet(could be bank account number, or blockchain address)
    */
   @JsonProperty("depositInstruction")
   public Optional<Map<String, Object>> getDepositInstruction() {

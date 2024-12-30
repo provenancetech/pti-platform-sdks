@@ -57,7 +57,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
   }
 
   /**
-   * @return Unique identifier for the payment information, must be used to refer to a payment information for a payment
+   * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
   @Override
@@ -106,7 +106,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
   }
 
   /**
-   * @return Name of the bank of the account, Required for OUTGOING WIRE transactions, persisted as part of the payment information
+   * @return Name of the bank of the account, Required for OUTGOING WIRE transactions, persisted as part of the Payment Information
    */
   @JsonProperty("accountBankName")
   public Optional<String> getAccountBankName() {

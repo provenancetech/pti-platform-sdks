@@ -103,7 +103,7 @@ public final class Business implements IUser {
   }
 
   /**
-   * @return Unique identifier for this user. This value MUST be chosen and stored at user creation time.
+   * @return Unique identifier for this User. This value MUST be chosen and stored at User creation time.
    */
   @JsonProperty("id")
   @Override
@@ -124,7 +124,7 @@ public final class Business implements IUser {
   }
 
   /**
-   * @return Tag that characterizes the user. Used for internal classification purposes.
+   * @return Tag that characterizes the User. Used for internal classification purposes.
    */
   @JsonProperty("tags")
   @Override
@@ -145,7 +145,7 @@ public final class Business implements IUser {
   }
 
   /**
-   * @return Optional ISO-8601 value. Used to provide the date the user was created in your system. If left empty, it will be populated at current time.
+   * @return Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.
    */
   @JsonProperty("userCreationDate")
   @Override
@@ -424,7 +424,7 @@ public final class Business implements IUser {
     }
 
     /**
-     * <p>Unique identifier for this user. This value MUST be chosen and stored at user creation time.</p>
+     * <p>Unique identifier for this User. This value MUST be chosen and stored at User creation time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
@@ -650,7 +650,7 @@ public final class Business implements IUser {
     }
 
     /**
-     * <p>Optional ISO-8601 value. Used to provide the date the user was created in your system. If left empty, it will be populated at current time.</p>
+     * <p>Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
@@ -704,7 +704,7 @@ public final class Business implements IUser {
     }
 
     /**
-     * <p>Tag that characterizes the user. Used for internal classification purposes.</p>
+     * <p>Tag that characterizes the User. Used for internal classification purposes.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override

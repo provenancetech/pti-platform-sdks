@@ -104,14 +104,14 @@ public class TransactionAssessmentClient {
   }
 
   /**
-   * This endpoint is used to assess a transaction. The transaction assessment and user information requirement are evaluated. This step is also done when executing a transaction, but it can be called as a standalone.
+   * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
    */
   public ObjectReference assessTransaction(AssessTransactionRequest request) {
     return assessTransaction(request,null);
   }
 
   /**
-   * This endpoint is used to assess a transaction. The transaction assessment and user information requirement are evaluated. This step is also done when executing a transaction, but it can be called as a standalone.
+   * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
    */
   public ObjectReference assessTransaction(AssessTransactionRequest request,
       RequestOptions requestOptions) {
