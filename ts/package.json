@@ -1,6 +1,6 @@
 {
   "name": "@provenancetech/pti-ts-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A TypeScript SDK for interacting with the Fiant API",
   "main": "index.js",
   "types": "index.d.ts",
@@ -10,7 +10,8 @@
     "directory": "ts"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
   },
   "license": "MIT",
   "private": false,
