@@ -13,13 +13,12 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.util.Base64URL;
 import com.pti.sdk.core.ClientOptions;
 import com.pti.sdk.core.Suppliers;
-import com.pti.sdk.resources.authorization.AuthorizationClient;
-import com.pti.sdk.resources.collectuserdata.CollectUserDataClient;
-import com.pti.sdk.resources.estimatetransactioncost.EstimateTransactionCostClient;
-import com.pti.sdk.resources.executetransaction.ExecuteTransactionClient;
+import com.pti.sdk.resources.authentication.AuthenticationClient;
 import com.pti.sdk.resources.marketplace.MarketplaceClient;
+import com.pti.sdk.resources.paymentinformation.PaymentInformationClient;
 import com.pti.sdk.resources.transactionassessment.TransactionAssessmentClient;
-import com.pti.sdk.resources.userassessment.UserAssessmentClient;
+import com.pti.sdk.resources.transactions.TransactionsClient;
+import com.pti.sdk.resources.users.UsersClient;
 import com.pti.sdk.resources.wallets.WalletsClient;
 import org.apache.commons.io.IOUtils;
 
@@ -32,60 +31,53 @@ import java.util.function.Supplier;
 public class PTIClient {
   protected final ClientOptions clientOptions;
 
-  protected final Supplier<AuthorizationClient> authorizationClient;
+  protected final Supplier<AuthenticationClient> authenticationClient;
 
   protected final Supplier<WalletsClient> walletsClient;
 
-  protected final Supplier<CollectUserDataClient> collectUserDataClient;
+  protected final Supplier<UsersClient> usersClient;
+
+  protected final Supplier<PaymentInformationClient> paymentInformationClient;
 
   protected final Supplier<TransactionAssessmentClient> transactionAssessmentClient;
 
-  protected final Supplier<UserAssessmentClient> userAssessmentClient;
-
-  protected final Supplier<EstimateTransactionCostClient> estimateTransactionCostClient;
-
-  protected final Supplier<ExecuteTransactionClient> executeTransactionClient;
+  protected final Supplier<TransactionsClient> transactionsClient;
 
   protected final Supplier<MarketplaceClient> marketplaceClient;
 
   public PTIClient(ClientOptions clientOptions) {
     this.clientOptions = clientOptions;
-    this.authorizationClient = Suppliers.memoize(() -> new AuthorizationClient(clientOptions));
+    this.authenticationClient = Suppliers.memoize(() -> new AuthenticationClient(clientOptions));
     this.walletsClient = Suppliers.memoize(() -> new WalletsClient(clientOptions));
-    this.collectUserDataClient = Suppliers.memoize(() -> new CollectUserDataClient(clientOptions));
+    this.usersClient = Suppliers.memoize(() -> new UsersClient(clientOptions));
+    this.paymentInformationClient = Suppliers.memoize(() -> new PaymentInformationClient(clientOptions));
     this.transactionAssessmentClient = Suppliers.memoize(() -> new TransactionAssessmentClient(clientOptions));
-    this.userAssessmentClient = Suppliers.memoize(() -> new UserAssessmentClient(clientOptions));
-    this.estimateTransactionCostClient = Suppliers.memoize(() -> new EstimateTransactionCostClient(clientOptions));
-    this.executeTransactionClient = Suppliers.memoize(() -> new ExecuteTransactionClient(clientOptions));
+    this.transactionsClient = Suppliers.memoize(() -> new TransactionsClient(clientOptions));
     this.marketplaceClient = Suppliers.memoize(() -> new MarketplaceClient(clientOptions));
   }
 
-  public AuthorizationClient authorization() {
-    return this.authorizationClient.get();
+  public AuthenticationClient authentication() {
+    return this.authenticationClient.get();
   }
 
   public WalletsClient wallets() {
     return this.walletsClient.get();
   }
 
-  public CollectUserDataClient collectUserData() {
-    return this.collectUserDataClient.get();
+  public UsersClient users() {
+    return this.usersClient.get();
+  }
+
+  public PaymentInformationClient paymentInformation() {
+    return this.paymentInformationClient.get();
   }
 
   public TransactionAssessmentClient transactionAssessment() {
     return this.transactionAssessmentClient.get();
   }
 
-  public UserAssessmentClient userAssessment() {
-    return this.userAssessmentClient.get();
-  }
-
-  public EstimateTransactionCostClient estimateTransactionCost() {
-    return this.estimateTransactionCostClient.get();
-  }
-
-  public ExecuteTransactionClient executeTransaction() {
-    return this.executeTransactionClient.get();
+  public TransactionsClient transactions() {
+    return this.transactionsClient.get();
   }
 
   public MarketplaceClient marketplace() {
@@ -95,7 +87,7 @@ public class PTIClient {
   public static PTIClientBuilder builder() {
     return new PTIClientBuilder();
   }
-  
+
   public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, IOException {
     ObjectMapper mapper = new ObjectMapper();
     Map<String, String> payloadMap = mapper.readValue(payload, new TypeReference<>() {});
@@ -106,9 +98,9 @@ public class PTIClient {
             Base64URL.from(payloadMap.get("iv")),
             Base64URL.from(payloadMap.get("ciphertext")),
             Base64URL.from(payloadMap.get("tag"))
-    );  
+    );
     jweObject.decrypt(new RSADecrypter(privateKey));
-    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject(); 
+    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject();
     JWSObject jwsObject = new JWSObject(
             Base64URL.from((String) jwsParts.get("protected")),
             Base64URL.from((String) jwsParts.get("payload")),

@@ -51,14 +51,14 @@ public class MarketplaceClient {
   }
 
   /**
-   * This endpoint is used to execute a digital item buy (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
    */
   public ObjectReference digitalItemBuy(ExecuteBuyTransaction request) {
     return digitalItemBuy(request,null);
   }
 
   /**
-   * This endpoint is used to execute a digital item buy (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
    */
   public ObjectReference digitalItemBuy(ExecuteBuyTransaction request,
       RequestOptions requestOptions) {
@@ -157,14 +157,14 @@ public class MarketplaceClient {
   }
 
   /**
-   * This endpoint is used to execute a digital item sell (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
    */
   public ObjectReference digitalItemSell(ExecuteSellTransaction request) {
     return digitalItemSell(request,null);
   }
 
   /**
-   * This endpoint is used to execute a digital item sell (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
    */
   public ObjectReference digitalItemSell(ExecuteSellTransaction request,
       RequestOptions requestOptions) {
