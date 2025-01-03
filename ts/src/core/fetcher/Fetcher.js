@@ -36,7 +36,7 @@ function* signPayload(clientId, key, payload) {
 function* buildSignature(clientId, key, url, method, data, date) {
   let payload = `${method}\n`;
   if (["POST", "PUT", "PATCH"].includes(method)) {
-    payload += `${getContentSha256(Buffer.from(data ? JSON.stringify(data) : ""))}\n`;
+    payload += `${getContentSha256(Buffer.from(data || ""))}\n`;
     payload += "content-type:application/json; charset=utf-8\n";
   } else {
     payload += "\n\n";
