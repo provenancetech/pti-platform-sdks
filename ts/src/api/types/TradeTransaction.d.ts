@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 /**
- * The action of doing a token trade. Source and destination wallet are provided through the source and destination methods properties.
+ * The action of doing a token Trade. Source and destination Wallet are provided through the source and destination methods properties.
  */
 export interface TradeTransaction extends PTI.TransactionType {
     destinationMethod?: PTI.CryptoPaymentMethodDestination;

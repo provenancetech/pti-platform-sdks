@@ -4,14 +4,13 @@ const os = require("os");
 const path = require("path");
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PTIClient = void 0;
-const Client_1 = require("./api/resources/authorization/client/Client");
+const Client_1 = require("./api/resources/authentication/client/Client");
 const Client_2 = require("./api/resources/wallets/client/Client");
-const Client_3 = require("./api/resources/collectUserData/client/Client");
-const Client_4 = require("./api/resources/transactionAssessment/client/Client");
-const Client_5 = require("./api/resources/userAssessment/client/Client");
-const Client_6 = require("./api/resources/estimateTransactionCost/client/Client");
-const Client_7 = require("./api/resources/executeTransaction/client/Client");
-const Client_8 = require("./api/resources/marketplace/client/Client");
+const Client_3 = require("./api/resources/users/client/Client");
+const Client_4 = require("./api/resources/paymentInformation/client/Client");
+const Client_5 = require("./api/resources/transactionAssessment/client/Client");
+const Client_6 = require("./api/resources/transactions/client/Client");
+const Client_7 = require("./api/resources/marketplace/client/Client");
 class PTIClient {
   constructor(_options) {
     if (!_options.ptiClientId) {
@@ -30,44 +29,39 @@ class PTIClient {
     }
     this._options = _options;
   }
-  get authorization() {
+  get authentication() {
     var _a;
-    return ((_a = this._authorization) !== null && _a !== void 0 ? _a : (this._authorization = new Client_1
-      .Authorization({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+    return ((_a = this._authentication) !== null && _a !== void 0 ? _a : (this._authentication = new Client_1
+      .Authentication({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
   get wallets() {
     var _a;
     return ((_a = this._wallets) !== null && _a !== void 0 ? _a : (this._wallets = new Client_2
       .Wallets({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
-  get collectUserData() {
+  get users() {
     var _a;
-    return ((_a = this._collectUserData) !== null && _a !== void 0 ? _a : (this._collectUserData = new Client_3
-      .CollectUserData({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+    return ((_a = this._users) !== null && _a !== void 0 ? _a : (this._users = new Client_3
+      .Users({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+  }
+  get paymentInformation() {
+    var _a;
+    return ((_a = this._paymentInformation) !== null && _a !== void 0 ? _a : (this._paymentInformation = new Client_4
+      .PaymentInformation({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
   get transactionAssessment() {
     var _a;
-    return ((_a = this._transactionAssessment) !== null && _a !== void 0 ? _a : (this._transactionAssessment = new Client_4
+    return ((_a = this._transactionAssessment) !== null && _a !== void 0 ? _a : (this._transactionAssessment = new Client_5
       .TransactionAssessment({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
-  get userAssessment() {
+  get transactions() {
     var _a;
-    return ((_a = this._userAssessment) !== null && _a !== void 0 ? _a : (this._userAssessment = new Client_5
-      .UserAssessment({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
-  }
-  get estimateTransactionCost() {
-    var _a;
-    return ((_a = this._estimateTransactionCost) !== null && _a !== void 0 ? _a : (this._estimateTransactionCost = new Client_6
-      .EstimateTransactionCost({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
-  }
-  get executeTransaction() {
-    var _a;
-    return ((_a = this._executeTransaction) !== null && _a !== void 0 ? _a : (this._executeTransaction = new Client_7
-      .ExecuteTransaction({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+    return ((_a = this._transactions) !== null && _a !== void 0 ? _a : (this._transactions = new Client_6
+      .Transactions({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
   get marketplace() {
     var _a;
-    return ((_a = this._marketplace) !== null && _a !== void 0 ? _a : (this._marketplace = new Client_8
+    return ((_a = this._marketplace) !== null && _a !== void 0 ? _a : (this._marketplace = new Client_7
       .Marketplace({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
   }
 }

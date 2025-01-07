@@ -9,7 +9,7 @@ export interface Transaction {
     transactionGroupId?: PTI.UuidLikeStrTransactionGroup;
     subClientId?: PTI.UuidLikeStrSubClient;
     transactionTotal?: PTI.Total;
-    usdValue: number;
+    usdValue?: number;
     amount: number;
     /** ISO-8601 */
     date: string;

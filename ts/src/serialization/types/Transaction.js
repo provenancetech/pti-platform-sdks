@@ -36,7 +36,7 @@ exports.Transaction = core.serialization.object({
     transactionGroupId: UuidLikeStrTransactionGroup_1.UuidLikeStrTransactionGroup.optional(),
     subClientId: UuidLikeStrSubClient_1.UuidLikeStrSubClient.optional(),
     transactionTotal: Total_1.Total.optional(),
-    usdValue: core.serialization.number(),
+    usdValue: core.serialization.number().optional(),
     amount: core.serialization.number(),
     date: core.serialization.string(),
     initiator: OneOfUserSubTypes_1.OneOfUserSubTypes,

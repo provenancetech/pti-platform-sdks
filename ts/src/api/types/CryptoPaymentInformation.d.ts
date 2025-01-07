@@ -3,9 +3,9 @@
  */
 import * as PTI from "../index";
 export interface CryptoPaymentInformation extends PTI.ExternalPaymentInformation {
-    /** Blockchain address for the wallet */
+    /** Blockchain address for the Wallet */
     walletAddress: string;
-    /** Token symbol that your user is trading */
+    /** Token symbol that your User is trading */
     currency: string;
     /** Blockchain network name, example ethereum, bitcoin, solana */
     network: string;

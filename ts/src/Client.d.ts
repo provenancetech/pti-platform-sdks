@@ -1,13 +1,12 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import * as PTI from "./api/index";
-import { Authorization } from "./api/resources/authorization/client/Client";
+import { Authentication } from "./api/resources/authentication/client/Client";
 import { Wallets } from "./api/resources/wallets/client/Client";
-import { CollectUserData } from "./api/resources/collectUserData/client/Client";
+import { Users } from "./api/resources/users/client/Client";
+import { PaymentInformation } from "./api/resources/paymentInformation/client/Client";
 import { TransactionAssessment } from "./api/resources/transactionAssessment/client/Client";
-import { UserAssessment } from "./api/resources/userAssessment/client/Client";
-import { EstimateTransactionCost } from "./api/resources/estimateTransactionCost/client/Client";
-import { ExecuteTransaction } from "./api/resources/executeTransaction/client/Client";
+import { Transactions } from "./api/resources/transactions/client/Client";
 import { Marketplace } from "./api/resources/marketplace/client/Client";
 export declare namespace PTIClient {
     interface Options {
@@ -30,20 +29,18 @@ export declare namespace PTIClient {
 export declare class PTIClient {
     protected readonly _options: PTIClient.Options;
     constructor(_options: PTIClient.Options);
-    protected _authorization: Authorization | undefined;
-    get authorization(): Authorization;
+    protected _authentication: Authentication | undefined;
+    get authentication(): Authentication;
     protected _wallets: Wallets | undefined;
     get wallets(): Wallets;
-    protected _collectUserData: CollectUserData | undefined;
-    get collectUserData(): CollectUserData;
+    protected _users: Users | undefined;
+    get users(): Users;
+    protected _paymentInformation: PaymentInformation | undefined;
+    get paymentInformation(): PaymentInformation;
     protected _transactionAssessment: TransactionAssessment | undefined;
     get transactionAssessment(): TransactionAssessment;
-    protected _userAssessment: UserAssessment | undefined;
-    get userAssessment(): UserAssessment;
-    protected _estimateTransactionCost: EstimateTransactionCost | undefined;
-    get estimateTransactionCost(): EstimateTransactionCost;
-    protected _executeTransaction: ExecuteTransaction | undefined;
-    get executeTransaction(): ExecuteTransaction;
+    protected _transactions: Transactions | undefined;
+    get transactions(): Transactions;
     protected _marketplace: Marketplace | undefined;
     get marketplace(): Marketplace;
 }

@@ -38,107 +38,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionAssessment = void 0;
+exports.PaymentInformation = void 0;
 const environments = __importStar(require("../../../../environments"));
 const core = __importStar(require("../../../../core"));
 const PTI = __importStar(require("../../../index"));
-const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
+const serializers = __importStar(require("../../../../serialization/index"));
 const errors = __importStar(require("../../../../errors/index"));
-class TransactionAssessment {
+class PaymentInformation {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * @param {PTI.TransactionInformationAssessmentRequest} request
-     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
+     * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
+     *
+     * @param {string} userId
+     * @param {PTI.GetUserPaymentInformationsRequest} request
+     * @param {PaymentInformation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactionAssessment.transactionInformationAssessment({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         body: {
-     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
-     *             transactionTotal: {
-     *                 fee: {
-     *                     amount: 10,
-     *                     currency: "USD"
-     *                 },
-     *                 total: {
-     *                     amount: 100,
-     *                     currency: "USD"
-     *                 },
-     *                 subtotal: {
-     *                     amount: 90,
-     *                     currency: "USD"
-     *                 }
-     *             },
-     *             usdValue: 100,
-     *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
-     *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
-     *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
-     *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             },
-     *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             }
-     *         }
-     *     })
+     *     await client.paymentInformation.getUserPaymentInformations("userId")
      */
-    transactionInformationAssessment(request, requestOptions) {
+    getUserPaymentInformations(userId, request = {}, requestOptions) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
+            const { type: type_ } = request;
+            const _queryParams = {};
+            if (type_ != null) {
+                _queryParams["type"] = type_;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/validations"),
-                method: "POST",
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/payment-information`),
+                method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
                     "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
@@ -147,19 +82,15 @@ class TransactionAssessment {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
                 },
                 contentType: "application/json",
-                body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                queryParameters: _queryParams,
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.OneOfAssessmentValidationError.parseOrThrow(_response.body, {
+                return serializers.paymentInformation.getUserPaymentInformations.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -202,99 +133,30 @@ class TransactionAssessment {
         });
     }
     /**
-     * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
+     * This endpoint is used to add a Payment Information for a specific User.
      *
-     * @param {PTI.AssessTransactionRequest} request
-     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} userId
+     * @param {PTI.OneOfExternalPaymentInformation} request
+     * @param {PaymentInformation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.ForbiddenError}
      * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.UnprocessableEntityError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactionAssessment.assessTransaction({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         body: {
-     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
-     *             transactionTotal: {
-     *                 fee: {
-     *                     amount: 10,
-     *                     currency: "USD"
-     *                 },
-     *                 total: {
-     *                     amount: 100,
-     *                     currency: "USD"
-     *                 },
-     *                 subtotal: {
-     *                     amount: 90,
-     *                     currency: "USD"
-     *                 }
-     *             },
-     *             usdValue: 100,
-     *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
-     *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
-     *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
-     *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             },
-     *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             }
-     *         }
+     *     await client.paymentInformation.addUserPaymentInformation("userId", {
+     *         type: "CRYPTO",
+     *         walletAddress: "string",
+     *         currency: "string",
+     *         network: "string"
      *     })
      */
-    assessTransaction(request, requestOptions) {
+    addUserPaymentInformation(userId, request, requestOptions) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/assessments"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/payment-information`),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -304,19 +166,15 @@ class TransactionAssessment {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
                 },
                 contentType: "application/json",
-                body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.OneOfExternalPaymentInformation.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ObjectReference.parseOrThrow(_response.body, {
+                return serializers.OneOfExternalPaymentInformation.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -339,17 +197,8 @@ class TransactionAssessment {
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
                         }));
-                    case 403:
-                        throw new PTI.ForbiddenError(_response.error.body);
                     case 404:
                         throw new PTI.NotFoundError(_response.error.body);
-                    case 422:
-                        throw new PTI.UnprocessableEntityError(serializers.OneOfAssessmentValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
                     case 429:
                         throw new PTI.TooManyRequestsError(_response.error.body);
                     default:
@@ -375,21 +224,24 @@ class TransactionAssessment {
         });
     }
     /**
-     * @param {PTI.UuidLikeStr} requestId
-     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
+     * This endpoint is used to get a Payment Information for a specific User.
+     *
+     * @param {string} userId
+     * @param {string} paymentInformationId
+     * @param {PaymentInformation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactionAssessment.getTransactionAssess("requestId")
+     *     await client.paymentInformation.getUserPaymentInformation("userId", "paymentInformationId")
      */
-    getTransactionAssess(requestId, requestOptions) {
+    getUserPaymentInformation(userId, paymentInformationId, requestOptions) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `transactions/assessments/${encodeURIComponent(serializers.UuidLikeStr.jsonOrThrow(requestId))}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/payment-information/${encodeURIComponent(paymentInformationId)}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -406,7 +258,163 @@ class TransactionAssessment {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.TransactionAssessStatusObject.parseOrThrow(_response.body, {
+                return serializers.OneOfExternalPaymentInformation.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * This endpoint is used to delete a Payment Information for a specific User.
+     *
+     * @param {string} userId
+     * @param {string} paymentInformationId
+     * @param {PaymentInformation.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.paymentInformation.deleteUserPaymentInformations("userId", "paymentInformationId")
+     */
+    deleteUserPaymentInformations(userId, paymentInformationId, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/payment-information/${encodeURIComponent(paymentInformationId)}`),
+                method: "DELETE",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return;
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * This endpoint is used to update a Payment Information for a specific User. Note: This endpoint does not support updating Credit Cards.
+     *
+     * @param {string} userId
+     * @param {string} paymentInformationId
+     * @param {PTI.OneOfExternalPaymentInformation} request
+     * @param {PaymentInformation.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.paymentInformation.updatePaymentInformation("userId", "paymentInformationId", {
+     *         type: "CRYPTO",
+     *         walletAddress: "string",
+     *         currency: "string",
+     *         network: "string"
+     *     })
+     */
+    updatePaymentInformation(userId, paymentInformationId, request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/payment-information/${encodeURIComponent(paymentInformationId)}`),
+                method: "PATCH",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                body: serializers.OneOfExternalPaymentInformation.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfExternalPaymentInformation.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -454,4 +462,4 @@ class TransactionAssessment {
         });
     }
 }
-exports.TransactionAssessment = TransactionAssessment;
+exports.PaymentInformation = PaymentInformation;

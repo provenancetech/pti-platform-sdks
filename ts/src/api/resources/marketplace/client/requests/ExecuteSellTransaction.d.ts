@@ -53,11 +53,11 @@ export interface ExecuteSellTransaction extends PTI.TransactionType {
      */
     ptiRequestId: PTI.UuidLikeStr;
     /**
-     * Represents a user action under which transaction amounts will accumulated and will control the User assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
+     * Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
      */
     ptiScenarioId: PTI.UuidLikeStr;
     /**
-     * Session ID associated to a UI session for a specific user. Should match the value passed to the PTI SDK at initialization.
+     * Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.
      */
     ptiSessionId?: PTI.UuidLikeStr;
     /**
