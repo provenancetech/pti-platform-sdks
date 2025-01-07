@@ -82,7 +82,8 @@ function fetcherImpl(args) {
     }
     const url = (0, createRequestUrl_1.createRequestUrl)(args.url, args.queryParameters);
     const requestBody = yield (0, getRequestBody_1.getRequestBody)(args.body, (_a = args.contentType) !== null && _a !== void 0 ? _a : "");
-    yield buildCustomHeaders(args, url, headers);
+    // Build our custom auth headers
+    yield* buildCustomHeaders(args, url, headers);
 
     const fetchFn = yield (0, getFetchFn_1.getFetchFn)();
     try {
