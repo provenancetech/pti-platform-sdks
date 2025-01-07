@@ -110,7 +110,7 @@ export declare class TransactionAssessment {
      */
     transactionInformationAssessment(request: PTI.TransactionInformationAssessmentRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.OneOfAssessmentValidationError>;
     /**
-     * This endpoint is used to assess a transaction. The transaction assessment and user information requirement are evaluated. This step is also done when executing a transaction, but it can be called as a standalone.
+     * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
      *
      * @param {PTI.AssessTransactionRequest} request
      * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.

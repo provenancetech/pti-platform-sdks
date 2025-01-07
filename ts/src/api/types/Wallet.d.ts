@@ -10,7 +10,7 @@ export interface Wallet {
     balance?: number;
     inflightBalance?: number;
     availableBalance?: number;
-    /** External reference to the wallet(could be bank account number, or blockchain address) */
+    /** External reference to the Wallet(could be bank account number, or blockchain address) */
     depositInstruction?: Record<string, unknown>;
     createDateTime?: string;
     multiWalletAddress?: boolean;

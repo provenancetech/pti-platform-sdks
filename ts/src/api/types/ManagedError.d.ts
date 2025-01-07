@@ -6,7 +6,6 @@ export interface ManagedError {
     type: PTI.ErrorType;
     /**
      * # Error codes descriptions
-     *
      * NO_ERROR(0)
      * INVALID_REQUEST(1000)
      * MIN_INFO_MISSING(1001)

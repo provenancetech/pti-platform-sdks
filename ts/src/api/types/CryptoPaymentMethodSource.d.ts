@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 /**
- * The source payment method of the trade(wallet), if available
+ * The source payment method of the Trade(wallet), if available
  */
 export interface CryptoPaymentMethodSource {
     paymentInformation?: PTI.CryptoPaymentInformation;

@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 /**
- * Payment transaction, often this is not initiated by a user itself The destination can be specified, and needs to belong to the root user.
+ * Payment transaction, often this is not initiated by a User itself The destination can be specified, and needs to belong to the root User.
  */
 export interface PaymentTransaction extends PTI.TransactionType {
     sourceMethod?: PTI.OneOfPaymentMethod;

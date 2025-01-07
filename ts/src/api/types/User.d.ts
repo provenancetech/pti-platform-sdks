@@ -3,15 +3,15 @@
  */
 import * as PTI from "../index";
 export interface User {
-    /** Unique identifier for this user. This value MUST be chosen and stored at user creation time. */
+    /** Unique identifier for this User. This value MUST be chosen and stored at User creation time. */
     id: string;
     status?: PTI.UserStatus;
     statusReason?: PTI.UserStatusReason;
-    /** Tag that characterizes the user. Used for internal classification purposes. */
+    /** Tag that characterizes the User. Used for internal classification purposes. */
     tags?: PTI.TagsType[];
     paymentInformation?: PTI.OneOfExternalPaymentInformation[];
     sourceOfFunds?: string;
-    /** Optional ISO-8601 value. Used to provide the date the user was created in your system. If left empty, it will be populated at current time. */
+    /** Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time. */
     userCreationDate?: string;
     /** key/value map of extra meta data for this request (used by PTI) */
     userPtiMeta?: Record<string, unknown>;

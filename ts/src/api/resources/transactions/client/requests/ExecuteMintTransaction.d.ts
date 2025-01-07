@@ -7,12 +7,12 @@ import * as PTI from "../../../../index";
  *     {
  *         ptiRequestId: "x-pti-request-id",
  *         ptiScenarioId: "x-pti-scenario-id",
- *         usdValue: 5,
- *         amount: 5,
- *         date: "2024-12-13T18:46:40.666+0000",
+ *         usdValue: 200,
+ *         amount: 0.55,
+ *         date: "date",
  *         initiator: {
  *             type: "BUSINESS",
- *             id: "c5c4b077-0c9a-4d5f-84fd-439a6123cdd2",
+ *             id: "initiator",
  *             mainRepresentative: {
  *                 ownershipPercent: 1,
  *                 person: {
@@ -20,34 +20,26 @@ import * as PTI from "../../../../index";
  *                 }
  *             }
  *         },
- *         type: PTI.TransactionTypeEnum.Buy,
- *         digitalItem: {
- *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
- *             itemTitle: "itemTitle",
- *             itemDescription: "itemDescription",
- *             digitalItemType: PTI.DigitalItemType.Nft
- *         },
- *         sourceMethod: {
- *             paymentMethodType: "CRYPTO",
- *             paymentInformation: {
- *                 walletAddress: "walletAddress",
- *                 currency: "currency",
- *                 network: "network"
- *             }
- *         },
- *         seller: {
+ *         type: PTI.TransactionTypeEnum.Mint,
+ *         destination: {
  *             type: "BUSINESS",
- *             id: "f0714c92-d5bf-4ed2-9636-e9ab3743fcb6",
+ *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
  *             mainRepresentative: {
  *                 ownershipPercent: 1,
  *                 person: {
  *                     id: "id"
  *                 }
+ *             }
+ *         },
+ *         destinationMethod: {
+ *             paymentInformation: {
+ *                 walletId: "MyBTCWallet",
+ *                 type: "WALLET"
  *             }
  *         }
  *     }
  */
-export interface ExecuteBuyTransaction extends PTI.TransactionType {
+export interface ExecuteMintTransaction extends PTI.TransactionType {
     /**
      * Unique identifier of the request. This ID must be provided and stored by the client of this API at the creation of a transaction. This ID is attached to all PTI internal operations as well as the webhook calls. This ID is required to post feedback about a transaction and get support from PTI for a problem on a transaction. Creating two transactions having the same requestId is not allowed.
      */
@@ -68,10 +60,6 @@ export interface ExecuteBuyTransaction extends PTI.TransactionType {
      * Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.
      */
     ptiProviderName?: PTI.ProviderName;
-    digitalItem?: PTI.DigitalItem;
-    /** One of digitalItem or digitalItems is required. */
-    digitalItems?: PTI.DigitalItem[];
-    sourceMethod: PTI.OneOfPaymentMethod;
-    seller?: PTI.OneOfUserSubTypes;
-    feeRecipients?: PTI.FeeRecipient[];
+    destination: PTI.OneOfUserSubTypes;
+    destinationMethod: PTI.WalletPaymentMethod;
 }

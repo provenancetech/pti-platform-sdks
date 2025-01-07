@@ -19,11 +19,14 @@ const getResponseBody_1 = require("./getResponseBody");
 const makeRequest_1 = require("./makeRequest");
 const requestWithRetries_1 = require("./requestWithRetries");
 
+/** Custom code section **/
+
 function getContentSha256(dataBuffer) {
   const hash = crypto.createHash("sha256");
   hash.update(dataBuffer);
   return hash.digest("hex").toUpperCase();
 }
+
 function* signPayload(clientId, key, payload) {
   const publicJWK = yield JWK.asKey(key.toJSON());
   const jwkThumbprintBuffer = yield publicJWK.thumbprint("SHA-256");
@@ -33,10 +36,11 @@ function* signPayload(clientId, key, payload) {
     .final()
     .then((signature) => signature.toString());
 }
+
 function* buildSignature(clientId, key, url, method, data, date) {
   let payload = `${method}\n`;
   if (["POST", "PUT", "PATCH"].includes(method)) {
-    payload += `${getContentSha256(Buffer.from(data || ""))}\n`;
+    payload += `${getContentSha256(Buffer.from(data ? JSON.stringify(data) : ""))}\n`;
     payload += "content-type:application/json; charset=utf-8\n";
   } else {
     payload += "\n\n";
@@ -46,6 +50,22 @@ function* buildSignature(clientId, key, url, method, data, date) {
   payload += new URL(url).pathname;
   return yield* signPayload(clientId, key, payload);
 }
+
+function* buildCustomHeaders(args, url, headers) {
+  const date = new Date().toUTCString();
+  try {
+    const jwkKey = yield JWK.asKey(JSON.parse(args.headers["Authorization"].substring(7)));
+    headers["Date"] = date;
+    headers["x-pti-role"] = "CLIENT"
+    headers["x-pti-signature"] = yield* buildSignature(args.headers["x-pti-client-id"], jwkKey, url, args.method, args.body, date)
+    delete headers["Authorization"]
+  } catch (e) {
+    throw new Error(`Error building signature: ${e.message}`);
+  }
+}
+
+/** End of custom code section **/
+
 function fetcherImpl(args) {
   var _a;
   return __awaiter(this, void 0, void 0, function* () {
@@ -60,19 +80,9 @@ function fetcherImpl(args) {
         }
       }
     }
-    const date = new Date().toUTCString();
     const url = (0, createRequestUrl_1.createRequestUrl)(args.url, args.queryParameters);
-    let requestBody = yield (0, getRequestBody_1.getRequestBody)(args.body, (_a = args.contentType) !== null && _a !== void 0 ? _a : "");
-
-    try {
-      const jwkKey = yield JWK.asKey(JSON.parse(args.headers["Authorization"].substring(7)));
-      headers["Date"] = date;
-      headers["x-pti-role"] = "CLIENT"
-      headers["x-pti-signature"] = yield* buildSignature(args.headers["x-pti-client-id"], jwkKey, url, args.method, args.body, date)
-      delete headers["Authorization"]
-    } catch (e) {
-      throw new Error(`Error building signature: ${e.message}`);
-    }
+    const requestBody = yield (0, getRequestBody_1.getRequestBody)(args.body, (_a = args.contentType) !== null && _a !== void 0 ? _a : "");
+    yield buildCustomHeaders(args, url, headers);
 
     const fetchFn = yield (0, getFetchFn_1.getFetchFn)();
     try {

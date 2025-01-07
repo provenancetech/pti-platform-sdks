@@ -11,7 +11,7 @@ export declare namespace KycRequest {
         type: "BUSINESS";
     }
     interface _Base {
-        /** The value of the transaction that the user is intending to perform in USD */
+        /** The value of the transaction that the User is intending to perform in USD */
         intendedTransactionUsdValue?: number;
         /** key/value map of extra meta data for this request (used by PTI) */
         ptiMeta?: Record<string, unknown>;

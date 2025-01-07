@@ -13,6 +13,6 @@ export interface BankAccountPaymentInformation extends PTI.ExternalPaymentInform
     bankRoutingNumber?: string;
     /** Valid bank routing check digit, 1 digit, Required for ACH and WIRE */
     bankRoutingCheckDigit?: string;
-    /** Name of the bank of the account, Required for OUTGOING WIRE transactions, persisted as part of the payment information */
+    /** Name of the bank of the account, Required for OUTGOING WIRE transactions, persisted as part of the Payment Information */
     accountBankName?: string;
 }

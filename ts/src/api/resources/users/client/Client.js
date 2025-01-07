@@ -34,477 +34,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Marketplace = void 0;
+exports.Users = void 0;
 const environments = __importStar(require("../../../../environments"));
 const core = __importStar(require("../../../../core"));
 const PTI = __importStar(require("../../../index"));
-const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
+const serializers = __importStar(require("../../../../serialization/index"));
 const errors = __importStar(require("../../../../errors/index"));
-class Marketplace {
+class Users {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
+     * @param {PTI.GetListOfUsersRequest} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @param {PTI.ExecuteBuyTransaction} request
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.ForbiddenError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.UnprocessableEntityError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.digitalItemBuy({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         usdValue: 5,
-     *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
-     *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "c5c4b077-0c9a-4d5f-84fd-439a6123cdd2",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
-     *         },
-     *         type: PTI.TransactionTypeEnum.Buy,
-     *         digitalItem: {
-     *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
-     *             digitalItemType: PTI.DigitalItemType.Nft
-     *         },
-     *         sourceMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
-     *         },
-     *         seller: {
-     *             type: "BUSINESS",
-     *             id: "f0714c92-d5bf-4ed2-9636-e9ab3743fcb6",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
-     *         }
-     *     })
+     *     await client.users.getListOfUsers()
      */
-    digitalItemBuy(request, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName } = request, _body = __rest(request, ["ptiRequestId", "ptiScenarioId", "ptiSessionId", "ptiDisableWebhook", "ptiProviderName"]);
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/purchases"),
-                method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                    "x-pti-provider-name": ptiProviderName != null ? ptiProviderName : undefined,
-                },
-                contentType: "application/json",
-                body: serializers.ExecuteBuyTransaction.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.ObjectReference.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 401:
-                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 403:
-                        throw new PTI.ForbiddenError(_response.error.body);
-                    case 404:
-                        throw new PTI.NotFoundError(_response.error.body);
-                    case 422:
-                        throw new PTI.UnprocessableEntityError(serializers.OneOfAssessmentValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 429:
-                        throw new PTI.TooManyRequestsError(_response.error.body);
-                    default:
-                        throw new errors.PTIError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.PTIError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.PTITimeoutError();
-                case "unknown":
-                    throw new errors.PTIError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
-     *
-     * @param {PTI.ExecuteSellTransaction} request
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.BadRequestError}
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.ForbiddenError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.UnprocessableEntityError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.marketplace.digitalItemSell({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         usdValue: 5,
-     *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
-     *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "2903c06b-6291-4cc8-b568-fe93064a5a8c",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
-     *         },
-     *         type: PTI.TransactionTypeEnum.Sell,
-     *         digitalItem: {
-     *             itemReference: "f5511285-9d0b-41fd-8ae7-0817bb7462ba",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
-     *             digitalItemType: PTI.DigitalItemType.Nft
-     *         },
-     *         destinationMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
-     *         },
-     *         buyer: {
-     *             type: "BUSINESS",
-     *             id: "be975fae-fb15-4b70-80ba-e59968ae48c3",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
-     *         }
-     *     })
-     */
-    digitalItemSell(request, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName } = request, _body = __rest(request, ["ptiRequestId", "ptiScenarioId", "ptiSessionId", "ptiDisableWebhook", "ptiProviderName"]);
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/sales"),
-                method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                    "x-pti-provider-name": ptiProviderName != null ? ptiProviderName : undefined,
-                },
-                contentType: "application/json",
-                body: serializers.ExecuteSellTransaction.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.ObjectReference.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 400:
-                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 401:
-                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 403:
-                        throw new PTI.ForbiddenError(_response.error.body);
-                    case 404:
-                        throw new PTI.NotFoundError(_response.error.body);
-                    case 422:
-                        throw new PTI.UnprocessableEntityError(serializers.OneOfAssessmentValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 429:
-                        throw new PTI.TooManyRequestsError(_response.error.body);
-                    default:
-                        throw new errors.PTIError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.PTIError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.PTITimeoutError();
-                case "unknown":
-                    throw new errors.PTIError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * @param {string} digitalItemId
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.marketplace.getDigitalItem("digitalItemId")
-     */
-    getDigitalItem(digitalItemId, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
-                method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
-                contentType: "application/json",
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.DigitalItem.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 404:
-                        throw new PTI.NotFoundError(_response.error.body);
-                    case 429:
-                        throw new PTI.TooManyRequestsError(_response.error.body);
-                    default:
-                        throw new errors.PTIError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.PTIError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.PTITimeoutError();
-                case "unknown":
-                    throw new errors.PTIError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * @param {string} digitalItemId
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.ForbiddenError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.marketplace.deleteDigitalItem("digitalItemId")
-     */
-    deleteDigitalItem(digitalItemId, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
-                method: "DELETE",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
-                contentType: "application/json",
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return;
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 403:
-                        throw new PTI.ForbiddenError(_response.error.body);
-                    case 404:
-                        throw new PTI.NotFoundError(_response.error.body);
-                    case 429:
-                        throw new PTI.TooManyRequestsError(_response.error.body);
-                    default:
-                        throw new errors.PTIError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.PTIError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.PTITimeoutError();
-                case "unknown":
-                    throw new errors.PTIError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * @param {string} userId
-     * @param {PTI.GetDigitalItemsRequest} request
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.marketplace.getDigitalItems("userId")
-     */
-    getDigitalItems(userId, request = {}, requestOptions) {
+    getListOfUsers(request = {}, requestOptions) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { page, size, sortBy } = request;
@@ -519,7 +74,7 @@ class Marketplace {
                 _queryParams["sortBy"] = sortBy;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "users"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -537,7 +92,380 @@ class Marketplace {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ObjectReferencePage.parseOrThrow(_response.body, {
+                return serializers.UserPage.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * @param {PTI.OneOfUserSubTypes} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ConflictError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.addAUser({
+     *         type: "BUSINESS",
+     *         id: "36dbe68f-2747-41c6-8748-559588fd3248",
+     *         sourceOfFunds: "Creator earnings",
+     *         addresses: [{
+     *                 streetAddress: "1, main street",
+     *                 city: "New Hampshire",
+     *                 postalCode: "10005",
+     *                 stateCode: "US-NH",
+     *                 country: "US",
+     *                 default: true
+     *             }],
+     *         emails: [{
+     *                 default: true,
+     *                 address: "johnsmith@test.com"
+     *             }],
+     *         mainRepresentative: {
+     *             ownershipPercent: 1,
+     *             person: {
+     *                 id: "id"
+     *             }
+     *         },
+     *         phones: [{
+     *                 default: true,
+     *                 number: "12345678901",
+     *                 type: "WORK"
+     *             }]
+     *     })
+     */
+    addAUser(request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "users"),
+                method: "POST",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                body: serializers.OneOfUserSubTypes.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfUserSubTypes.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 409:
+                        throw new PTI.ConflictError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * @param {PTI.OneOfUserSubTypes} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.updateUser({
+     *         type: "BUSINESS",
+     *         id: "string",
+     *         mainRepresentative: {
+     *             ownershipPercent: 1,
+     *             person: {
+     *                 id: "id"
+     *             }
+     *         }
+     *     })
+     */
+    updateUser(request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "users"),
+                method: "PUT",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                body: serializers.OneOfUserSubTypes.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfUserSubTypes.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * @param {PTI.OneOfUserSubTypes} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.mergeUserInfo({
+     *         type: "BUSINESS",
+     *         id: "string",
+     *         mainRepresentative: {
+     *             ownershipPercent: 1,
+     *             person: {
+     *                 id: "id"
+     *             }
+     *         }
+     *     })
+     */
+    mergeUserInfo(request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "users"),
+                method: "PATCH",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                body: serializers.OneOfUserSubTypes.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfUserSubTypes.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * This endpoint is used to get the information for a specific User. The information returned is the information that was collected for the User. PII information is not returned.
+     *
+     * @param {string} userId
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.getUser("userId")
+     */
+    getUser(userId, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}`),
+                method: "GET",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfUserSubTypes.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -580,35 +508,154 @@ class Marketplace {
         });
     }
     /**
+     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     *
+     * @param {PTI.StartUserAssessmentRequest} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ForbiddenError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.UnprocessableEntityError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.startUserAssessment({
+     *         ptiRequestId: "x-pti-request-id",
+     *         ptiScenarioId: "x-pti-scenario-id",
+     *         body: {
+     *             type: "BUSINESS",
+     *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
+     *             sourceOfFunds: "Creator earnings",
+     *             addresses: [{
+     *                     streetAddress: "1, main street",
+     *                     city: "New Hampshire",
+     *                     postalCode: "10005",
+     *                     stateCode: "US-NH",
+     *                     country: "US",
+     *                     default: true
+     *                 }],
+     *             emails: [{
+     *                     default: true,
+     *                     address: "johnsmith@test.com"
+     *                 }],
+     *             mainRepresentative: {
+     *                 ownershipPercent: 1,
+     *                 person: {
+     *                     id: "id"
+     *                 }
+     *             },
+     *             phones: [{
+     *                     default: true,
+     *                     number: "12345678901",
+     *                     type: "WORK"
+     *                 }]
+     *         }
+     *     })
+     */
+    startUserAssessment(request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "users/assessments"),
+                method: "POST",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                    "x-pti-request-id": ptiRequestId,
+                    "x-pti-scenario-id": ptiScenarioId,
+                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
+                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
+                },
+                contentType: "application/json",
+                body: serializers.KycRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.ObjectReference.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 403:
+                        throw new PTI.ForbiddenError(_response.error.body);
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new PTI.UnprocessableEntityError(serializers.OneOfAssessmentValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
      * @param {string} userId
-     * @param {PTI.DigitalItem[]} request
-     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.createDigitalItems("userId", [{
-     *             itemReference: "57d6467c-6ae0-434f-8197-e7e9f86f2209",
-     *             itemTitle: "QB, Mint Condition, #467/500 From Founders Set ",
-     *             itemDescription: "Ultra Rare Elite Russell Wilson Level 1",
-     *             itemUsdValue: 10,
-     *             digitalItemType: PTI.DigitalItemType.Nft
-     *         }, {
-     *             itemReference: "57d6467c-6ae0-434f-8197-e7e9f86f2210",
-     *             itemTitle: "QB, Mint Condition, #468/500 From Founders Set",
-     *             itemDescription: "Ultra Rare Elite Peyton Manning Level 10",
-     *             itemUsdValue: 35,
-     *             digitalItemType: PTI.DigitalItemType.Nft
-     *         }])
+     *     await client.users.getLastKyc("userId")
      */
-    createDigitalItems(userId, request, requestOptions) {
+    getLastKyc(userId, requestOptions) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
-                method: "POST",
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/assessments`),
+                method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
                     "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
@@ -619,15 +666,12 @@ class Marketplace {
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 contentType: "application/json",
-                body: serializers.marketplace.createDigitalItems.Request.jsonOrThrow(request, {
-                    unrecognizedObjectKeys: "strip",
-                }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.marketplace.createDigitalItems.Response.parseOrThrow(_response.body, {
+                return serializers.UserAssessStatusObject.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -636,6 +680,90 @@ class Marketplace {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * @param {File | fs.ReadStream | undefined} document
+     * @param {string} userId
+     * @param {PTI.UploadDocumentRequest} request
+     * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.users.uploadDocument(fs.createReadStream("/path/to/your/file"), "userId", {})
+     */
+    uploadDocument(document, userId, request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const _request = new core.FormDataWrapper();
+            if (request.metaInformation != null) {
+                yield _request.append("metaInformation", JSON.stringify(request.metaInformation));
+            }
+            if (request.idDocumentMetaData != null) {
+                yield _request.append("idDocumentMetaData", JSON.stringify(request.idDocumentMetaData));
+            }
+            if (document != null) {
+                yield _request.append("document", document);
+            }
+            const _maybeEncodedRequest = _request.getRequest();
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/documents`),
+                method: "POST",
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, (yield _maybeEncodedRequest.getHeaders())),
+                body: yield _maybeEncodedRequest.getBody(),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return;
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
                     case 401:
                         throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
@@ -675,4 +803,4 @@ class Marketplace {
         });
     }
 }
-exports.Marketplace = Marketplace;
+exports.Users = Users;

@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 /**
- * Status of a user assessment request. The date property is the date that the assessment has been initiated.
+ * Status of a User Assessment request. The date property is the date that the assessment has been initiated.
  */
 export interface UserAssessStatusObject extends PTI.ActionStatus {
     assessment?: PTI.UserAssessStatus;

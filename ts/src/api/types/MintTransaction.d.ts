@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 /**
- * The action of minting, often this is not initiated by a user itself, so the initiator property is optional. The destination is the beneficiary of the minting action. You can specify the target wallet in the destination method if available.
+ * The action of minting, often this is not initiated by a User itself, so the initiator property is optional. The destination is the beneficiary of the minting action. You can specify the target Wallet in the destination method if available.
  */
 export interface MintTransaction extends PTI.TransactionType {
     destination?: PTI.OneOfUserSubTypes;

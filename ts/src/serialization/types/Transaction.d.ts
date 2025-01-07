@@ -14,7 +14,7 @@ export declare namespace Transaction {
         transactionGroupId?: UuidLikeStrTransactionGroup.Raw | null;
         subClientId?: UuidLikeStrSubClient.Raw | null;
         transactionTotal?: Total.Raw | null;
-        usdValue: number;
+        usdValue?: number | null;
         amount: number;
         date: string;
         initiator: OneOfUserSubTypes.Raw;

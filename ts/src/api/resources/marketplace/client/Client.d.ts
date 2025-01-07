@@ -26,7 +26,7 @@ export declare class Marketplace {
     protected readonly _options: Marketplace.Options;
     constructor(_options: Marketplace.Options);
     /**
-     * This endpoint is used to execute a digital item buy (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
      *
      * @param {PTI.ExecuteBuyTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -84,7 +84,7 @@ export declare class Marketplace {
      */
     digitalItemBuy(request: PTI.ExecuteBuyTransaction, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReference>;
     /**
-     * This endpoint is used to execute a digital item sell (token, nft, other) transaction for a user. The transaction assessment and user information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteSellTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
