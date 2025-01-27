@@ -306,14 +306,14 @@ public class UsersClient {
     }
 
     /**
-     * This endpoint is used to assess a User. Depending on what information is available on the User, a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform. Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
      */
     public ObjectReference startUserAssessment(StartUserAssessmentRequest request) {
       return startUserAssessment(request,null);
     }
 
     /**
-     * This endpoint is used to assess a User. Depending on what information is available on the User, a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform. Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
      */
     public ObjectReference startUserAssessment(StartUserAssessmentRequest request,
         RequestOptions requestOptions) {
@@ -414,10 +414,6 @@ public class UsersClient {
       catch (IOException e) {
         throw new PTIClientException("Network error executing HTTP request", e);
       }
-    }
-
-    public void uploadDocument(String userId, Optional<File> document) {
-      uploadDocument(userId,document,UploadDocumentRequest.builder().build());
     }
 
     public void uploadDocument(String userId, Optional<File> document,

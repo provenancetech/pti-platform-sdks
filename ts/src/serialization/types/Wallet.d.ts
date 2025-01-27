@@ -13,9 +13,10 @@ export declare namespace Wallet {
         label?: string | null;
         currency?: CurrencyEnum.Raw | null;
         network?: BlockChainEnum.Raw | null;
-        balance?: number | null;
-        inflightBalance?: number | null;
         availableBalance?: number | null;
+        lockedBalance?: number | null;
+        pendingBalance?: number | null;
+        totalBalance?: number | null;
         depositInstruction?: Record<string, unknown> | null;
         createDateTime?: string | null;
         multiWalletAddress?: boolean | null;

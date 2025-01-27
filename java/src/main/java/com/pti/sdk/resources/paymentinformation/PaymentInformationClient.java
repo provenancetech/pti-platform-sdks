@@ -42,13 +42,6 @@ public class PaymentInformationClient {
   /**
    * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
    */
-  public List<OneOfExternalPaymentInformation> getUserPaymentInformations(String userId) {
-    return getUserPaymentInformations(userId,GetUserPaymentInformationsRequest.builder().build());
-  }
-
-  /**
-   * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
-   */
   public List<OneOfExternalPaymentInformation> getUserPaymentInformations(String userId,
       GetUserPaymentInformationsRequest request) {
     return getUserPaymentInformations(userId,request,null);

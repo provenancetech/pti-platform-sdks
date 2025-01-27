@@ -348,10 +348,6 @@ public class MarketplaceClient {
     }
   }
 
-  public ObjectReferencePage getDigitalItems(String userId) {
-    return getDigitalItems(userId,GetDigitalItemsRequest.builder().build());
-  }
-
   public ObjectReferencePage getDigitalItems(String userId, GetDigitalItemsRequest request) {
     return getDigitalItems(userId,request,null);
   }

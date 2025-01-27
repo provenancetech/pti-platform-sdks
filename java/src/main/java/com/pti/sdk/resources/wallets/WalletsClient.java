@@ -272,10 +272,6 @@ public class WalletsClient {
     }
   }
 
-  public void simulateWalletPayment(String userId, String walletId) {
-    simulateWalletPayment(userId,walletId,SimulatePaymentRequest.builder().build());
-  }
-
   public void simulateWalletPayment(String userId, String walletId,
       SimulatePaymentRequest request) {
     simulateWalletPayment(userId,walletId,request,null);
@@ -330,10 +326,6 @@ public class WalletsClient {
     catch (IOException e) {
       throw new PTIClientException("Network error executing HTTP request", e);
     }
-  }
-
-  public Wallet createWalletDepositAddress(String userId, String walletId) {
-    return createWalletDepositAddress(userId,walletId,DepositAddressRequest.builder().build());
   }
 
   public Wallet createWalletDepositAddress(String userId, String walletId,
@@ -446,10 +438,6 @@ public class WalletsClient {
     catch (IOException e) {
       throw new PTIClientException("Network error executing HTTP request", e);
     }
-  }
-
-  public WalletHistoryPage getWalletHistory(String userId, String walletId) {
-    return getWalletHistory(userId,walletId,GetWalletHistoryRequest.builder().build());
   }
 
   public WalletHistoryPage getWalletHistory(String userId, String walletId,

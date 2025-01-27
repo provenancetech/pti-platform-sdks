@@ -7,9 +7,10 @@ export interface Wallet {
     label?: string;
     currency?: PTI.CurrencyEnum;
     network?: PTI.BlockChainEnum;
-    balance?: number;
-    inflightBalance?: number;
     availableBalance?: number;
+    lockedBalance?: number;
+    pendingBalance?: number;
+    totalBalance?: number;
     /** External reference to the Wallet(could be bank account number, or blockchain address) */
     depositInstruction?: Record<string, unknown>;
     createDateTime?: string;

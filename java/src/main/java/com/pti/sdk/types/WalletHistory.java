@@ -29,9 +29,13 @@ import org.jetbrains.annotations.NotNull;
 public final class WalletHistory {
   private final String walletId;
 
-  private final Optional<Double> balanceBefore;
+  private final Optional<Double> pendingBalanceBefore;
 
-  private final Optional<Double> inFlightBalanceBefore;
+  private final Optional<Double> totalBalanceBefore;
+
+  private final Optional<Double> availableBalanceBefore;
+
+  private final Optional<Double> lockedBalanceBefore;
 
   private final Optional<String> createDateTime;
 
@@ -43,13 +47,16 @@ public final class WalletHistory {
 
   private final Map<String, Object> additionalProperties;
 
-  private WalletHistory(String walletId, Optional<Double> balanceBefore,
-      Optional<Double> inFlightBalanceBefore, Optional<String> createDateTime,
+  private WalletHistory(String walletId, Optional<Double> pendingBalanceBefore,
+      Optional<Double> totalBalanceBefore, Optional<Double> availableBalanceBefore,
+      Optional<Double> lockedBalanceBefore, Optional<String> createDateTime,
       Optional<Double> change, Optional<WalletHistoryOperationTarget> operationTarget,
       Optional<String> requestId, Map<String, Object> additionalProperties) {
     this.walletId = walletId;
-    this.balanceBefore = balanceBefore;
-    this.inFlightBalanceBefore = inFlightBalanceBefore;
+    this.pendingBalanceBefore = pendingBalanceBefore;
+    this.totalBalanceBefore = totalBalanceBefore;
+    this.availableBalanceBefore = availableBalanceBefore;
+    this.lockedBalanceBefore = lockedBalanceBefore;
     this.createDateTime = createDateTime;
     this.change = change;
     this.operationTarget = operationTarget;
@@ -62,14 +69,24 @@ public final class WalletHistory {
     return walletId;
   }
 
-  @JsonProperty("balanceBefore")
-  public Optional<Double> getBalanceBefore() {
-    return balanceBefore;
+  @JsonProperty("pendingBalanceBefore")
+  public Optional<Double> getPendingBalanceBefore() {
+    return pendingBalanceBefore;
   }
 
-  @JsonProperty("inFlightBalanceBefore")
-  public Optional<Double> getInFlightBalanceBefore() {
-    return inFlightBalanceBefore;
+  @JsonProperty("totalBalanceBefore")
+  public Optional<Double> getTotalBalanceBefore() {
+    return totalBalanceBefore;
+  }
+
+  @JsonProperty("availableBalanceBefore")
+  public Optional<Double> getAvailableBalanceBefore() {
+    return availableBalanceBefore;
+  }
+
+  @JsonProperty("lockedBalanceBefore")
+  public Optional<Double> getLockedBalanceBefore() {
+    return lockedBalanceBefore;
   }
 
   @JsonProperty("createDateTime")
@@ -104,12 +121,12 @@ public final class WalletHistory {
   }
 
   private boolean equalTo(WalletHistory other) {
-    return walletId.equals(other.walletId) && balanceBefore.equals(other.balanceBefore) && inFlightBalanceBefore.equals(other.inFlightBalanceBefore) && createDateTime.equals(other.createDateTime) && change.equals(other.change) && operationTarget.equals(other.operationTarget) && requestId.equals(other.requestId);
+    return walletId.equals(other.walletId) && pendingBalanceBefore.equals(other.pendingBalanceBefore) && totalBalanceBefore.equals(other.totalBalanceBefore) && availableBalanceBefore.equals(other.availableBalanceBefore) && lockedBalanceBefore.equals(other.lockedBalanceBefore) && createDateTime.equals(other.createDateTime) && change.equals(other.change) && operationTarget.equals(other.operationTarget) && requestId.equals(other.requestId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.balanceBefore, this.inFlightBalanceBefore, this.createDateTime, this.change, this.operationTarget, this.requestId);
+    return Objects.hash(this.walletId, this.pendingBalanceBefore, this.totalBalanceBefore, this.availableBalanceBefore, this.lockedBalanceBefore, this.createDateTime, this.change, this.operationTarget, this.requestId);
   }
 
   @Override
@@ -130,13 +147,21 @@ public final class WalletHistory {
   public interface _FinalStage {
     WalletHistory build();
 
-    _FinalStage balanceBefore(Optional<Double> balanceBefore);
+    _FinalStage pendingBalanceBefore(Optional<Double> pendingBalanceBefore);
 
-    _FinalStage balanceBefore(Double balanceBefore);
+    _FinalStage pendingBalanceBefore(Double pendingBalanceBefore);
 
-    _FinalStage inFlightBalanceBefore(Optional<Double> inFlightBalanceBefore);
+    _FinalStage totalBalanceBefore(Optional<Double> totalBalanceBefore);
 
-    _FinalStage inFlightBalanceBefore(Double inFlightBalanceBefore);
+    _FinalStage totalBalanceBefore(Double totalBalanceBefore);
+
+    _FinalStage availableBalanceBefore(Optional<Double> availableBalanceBefore);
+
+    _FinalStage availableBalanceBefore(Double availableBalanceBefore);
+
+    _FinalStage lockedBalanceBefore(Optional<Double> lockedBalanceBefore);
+
+    _FinalStage lockedBalanceBefore(Double lockedBalanceBefore);
 
     _FinalStage createDateTime(Optional<String> createDateTime);
 
@@ -169,9 +194,13 @@ public final class WalletHistory {
 
     private Optional<String> createDateTime = Optional.empty();
 
-    private Optional<Double> inFlightBalanceBefore = Optional.empty();
+    private Optional<Double> lockedBalanceBefore = Optional.empty();
 
-    private Optional<Double> balanceBefore = Optional.empty();
+    private Optional<Double> availableBalanceBefore = Optional.empty();
+
+    private Optional<Double> totalBalanceBefore = Optional.empty();
+
+    private Optional<Double> pendingBalanceBefore = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -182,8 +211,10 @@ public final class WalletHistory {
     @Override
     public Builder from(WalletHistory other) {
       walletId(other.getWalletId());
-      balanceBefore(other.getBalanceBefore());
-      inFlightBalanceBefore(other.getInFlightBalanceBefore());
+      pendingBalanceBefore(other.getPendingBalanceBefore());
+      totalBalanceBefore(other.getTotalBalanceBefore());
+      availableBalanceBefore(other.getAvailableBalanceBefore());
+      lockedBalanceBefore(other.getLockedBalanceBefore());
       createDateTime(other.getCreateDateTime());
       change(other.getChange());
       operationTarget(other.getOperationTarget());
@@ -263,40 +294,72 @@ public final class WalletHistory {
     }
 
     @Override
-    public _FinalStage inFlightBalanceBefore(Double inFlightBalanceBefore) {
-      this.inFlightBalanceBefore = Optional.ofNullable(inFlightBalanceBefore);
+    public _FinalStage lockedBalanceBefore(Double lockedBalanceBefore) {
+      this.lockedBalanceBefore = Optional.ofNullable(lockedBalanceBefore);
       return this;
     }
 
     @Override
     @JsonSetter(
-        value = "inFlightBalanceBefore",
+        value = "lockedBalanceBefore",
         nulls = Nulls.SKIP
     )
-    public _FinalStage inFlightBalanceBefore(Optional<Double> inFlightBalanceBefore) {
-      this.inFlightBalanceBefore = inFlightBalanceBefore;
+    public _FinalStage lockedBalanceBefore(Optional<Double> lockedBalanceBefore) {
+      this.lockedBalanceBefore = lockedBalanceBefore;
       return this;
     }
 
     @Override
-    public _FinalStage balanceBefore(Double balanceBefore) {
-      this.balanceBefore = Optional.ofNullable(balanceBefore);
+    public _FinalStage availableBalanceBefore(Double availableBalanceBefore) {
+      this.availableBalanceBefore = Optional.ofNullable(availableBalanceBefore);
       return this;
     }
 
     @Override
     @JsonSetter(
-        value = "balanceBefore",
+        value = "availableBalanceBefore",
         nulls = Nulls.SKIP
     )
-    public _FinalStage balanceBefore(Optional<Double> balanceBefore) {
-      this.balanceBefore = balanceBefore;
+    public _FinalStage availableBalanceBefore(Optional<Double> availableBalanceBefore) {
+      this.availableBalanceBefore = availableBalanceBefore;
+      return this;
+    }
+
+    @Override
+    public _FinalStage totalBalanceBefore(Double totalBalanceBefore) {
+      this.totalBalanceBefore = Optional.ofNullable(totalBalanceBefore);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "totalBalanceBefore",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage totalBalanceBefore(Optional<Double> totalBalanceBefore) {
+      this.totalBalanceBefore = totalBalanceBefore;
+      return this;
+    }
+
+    @Override
+    public _FinalStage pendingBalanceBefore(Double pendingBalanceBefore) {
+      this.pendingBalanceBefore = Optional.ofNullable(pendingBalanceBefore);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "pendingBalanceBefore",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage pendingBalanceBefore(Optional<Double> pendingBalanceBefore) {
+      this.pendingBalanceBefore = pendingBalanceBefore;
       return this;
     }
 
     @Override
     public WalletHistory build() {
-      return new WalletHistory(walletId, balanceBefore, inFlightBalanceBefore, createDateTime, change, operationTarget, requestId, additionalProperties);
+      return new WalletHistory(walletId, pendingBalanceBefore, totalBalanceBefore, availableBalanceBefore, lockedBalanceBefore, createDateTime, change, operationTarget, requestId, additionalProperties);
     }
   }
 }
