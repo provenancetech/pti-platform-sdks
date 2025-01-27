@@ -8,9 +8,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum WalletHistoryOperationTarget {
-  BALANCE("BALANCE"),
+  AVAILABLE_BALANCE("AVAILABLE_BALANCE"),
 
-  IN_FLIGHT_BALANCE("IN_FLIGHT_BALANCE");
+  LOCKED_BALANCE("LOCKED_BALANCE"),
+
+  PENDING_BALANCE("PENDING_BALANCE"),
+
+  TOTAL_BALANCE("TOTAL_BALANCE");
 
   private final String value;
 

@@ -87,7 +87,7 @@ public class PTIClient {
   public static PTIClientBuilder builder() {
     return new PTIClientBuilder();
   }
-
+  
   public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, IOException {
     ObjectMapper mapper = new ObjectMapper();
     Map<String, String> payloadMap = mapper.readValue(payload, new TypeReference<>() {});
@@ -98,9 +98,9 @@ public class PTIClient {
             Base64URL.from(payloadMap.get("iv")),
             Base64URL.from(payloadMap.get("ciphertext")),
             Base64URL.from(payloadMap.get("tag"))
-    );
+    );  
     jweObject.decrypt(new RSADecrypter(privateKey));
-    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject();
+    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject(); 
     JWSObject jwsObject = new JWSObject(
             Base64URL.from((String) jwsParts.get("protected")),
             Base64URL.from((String) jwsParts.get("payload")),

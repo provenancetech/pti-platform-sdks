@@ -768,16 +768,16 @@ public class TransactionsClient {
 
   /**
    * This endpoint allows adding feedback information to an existing transaction. Here are the possible feedback values with their meaning:
-   * <p>| Feedback           | Meaning                                                                                                                                                                                                            |
-   * | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-   * | <code>ACCEPTED</code>         | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code>               |
-   * | <code>SETTLED</code>          | The transaction was accepted and fully finalized by the processor. The transfer of value has occured.                                                                                                              |
-   * | <code>CANCELLED</code>        | The transaction was accepted but cancelled prior to being settled                                                                                                                                                  |
+   * <p>| Feedback | Meaning |
+   * |----------|---------|
+   * | <code>ACCEPTED</code> | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code> |
+   * | <code>SETTLED</code>  | The transaction was accepted and fully finalized by the processor. The transfer of value has occured. |
+   * | <code>CANCELLED</code>  | The transaction was accepted but cancelled prior to being settled |
    * | <code>AWAITING_PAYMENT</code> | A deposit transaction is being processed and is in a state where it is waiting for the user to complete the payment by funding the target address provided or making a deposit using the specified payment method. |
-   * | <code>REJECTED</code>         | The transaction was declined by the processor                                                                                                                                                                      |
-   * | <code>REFUNDED</code>         | An intentional, settled transaction was refunded                                                                                                                                                                   |
-   * | <code>CHARGED_BACK</code>     | A settled transaction was disputed and refunded                                                                                                                                                                    |
-   * | <code>ERROR</code>            | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint                                                                                                       |</p>
+   * | <code>REJECTED</code> | The transaction was declined by the processor |
+   * | <code>REFUNDED</code> | An intentional, settled transaction was refunded |
+   * | <code>CHARGED_BACK</code> | A settled transaction was disputed and refunded |
+   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |</p>
    */
   public ObjectReference provideFeedback(String requestId, TransactionUpdate request) {
     return provideFeedback(requestId,request,null);
@@ -785,16 +785,16 @@ public class TransactionsClient {
 
   /**
    * This endpoint allows adding feedback information to an existing transaction. Here are the possible feedback values with their meaning:
-   * <p>| Feedback           | Meaning                                                                                                                                                                                                            |
-   * | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-   * | <code>ACCEPTED</code>         | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code>               |
-   * | <code>SETTLED</code>          | The transaction was accepted and fully finalized by the processor. The transfer of value has occured.                                                                                                              |
-   * | <code>CANCELLED</code>        | The transaction was accepted but cancelled prior to being settled                                                                                                                                                  |
+   * <p>| Feedback | Meaning |
+   * |----------|---------|
+   * | <code>ACCEPTED</code> | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code> |
+   * | <code>SETTLED</code>  | The transaction was accepted and fully finalized by the processor. The transfer of value has occured. |
+   * | <code>CANCELLED</code>  | The transaction was accepted but cancelled prior to being settled |
    * | <code>AWAITING_PAYMENT</code> | A deposit transaction is being processed and is in a state where it is waiting for the user to complete the payment by funding the target address provided or making a deposit using the specified payment method. |
-   * | <code>REJECTED</code>         | The transaction was declined by the processor                                                                                                                                                                      |
-   * | <code>REFUNDED</code>         | An intentional, settled transaction was refunded                                                                                                                                                                   |
-   * | <code>CHARGED_BACK</code>     | A settled transaction was disputed and refunded                                                                                                                                                                    |
-   * | <code>ERROR</code>            | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint                                                                                                       |</p>
+   * | <code>REJECTED</code> | The transaction was declined by the processor |
+   * | <code>REFUNDED</code> | An intentional, settled transaction was refunded |
+   * | <code>CHARGED_BACK</code> | A settled transaction was disputed and refunded |
+   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |</p>
    */
   public ObjectReference provideFeedback(String requestId, TransactionUpdate request,
       RequestOptions requestOptions) {

@@ -35,11 +35,13 @@ public final class Wallet {
 
   private final Optional<BlockChainEnum> network;
 
-  private final Optional<Double> balance;
-
-  private final Optional<Double> inflightBalance;
-
   private final Optional<Double> availableBalance;
+
+  private final Optional<Double> lockedBalance;
+
+  private final Optional<Double> pendingBalance;
+
+  private final Optional<Double> totalBalance;
 
   private final Optional<Map<String, Object>> depositInstruction;
 
@@ -52,17 +54,19 @@ public final class Wallet {
   private final Map<String, Object> additionalProperties;
 
   private Wallet(Optional<String> walletId, Optional<String> label, Optional<CurrencyEnum> currency,
-      Optional<BlockChainEnum> network, Optional<Double> balance, Optional<Double> inflightBalance,
-      Optional<Double> availableBalance, Optional<Map<String, Object>> depositInstruction,
+      Optional<BlockChainEnum> network, Optional<Double> availableBalance,
+      Optional<Double> lockedBalance, Optional<Double> pendingBalance,
+      Optional<Double> totalBalance, Optional<Map<String, Object>> depositInstruction,
       Optional<String> createDateTime, Optional<Boolean> multiWalletAddress, Optional<String> type,
       Map<String, Object> additionalProperties) {
     this.walletId = walletId;
     this.label = label;
     this.currency = currency;
     this.network = network;
-    this.balance = balance;
-    this.inflightBalance = inflightBalance;
     this.availableBalance = availableBalance;
+    this.lockedBalance = lockedBalance;
+    this.pendingBalance = pendingBalance;
+    this.totalBalance = totalBalance;
     this.depositInstruction = depositInstruction;
     this.createDateTime = createDateTime;
     this.multiWalletAddress = multiWalletAddress;
@@ -90,19 +94,24 @@ public final class Wallet {
     return network;
   }
 
-  @JsonProperty("balance")
-  public Optional<Double> getBalance() {
-    return balance;
-  }
-
-  @JsonProperty("inflightBalance")
-  public Optional<Double> getInflightBalance() {
-    return inflightBalance;
-  }
-
   @JsonProperty("availableBalance")
   public Optional<Double> getAvailableBalance() {
     return availableBalance;
+  }
+
+  @JsonProperty("lockedBalance")
+  public Optional<Double> getLockedBalance() {
+    return lockedBalance;
+  }
+
+  @JsonProperty("pendingBalance")
+  public Optional<Double> getPendingBalance() {
+    return pendingBalance;
+  }
+
+  @JsonProperty("totalBalance")
+  public Optional<Double> getTotalBalance() {
+    return totalBalance;
   }
 
   /**
@@ -140,12 +149,12 @@ public final class Wallet {
   }
 
   private boolean equalTo(Wallet other) {
-    return walletId.equals(other.walletId) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && balance.equals(other.balance) && inflightBalance.equals(other.inflightBalance) && availableBalance.equals(other.availableBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
+    return walletId.equals(other.walletId) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.label, this.currency, this.network, this.balance, this.inflightBalance, this.availableBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
+    return Objects.hash(this.walletId, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
   }
 
   @Override
@@ -169,11 +178,13 @@ public final class Wallet {
 
     private Optional<BlockChainEnum> network = Optional.empty();
 
-    private Optional<Double> balance = Optional.empty();
-
-    private Optional<Double> inflightBalance = Optional.empty();
-
     private Optional<Double> availableBalance = Optional.empty();
+
+    private Optional<Double> lockedBalance = Optional.empty();
+
+    private Optional<Double> pendingBalance = Optional.empty();
+
+    private Optional<Double> totalBalance = Optional.empty();
 
     private Optional<Map<String, Object>> depositInstruction = Optional.empty();
 
@@ -194,9 +205,10 @@ public final class Wallet {
       label(other.getLabel());
       currency(other.getCurrency());
       network(other.getNetwork());
-      balance(other.getBalance());
-      inflightBalance(other.getInflightBalance());
       availableBalance(other.getAvailableBalance());
+      lockedBalance(other.getLockedBalance());
+      pendingBalance(other.getPendingBalance());
+      totalBalance(other.getTotalBalance());
       depositInstruction(other.getDepositInstruction());
       createDateTime(other.getCreateDateTime());
       multiWalletAddress(other.getMultiWalletAddress());
@@ -261,34 +273,6 @@ public final class Wallet {
     }
 
     @JsonSetter(
-        value = "balance",
-        nulls = Nulls.SKIP
-    )
-    public Builder balance(Optional<Double> balance) {
-      this.balance = balance;
-      return this;
-    }
-
-    public Builder balance(Double balance) {
-      this.balance = Optional.ofNullable(balance);
-      return this;
-    }
-
-    @JsonSetter(
-        value = "inflightBalance",
-        nulls = Nulls.SKIP
-    )
-    public Builder inflightBalance(Optional<Double> inflightBalance) {
-      this.inflightBalance = inflightBalance;
-      return this;
-    }
-
-    public Builder inflightBalance(Double inflightBalance) {
-      this.inflightBalance = Optional.ofNullable(inflightBalance);
-      return this;
-    }
-
-    @JsonSetter(
         value = "availableBalance",
         nulls = Nulls.SKIP
     )
@@ -299,6 +283,48 @@ public final class Wallet {
 
     public Builder availableBalance(Double availableBalance) {
       this.availableBalance = Optional.ofNullable(availableBalance);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "lockedBalance",
+        nulls = Nulls.SKIP
+    )
+    public Builder lockedBalance(Optional<Double> lockedBalance) {
+      this.lockedBalance = lockedBalance;
+      return this;
+    }
+
+    public Builder lockedBalance(Double lockedBalance) {
+      this.lockedBalance = Optional.ofNullable(lockedBalance);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "pendingBalance",
+        nulls = Nulls.SKIP
+    )
+    public Builder pendingBalance(Optional<Double> pendingBalance) {
+      this.pendingBalance = pendingBalance;
+      return this;
+    }
+
+    public Builder pendingBalance(Double pendingBalance) {
+      this.pendingBalance = Optional.ofNullable(pendingBalance);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "totalBalance",
+        nulls = Nulls.SKIP
+    )
+    public Builder totalBalance(Optional<Double> totalBalance) {
+      this.totalBalance = totalBalance;
+      return this;
+    }
+
+    public Builder totalBalance(Double totalBalance) {
+      this.totalBalance = Optional.ofNullable(totalBalance);
       return this;
     }
 
@@ -359,7 +385,7 @@ public final class Wallet {
     }
 
     public Wallet build() {
-      return new Wallet(walletId, label, currency, network, balance, inflightBalance, availableBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
+      return new Wallet(walletId, label, currency, network, availableBalance, lockedBalance, pendingBalance, totalBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
     }
   }
 }

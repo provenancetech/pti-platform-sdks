@@ -4,8 +4,10 @@
 import * as PTI from "../index";
 export interface WalletHistory {
     walletId: string;
-    balanceBefore?: number;
-    inFlightBalanceBefore?: number;
+    pendingBalanceBefore?: number;
+    totalBalanceBefore?: number;
+    availableBalanceBefore?: number;
+    lockedBalanceBefore?: number;
     createDateTime?: string;
     change?: number;
     operationTarget?: PTI.WalletHistoryOperationTarget;

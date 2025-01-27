@@ -10,8 +10,10 @@ export declare const WalletHistory: core.serialization.ObjectSchema<serializers.
 export declare namespace WalletHistory {
     interface Raw {
         walletId: string;
-        balanceBefore?: number | null;
-        inFlightBalanceBefore?: number | null;
+        pendingBalanceBefore?: number | null;
+        totalBalanceBefore?: number | null;
+        availableBalanceBefore?: number | null;
+        lockedBalanceBefore?: number | null;
         createDateTime?: string | null;
         change?: number | null;
         operationTarget?: WalletHistoryOperationTarget.Raw | null;
