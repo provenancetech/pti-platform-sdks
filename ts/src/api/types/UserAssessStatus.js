@@ -11,4 +11,5 @@ exports.UserAssessStatus = {
     RequestedMoreInformation: "REQUESTED_MORE_INFORMATION",
     Accepted: "ACCEPTED",
     Refused: "REFUSED",
+    Invalid: "INVALID",
 };

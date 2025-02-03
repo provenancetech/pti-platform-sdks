@@ -9,4 +9,5 @@ export declare const UserAssessStatus: {
     readonly RequestedMoreInformation: "REQUESTED_MORE_INFORMATION";
     readonly Accepted: "ACCEPTED";
     readonly Refused: "REFUSED";
+    readonly Invalid: "INVALID";
 };
