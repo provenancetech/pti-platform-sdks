@@ -18,7 +18,9 @@ public enum UserAssessStatus {
 
   ACCEPTED("ACCEPTED"),
 
-  REFUSED("REFUSED");
+  REFUSED("REFUSED"),
+
+  INVALID("INVALID");
 
   private final String value;
 
