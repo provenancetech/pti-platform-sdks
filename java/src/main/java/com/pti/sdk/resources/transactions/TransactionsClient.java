@@ -75,6 +75,7 @@ public class TransactionsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -158,7 +159,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -255,7 +256,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -351,7 +352,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -450,7 +451,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -544,7 +545,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -638,7 +639,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -696,6 +697,7 @@ public class TransactionsClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -738,6 +740,7 @@ public class TransactionsClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -816,6 +819,7 @@ public class TransactionsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {

@@ -50,158 +50,6 @@ class TransactionAssessment {
         this._options = _options;
     }
     /**
-     * @param {PTI.TransactionInformationAssessmentRequest} request
-     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.transactionAssessment.transactionInformationAssessment({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         body: {
-     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
-     *             transactionTotal: {
-     *                 fee: {
-     *                     amount: 10,
-     *                     currency: "USD"
-     *                 },
-     *                 total: {
-     *                     amount: 100,
-     *                     currency: "USD"
-     *                 },
-     *                 subtotal: {
-     *                     amount: 90,
-     *                     currency: "USD"
-     *                 }
-     *             },
-     *             usdValue: 100,
-     *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
-     *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
-     *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
-     *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             },
-     *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             }
-     *         }
-     *     })
-     */
-    transactionInformationAssessment(request, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/validations"),
-                method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                },
-                contentType: "application/json",
-                body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.OneOfAssessmentValidationError.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 401:
-                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    case 404:
-                        throw new PTI.NotFoundError(_response.error.body);
-                    case 429:
-                        throw new PTI.TooManyRequestsError(_response.error.body);
-                    default:
-                        throw new errors.PTIError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.PTIError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.PTITimeoutError();
-                case "unknown":
-                    throw new errors.PTIError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
      * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
      *
      * @param {PTI.AssessTransactionRequest} request
@@ -407,6 +255,158 @@ class TransactionAssessment {
             });
             if (_response.ok) {
                 return serializers.TransactionAssessStatusObject.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError();
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * @param {PTI.TransactionInformationAssessmentRequest} request
+     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactionAssessment.transactionInformationAssessment({
+     *         ptiRequestId: "x-pti-request-id",
+     *         ptiScenarioId: "x-pti-scenario-id",
+     *         body: {
+     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
+     *             transactionTotal: {
+     *                 fee: {
+     *                     amount: 10,
+     *                     currency: "USD"
+     *                 },
+     *                 total: {
+     *                     amount: 100,
+     *                     currency: "USD"
+     *                 },
+     *                 subtotal: {
+     *                     amount: 90,
+     *                     currency: "USD"
+     *                 }
+     *             },
+     *             usdValue: 100,
+     *             amount: 100,
+     *             date: "2024-12-13T18:46:40.666+0000",
+     *             initiator: {
+     *                 type: "BUSINESS",
+     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
+     *                 sourceOfFunds: "Creator earnings",
+     *                 addresses: [{
+     *                         streetAddress: "1, main street",
+     *                         city: "New Hampshire",
+     *                         postalCode: "10005",
+     *                         stateCode: "US-NH",
+     *                         country: "US",
+     *                         default: true
+     *                     }],
+     *                 emails: [{
+     *                         default: true,
+     *                         address: "johnsmith@test.com"
+     *                     }],
+     *                 mainRepresentative: {
+     *                     ownershipPercent: 1,
+     *                     person: {
+     *                         id: "id"
+     *                     }
+     *                 },
+     *                 phones: [{
+     *                         default: true,
+     *                         number: "12345678901",
+     *                         type: "WORK"
+     *                     }]
+     *             },
+     *             type: PTI.TransactionTypeEnum.Deposit,
+     *             sourceMethod: {
+     *                 paymentMethodType: "CRYPTO",
+     *                 billingEmail: "user@example.com",
+     *                 paymentInformation: {
+     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
+     *                     walletAddress: "walletAddress",
+     *                     currency: "currency",
+     *                     network: "network"
+     *                 }
+     *             },
+     *             destinationMethod: {
+     *                 paymentMethodType: "CRYPTO",
+     *                 billingEmail: "user@example.com",
+     *                 paymentInformation: {
+     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
+     *                     walletAddress: "walletAddress",
+     *                     currency: "currency",
+     *                     network: "network"
+     *                 }
+     *             }
+     *         }
+     *     })
+     */
+    transactionInformationAssessment(request, requestOptions) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/validations"),
+                method: "POST",
+                headers: {
+                    Authorization: yield this._getAuthorizationHeader(),
+                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? yield core.Supplier.get(this._options.ptiClientId)
+                        : undefined,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                    "x-pti-request-id": ptiRequestId,
+                    "x-pti-scenario-id": ptiScenarioId,
+                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
+                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
+                },
+                contentType: "application/json",
+                body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.OneOfAssessmentValidationError.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

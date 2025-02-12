@@ -77,7 +77,7 @@ public class UsersClient {
         .url(httpUrl.build())
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
       Request okhttpRequest = _requestBuilder.build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -126,6 +126,7 @@ public class UsersClient {
         .method("POST", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -176,6 +177,7 @@ public class UsersClient {
         .method("PUT", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -227,6 +229,7 @@ public class UsersClient {
         .method("PATCH", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -277,6 +280,7 @@ public class UsersClient {
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -332,7 +336,7 @@ public class UsersClient {
         .url(httpUrl)
         .method("POST", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
       _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
       _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
       if (request.getPtiSessionId().isPresent()) {
@@ -388,6 +392,7 @@ public class UsersClient {
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -414,6 +419,10 @@ public class UsersClient {
       catch (IOException e) {
         throw new PTIClientException("Network error executing HTTP request", e);
       }
+    }
+
+    public void uploadDocument(String userId, Optional<File> document) {
+      uploadDocument(userId,document,UploadDocumentRequest.builder().build());
     }
 
     public void uploadDocument(String userId, Optional<File> document,
@@ -449,7 +458,9 @@ public class UsersClient {
       Request.Builder _requestBuilder = new Request.Builder()
         .url(httpUrl)
         .method("POST", body.build())
-        .headers(Headers.of(clientOptions.headers(requestOptions)));
+        .headers(Headers.of(clientOptions.headers(requestOptions)))
+        .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json");
       Request okhttpRequest = _requestBuilder.build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {

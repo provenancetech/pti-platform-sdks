@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonDeserialize(
     builder = BuyTransaction.Builder.class
 )
-public final class BuyTransaction implements ITransactionType {
+public final class BuyTransaction implements ITransactionType, ITransaction {
   private final TransactionTypeEnum type;
 
   private final Optional<String> transactionGroupId;

@@ -133,7 +133,7 @@ public final class OneOfTransactionSubTypes {
     }
 
     @Override
-    public OneOfTransactionSubTypes deserialize(JsonParser p, DeserializationContext ctxt) throws
+    public OneOfTransactionSubTypes deserialize(JsonParser p, DeserializationContext context) throws
         IOException {
       Object value = p.readValueAs(Object.class);
       try {

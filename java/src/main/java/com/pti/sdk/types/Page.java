@@ -100,7 +100,6 @@ public final class Page implements IPage {
   }
 
   @JsonProperty("sort")
-  @Override
   public Optional<PageSort> getSort() {
     return sort;
   }

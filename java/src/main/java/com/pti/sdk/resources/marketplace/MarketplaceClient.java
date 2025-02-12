@@ -113,7 +113,7 @@ public class MarketplaceClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -219,7 +219,7 @@ public class MarketplaceClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -277,6 +277,7 @@ public class MarketplaceClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -319,6 +320,7 @@ public class MarketplaceClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -348,6 +350,10 @@ public class MarketplaceClient {
     }
   }
 
+  public ObjectReferencePage getDigitalItems(String userId) {
+    return getDigitalItems(userId,GetDigitalItemsRequest.builder().build());
+  }
+
   public ObjectReferencePage getDigitalItems(String userId, GetDigitalItemsRequest request) {
     return getDigitalItems(userId,request,null);
   }
@@ -371,7 +377,7 @@ public class MarketplaceClient {
         .url(httpUrl.build())
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
       Request okhttpRequest = _requestBuilder.build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -424,6 +430,7 @@ public class MarketplaceClient {
         .method("POST", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {

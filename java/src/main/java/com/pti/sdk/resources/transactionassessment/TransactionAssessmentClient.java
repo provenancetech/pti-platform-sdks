@@ -44,65 +44,6 @@ public class TransactionAssessmentClient {
     this.clientOptions = clientOptions;
   }
 
-  public OneOfAssessmentValidationError transactionInformationAssessment(
-      TransactionInformationAssessmentRequest request) {
-    return transactionInformationAssessment(request,null);
-  }
-
-  public OneOfAssessmentValidationError transactionInformationAssessment(
-      TransactionInformationAssessmentRequest request, RequestOptions requestOptions) {
-    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
-
-      .addPathSegments("transactions/validations")
-      .build();
-    RequestBody body;
-    try {
-      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request.getBody()), MediaTypes.APPLICATION_JSON);
-    }
-    catch(Exception e) {
-      throw new RuntimeException(e);
-    }
-    Request.Builder _requestBuilder = new Request.Builder()
-      .url(httpUrl)
-      .method("POST", body)
-      .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
-    _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
-    if (request.getPtiSessionId().isPresent()) {
-      _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
-    }
-    if (request.getPtiDisableWebhook().isPresent()) {
-      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
-    }
-    Request okhttpRequest = _requestBuilder.build();
-    OkHttpClient client = clientOptions.httpClient();
-    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-      client = clientOptions.httpClientWithTimeout(requestOptions);
-    }
-    try (Response response = client.newCall(okhttpRequest).execute()) {
-      ResponseBody responseBody = response.body();
-      if (response.isSuccessful()) {
-        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), OneOfAssessmentValidationError.class);
-      }
-      String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-      try {
-        switch (response.code()) {
-          case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
-          case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-          case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        }
-      }
-      catch (JsonProcessingException ignored) {
-        // unable to map error response, throwing generic error
-      }
-      throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-    }
-    catch (IOException e) {
-      throw new PTIClientException("Network error executing HTTP request", e);
-    }
-  }
-
   /**
    * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
    */
@@ -130,7 +71,7 @@ public class TransactionAssessmentClient {
       .url(httpUrl)
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json");
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
     _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
     if (request.getPtiSessionId().isPresent()) {
@@ -186,6 +127,7 @@ public class TransactionAssessmentClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -195,6 +137,65 @@ public class TransactionAssessmentClient {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
         return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), TransactionAssessStatusObject.class);
+      }
+      String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+      try {
+        switch (response.code()) {
+          case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
+          case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+        }
+      }
+      catch (JsonProcessingException ignored) {
+        // unable to map error response, throwing generic error
+      }
+      throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+    }
+    catch (IOException e) {
+      throw new PTIClientException("Network error executing HTTP request", e);
+    }
+  }
+
+  public OneOfAssessmentValidationError transactionInformationAssessment(
+      TransactionInformationAssessmentRequest request) {
+    return transactionInformationAssessment(request,null);
+  }
+
+  public OneOfAssessmentValidationError transactionInformationAssessment(
+      TransactionInformationAssessmentRequest request, RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("transactions/validations")
+      .build();
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request.getBody()), MediaTypes.APPLICATION_JSON);
+    }
+    catch(Exception e) {
+      throw new RuntimeException(e);
+    }
+    Request.Builder _requestBuilder = new Request.Builder()
+      .url(httpUrl)
+      .method("POST", body)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
+    _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
+    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiSessionId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
+    }
+    if (request.getPtiDisableWebhook().isPresent()) {
+      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
+    }
+    Request okhttpRequest = _requestBuilder.build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    try (Response response = client.newCall(okhttpRequest).execute()) {
+      ResponseBody responseBody = response.body();
+      if (response.isSuccessful()) {
+        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), OneOfAssessmentValidationError.class);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       try {

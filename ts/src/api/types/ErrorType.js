@@ -48,4 +48,8 @@ exports.ErrorType = {
     FundingFromCryptoOnly: "FUNDING_FROM_CRYPTO_ONLY",
     WithdrawalFromWalletToCrypto: "WITHDRAWAL_FROM_WALLET_TO_CRYPTO",
     SourceWalletCurrencyDifferentThanDestinationTokenCurrency: "SOURCE_WALLET_CURRENCY_DIFFERENT_THAN_DESTINATION_TOKEN_CURRENCY",
+    FundingFromAchOnly: "FUNDING_FROM_ACH_ONLY",
+    WithdrawingFromWalletOnly: "WITHDRAWING_FROM_WALLET_ONLY",
+    WithdrawingToAchWireOnly: "WITHDRAWING_TO_ACH_WIRE_ONLY",
+    FundingToWalletOnly: "FUNDING_TO_WALLET_ONLY",
 };

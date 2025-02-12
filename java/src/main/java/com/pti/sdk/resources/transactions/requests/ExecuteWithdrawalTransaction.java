@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import com.pti.sdk.types.ITransaction;
 import com.pti.sdk.types.ITransactionType;
 import com.pti.sdk.types.OneOfExternalPaymentMethod;
 import com.pti.sdk.types.OneOfUserSubTypes;
@@ -33,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonDeserialize(
     builder = ExecuteWithdrawalTransaction.Builder.class
 )
-public final class ExecuteWithdrawalTransaction implements ITransactionType {
+public final class ExecuteWithdrawalTransaction implements ITransactionType, ITransaction {
   private final TransactionTypeEnum type;
 
   private final Optional<String> transactionGroupId;

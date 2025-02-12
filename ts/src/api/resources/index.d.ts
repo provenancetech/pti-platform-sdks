@@ -1,14 +1,14 @@
 export * as transactions from "./transactions";
 export * from "./transactions/types";
 export * as authentication from "./authentication";
-export * as wallets from "./wallets";
 export * as users from "./users";
+export * as wallets from "./wallets";
 export * as paymentInformation from "./paymentInformation";
 export * as transactionAssessment from "./transactionAssessment";
 export * as marketplace from "./marketplace";
 export * from "./authentication/client/requests";
-export * from "./wallets/client/requests";
 export * from "./users/client/requests";
+export * from "./wallets/client/requests";
 export * from "./paymentInformation/client/requests";
 export * from "./transactionAssessment/client/requests";
 export * from "./transactions/client/requests";

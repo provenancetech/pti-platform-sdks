@@ -42,6 +42,13 @@ public class PaymentInformationClient {
   /**
    * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
    */
+  public List<OneOfExternalPaymentInformation> getUserPaymentInformations(String userId) {
+    return getUserPaymentInformations(userId,GetUserPaymentInformationsRequest.builder().build());
+  }
+
+  /**
+   * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
+   */
   public List<OneOfExternalPaymentInformation> getUserPaymentInformations(String userId,
       GetUserPaymentInformationsRequest request) {
     return getUserPaymentInformations(userId,request,null);
@@ -63,7 +70,7 @@ public class PaymentInformationClient {
         .url(httpUrl.build())
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
       Request okhttpRequest = _requestBuilder.build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -123,6 +130,7 @@ public class PaymentInformationClient {
         .method("POST", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -177,6 +185,7 @@ public class PaymentInformationClient {
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -228,6 +237,7 @@ public class PaymentInformationClient {
         .url(httpUrl)
         .method("DELETE", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -289,6 +299,7 @@ public class PaymentInformationClient {
         .method("PATCH", body)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
         .addHeader("Content-Type", "application/json")
+        .addHeader("Accept", "application/json")
         .build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {

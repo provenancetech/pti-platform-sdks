@@ -85,7 +85,7 @@ public final class OneOfPiiSubTypes {
     }
 
     @Override
-    public OneOfPiiSubTypes deserialize(JsonParser p, DeserializationContext ctxt) throws
+    public OneOfPiiSubTypes deserialize(JsonParser p, DeserializationContext context) throws
         IOException {
       Object value = p.readValueAs(Object.class);
       try {
