@@ -36,7 +36,7 @@ To use this link in your projects, navigate to your project directory and reuse 
 
 ```shell
 cd <your-project-directory>
-yarn link pti-ts-sdk
+yarn link "@provenancetech/pti-ts-sdk"
 ```
 
 
