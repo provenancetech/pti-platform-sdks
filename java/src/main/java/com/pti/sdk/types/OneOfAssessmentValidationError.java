@@ -93,7 +93,7 @@ public final class OneOfAssessmentValidationError {
     }
 
     @Override
-    public OneOfAssessmentValidationError deserialize(JsonParser p, DeserializationContext ctxt)
+    public OneOfAssessmentValidationError deserialize(JsonParser p, DeserializationContext context)
         throws IOException {
       Object value = p.readValueAs(Object.class);
       try {

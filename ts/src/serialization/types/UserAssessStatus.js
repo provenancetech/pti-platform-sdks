@@ -28,4 +28,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAssessStatus = void 0;
 const core = __importStar(require("../../core"));
-exports.UserAssessStatus = core.serialization.enum_(["PENDING", "ERROR", "UNDER_REVIEW", "REQUESTED_MORE_INFORMATION", "ACCEPTED", "REFUSED"]);
+exports.UserAssessStatus = core.serialization.enum_([
+    "PENDING",
+    "ERROR",
+    "UNDER_REVIEW",
+    "REQUESTED_MORE_INFORMATION",
+    "ACCEPTED",
+    "REFUSED",
+    "INVALID",
+]);

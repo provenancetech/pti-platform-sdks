@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
 import com.pti.sdk.types.DigitalItem;
 import com.pti.sdk.types.FeeRecipient;
+import com.pti.sdk.types.ITransaction;
 import com.pti.sdk.types.ITransactionType;
 import com.pti.sdk.types.OneOfPaymentMethod;
 import com.pti.sdk.types.OneOfUserSubTypes;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonDeserialize(
     builder = ExecuteSellTransaction.Builder.class
 )
-public final class ExecuteSellTransaction implements ITransactionType {
+public final class ExecuteSellTransaction implements ITransactionType, ITransaction {
   private final TransactionTypeEnum type;
 
   private final Optional<String> transactionGroupId;

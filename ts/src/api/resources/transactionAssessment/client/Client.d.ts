@@ -26,90 +26,6 @@ export declare class TransactionAssessment {
     protected readonly _options: TransactionAssessment.Options;
     constructor(_options: TransactionAssessment.Options);
     /**
-     * @param {PTI.TransactionInformationAssessmentRequest} request
-     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link PTI.UnauthorizedError}
-     * @throws {@link PTI.NotFoundError}
-     * @throws {@link PTI.TooManyRequestsError}
-     *
-     * @example
-     *     await client.transactionAssessment.transactionInformationAssessment({
-     *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
-     *         body: {
-     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
-     *             transactionTotal: {
-     *                 fee: {
-     *                     amount: 10,
-     *                     currency: "USD"
-     *                 },
-     *                 total: {
-     *                     amount: 100,
-     *                     currency: "USD"
-     *                 },
-     *                 subtotal: {
-     *                     amount: 90,
-     *                     currency: "USD"
-     *                 }
-     *             },
-     *             usdValue: 100,
-     *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
-     *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
-     *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
-     *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             },
-     *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
-     *             }
-     *         }
-     *     })
-     */
-    transactionInformationAssessment(request: PTI.TransactionInformationAssessmentRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.OneOfAssessmentValidationError>;
-    /**
      * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
      *
      * @param {PTI.AssessTransactionRequest} request
@@ -210,5 +126,89 @@ export declare class TransactionAssessment {
      *     await client.transactionAssessment.getTransactionAssess("requestId")
      */
     getTransactionAssess(requestId: PTI.UuidLikeStr, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.TransactionAssessStatusObject>;
+    /**
+     * @param {PTI.TransactionInformationAssessmentRequest} request
+     * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactionAssessment.transactionInformationAssessment({
+     *         ptiRequestId: "x-pti-request-id",
+     *         ptiScenarioId: "x-pti-scenario-id",
+     *         body: {
+     *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
+     *             transactionTotal: {
+     *                 fee: {
+     *                     amount: 10,
+     *                     currency: "USD"
+     *                 },
+     *                 total: {
+     *                     amount: 100,
+     *                     currency: "USD"
+     *                 },
+     *                 subtotal: {
+     *                     amount: 90,
+     *                     currency: "USD"
+     *                 }
+     *             },
+     *             usdValue: 100,
+     *             amount: 100,
+     *             date: "2024-12-13T18:46:40.666+0000",
+     *             initiator: {
+     *                 type: "BUSINESS",
+     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
+     *                 sourceOfFunds: "Creator earnings",
+     *                 addresses: [{
+     *                         streetAddress: "1, main street",
+     *                         city: "New Hampshire",
+     *                         postalCode: "10005",
+     *                         stateCode: "US-NH",
+     *                         country: "US",
+     *                         default: true
+     *                     }],
+     *                 emails: [{
+     *                         default: true,
+     *                         address: "johnsmith@test.com"
+     *                     }],
+     *                 mainRepresentative: {
+     *                     ownershipPercent: 1,
+     *                     person: {
+     *                         id: "id"
+     *                     }
+     *                 },
+     *                 phones: [{
+     *                         default: true,
+     *                         number: "12345678901",
+     *                         type: "WORK"
+     *                     }]
+     *             },
+     *             type: PTI.TransactionTypeEnum.Deposit,
+     *             sourceMethod: {
+     *                 paymentMethodType: "CRYPTO",
+     *                 billingEmail: "user@example.com",
+     *                 paymentInformation: {
+     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
+     *                     walletAddress: "walletAddress",
+     *                     currency: "currency",
+     *                     network: "network"
+     *                 }
+     *             },
+     *             destinationMethod: {
+     *                 paymentMethodType: "CRYPTO",
+     *                 billingEmail: "user@example.com",
+     *                 paymentInformation: {
+     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
+     *                     walletAddress: "walletAddress",
+     *                     currency: "currency",
+     *                     network: "network"
+     *                 }
+     *             }
+     *         }
+     *     })
+     */
+    transactionInformationAssessment(request: PTI.TransactionInformationAssessmentRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.OneOfAssessmentValidationError>;
     protected _getAuthorizationHeader(): Promise<string>;
 }

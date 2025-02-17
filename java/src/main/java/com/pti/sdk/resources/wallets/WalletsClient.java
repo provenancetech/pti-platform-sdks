@@ -60,6 +60,7 @@ public class WalletsClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -103,6 +104,7 @@ public class WalletsClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -154,6 +156,7 @@ public class WalletsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -200,6 +203,7 @@ public class WalletsClient {
       .method("GET", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -243,6 +247,7 @@ public class WalletsClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -272,6 +277,10 @@ public class WalletsClient {
     }
   }
 
+  public void simulateWalletPayment(String userId, String walletId) {
+    simulateWalletPayment(userId,walletId,SimulatePaymentRequest.builder().build());
+  }
+
   public void simulateWalletPayment(String userId, String walletId,
       SimulatePaymentRequest request) {
     simulateWalletPayment(userId,walletId,request,null);
@@ -299,6 +308,7 @@ public class WalletsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -328,6 +338,10 @@ public class WalletsClient {
     }
   }
 
+  public Wallet createWalletDepositAddress(String userId, String walletId) {
+    return createWalletDepositAddress(userId,walletId,DepositAddressRequest.builder().build());
+  }
+
   public Wallet createWalletDepositAddress(String userId, String walletId,
       DepositAddressRequest request) {
     return createWalletDepositAddress(userId,walletId,request,null);
@@ -355,6 +369,7 @@ public class WalletsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -411,6 +426,7 @@ public class WalletsClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -440,6 +456,10 @@ public class WalletsClient {
     }
   }
 
+  public WalletHistoryPage getWalletHistory(String userId, String walletId) {
+    return getWalletHistory(userId,walletId,GetWalletHistoryRequest.builder().build());
+  }
+
   public WalletHistoryPage getWalletHistory(String userId, String walletId,
       GetWalletHistoryRequest request) {
     return getWalletHistory(userId,walletId,request,null);
@@ -463,7 +483,7 @@ public class WalletsClient {
         .url(httpUrl.build())
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json");
+        .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
       Request okhttpRequest = _requestBuilder.build();
       OkHttpClient client = clientOptions.httpClient();
       if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
