@@ -11,6 +11,7 @@ export declare namespace BankAccountPaymentInformation {
     interface Raw extends ExternalPaymentInformation.Raw {
         bankAccountNumber?: string | null;
         bankAccountType?: BankAccountPaymentInformationBankAccountType.Raw | null;
+        accountHolderName?: string | null;
         bankSwiftCode?: string | null;
         bankRoutingNumber?: string | null;
         bankRoutingCheckDigit?: string | null;

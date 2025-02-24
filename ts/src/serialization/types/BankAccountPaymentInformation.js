@@ -34,6 +34,7 @@ exports.BankAccountPaymentInformation = core.serialization
     .object({
     bankAccountNumber: core.serialization.string().optional(),
     bankAccountType: BankAccountPaymentInformationBankAccountType_1.BankAccountPaymentInformationBankAccountType.optional(),
+    accountHolderName: core.serialization.string().optional(),
     bankSwiftCode: core.serialization.string().optional(),
     bankRoutingNumber: core.serialization.string().optional(),
     bankRoutingCheckDigit: core.serialization.string().optional(),
