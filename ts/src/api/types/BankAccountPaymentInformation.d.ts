@@ -7,6 +7,8 @@ export interface BankAccountPaymentInformation extends PTI.ExternalPaymentInform
     bankAccountNumber?: string;
     /** Type of bank account, Required for ACH and WIRE */
     bankAccountType?: PTI.BankAccountPaymentInformationBankAccountType;
+    /** Full name of the holder of the bank account. Required on creation. */
+    accountHolderName?: string;
     /** Valid bank swift code, Required for International WIRE */
     bankSwiftCode?: string;
     /** Valid bank routing number, between 7 and 12 digits, Required for ACH and WIRE */

@@ -31,6 +31,8 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
   private final Optional<BankAccountPaymentInformationBankAccountType> bankAccountType;
 
+  private final Optional<String> accountHolderName;
+
   private final Optional<String> bankSwiftCode;
 
   private final Optional<String> bankRoutingNumber;
@@ -43,12 +45,13 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
   private BankAccountPaymentInformation(Optional<String> id, Optional<String> bankAccountNumber,
       Optional<BankAccountPaymentInformationBankAccountType> bankAccountType,
-      Optional<String> bankSwiftCode, Optional<String> bankRoutingNumber,
-      Optional<String> bankRoutingCheckDigit, Optional<String> accountBankName,
-      Map<String, Object> additionalProperties) {
+      Optional<String> accountHolderName, Optional<String> bankSwiftCode,
+      Optional<String> bankRoutingNumber, Optional<String> bankRoutingCheckDigit,
+      Optional<String> accountBankName, Map<String, Object> additionalProperties) {
     this.id = id;
     this.bankAccountNumber = bankAccountNumber;
     this.bankAccountType = bankAccountType;
+    this.accountHolderName = accountHolderName;
     this.bankSwiftCode = bankSwiftCode;
     this.bankRoutingNumber = bankRoutingNumber;
     this.bankRoutingCheckDigit = bankRoutingCheckDigit;
@@ -79,6 +82,14 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
   @JsonProperty("bankAccountType")
   public Optional<BankAccountPaymentInformationBankAccountType> getBankAccountType() {
     return bankAccountType;
+  }
+
+  /**
+   * @return Full name of the holder of the bank account. Required on creation.
+   */
+  @JsonProperty("accountHolderName")
+  public Optional<String> getAccountHolderName() {
+    return accountHolderName;
   }
 
   /**
@@ -125,12 +136,12 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
   }
 
   private boolean equalTo(BankAccountPaymentInformation other) {
-    return id.equals(other.id) && bankAccountNumber.equals(other.bankAccountNumber) && bankAccountType.equals(other.bankAccountType) && bankSwiftCode.equals(other.bankSwiftCode) && bankRoutingNumber.equals(other.bankRoutingNumber) && bankRoutingCheckDigit.equals(other.bankRoutingCheckDigit) && accountBankName.equals(other.accountBankName);
+    return id.equals(other.id) && bankAccountNumber.equals(other.bankAccountNumber) && bankAccountType.equals(other.bankAccountType) && accountHolderName.equals(other.accountHolderName) && bankSwiftCode.equals(other.bankSwiftCode) && bankRoutingNumber.equals(other.bankRoutingNumber) && bankRoutingCheckDigit.equals(other.bankRoutingCheckDigit) && accountBankName.equals(other.accountBankName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.id, this.bankAccountNumber, this.bankAccountType, this.bankSwiftCode, this.bankRoutingNumber, this.bankRoutingCheckDigit, this.accountBankName);
+    return Objects.hash(this.id, this.bankAccountNumber, this.bankAccountType, this.accountHolderName, this.bankSwiftCode, this.bankRoutingNumber, this.bankRoutingCheckDigit, this.accountBankName);
   }
 
   @Override
@@ -152,6 +163,8 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
     private Optional<BankAccountPaymentInformationBankAccountType> bankAccountType = Optional.empty();
 
+    private Optional<String> accountHolderName = Optional.empty();
+
     private Optional<String> bankSwiftCode = Optional.empty();
 
     private Optional<String> bankRoutingNumber = Optional.empty();
@@ -170,6 +183,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
       id(other.getId());
       bankAccountNumber(other.getBankAccountNumber());
       bankAccountType(other.getBankAccountType());
+      accountHolderName(other.getAccountHolderName());
       bankSwiftCode(other.getBankSwiftCode());
       bankRoutingNumber(other.getBankRoutingNumber());
       bankRoutingCheckDigit(other.getBankRoutingCheckDigit());
@@ -217,6 +231,20 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
     public Builder bankAccountType(BankAccountPaymentInformationBankAccountType bankAccountType) {
       this.bankAccountType = Optional.ofNullable(bankAccountType);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "accountHolderName",
+        nulls = Nulls.SKIP
+    )
+    public Builder accountHolderName(Optional<String> accountHolderName) {
+      this.accountHolderName = accountHolderName;
+      return this;
+    }
+
+    public Builder accountHolderName(String accountHolderName) {
+      this.accountHolderName = Optional.ofNullable(accountHolderName);
       return this;
     }
 
@@ -277,7 +305,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
     }
 
     public BankAccountPaymentInformation build() {
-      return new BankAccountPaymentInformation(id, bankAccountNumber, bankAccountType, bankSwiftCode, bankRoutingNumber, bankRoutingCheckDigit, accountBankName, additionalProperties);
+      return new BankAccountPaymentInformation(id, bankAccountNumber, bankAccountType, accountHolderName, bankSwiftCode, bankRoutingNumber, bankRoutingCheckDigit, accountBankName, additionalProperties);
     }
   }
 }
