@@ -27,7 +27,7 @@ import java.util.Optional;
     builder = Wallet.Builder.class
 )
 public final class Wallet {
-  private final Optional<String> walletId;
+  private final Optional<String> id;
 
   private final Optional<String> label;
 
@@ -53,13 +53,13 @@ public final class Wallet {
 
   private final Map<String, Object> additionalProperties;
 
-  private Wallet(Optional<String> walletId, Optional<String> label, Optional<CurrencyEnum> currency,
+  private Wallet(Optional<String> id, Optional<String> label, Optional<CurrencyEnum> currency,
       Optional<BlockChainEnum> network, Optional<Double> availableBalance,
       Optional<Double> lockedBalance, Optional<Double> pendingBalance,
       Optional<Double> totalBalance, Optional<Map<String, Object>> depositInstruction,
       Optional<String> createDateTime, Optional<Boolean> multiWalletAddress, Optional<String> type,
       Map<String, Object> additionalProperties) {
-    this.walletId = walletId;
+    this.id = id;
     this.label = label;
     this.currency = currency;
     this.network = network;
@@ -74,9 +74,9 @@ public final class Wallet {
     this.additionalProperties = additionalProperties;
   }
 
-  @JsonProperty("walletId")
-  public Optional<String> getWalletId() {
-    return walletId;
+  @JsonProperty("id")
+  public Optional<String> getId() {
+    return id;
   }
 
   @JsonProperty("label")
@@ -149,12 +149,12 @@ public final class Wallet {
   }
 
   private boolean equalTo(Wallet other) {
-    return walletId.equals(other.walletId) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
+    return id.equals(other.id) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
+    return Objects.hash(this.id, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
   }
 
   @Override
@@ -170,7 +170,7 @@ public final class Wallet {
       ignoreUnknown = true
   )
   public static final class Builder {
-    private Optional<String> walletId = Optional.empty();
+    private Optional<String> id = Optional.empty();
 
     private Optional<String> label = Optional.empty();
 
@@ -201,7 +201,7 @@ public final class Wallet {
     }
 
     public Builder from(Wallet other) {
-      walletId(other.getWalletId());
+      id(other.getId());
       label(other.getLabel());
       currency(other.getCurrency());
       network(other.getNetwork());
@@ -217,16 +217,16 @@ public final class Wallet {
     }
 
     @JsonSetter(
-        value = "walletId",
+        value = "id",
         nulls = Nulls.SKIP
     )
-    public Builder walletId(Optional<String> walletId) {
-      this.walletId = walletId;
+    public Builder id(Optional<String> id) {
+      this.id = id;
       return this;
     }
 
-    public Builder walletId(String walletId) {
-      this.walletId = Optional.ofNullable(walletId);
+    public Builder id(String id) {
+      this.id = Optional.ofNullable(id);
       return this;
     }
 
@@ -385,7 +385,7 @@ public final class Wallet {
     }
 
     public Wallet build() {
-      return new Wallet(walletId, label, currency, network, availableBalance, lockedBalance, pendingBalance, totalBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
+      return new Wallet(id, label, currency, network, availableBalance, lockedBalance, pendingBalance, totalBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
     }
   }
 }

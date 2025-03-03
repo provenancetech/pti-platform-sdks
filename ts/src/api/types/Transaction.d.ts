@@ -6,6 +6,8 @@ import * as PTI from "../index";
  * The `transactionTotal` field will be assumed to be all zeroes if not provided. If no currency has been provided `USD` will be used. If no amount has been provided `0` will be used
  */
 export interface Transaction {
+    /** The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header. */
+    id?: string;
     transactionGroupId?: PTI.UuidLikeStrTransactionGroup;
     subClientId?: PTI.UuidLikeStrSubClient;
     transactionTotal?: PTI.Total;

@@ -51,7 +51,10 @@ import * as PTI from "../../../../index";
  *             }
  *         },
  *         destinationMethod: {
- *             billingEmail: "user@example.com"
+ *             billingEmail: "user@example.com",
+ *             paymentInformation: {
+ *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
+ *             }
  *         }
  *     }
  */

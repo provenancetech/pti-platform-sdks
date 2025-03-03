@@ -31,7 +31,7 @@ import * as PTI from "../../../../index";
  *         },
  *         sourceMethod: {
  *             paymentInformation: {
- *                 walletId: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
+ *                 id: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
  *                 type: "WALLET"
  *             }
  *         }

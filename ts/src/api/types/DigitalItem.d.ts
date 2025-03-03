@@ -3,6 +3,7 @@
  */
 import * as PTI from "../index";
 export interface DigitalItem {
+    id?: PTI.UuidLikeStr;
     /** Reference information about the item, for example could be the contract address of an NFT item. */
     itemReference: string;
     /** The name of the item, for example: ShaggyDog#2 */

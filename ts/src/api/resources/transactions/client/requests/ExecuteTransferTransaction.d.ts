@@ -23,13 +23,13 @@ import * as PTI from "../../../../index";
  *         type: PTI.TransactionTypeEnum.Transfer,
  *         sourceTransferMethod: {
  *             paymentInformation: {
- *                 walletId: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
+ *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
  *                 type: "WALLET"
  *             }
  *         },
  *         destinationTransferMethod: {
  *             paymentInformation: {
- *                 walletId: "70cd9757-f288-41e5-8506-5c38b7c819e1",
+ *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
  *                 type: "WALLET"
  *             }
  *         },

@@ -33,7 +33,7 @@ import * as PTI from "../../../../index";
  *         },
  *         destinationMethod: {
  *             paymentInformation: {
- *                 walletId: "MyBTCWallet",
+ *                 id: "MyBTCWallet",
  *                 type: "WALLET"
  *             }
  *         }

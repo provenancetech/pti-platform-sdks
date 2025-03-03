@@ -33,6 +33,7 @@ const UuidLikeStrSubClient_1 = require("./UuidLikeStrSubClient");
 const Total_1 = require("./Total");
 const OneOfUserSubTypes_1 = require("./OneOfUserSubTypes");
 exports.Transaction = core.serialization.object({
+    id: core.serialization.string().optional(),
     transactionGroupId: UuidLikeStrTransactionGroup_1.UuidLikeStrTransactionGroup.optional(),
     subClientId: UuidLikeStrSubClient_1.UuidLikeStrSubClient.optional(),
     transactionTotal: Total_1.Total.optional(),

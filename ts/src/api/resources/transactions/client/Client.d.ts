@@ -164,7 +164,10 @@ export declare class Transactions {
      *             }
      *         },
      *         destinationMethod: {
-     *             billingEmail: "user@example.com"
+     *             billingEmail: "user@example.com",
+     *             paymentInformation: {
+     *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
+     *             }
      *         }
      *     })
      */
@@ -210,7 +213,7 @@ export declare class Transactions {
      *         },
      *         sourceMethod: {
      *             paymentInformation: {
-     *                 walletId: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
+     *                 id: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
      *                 type: "WALLET"
      *             }
      *         }
@@ -276,7 +279,7 @@ export declare class Transactions {
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
-     *                 walletId: "e13c3242-57d3-473f-b98c-eb2768e4549c",
+     *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
      *                 type: "WALLET"
      *             }
      *         }
@@ -316,13 +319,13 @@ export declare class Transactions {
      *         type: PTI.TransactionTypeEnum.Transfer,
      *         sourceTransferMethod: {
      *             paymentInformation: {
-     *                 walletId: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
+     *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
      *                 type: "WALLET"
      *             }
      *         },
      *         destinationTransferMethod: {
      *             paymentInformation: {
-     *                 walletId: "70cd9757-f288-41e5-8506-5c38b7c819e1",
+     *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
      *                 type: "WALLET"
      *             }
      *         },
@@ -372,13 +375,13 @@ export declare class Transactions {
      *         type: PTI.TransactionTypeEnum.Trade,
      *         sourceMethod: {
      *             paymentInformation: {
-     *                 walletId: "MySOLWallet",
+     *                 id: "MySOLWallet",
      *                 type: "WALLET"
      *             }
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
-     *                 walletId: "MyUSDWallet",
+     *                 id: "MyUSDWallet",
      *                 type: "WALLET"
      *             }
      *         }
@@ -428,7 +431,7 @@ export declare class Transactions {
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
-     *                 walletId: "MyBTCWallet",
+     *                 id: "MyBTCWallet",
      *                 type: "WALLET"
      *             }
      *         }

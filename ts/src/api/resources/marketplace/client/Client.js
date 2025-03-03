@@ -100,6 +100,7 @@ class Marketplace {
      *         sourceMethod: {
      *             paymentMethodType: "CRYPTO",
      *             paymentInformation: {
+     *                 id: "1de3e77b-e673-4e44-8b69-4931364c4e76",
      *                 walletAddress: "walletAddress",
      *                 currency: "currency",
      *                 network: "network"
@@ -243,6 +244,7 @@ class Marketplace {
      *         destinationMethod: {
      *             paymentMethodType: "CRYPTO",
      *             paymentInformation: {
+     *                 id: "c5b2cca7-a1ac-4aad-a461-be8903c695d9",
      *                 walletAddress: "walletAddress",
      *                 currency: "currency",
      *                 network: "network"

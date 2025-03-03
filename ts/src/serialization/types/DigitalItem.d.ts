@@ -4,10 +4,12 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
+import { UuidLikeStr } from "./UuidLikeStr";
 import { DigitalItemType } from "./DigitalItemType";
 export declare const DigitalItem: core.serialization.ObjectSchema<serializers.DigitalItem.Raw, PTI.DigitalItem>;
 export declare namespace DigitalItem {
     interface Raw {
+        id?: UuidLikeStr.Raw | null;
         itemReference: string;
         itemTitle: string;
         itemDescription: string;

@@ -4,7 +4,7 @@
 import * as PTI from "../index";
 export interface FeeRecipient {
     /** User ID of the Commission Recipient */
-    feeRecipientId: string;
+    id: string;
     walletId: string;
     currency: string;
     amount: number;
