@@ -36,6 +36,8 @@ import org.jetbrains.annotations.NotNull;
 public final class ExecuteTransferTransaction implements ITransactionType, ITransaction {
   private final TransactionTypeEnum type;
 
+  private final Optional<String> id;
+
   private final Optional<String> transactionGroupId;
 
   private final Optional<String> subClientId;
@@ -74,16 +76,17 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
 
   private final Map<String, Object> additionalProperties;
 
-  private ExecuteTransferTransaction(TransactionTypeEnum type, Optional<String> transactionGroupId,
-      Optional<String> subClientId, Optional<Total> transactionTotal, Optional<Double> usdValue,
-      double amount, String date, OneOfUserSubTypes initiator,
-      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
-      String ptiRequestId, String ptiScenarioId, Optional<String> ptiSessionId,
-      Optional<Boolean> ptiDisableWebhook, Optional<String> ptiProviderName,
-      WalletPaymentMethod sourceTransferMethod, WalletPaymentMethod destinationTransferMethod,
-      OneOfUserSubTypes destination, Optional<String> destinationClientId,
-      Map<String, Object> additionalProperties) {
+  private ExecuteTransferTransaction(TransactionTypeEnum type, Optional<String> id,
+      Optional<String> transactionGroupId, Optional<String> subClientId,
+      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
+      OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
+      Optional<Map<String, Object>> clientMeta, String ptiRequestId, String ptiScenarioId,
+      Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
+      Optional<String> ptiProviderName, WalletPaymentMethod sourceTransferMethod,
+      WalletPaymentMethod destinationTransferMethod, OneOfUserSubTypes destination,
+      Optional<String> destinationClientId, Map<String, Object> additionalProperties) {
     this.type = type;
+    this.id = id;
     this.transactionGroupId = transactionGroupId;
     this.subClientId = subClientId;
     this.transactionTotal = transactionTotal;
@@ -109,6 +112,15 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
   @Override
   public TransactionTypeEnum getType() {
     return type;
+  }
+
+  /**
+   * @return The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.
+   */
+  @JsonProperty("id")
+  @Override
+  public Optional<String> getId() {
+    return id;
   }
 
   @JsonProperty("transactionGroupId")
@@ -249,12 +261,12 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
   }
 
   private boolean equalTo(ExecuteTransferTransaction other) {
-    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.type, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
   }
 
   @Override
@@ -308,6 +320,10 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
 
   public interface _FinalStage {
     ExecuteTransferTransaction build();
+
+    _FinalStage id(Optional<String> id);
+
+    _FinalStage id(String id);
 
     _FinalStage transactionGroupId(Optional<String> transactionGroupId);
 
@@ -392,6 +408,8 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
 
     private Optional<String> transactionGroupId = Optional.empty();
 
+    private Optional<String> id = Optional.empty();
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -401,6 +419,7 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
     @Override
     public Builder from(ExecuteTransferTransaction other) {
       type(other.getType());
+      id(other.getId());
       transactionGroupId(other.getTransactionGroupId());
       subClientId(other.getSubClientId());
       transactionTotal(other.getTransactionTotal());
@@ -683,9 +702,29 @@ public final class ExecuteTransferTransaction implements ITransactionType, ITran
       return this;
     }
 
+    /**
+     * <p>The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @Override
+    public _FinalStage id(String id) {
+      this.id = Optional.ofNullable(id);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "id",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage id(Optional<String> id) {
+      this.id = id;
+      return this;
+    }
+
     @Override
     public ExecuteTransferTransaction build() {
-      return new ExecuteTransferTransaction(type, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
+      return new ExecuteTransferTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
     }
   }
 }

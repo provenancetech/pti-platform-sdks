@@ -8,7 +8,7 @@ import { FeeRecipientFeeRecipientType } from "./FeeRecipientFeeRecipientType";
 export declare const FeeRecipient: core.serialization.ObjectSchema<serializers.FeeRecipient.Raw, PTI.FeeRecipient>;
 export declare namespace FeeRecipient {
     interface Raw {
-        feeRecipientId: string;
+        id: string;
         walletId: string;
         currency: string;
         amount: number;

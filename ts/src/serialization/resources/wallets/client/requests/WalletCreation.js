@@ -31,7 +31,7 @@ const core = __importStar(require("../../../../../core"));
 const CurrencyEnum_1 = require("../../../../types/CurrencyEnum");
 const BlockChainEnum_1 = require("../../../../types/BlockChainEnum");
 exports.WalletCreation = core.serialization.object({
-    walletId: core.serialization.string().optional(),
+    id: core.serialization.string().optional(),
     currency: CurrencyEnum_1.CurrencyEnum,
     network: BlockChainEnum_1.BlockChainEnum.optional(),
     label: core.serialization.string().optional(),

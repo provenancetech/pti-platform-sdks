@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ITransaction {
+  Optional<String> getId();
+
   Optional<String> getTransactionGroupId();
 
   Optional<String> getSubClientId();

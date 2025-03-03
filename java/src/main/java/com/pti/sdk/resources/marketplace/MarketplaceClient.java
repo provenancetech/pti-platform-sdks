@@ -81,6 +81,9 @@ public class MarketplaceClient {
       properties.put("feeRecipients", request.getFeeRecipients());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -187,6 +190,9 @@ public class MarketplaceClient {
       properties.put("feeRecipients", request.getFeeRecipients());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }

@@ -23,13 +23,13 @@ import * as PTI from "../../../../index";
  *         type: PTI.TransactionTypeEnum.Trade,
  *         sourceMethod: {
  *             paymentInformation: {
- *                 walletId: "MySOLWallet",
+ *                 id: "MySOLWallet",
  *                 type: "WALLET"
  *             }
  *         },
  *         destinationMethod: {
  *             paymentInformation: {
- *                 walletId: "MyUSDWallet",
+ *                 id: "MyUSDWallet",
  *                 type: "WALLET"
  *             }
  *         }

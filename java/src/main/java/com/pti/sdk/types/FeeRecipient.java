@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
     builder = FeeRecipient.Builder.class
 )
 public final class FeeRecipient {
-  private final String feeRecipientId;
+  private final String id;
 
   private final String walletId;
 
@@ -36,9 +36,9 @@ public final class FeeRecipient {
 
   private final Map<String, Object> additionalProperties;
 
-  private FeeRecipient(String feeRecipientId, String walletId, String currency, double amount,
+  private FeeRecipient(String id, String walletId, String currency, double amount,
       FeeRecipientFeeRecipientType feeRecipientType, Map<String, Object> additionalProperties) {
-    this.feeRecipientId = feeRecipientId;
+    this.id = id;
     this.walletId = walletId;
     this.currency = currency;
     this.amount = amount;
@@ -49,9 +49,9 @@ public final class FeeRecipient {
   /**
    * @return User ID of the Commission Recipient
    */
-  @JsonProperty("feeRecipientId")
-  public String getFeeRecipientId() {
-    return feeRecipientId;
+  @JsonProperty("id")
+  public String getId() {
+    return id;
   }
 
   @JsonProperty("walletId")
@@ -86,12 +86,12 @@ public final class FeeRecipient {
   }
 
   private boolean equalTo(FeeRecipient other) {
-    return feeRecipientId.equals(other.feeRecipientId) && walletId.equals(other.walletId) && currency.equals(other.currency) && amount == other.amount && feeRecipientType.equals(other.feeRecipientType);
+    return id.equals(other.id) && walletId.equals(other.walletId) && currency.equals(other.currency) && amount == other.amount && feeRecipientType.equals(other.feeRecipientType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.feeRecipientId, this.walletId, this.currency, this.amount, this.feeRecipientType);
+    return Objects.hash(this.id, this.walletId, this.currency, this.amount, this.feeRecipientType);
   }
 
   @Override
@@ -99,12 +99,12 @@ public final class FeeRecipient {
     return ObjectMappers.stringify(this);
   }
 
-  public static FeeRecipientIdStage builder() {
+  public static IdStage builder() {
     return new Builder();
   }
 
-  public interface FeeRecipientIdStage {
-    WalletIdStage feeRecipientId(@NotNull String feeRecipientId);
+  public interface IdStage {
+    WalletIdStage id(@NotNull String id);
 
     Builder from(FeeRecipient other);
   }
@@ -132,8 +132,8 @@ public final class FeeRecipient {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements FeeRecipientIdStage, WalletIdStage, CurrencyStage, AmountStage, FeeRecipientTypeStage, _FinalStage {
-    private String feeRecipientId;
+  public static final class Builder implements IdStage, WalletIdStage, CurrencyStage, AmountStage, FeeRecipientTypeStage, _FinalStage {
+    private String id;
 
     private String walletId;
 
@@ -151,7 +151,7 @@ public final class FeeRecipient {
 
     @Override
     public Builder from(FeeRecipient other) {
-      feeRecipientId(other.getFeeRecipientId());
+      id(other.getId());
       walletId(other.getWalletId());
       currency(other.getCurrency());
       amount(other.getAmount());
@@ -164,9 +164,9 @@ public final class FeeRecipient {
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @Override
-    @JsonSetter("feeRecipientId")
-    public WalletIdStage feeRecipientId(@NotNull String feeRecipientId) {
-      this.feeRecipientId = Objects.requireNonNull(feeRecipientId, "feeRecipientId must not be null");
+    @JsonSetter("id")
+    public WalletIdStage id(@NotNull String id) {
+      this.id = Objects.requireNonNull(id, "id must not be null");
       return this;
     }
 
@@ -200,7 +200,7 @@ public final class FeeRecipient {
 
     @Override
     public FeeRecipient build() {
-      return new FeeRecipient(feeRecipientId, walletId, currency, amount, feeRecipientType, additionalProperties);
+      return new FeeRecipient(id, walletId, currency, amount, feeRecipientType, additionalProperties);
     }
   }
 }

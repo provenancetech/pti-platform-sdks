@@ -29,6 +29,8 @@ import org.jetbrains.annotations.NotNull;
 public final class BuyTransaction implements ITransactionType, ITransaction {
   private final TransactionTypeEnum type;
 
+  private final Optional<String> id;
+
   private final Optional<String> transactionGroupId;
 
   private final Optional<String> subClientId;
@@ -57,14 +59,15 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
 
   private final Map<String, Object> additionalProperties;
 
-  private BuyTransaction(TransactionTypeEnum type, Optional<String> transactionGroupId,
-      Optional<String> subClientId, Optional<Total> transactionTotal, Optional<Double> usdValue,
-      double amount, String date, OneOfUserSubTypes initiator,
-      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
-      Optional<OneOfPaymentMethod> sourceMethod, Optional<OneOfPaymentMethod> destinationMethod,
-      Optional<DigitalItem> digitalItem, Optional<OneOfUserSubTypes> seller,
-      Map<String, Object> additionalProperties) {
+  private BuyTransaction(TransactionTypeEnum type, Optional<String> id,
+      Optional<String> transactionGroupId, Optional<String> subClientId,
+      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
+      OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
+      Optional<Map<String, Object>> clientMeta, Optional<OneOfPaymentMethod> sourceMethod,
+      Optional<OneOfPaymentMethod> destinationMethod, Optional<DigitalItem> digitalItem,
+      Optional<OneOfUserSubTypes> seller, Map<String, Object> additionalProperties) {
     this.type = type;
+    this.id = id;
     this.transactionGroupId = transactionGroupId;
     this.subClientId = subClientId;
     this.transactionTotal = transactionTotal;
@@ -85,6 +88,15 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
   @Override
   public TransactionTypeEnum getType() {
     return type;
+  }
+
+  /**
+   * @return The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.
+   */
+  @JsonProperty("id")
+  @Override
+  public Optional<String> getId() {
+    return id;
   }
 
   @JsonProperty("transactionGroupId")
@@ -182,12 +194,12 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
   }
 
   private boolean equalTo(BuyTransaction other) {
-    return type.equals(other.type) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && sourceMethod.equals(other.sourceMethod) && destinationMethod.equals(other.destinationMethod) && digitalItem.equals(other.digitalItem) && seller.equals(other.seller);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && sourceMethod.equals(other.sourceMethod) && destinationMethod.equals(other.destinationMethod) && digitalItem.equals(other.digitalItem) && seller.equals(other.seller);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.type, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.sourceMethod, this.destinationMethod, this.digitalItem, this.seller);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.sourceMethod, this.destinationMethod, this.digitalItem, this.seller);
   }
 
   @Override
@@ -219,6 +231,10 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
 
   public interface _FinalStage {
     BuyTransaction build();
+
+    _FinalStage id(Optional<String> id);
+
+    _FinalStage id(String id);
 
     _FinalStage transactionGroupId(Optional<String> transactionGroupId);
 
@@ -293,6 +309,8 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
 
     private Optional<String> transactionGroupId = Optional.empty();
 
+    private Optional<String> id = Optional.empty();
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -302,6 +320,7 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
     @Override
     public Builder from(BuyTransaction other) {
       type(other.getType());
+      id(other.getId());
       transactionGroupId(other.getTransactionGroupId());
       subClientId(other.getSubClientId());
       transactionTotal(other.getTransactionTotal());
@@ -518,9 +537,29 @@ public final class BuyTransaction implements ITransactionType, ITransaction {
       return this;
     }
 
+    /**
+     * <p>The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @Override
+    public _FinalStage id(String id) {
+      this.id = Optional.ofNullable(id);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "id",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage id(Optional<String> id) {
+      this.id = id;
+      return this;
+    }
+
     @Override
     public BuyTransaction build() {
-      return new BuyTransaction(type, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, sourceMethod, destinationMethod, digitalItem, seller, additionalProperties);
+      return new BuyTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, sourceMethod, destinationMethod, digitalItem, seller, additionalProperties);
     }
   }
 }

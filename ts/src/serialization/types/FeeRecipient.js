@@ -30,7 +30,7 @@ exports.FeeRecipient = void 0;
 const core = __importStar(require("../../core"));
 const FeeRecipientFeeRecipientType_1 = require("./FeeRecipientFeeRecipientType");
 exports.FeeRecipient = core.serialization.object({
-    feeRecipientId: core.serialization.string(),
+    id: core.serialization.string(),
     walletId: core.serialization.string(),
     currency: core.serialization.string(),
     amount: core.serialization.number(),

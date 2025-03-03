@@ -127,6 +127,9 @@ public class TransactionsClient {
       properties.put("destinationMethod", request.getDestinationMethod());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -224,6 +227,9 @@ public class TransactionsClient {
       properties.put("sourceMethod", request.getSourceMethod());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -320,6 +326,9 @@ public class TransactionsClient {
       properties.put("destinationMethod", request.getDestinationMethod());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -419,6 +428,9 @@ public class TransactionsClient {
       properties.put("destinationClientId", request.getDestinationClientId());
     }
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -513,6 +525,9 @@ public class TransactionsClient {
     properties.put("sourceMethod", request.getSourceMethod());
     properties.put("destinationMethod", request.getDestinationMethod());
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }
@@ -607,6 +622,9 @@ public class TransactionsClient {
     properties.put("destination", request.getDestination());
     properties.put("destinationMethod", request.getDestinationMethod());
     properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
     if (request.getTransactionGroupId().isPresent()) {
       properties.put("transactionGroupId", request.getTransactionGroupId());
     }

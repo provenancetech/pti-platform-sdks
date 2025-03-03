@@ -9,7 +9,7 @@ import { BlockChainEnum } from "../../../../types/BlockChainEnum";
 export declare const WalletCreation: core.serialization.Schema<serializers.WalletCreation.Raw, PTI.WalletCreation>;
 export declare namespace WalletCreation {
     interface Raw {
-        walletId?: string | null;
+        id?: string | null;
         currency: CurrencyEnum.Raw;
         network?: BlockChainEnum.Raw | null;
         label?: string | null;

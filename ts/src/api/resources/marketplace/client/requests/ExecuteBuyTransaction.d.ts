@@ -30,6 +30,7 @@ import * as PTI from "../../../../index";
  *         sourceMethod: {
  *             paymentMethodType: "CRYPTO",
  *             paymentInformation: {
+ *                 id: "1de3e77b-e673-4e44-8b69-4931364c4e76",
  *                 walletAddress: "walletAddress",
  *                 currency: "currency",
  *                 network: "network"

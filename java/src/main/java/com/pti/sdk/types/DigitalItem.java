@@ -27,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
     builder = DigitalItem.Builder.class
 )
 public final class DigitalItem {
+  private final Optional<String> id;
+
   private final String itemReference;
 
   private final String itemTitle;
@@ -39,15 +41,21 @@ public final class DigitalItem {
 
   private final Map<String, Object> additionalProperties;
 
-  private DigitalItem(String itemReference, String itemTitle, String itemDescription,
-      Optional<Double> itemUsdValue, DigitalItemType digitalItemType,
+  private DigitalItem(Optional<String> id, String itemReference, String itemTitle,
+      String itemDescription, Optional<Double> itemUsdValue, DigitalItemType digitalItemType,
       Map<String, Object> additionalProperties) {
+    this.id = id;
     this.itemReference = itemReference;
     this.itemTitle = itemTitle;
     this.itemDescription = itemDescription;
     this.itemUsdValue = itemUsdValue;
     this.digitalItemType = digitalItemType;
     this.additionalProperties = additionalProperties;
+  }
+
+  @JsonProperty("id")
+  public Optional<String> getId() {
+    return id;
   }
 
   /**
@@ -99,12 +107,12 @@ public final class DigitalItem {
   }
 
   private boolean equalTo(DigitalItem other) {
-    return itemReference.equals(other.itemReference) && itemTitle.equals(other.itemTitle) && itemDescription.equals(other.itemDescription) && itemUsdValue.equals(other.itemUsdValue) && digitalItemType.equals(other.digitalItemType);
+    return id.equals(other.id) && itemReference.equals(other.itemReference) && itemTitle.equals(other.itemTitle) && itemDescription.equals(other.itemDescription) && itemUsdValue.equals(other.itemUsdValue) && digitalItemType.equals(other.digitalItemType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.itemReference, this.itemTitle, this.itemDescription, this.itemUsdValue, this.digitalItemType);
+    return Objects.hash(this.id, this.itemReference, this.itemTitle, this.itemDescription, this.itemUsdValue, this.digitalItemType);
   }
 
   @Override
@@ -137,6 +145,10 @@ public final class DigitalItem {
   public interface _FinalStage {
     DigitalItem build();
 
+    _FinalStage id(Optional<String> id);
+
+    _FinalStage id(String id);
+
     _FinalStage itemUsdValue(Optional<Double> itemUsdValue);
 
     _FinalStage itemUsdValue(Double itemUsdValue);
@@ -156,6 +168,8 @@ public final class DigitalItem {
 
     private Optional<Double> itemUsdValue = Optional.empty();
 
+    private Optional<String> id = Optional.empty();
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -164,6 +178,7 @@ public final class DigitalItem {
 
     @Override
     public Builder from(DigitalItem other) {
+      id(other.getId());
       itemReference(other.getItemReference());
       itemTitle(other.getItemTitle());
       itemDescription(other.getItemDescription());
@@ -233,8 +248,24 @@ public final class DigitalItem {
     }
 
     @Override
+    public _FinalStage id(String id) {
+      this.id = Optional.ofNullable(id);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "id",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage id(Optional<String> id) {
+      this.id = id;
+      return this;
+    }
+
+    @Override
     public DigitalItem build() {
-      return new DigitalItem(itemReference, itemTitle, itemDescription, itemUsdValue, digitalItemType, additionalProperties);
+      return new DigitalItem(id, itemReference, itemTitle, itemDescription, itemUsdValue, digitalItemType, additionalProperties);
     }
   }
 }

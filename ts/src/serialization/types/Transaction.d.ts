@@ -11,6 +11,7 @@ import { OneOfUserSubTypes } from "./OneOfUserSubTypes";
 export declare const Transaction: core.serialization.ObjectSchema<serializers.Transaction.Raw, PTI.Transaction>;
 export declare namespace Transaction {
     interface Raw {
+        id?: string | null;
         transactionGroupId?: UuidLikeStrTransactionGroup.Raw | null;
         subClientId?: UuidLikeStrSubClient.Raw | null;
         transactionTotal?: Total.Raw | null;

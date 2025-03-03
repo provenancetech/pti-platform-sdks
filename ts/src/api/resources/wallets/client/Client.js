@@ -205,7 +205,7 @@ class Wallets {
      *
      * @example
      *     await client.wallets.createWallet("userId", {
-     *         walletId: "c8768405-6129-4bda-8a10-8ef234dff30e",
+     *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
      *         currency: PTI.CurrencyEnum.Eth,
      *         network: PTI.BlockChainEnum.Ethereum
      *     })

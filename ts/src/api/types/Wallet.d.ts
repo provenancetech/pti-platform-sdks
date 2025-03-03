@@ -3,7 +3,7 @@
  */
 import * as PTI from "../index";
 export interface Wallet {
-    walletId?: string;
+    id?: string;
     label?: string;
     currency?: PTI.CurrencyEnum;
     network?: PTI.BlockChainEnum;

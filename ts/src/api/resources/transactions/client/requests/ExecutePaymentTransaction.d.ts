@@ -49,7 +49,7 @@ import * as PTI from "../../../../index";
  *         },
  *         destinationMethod: {
  *             paymentInformation: {
- *                 walletId: "e13c3242-57d3-473f-b98c-eb2768e4549c",
+ *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
  *                 type: "WALLET"
  *             }
  *         }

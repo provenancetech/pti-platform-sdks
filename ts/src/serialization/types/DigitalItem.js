@@ -28,8 +28,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DigitalItem = void 0;
 const core = __importStar(require("../../core"));
+const UuidLikeStr_1 = require("./UuidLikeStr");
 const DigitalItemType_1 = require("./DigitalItemType");
 exports.DigitalItem = core.serialization.object({
+    id: UuidLikeStr_1.UuidLikeStr.optional(),
     itemReference: core.serialization.string(),
     itemTitle: core.serialization.string(),
     itemDescription: core.serialization.string(),
