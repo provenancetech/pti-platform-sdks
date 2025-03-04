@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WalletHistoryOperationTarget = void 0;
 exports.WalletHistoryOperationTarget = {
-    AvailableBalance: "AVAILABLE_BALANCE",
     LockedBalance: "LOCKED_BALANCE",
     PendingBalance: "PENDING_BALANCE",
     TotalBalance: "TOTAL_BALANCE",

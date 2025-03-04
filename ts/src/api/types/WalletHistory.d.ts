@@ -6,7 +6,6 @@ export interface WalletHistory {
     walletId: string;
     pendingBalanceBefore?: number;
     totalBalanceBefore?: number;
-    availableBalanceBefore?: number;
     lockedBalanceBefore?: number;
     createDateTime?: string;
     change?: number;

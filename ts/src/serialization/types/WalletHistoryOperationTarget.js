@@ -28,4 +28,4 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WalletHistoryOperationTarget = void 0;
 const core = __importStar(require("../../core"));
-exports.WalletHistoryOperationTarget = core.serialization.enum_(["AVAILABLE_BALANCE", "LOCKED_BALANCE", "PENDING_BALANCE", "TOTAL_BALANCE"]);
+exports.WalletHistoryOperationTarget = core.serialization.enum_(["LOCKED_BALANCE", "PENDING_BALANCE", "TOTAL_BALANCE"]);
