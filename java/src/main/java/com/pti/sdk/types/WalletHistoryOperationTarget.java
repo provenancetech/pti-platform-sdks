@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum WalletHistoryOperationTarget {
-  AVAILABLE_BALANCE("AVAILABLE_BALANCE"),
-
   LOCKED_BALANCE("LOCKED_BALANCE"),
 
   PENDING_BALANCE("PENDING_BALANCE"),

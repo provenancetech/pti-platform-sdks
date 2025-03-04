@@ -6,5 +6,5 @@ import * as PTI from "../../api/index";
 import * as core from "../../core";
 export declare const WalletHistoryOperationTarget: core.serialization.Schema<serializers.WalletHistoryOperationTarget.Raw, PTI.WalletHistoryOperationTarget>;
 export declare namespace WalletHistoryOperationTarget {
-    type Raw = "AVAILABLE_BALANCE" | "LOCKED_BALANCE" | "PENDING_BALANCE" | "TOTAL_BALANCE";
+    type Raw = "LOCKED_BALANCE" | "PENDING_BALANCE" | "TOTAL_BALANCE";
 }

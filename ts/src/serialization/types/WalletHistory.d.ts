@@ -12,7 +12,6 @@ export declare namespace WalletHistory {
         walletId: string;
         pendingBalanceBefore?: number | null;
         totalBalanceBefore?: number | null;
-        availableBalanceBefore?: number | null;
         lockedBalanceBefore?: number | null;
         createDateTime?: string | null;
         change?: number | null;
