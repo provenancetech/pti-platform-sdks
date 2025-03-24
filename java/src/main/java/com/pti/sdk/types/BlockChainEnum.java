@@ -14,7 +14,13 @@ public enum BlockChainEnum {
 
   SOLANA("SOLANA"),
 
-  POLYGON("POLYGON");
+  POLYGON("POLYGON"),
+
+  TRON("TRON"),
+
+  LITECOIN("LITECOIN"),
+
+  CARDANO("CARDANO");
 
   private final String value;
 

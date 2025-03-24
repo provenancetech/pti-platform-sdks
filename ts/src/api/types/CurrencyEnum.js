@@ -11,4 +11,7 @@ exports.CurrencyEnum = {
     Pol: "POL",
     Usdc: "USDC",
     Usd: "USD",
+    Trx: "TRX",
+    Ltc: "LTC",
+    Ada: "ADA",
 };

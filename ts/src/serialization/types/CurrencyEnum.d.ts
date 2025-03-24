@@ -6,5 +6,5 @@ import * as PTI from "../../api/index";
 import * as core from "../../core";
 export declare const CurrencyEnum: core.serialization.Schema<serializers.CurrencyEnum.Raw, PTI.CurrencyEnum>;
 export declare namespace CurrencyEnum {
-    type Raw = "BTC" | "ETH" | "SOL" | "POL" | "USDC" | "USD";
+    type Raw = "BTC" | "ETH" | "SOL" | "POL" | "USDC" | "USD" | "TRX" | "LTC" | "ADA";
 }
