@@ -28,4 +28,4 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlockChainEnum = void 0;
 const core = __importStar(require("../../core"));
-exports.BlockChainEnum = core.serialization.enum_(["ETHEREUM", "BITCOIN", "SOLANA", "POLYGON"]);
+exports.BlockChainEnum = core.serialization.enum_(["ETHEREUM", "BITCOIN", "SOLANA", "POLYGON", "TRON", "LITECOIN", "CARDANO"]);

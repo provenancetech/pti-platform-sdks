@@ -9,4 +9,7 @@ exports.BlockChainEnum = {
     Bitcoin: "BITCOIN",
     Solana: "SOLANA",
     Polygon: "POLYGON",
+    Tron: "TRON",
+    Litecoin: "LITECOIN",
+    Cardano: "CARDANO",
 };

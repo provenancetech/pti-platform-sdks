@@ -18,7 +18,13 @@ public enum CurrencyEnum {
 
   USDC("USDC"),
 
-  USD("USD");
+  USD("USD"),
+
+  TRX("TRX"),
+
+  LTC("LTC"),
+
+  ADA("ADA");
 
   private final String value;
 
