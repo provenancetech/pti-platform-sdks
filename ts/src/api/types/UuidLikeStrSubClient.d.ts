@@ -4,4 +4,4 @@
 /**
  * If your system is multi-tenant and you have this is the id of your client that is making the request
  */
-export declare type UuidLikeStrSubClient = string;
+export type UuidLikeStrSubClient = string;

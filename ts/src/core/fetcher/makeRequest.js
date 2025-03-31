@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeRequest = void 0;
 const signals_1 = require("./signals");
-const makeRequest = (fetchFn, url, method, headers, requestBody, timeoutMs, abortSignal, withCredentials) => __awaiter(void 0, void 0, void 0, function* () {
+const makeRequest = (fetchFn, url, method, headers, requestBody, timeoutMs, abortSignal, withCredentials, duplex) => __awaiter(void 0, void 0, void 0, function* () {
     const signals = [];
     // Add timeout signal
     let timeoutAbortId = undefined;
@@ -31,6 +31,8 @@ const makeRequest = (fetchFn, url, method, headers, requestBody, timeoutMs, abor
         body: requestBody,
         signal: newSignals,
         credentials: withCredentials ? "include" : undefined,
+        // @ts-ignore
+        duplex,
     });
     if (timeoutAbortId != null) {
         clearTimeout(timeoutAbortId);

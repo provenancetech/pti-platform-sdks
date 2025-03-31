@@ -9,14 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getResponseBody = void 0;
+exports.getResponseBody = getResponseBody;
+const chooseStreamWrapper_1 = require("./stream-wrappers/chooseStreamWrapper");
 function getResponseBody(response, responseType) {
     return __awaiter(this, void 0, void 0, function* () {
         if (response.body != null && responseType === "blob") {
             return yield response.blob();
         }
-        else if (response.body != null && responseType === "streaming") {
+        else if (response.body != null && responseType === "arrayBuffer") {
+            return yield response.arrayBuffer();
+        }
+        else if (response.body != null && responseType === "sse") {
             return response.body;
+        }
+        else if (response.body != null && responseType === "streaming") {
+            return (0, chooseStreamWrapper_1.chooseStreamWrapper)(response.body);
         }
         else if (response.body != null && responseType === "text") {
             return yield response.text();
@@ -45,4 +52,3 @@ function getResponseBody(response, responseType) {
         }
     });
 }
-exports.getResponseBody = getResponseBody;

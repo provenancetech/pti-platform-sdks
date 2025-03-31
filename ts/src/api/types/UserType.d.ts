@@ -4,7 +4,7 @@
 /**
  * Type of User which represents the legal entity involved in the API action
  */
-export declare type UserType = "PERSON" | "BUSINESS";
+export type UserType = "PERSON" | "BUSINESS";
 export declare const UserType: {
     readonly Person: "PERSON";
     readonly Business: "BUSINESS";

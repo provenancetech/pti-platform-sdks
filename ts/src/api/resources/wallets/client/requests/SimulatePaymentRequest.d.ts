@@ -6,7 +6,7 @@ import * as PTI from "../../../../index";
  * @example
  *     {
  *         amount: 100,
- *         paymentMethodType: PTI.PaymentMethodType.Ach
+ *         paymentMethodType: "ACH"
  *     }
  */
 export interface SimulatePaymentRequest {
