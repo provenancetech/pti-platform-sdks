@@ -4,4 +4,4 @@
 /**
  * If your system performs transactions that are together part of an overall transaction group, use this to tie them together
  */
-export declare type UuidLikeStrTransactionGroup = string;
+export type UuidLikeStrTransactionGroup = string;

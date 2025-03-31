@@ -5,4 +5,6 @@ import * as PTI from "../index";
 export interface CryptoPaymentMethod {
     billingEmail?: string;
     paymentInformation?: PTI.CryptoPaymentInformation;
+    /** Accepts any additional properties */
+    [key: string]: any;
 }

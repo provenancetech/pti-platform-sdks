@@ -10,4 +10,6 @@ export interface CreditCardPaymentMethod {
     /** cc statement msg */
     statementMessage?: string;
     paymentInformation?: PTI.OneOfFiatPaymentInformation;
+    /** Accepts any additional properties */
+    [key: string]: any;
 }

@@ -1,2 +1,7 @@
-export declare function getRequestBody(body: any, contentType: string): Promise<BodyInit | undefined>;
-export declare const maybeStringifyBody: (requestBody: any, contentType: string) => Uint8Array | string;
+export declare namespace GetRequestBody {
+    interface Args {
+        body: unknown;
+        type: "json" | "file" | "bytes" | "other";
+    }
+}
+export declare function getRequestBody({ body, type }: GetRequestBody.Args): Promise<BodyInit | undefined>;

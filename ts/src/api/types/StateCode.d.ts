@@ -4,4 +4,4 @@
 /**
  * ISO 3166-2 state code, example US-CA
  */
-export declare type StateCode = string;
+export type StateCode = string;
