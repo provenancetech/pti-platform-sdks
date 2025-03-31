@@ -6,8 +6,8 @@ import * as PTI from "../../../../index";
  * @example
  *     {
  *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
- *         currency: PTI.CurrencyEnum.Eth,
- *         network: PTI.BlockChainEnum.Ethereum
+ *         currency: "ETH",
+ *         network: "ETHEREUM"
  *     }
  */
 export interface WalletCreation {

@@ -11,16 +11,10 @@ import * as PTI from "../../../../index";
  *         amount: 200,
  *         date: "date",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "initiator",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
- *         type: PTI.TransactionTypeEnum.Transfer,
+ *         type: "TRANSFER",
  *         sourceTransferMethod: {
  *             paymentInformation: {
  *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
@@ -34,14 +28,8 @@ import * as PTI from "../../../../index";
  *             }
  *         },
  *         destination: {
- *             type: "BUSINESS",
- *             id: "destination",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         }
  *     }
  */

@@ -7,6 +7,8 @@ import * as PTI from "../../../index";
 export declare namespace PaymentInformation {
     interface Options {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
@@ -20,6 +22,8 @@ export declare namespace PaymentInformation {
         abortSignal?: AbortSignal;
         /** Override the x-pti-client-id header */
         ptiClientId?: PTI.UuidLikeStr | undefined;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class PaymentInformation {
@@ -54,10 +58,7 @@ export declare class PaymentInformation {
      *
      * @example
      *     await client.paymentInformation.addUserPaymentInformation("userId", {
-     *         type: "CRYPTO",
-     *         walletAddress: "string",
-     *         currency: "string",
-     *         network: "string"
+     *         type: "BANK_ACCOUNT"
      *     })
      */
     addUserPaymentInformation(userId: string, request: PTI.OneOfExternalPaymentInformation, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation>;
@@ -105,10 +106,7 @@ export declare class PaymentInformation {
      *
      * @example
      *     await client.paymentInformation.updatePaymentInformation("userId", "paymentInformationId", {
-     *         type: "CRYPTO",
-     *         walletAddress: "string",
-     *         currency: "string",
-     *         network: "string"
+     *         type: "BANK_ACCOUNT"
      *     })
      */
     updatePaymentInformation(userId: string, paymentInformationId: string, request: PTI.OneOfExternalPaymentInformation, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation>;

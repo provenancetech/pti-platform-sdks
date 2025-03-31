@@ -5,8 +5,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PTITimeoutError = void 0;
 class PTITimeoutError extends Error {
-    constructor() {
-        super("Timeout");
+    constructor(message) {
+        super(message);
         Object.setPrototypeOf(this, PTITimeoutError.prototype);
     }
 }

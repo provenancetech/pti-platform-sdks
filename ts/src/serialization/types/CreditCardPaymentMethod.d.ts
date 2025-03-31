@@ -13,5 +13,6 @@ export declare namespace CreditCardPaymentMethod {
         transactionDescription?: string | null;
         statementMessage?: string | null;
         paymentInformation?: OneOfFiatPaymentInformation.Raw | null;
+        [key: string]: any;
     }
 }

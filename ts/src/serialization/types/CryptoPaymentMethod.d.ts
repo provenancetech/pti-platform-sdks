@@ -10,5 +10,6 @@ export declare namespace CryptoPaymentMethod {
     interface Raw {
         billingEmail?: string | null;
         paymentInformation?: CryptoPaymentInformation.Raw | null;
+        [key: string]: any;
     }
 }

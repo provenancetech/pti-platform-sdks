@@ -10,5 +10,6 @@ export declare namespace ManagedError {
     interface Raw {
         type: ErrorType.Raw;
         code: number;
+        [key: string]: any;
     }
 }

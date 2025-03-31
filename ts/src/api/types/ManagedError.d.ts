@@ -51,4 +51,6 @@ export interface ManagedError {
      * SOURCE_WALLET_CURRENCY_DIFFERENT_THAN_DESTINATION_TOKEN_CURRENCY(6003)
      */
     code: number;
+    /** Accepts any additional properties */
+    [key: string]: any;
 }

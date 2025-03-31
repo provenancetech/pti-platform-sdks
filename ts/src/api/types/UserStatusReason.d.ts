@@ -4,7 +4,7 @@
 /**
  * Reason explaining why the status is BLOCKED or INACTIVE. Same rules as the `status` field apply.
  */
-export declare type UserStatusReason = "FRAUD_SUSPICION" | "BUSINESS_CO_OWNER" | "COMPLIANCE_FLAG" | "HIGH_RISK_IP" | "INFORMATION_MISMATCH" | "HIGH_RISK_EMAIL_DOMAIN" | "UNUSUAL_HIGH_VELOCITY" | "CHARGEBACK";
+export type UserStatusReason = "FRAUD_SUSPICION" | "BUSINESS_CO_OWNER" | "COMPLIANCE_FLAG" | "HIGH_RISK_IP" | "INFORMATION_MISMATCH" | "HIGH_RISK_EMAIL_DOMAIN" | "UNUSUAL_HIGH_VELOCITY" | "CHARGEBACK";
 export declare const UserStatusReason: {
     readonly FraudSuspicion: "FRAUD_SUSPICION";
     readonly BusinessCoOwner: "BUSINESS_CO_OWNER";

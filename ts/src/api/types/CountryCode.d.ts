@@ -4,4 +4,4 @@
 /**
  * ISO 3166 alpha 1 country code, example US
  */
-export declare type CountryCode = string;
+export type CountryCode = string;

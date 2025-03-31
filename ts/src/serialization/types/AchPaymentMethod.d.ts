@@ -11,5 +11,6 @@ export declare namespace AchPaymentMethod {
         currency?: string | null;
         billingEmail?: string | null;
         paymentInformation?: OneOfFiatPaymentInformation.Raw | null;
+        [key: string]: any;
     }
 }

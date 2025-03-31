@@ -7,6 +7,8 @@ import * as PTI from "../../../index";
 export declare namespace Authentication {
     interface Options {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
@@ -20,6 +22,8 @@ export declare namespace Authentication {
         abortSignal?: AbortSignal;
         /** Override the x-pti-client-id header */
         ptiClientId?: PTI.UuidLikeStr | undefined;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Authentication {

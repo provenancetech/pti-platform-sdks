@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -81,65 +91,47 @@ class Marketplace {
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "c5c4b077-0c9a-4d5f-84fd-439a6123cdd2",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Buy,
+     *         type: "BUY",
      *         digitalItem: {
      *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
      *             itemTitle: "itemTitle",
      *             itemDescription: "itemDescription",
-     *             digitalItemType: PTI.DigitalItemType.Nft
+     *             digitalItemType: "NFT"
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 id: "1de3e77b-e673-4e44-8b69-4931364c4e76",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "WALLET"
      *         },
      *         seller: {
-     *             type: "BUSINESS",
-     *             id: "f0714c92-d5bf-4ed2-9636-e9ab3743fcb6",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         }
      *     })
      */
     digitalItemBuy(request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName } = request, _body = __rest(request, ["ptiRequestId", "ptiScenarioId", "ptiSessionId", "ptiDisableWebhook", "ptiProviderName"]);
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/purchases"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "transactions/purchases"),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                    "x-pti-provider-name": ptiProviderName != null ? ptiProviderName : undefined,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-session-id": ptiSessionId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
+                        ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
+                        : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.ExecuteBuyTransaction.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -196,7 +188,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /transactions/purchases.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -225,65 +217,47 @@ class Marketplace {
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "2903c06b-6291-4cc8-b568-fe93064a5a8c",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Sell,
+     *         type: "SELL",
      *         digitalItem: {
      *             itemReference: "f5511285-9d0b-41fd-8ae7-0817bb7462ba",
      *             itemTitle: "itemTitle",
      *             itemDescription: "itemDescription",
-     *             digitalItemType: PTI.DigitalItemType.Nft
+     *             digitalItemType: "NFT"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 id: "c5b2cca7-a1ac-4aad-a461-be8903c695d9",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "WALLET"
      *         },
      *         buyer: {
-     *             type: "BUSINESS",
-     *             id: "be975fae-fb15-4b70-80ba-e59968ae48c3",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         }
      *     })
      */
     digitalItemSell(request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName } = request, _body = __rest(request, ["ptiRequestId", "ptiScenarioId", "ptiSessionId", "ptiDisableWebhook", "ptiProviderName"]);
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/sales"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "transactions/sales"),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                    "x-pti-provider-name": ptiProviderName != null ? ptiProviderName : undefined,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-session-id": ptiSessionId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
+                        ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
+                        : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.ExecuteSellTransaction.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -340,7 +314,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /transactions/sales.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -360,21 +334,18 @@ class Marketplace {
      *     await client.marketplace.getDigitalItem("digitalItemId")
      */
     getDigitalItem(digitalItemId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -414,7 +385,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /digital-items/{digitalItemId}.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -435,21 +406,18 @@ class Marketplace {
      *     await client.marketplace.deleteDigitalItem("digitalItemId")
      */
     deleteDigitalItem(digitalItemId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `digital-items/${encodeURIComponent(digitalItemId)}`),
                 method: "DELETE",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -486,7 +454,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling DELETE /digital-items/{digitalItemId}.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -506,9 +474,9 @@ class Marketplace {
      * @example
      *     await client.marketplace.getDigitalItems("userId")
      */
-    getDigitalItems(userId, request = {}, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
+    getDigitalItems(userId_1) {
+        return __awaiter(this, arguments, void 0, function* (userId, request = {}, requestOptions) {
+            var _a, _b;
             const { page, size, sortBy } = request;
             const _queryParams = {};
             if (page != null) {
@@ -521,19 +489,16 @@ class Marketplace {
                 _queryParams["sortBy"] = sortBy;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -573,7 +538,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /users/{userId}/digital-items.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -596,31 +561,28 @@ class Marketplace {
      *             itemTitle: "QB, Mint Condition, #467/500 From Founders Set ",
      *             itemDescription: "Ultra Rare Elite Russell Wilson Level 1",
      *             itemUsdValue: 10,
-     *             digitalItemType: PTI.DigitalItemType.Nft
+     *             digitalItemType: "NFT"
      *         }, {
      *             itemReference: "57d6467c-6ae0-434f-8197-e7e9f86f2210",
      *             itemTitle: "QB, Mint Condition, #468/500 From Founders Set",
      *             itemDescription: "Ultra Rare Elite Peyton Manning Level 10",
      *             itemUsdValue: 35,
-     *             digitalItemType: PTI.DigitalItemType.Nft
+     *             digitalItemType: "NFT"
      *         }])
      */
     createDigitalItems(userId, request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/digital-items`),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.marketplace.createDigitalItems.Request.jsonOrThrow(request, {
                     unrecognizedObjectKeys: "strip",
                 }),
@@ -663,7 +625,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/digital-items.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,

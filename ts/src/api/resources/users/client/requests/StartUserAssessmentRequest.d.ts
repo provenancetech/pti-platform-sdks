@@ -8,32 +8,8 @@ import * as PTI from "../../../../index";
  *         ptiRequestId: "x-pti-request-id",
  *         ptiScenarioId: "x-pti-scenario-id",
  *         body: {
- *             type: "BUSINESS",
- *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
- *             sourceOfFunds: "Creator earnings",
- *             addresses: [{
- *                     streetAddress: "1, main street",
- *                     city: "New Hampshire",
- *                     postalCode: "10005",
- *                     stateCode: "US-NH",
- *                     country: "US",
- *                     default: true
- *                 }],
- *             emails: [{
- *                     default: true,
- *                     address: "johnsmith@test.com"
- *                 }],
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             },
- *             phones: [{
- *                     default: true,
- *                     number: "12345678901",
- *                     type: "WORK"
- *                 }]
+ *             type: "PERSON",
+ *             id: "id"
  *         }
  *     }
  */

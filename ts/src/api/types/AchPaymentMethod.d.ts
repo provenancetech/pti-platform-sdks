@@ -6,4 +6,6 @@ export interface AchPaymentMethod {
     currency?: string;
     billingEmail?: string;
     paymentInformation?: PTI.OneOfFiatPaymentInformation;
+    /** Accepts any additional properties */
+    [key: string]: any;
 }

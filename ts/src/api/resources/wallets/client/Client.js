@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,8 +52,8 @@ exports.Wallets = void 0;
 const environments = __importStar(require("../../../../environments"));
 const core = __importStar(require("../../../../core"));
 const PTI = __importStar(require("../../../index"));
-const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization/index"));
+const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Wallets {
     constructor(_options) {
@@ -59,21 +69,18 @@ class Wallets {
      *     await client.wallets.getListOfAssets()
      */
     getListOfAssets(requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "assets"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "assets"),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -111,7 +118,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /assets.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -131,21 +138,18 @@ class Wallets {
      *     await client.wallets.getWallets("userId")
      */
     getWallets(userId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -185,7 +189,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /users/{userId}/wallets.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -206,26 +210,23 @@ class Wallets {
      * @example
      *     await client.wallets.createWallet("userId", {
      *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
-     *         currency: PTI.CurrencyEnum.Eth,
-     *         network: PTI.BlockChainEnum.Ethereum
+     *         currency: "ETH",
+     *         network: "ETHEREUM"
      *     })
      */
     createWallet(userId, request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets`),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: Object.assign(Object.assign({}, serializers.WalletCreation.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" })), { type: "WALLET" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -273,7 +274,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -293,21 +294,18 @@ class Wallets {
      *     await client.wallets.getWallet("userId", "walletId")
      */
     getWallet(userId, walletId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -345,7 +343,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /users/{userId}/wallets/{walletId}.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -367,21 +365,18 @@ class Wallets {
      *     await client.wallets.deleteWallet("userId", "walletId")
      */
     deleteWallet(userId, walletId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}`),
                 method: "DELETE",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -423,7 +418,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling DELETE /users/{userId}/wallets/{walletId}.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -445,25 +440,22 @@ class Wallets {
      * @example
      *     await client.wallets.simulateWalletPayment("userId", "walletId", {
      *         amount: 100,
-     *         paymentMethodType: PTI.PaymentMethodType.Ach
+     *         paymentMethodType: "ACH"
      *     })
      */
-    simulateWalletPayment(userId, walletId, request = {}, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
+    simulateWalletPayment(userId_1, walletId_1) {
+        return __awaiter(this, arguments, void 0, function* (userId, walletId, request = {}, requestOptions) {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/simulate-payment`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/simulate-payment`),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.SimulatePaymentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -501,7 +493,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets/{walletId}/simulate-payment.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -523,22 +515,19 @@ class Wallets {
      * @example
      *     await client.wallets.createWalletDepositAddress("userId", "walletId")
      */
-    createWalletDepositAddress(userId, walletId, request = {}, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
+    createWalletDepositAddress(userId_1, walletId_1) {
+        return __awaiter(this, arguments, void 0, function* (userId, walletId, request = {}, requestOptions) {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/deposit-address`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/deposit-address`),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.DepositAddressRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -581,7 +570,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets/{walletId}/deposit-address.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -606,21 +595,18 @@ class Wallets {
      *     })
      */
     createWalletVirtualBankAccount(userId, walletId, request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/virtual-bank-account`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/virtual-bank-account`),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.wallets.createWalletVirtualBankAccount.Request.jsonOrThrow(request, {
                     unrecognizedObjectKeys: "strip",
                 }),
@@ -665,7 +651,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets/{walletId}/virtual-bank-account.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -687,9 +673,9 @@ class Wallets {
      * @example
      *     await client.wallets.getWalletHistory("userId", "walletId")
      */
-    getWalletHistory(userId, walletId, request = {}, requestOptions) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
+    getWalletHistory(userId_1, walletId_1) {
+        return __awaiter(this, arguments, void 0, function* (userId, walletId, request = {}, requestOptions) {
+            var _a, _b;
             const { page, size } = request;
             const _queryParams = {};
             if (page != null) {
@@ -699,19 +685,16 @@ class Wallets {
                 _queryParams["size"] = size.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/history`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/history`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -753,7 +736,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /users/{userId}/wallets/{walletId}/history.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,

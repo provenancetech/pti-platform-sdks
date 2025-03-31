@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -86,78 +96,39 @@ class TransactionAssessment {
      *             amount: 100,
      *             date: "2024-12-13T18:46:40.666+0000",
      *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
+     *                 type: "PERSON",
+     *                 id: "id"
      *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
+     *             type: "DEPOSIT",
      *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
+     *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
+     *                 paymentMethodType: "WALLET"
      *             }
      *         }
      *     })
      */
     assessTransaction(request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/assessments"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "transactions/assessments"),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-session-id": ptiSessionId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -214,7 +185,7 @@ class TransactionAssessment {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /transactions/assessments.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -234,21 +205,18 @@ class TransactionAssessment {
      *     await client.transactionAssessment.getTransactionAssess("requestId")
      */
     getTransactionAssess(requestId, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, `transactions/assessments/${encodeURIComponent(serializers.UuidLikeStr.jsonOrThrow(requestId))}`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `transactions/assessments/${encodeURIComponent(serializers.UuidLikeStr.jsonOrThrow(requestId))}`),
                 method: "GET",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -288,7 +256,7 @@ class TransactionAssessment {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /transactions/assessments/{requestId}.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -328,78 +296,39 @@ class TransactionAssessment {
      *             amount: 100,
      *             date: "2024-12-13T18:46:40.666+0000",
      *             initiator: {
-     *                 type: "BUSINESS",
-     *                 id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *                 sourceOfFunds: "Creator earnings",
-     *                 addresses: [{
-     *                         streetAddress: "1, main street",
-     *                         city: "New Hampshire",
-     *                         postalCode: "10005",
-     *                         stateCode: "US-NH",
-     *                         country: "US",
-     *                         default: true
-     *                     }],
-     *                 emails: [{
-     *                         default: true,
-     *                         address: "johnsmith@test.com"
-     *                     }],
-     *                 mainRepresentative: {
-     *                     ownershipPercent: 1,
-     *                     person: {
-     *                         id: "id"
-     *                     }
-     *                 },
-     *                 phones: [{
-     *                         default: true,
-     *                         number: "12345678901",
-     *                         type: "WORK"
-     *                     }]
+     *                 type: "PERSON",
+     *                 id: "id"
      *             },
-     *             type: PTI.TransactionTypeEnum.Deposit,
+     *             type: "DEPOSIT",
      *             sourceMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
+     *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
-     *                 paymentMethodType: "CRYPTO",
-     *                 billingEmail: "user@example.com",
-     *                 paymentInformation: {
-     *                     id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                     walletAddress: "walletAddress",
-     *                     currency: "currency",
-     *                     network: "network"
-     *                 }
+     *                 paymentMethodType: "WALLET"
      *             }
      *         }
      *     })
      */
     transactionInformationAssessment(request, requestOptions) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body: _body } = request;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.environment))) !== null && _a !== void 0 ? _a : environments.PTIEnvironment.Default, "transactions/validations"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "transactions/validations"),
                 method: "POST",
-                headers: {
-                    Authorization: yield this._getAuthorizationHeader(),
-                    "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
-                        ? yield core.Supplier.get(this._options.ptiClientId)
-                        : undefined,
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                    "x-pti-request-id": ptiRequestId,
-                    "x-pti-scenario-id": ptiScenarioId,
-                    "x-pti-session-id": ptiSessionId != null ? ptiSessionId : undefined,
-                    "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined,
-                },
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-session-id": ptiSessionId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                requestType: "json",
                 body: serializers.OneOfTransactionSubTypes.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -440,7 +369,7 @@ class TransactionAssessment {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError();
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /transactions/validations.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
