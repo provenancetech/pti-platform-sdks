@@ -1,27 +1,3 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -31,18 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FormDataWrapper = void 0;
-const stream_1 = require("stream");
-const runtime_1 = require("../runtime");
+import { Readable } from "stream";
+import { RUNTIME } from "../runtime";
 class FormDataRequestBody {
     constructor(fd) {
         this.fd = fd;
     }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this.encoder == null && runtime_1.RUNTIME.type === "node") {
-                this.encoder = new (yield Promise.resolve().then(() => __importStar(require("form-data-encoder")))).FormDataEncoder(this.fd);
+            if (this.encoder == null && RUNTIME.type === "node") {
+                this.encoder = new (yield import("form-data-encoder")).FormDataEncoder(this.fd);
             }
         });
     }
@@ -51,14 +25,14 @@ class FormDataRequestBody {
      */
     getBody() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (runtime_1.RUNTIME.type !== "node") {
+            if (RUNTIME.type !== "node") {
                 return this.fd;
             }
             else {
                 if (this.encoder == null) {
                     yield this.setup();
                 }
-                return stream_1.Readable.from(this.encoder);
+                return Readable.from(this.encoder);
             }
         });
     }
@@ -67,7 +41,7 @@ class FormDataRequestBody {
      */
     getHeaders() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (runtime_1.RUNTIME.type !== "node") {
+            if (RUNTIME.type !== "node") {
                 return {};
             }
             else {
@@ -83,15 +57,15 @@ class FormDataRequestBody {
  * FormDataWrapper is a utility to make form data
  * requests across both Browser and Node.js runtimes.
  */
-class FormDataWrapper {
+export class FormDataWrapper {
     append(name, value) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.fd == null) {
-                if (runtime_1.RUNTIME.type === "node") {
-                    this.fd = new (yield Promise.resolve().then(() => __importStar(require("formdata-node")))).FormData();
+                if (RUNTIME.type === "node") {
+                    this.fd = new (yield import("formdata-node")).FormData();
                 }
                 else {
-                    this.fd = new (yield Promise.resolve().then(() => __importStar(require("form-data")))).default();
+                    this.fd = new (yield import("form-data")).default();
                 }
             }
             this.fd.append(name, value);
@@ -101,4 +75,3 @@ class FormDataWrapper {
         return new FormDataRequestBody(this.fd);
     }
 }
-exports.FormDataWrapper = FormDataWrapper;

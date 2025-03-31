@@ -54,10 +54,7 @@ export declare class PaymentInformation {
      *
      * @example
      *     await client.paymentInformation.addUserPaymentInformation("userId", {
-     *         type: "CRYPTO",
-     *         walletAddress: "string",
-     *         currency: "string",
-     *         network: "string"
+     *         type: "BANK_ACCOUNT"
      *     })
      */
     addUserPaymentInformation(userId: string, request: PTI.OneOfExternalPaymentInformation, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation>;
@@ -105,10 +102,7 @@ export declare class PaymentInformation {
      *
      * @example
      *     await client.paymentInformation.updatePaymentInformation("userId", "paymentInformationId", {
-     *         type: "CRYPTO",
-     *         walletAddress: "string",
-     *         currency: "string",
-     *         network: "string"
+     *         type: "BANK_ACCOUNT"
      *     })
      */
     updatePaymentInformation(userId: string, paymentInformationId: string, request: PTI.OneOfExternalPaymentInformation, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation>;

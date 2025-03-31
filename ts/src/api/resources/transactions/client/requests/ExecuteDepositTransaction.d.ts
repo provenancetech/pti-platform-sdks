@@ -12,43 +12,12 @@ import * as PTI from "../../../../index";
  *         amount: 100,
  *         date: "2024-12-13T18:46:40.666+0000",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
- *             sourceOfFunds: "Creator earnings",
- *             addresses: [{
- *                     streetAddress: "1, main street",
- *                     city: "New Hampshire",
- *                     postalCode: "10005",
- *                     stateCode: "US-NH",
- *                     country: "US",
- *                     default: true
- *                 }],
- *             emails: [{
- *                     default: true,
- *                     address: "johnsmith@test.com"
- *                 }],
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             },
- *             phones: [{
- *                     default: true,
- *                     number: "12345678901",
- *                     type: "WORK"
- *                 }]
+ *             type: "PERSON",
+ *             id: "id"
  *         },
  *         type: PTI.TransactionTypeEnum.Deposit,
  *         sourceMethod: {
- *             paymentMethodType: "CRYPTO",
- *             billingEmail: "user@example.com",
- *             paymentInformation: {
- *                 id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
- *                 walletAddress: "walletAddress",
- *                 currency: "currency",
- *                 network: "network"
- *             }
+ *             paymentMethodType: "CREDIT_CARD"
  *         },
  *         destinationMethod: {
  *             billingEmail: "user@example.com",

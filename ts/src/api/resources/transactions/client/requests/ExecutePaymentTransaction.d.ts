@@ -25,27 +25,15 @@ import * as PTI from "../../../../index";
  *         amount: 6.99,
  *         date: "date",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "initiator",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
  *         clientMeta: {
  *             "paymentMetadata": "collection 1 publication fees"
  *         },
  *         type: PTI.TransactionTypeEnum.Payment,
  *         sourceMethod: {
- *             paymentMethodType: "CRYPTO",
- *             paymentInformation: {
- *                 id: "79a0da5f-d24b-4ed8-a194-f8e0db32cf05",
- *                 walletAddress: "walletAddress",
- *                 currency: "currency",
- *                 network: "network"
- *             }
+ *             paymentMethodType: "CREDIT_CARD"
  *         },
  *         destinationMethod: {
  *             paymentInformation: {
