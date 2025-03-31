@@ -46,14 +46,8 @@ export declare class Marketplace {
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "c5c4b077-0c9a-4d5f-84fd-439a6123cdd2",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
      *         type: PTI.TransactionTypeEnum.Buy,
      *         digitalItem: {
@@ -63,23 +57,11 @@ export declare class Marketplace {
      *             digitalItemType: PTI.DigitalItemType.Nft
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 id: "1de3e77b-e673-4e44-8b69-4931364c4e76",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "WALLET"
      *         },
      *         seller: {
-     *             type: "BUSINESS",
-     *             id: "f0714c92-d5bf-4ed2-9636-e9ab3743fcb6",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         }
      *     })
      */
@@ -105,14 +87,8 @@ export declare class Marketplace {
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "2903c06b-6291-4cc8-b568-fe93064a5a8c",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
      *         type: PTI.TransactionTypeEnum.Sell,
      *         digitalItem: {
@@ -122,23 +98,11 @@ export declare class Marketplace {
      *             digitalItemType: PTI.DigitalItemType.Nft
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 id: "c5b2cca7-a1ac-4aad-a461-be8903c695d9",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "WALLET"
      *         },
      *         buyer: {
-     *             type: "BUSINESS",
-     *             id: "be975fae-fb15-4b70-80ba-e59968ae48c3",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         }
      *     })
      */

@@ -11,14 +11,8 @@ import * as PTI from "../../../../index";
  *         amount: 5,
  *         date: "2024-12-13T18:46:40.666+0000",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "c5c4b077-0c9a-4d5f-84fd-439a6123cdd2",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
  *         type: PTI.TransactionTypeEnum.Buy,
  *         digitalItem: {
@@ -28,23 +22,11 @@ import * as PTI from "../../../../index";
  *             digitalItemType: PTI.DigitalItemType.Nft
  *         },
  *         sourceMethod: {
- *             paymentMethodType: "CRYPTO",
- *             paymentInformation: {
- *                 id: "1de3e77b-e673-4e44-8b69-4931364c4e76",
- *                 walletAddress: "walletAddress",
- *                 currency: "currency",
- *                 network: "network"
- *             }
+ *             paymentMethodType: "WALLET"
  *         },
  *         seller: {
- *             type: "BUSINESS",
- *             id: "f0714c92-d5bf-4ed2-9636-e9ab3743fcb6",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         }
  *     }
  */

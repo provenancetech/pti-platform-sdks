@@ -11,23 +11,12 @@ import * as PTI from "../../../../index";
  *         amount: 1,
  *         date: "date",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "initiator",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
  *         type: PTI.TransactionTypeEnum.Withdrawal,
  *         destinationMethod: {
- *             paymentMethodType: "CRYPTO",
- *             paymentInformation: {
- *                 walletAddress: "walletAddress",
- *                 currency: "currency",
- *                 network: "network"
- *             }
+ *             paymentMethodType: "ACH"
  *         },
  *         sourceMethod: {
  *             paymentInformation: {
