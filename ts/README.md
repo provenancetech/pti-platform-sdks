@@ -46,6 +46,7 @@ You will now be able to import desired PTI resources from this module in your pr
 
 ## Getting Started
 ### Initialize PTI Client
+You can either pass the path to your private key or directly the private key value. \
 You can initialize the PTI SDK by providing the parameters directly:
 
 #### Typescript
@@ -56,5 +57,6 @@ const ptiClient = new PTIClient({
     environment: PTIEnvironment.STAGING,
     ptiClientId: "<client ID provided by PTI>",
     privateKeyPath: "<path to your private key>",
+    privateKey: "<private key>",
 });
 ```

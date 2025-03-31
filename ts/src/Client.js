@@ -16,53 +16,55 @@ class PTIClient {
     if (!_options.ptiClientId) {
       throw new Error("PTI client ID is required.")
     }
-    if (!_options.privateKeyPath) {
-      throw new Error("Your client private key path is required.")
+    if (_options.privateKeyPath) {
+      try {
+        const realPrivateKeyPath = path.resolve(__dirname, _options.privateKeyPath
+          .replace(/^~\//, os.homedir() + "/")
+          .replace(/^\.\//, process.cwd() + "/"));
+        _options.privateKey = fs.readFileSync(realPrivateKeyPath, "utf-8");
+      } catch (e) {
+        throw new Error("Error reading your private key file. Verify file path is correct and content matches a JWK key.");
+      }
     }
-    try {
-      const realPrivateKeyPath = path.resolve(__dirname, _options.privateKeyPath
-        .replace(/^~\//, os.homedir() + "/")
-        .replace(/^\.\//, process.cwd() + "/"));
-      _options.privateKeyPath = fs.readFileSync(realPrivateKeyPath, "utf-8");
-    } catch (e) {
-      throw new Error("Error reading your private key file. Verify file path is correct and content matches a JWK key.");
+    if (!_options.privateKey) {
+      throw new Error("Your client private key is required.")
     }
     this._options = _options;
   }
   get authentication() {
     var _a;
     return ((_a = this._authentication) !== null && _a !== void 0 ? _a : (this._authentication = new Client_1
-      .Authentication({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .Authentication({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get wallets() {
     var _a;
     return ((_a = this._wallets) !== null && _a !== void 0 ? _a : (this._wallets = new Client_2
-      .Wallets({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .Wallets({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get users() {
     var _a;
     return ((_a = this._users) !== null && _a !== void 0 ? _a : (this._users = new Client_3
-      .Users({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .Users({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get paymentInformation() {
     var _a;
     return ((_a = this._paymentInformation) !== null && _a !== void 0 ? _a : (this._paymentInformation = new Client_4
-      .PaymentInformation({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .PaymentInformation({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get transactionAssessment() {
     var _a;
     return ((_a = this._transactionAssessment) !== null && _a !== void 0 ? _a : (this._transactionAssessment = new Client_5
-      .TransactionAssessment({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .TransactionAssessment({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get transactions() {
     var _a;
     return ((_a = this._transactions) !== null && _a !== void 0 ? _a : (this._transactions = new Client_6
-      .Transactions({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .Transactions({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
   get marketplace() {
     var _a;
     return ((_a = this._marketplace) !== null && _a !== void 0 ? _a : (this._marketplace = new Client_7
-      .Marketplace({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKeyPath })));
+      .Marketplace({ environment: this._options.environment, ptiClientId: this._options.ptiClientId, token: this._options.privateKey })));
   }
 }
 exports.PTIClient = PTIClient;

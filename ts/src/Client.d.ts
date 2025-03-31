@@ -11,7 +11,8 @@ import { Marketplace } from "./api/resources/marketplace/client/Client";
 export declare namespace PTIClient {
     interface Options {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
-        privateKeyPath: core.Supplier<string>;
+        privateKeyPath?: core.Supplier<string>;
+        privateKey?: core.Supplier<string>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
