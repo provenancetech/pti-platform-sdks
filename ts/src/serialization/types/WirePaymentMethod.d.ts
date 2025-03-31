@@ -13,5 +13,6 @@ export declare namespace WirePaymentMethod {
         memo?: string | null;
         billingEmail?: string | null;
         paymentInformation?: OneOfFiatPaymentInformation.Raw | null;
+        [key: string]: any;
     }
 }

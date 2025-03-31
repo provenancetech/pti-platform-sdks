@@ -7,6 +7,8 @@ import * as PTI from "../../../index";
 export declare namespace Transactions {
     interface Options {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
@@ -20,6 +22,8 @@ export declare namespace Transactions {
         abortSignal?: AbortSignal;
         /** Override the x-pti-client-id header */
         ptiClientId?: PTI.UuidLikeStr | undefined;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Transactions {
@@ -56,34 +60,10 @@ export declare class Transactions {
      *         amount: 100,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *             sourceOfFunds: "Creator earnings",
-     *             addresses: [{
-     *                     streetAddress: "1, main street",
-     *                     city: "New Hampshire",
-     *                     postalCode: "10005",
-     *                     stateCode: "US-NH",
-     *                     country: "US",
-     *                     default: true
-     *                 }],
-     *             emails: [{
-     *                     default: true,
-     *                     address: "johnsmith@test.com"
-     *                 }],
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             },
-     *             phones: [{
-     *                     default: true,
-     *                     number: "12345678901",
-     *                     type: "WORK"
-     *                 }]
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Deposit,
+     *         type: "DEPOSIT",
      *         destinationMethod: {
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
@@ -125,43 +105,12 @@ export declare class Transactions {
      *         amount: 100,
      *         date: "2024-12-13T18:46:40.666+0000",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *             sourceOfFunds: "Creator earnings",
-     *             addresses: [{
-     *                     streetAddress: "1, main street",
-     *                     city: "New Hampshire",
-     *                     postalCode: "10005",
-     *                     stateCode: "US-NH",
-     *                     country: "US",
-     *                     default: true
-     *                 }],
-     *             emails: [{
-     *                     default: true,
-     *                     address: "johnsmith@test.com"
-     *                 }],
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             },
-     *             phones: [{
-     *                     default: true,
-     *                     number: "12345678901",
-     *                     type: "WORK"
-     *                 }]
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Deposit,
+     *         type: "DEPOSIT",
      *         sourceMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             billingEmail: "user@example.com",
-     *             paymentInformation: {
-     *                 id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
      *             billingEmail: "user@example.com",
@@ -193,23 +142,12 @@ export declare class Transactions {
      *         amount: 1,
      *         date: "date",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "initiator",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Withdrawal,
+     *         type: "WITHDRAWAL",
      *         destinationMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "ACH"
      *         },
      *         sourceMethod: {
      *             paymentInformation: {
@@ -255,27 +193,15 @@ export declare class Transactions {
      *         amount: 6.99,
      *         date: "date",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "initiator",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
      *         clientMeta: {
      *             "paymentMetadata": "collection 1 publication fees"
      *         },
-     *         type: PTI.TransactionTypeEnum.Payment,
+     *         type: "PAYMENT",
      *         sourceMethod: {
-     *             paymentMethodType: "CRYPTO",
-     *             paymentInformation: {
-     *                 id: "79a0da5f-d24b-4ed8-a194-f8e0db32cf05",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
-     *             }
+     *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
@@ -307,16 +233,10 @@ export declare class Transactions {
      *         amount: 200,
      *         date: "date",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "initiator",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Transfer,
+     *         type: "TRANSFER",
      *         sourceTransferMethod: {
      *             paymentInformation: {
      *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
@@ -330,14 +250,8 @@ export declare class Transactions {
      *             }
      *         },
      *         destination: {
-     *             type: "BUSINESS",
-     *             id: "destination",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         }
      *     })
      */
@@ -363,16 +277,10 @@ export declare class Transactions {
      *         amount: 0.5,
      *         date: "date",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "initiator",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Trade,
+     *         type: "TRADE",
      *         sourceMethod: {
      *             paymentInformation: {
      *                 id: "MySOLWallet",
@@ -409,25 +317,13 @@ export declare class Transactions {
      *         amount: 0.55,
      *         date: "date",
      *         initiator: {
-     *             type: "BUSINESS",
-     *             id: "initiator",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
-     *         type: PTI.TransactionTypeEnum.Mint,
+     *         type: "MINT",
      *         destination: {
-     *             type: "BUSINESS",
-     *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
-     *             mainRepresentative: {
-     *                 ownershipPercent: 1,
-     *                 person: {
-     *                     id: "id"
-     *                 }
-     *             }
+     *             type: "PERSON",
+     *             id: "id"
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
@@ -488,8 +384,8 @@ export declare class Transactions {
      * @example
      *     await client.transactions.provideFeedback("requestId", {
      *         payload: "{}",
-     *         providerName: PTI.TransactionUpdateProviderName.Unknown,
-     *         feedback: PTI.TransactionUpdateFeedback.Settled,
+     *         providerName: "UNKNOWN",
+     *         feedback: "SETTLED",
      *         transactionId: "UUID",
      *         date: "2024-12-13T18:46:40.666+0000"
      *     })

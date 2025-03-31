@@ -11,25 +11,13 @@ import * as PTI from "../../../../index";
  *         amount: 0.55,
  *         date: "date",
  *         initiator: {
- *             type: "BUSINESS",
- *             id: "initiator",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
- *         type: PTI.TransactionTypeEnum.Mint,
+ *         type: "MINT",
  *         destination: {
- *             type: "BUSINESS",
- *             id: "36dbe68f-2747-41c6-8748-559588fd3248",
- *             mainRepresentative: {
- *                 ownershipPercent: 1,
- *                 person: {
- *                     id: "id"
- *                 }
- *             }
+ *             type: "PERSON",
+ *             id: "id"
  *         },
  *         destinationMethod: {
  *             paymentInformation: {

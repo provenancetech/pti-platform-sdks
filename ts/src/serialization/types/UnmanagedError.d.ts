@@ -9,5 +9,6 @@ export declare namespace UnmanagedError {
     interface Raw {
         error: string;
         code?: number | null;
+        [key: string]: any;
     }
 }

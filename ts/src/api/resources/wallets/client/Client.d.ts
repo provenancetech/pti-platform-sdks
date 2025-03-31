@@ -7,6 +7,8 @@ import * as PTI from "../../../index";
 export declare namespace Wallets {
     interface Options {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
@@ -20,6 +22,8 @@ export declare namespace Wallets {
         abortSignal?: AbortSignal;
         /** Override the x-pti-client-id header */
         ptiClientId?: PTI.UuidLikeStr | undefined;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Wallets {
@@ -60,8 +64,8 @@ export declare class Wallets {
      * @example
      *     await client.wallets.createWallet("userId", {
      *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
-     *         currency: PTI.CurrencyEnum.Eth,
-     *         network: PTI.BlockChainEnum.Ethereum
+     *         currency: "ETH",
+     *         network: "ETHEREUM"
      *     })
      */
     createWallet(userId: string, request: PTI.WalletCreation, requestOptions?: Wallets.RequestOptions): Promise<PTI.Wallet>;
@@ -105,7 +109,7 @@ export declare class Wallets {
      * @example
      *     await client.wallets.simulateWalletPayment("userId", "walletId", {
      *         amount: 100,
-     *         paymentMethodType: PTI.PaymentMethodType.Ach
+     *         paymentMethodType: "ACH"
      *     })
      */
     simulateWalletPayment(userId: string, walletId: string, request?: PTI.SimulatePaymentRequest, requestOptions?: Wallets.RequestOptions): Promise<void>;

@@ -8,4 +8,6 @@ export interface WirePaymentMethod {
     memo?: string;
     billingEmail?: string;
     paymentInformation?: PTI.OneOfFiatPaymentInformation;
+    /** Accepts any additional properties */
+    [key: string]: any;
 }
