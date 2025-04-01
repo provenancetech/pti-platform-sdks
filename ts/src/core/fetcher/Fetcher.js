@@ -1,5 +1,6 @@
-import crypto from "crypto";
-import { JWK, JWS, util } from "node-jose";
+"use strict";
+const crypto = require("crypto");
+const { JWK, JWS, util } = require("node-jose");
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -11,13 +12,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 
-import { toJson } from "../json";
-import { createRequestUrl } from "./createRequestUrl";
-import { getFetchFn } from "./getFetchFn";
-import { getRequestBody } from "./getRequestBody";
-import { getResponseBody } from "./getResponseBody";
-import { makeRequest } from "./makeRequest";
-import { requestWithRetries } from "./requestWithRetries";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetcher = void 0;
+exports.fetcherImpl = fetcherImpl;
+const json_1 = require("../json");
+const createRequestUrl_1 = require("./createRequestUrl");
+const getFetchFn_1 = require("./getFetchFn");
+const getRequestBody_1 = require("./getRequestBody");
+const getResponseBody_1 = require("./getResponseBody");
+const makeRequest_1 = require("./makeRequest");
+const requestWithRetries_1 = require("./requestWithRetries");
 
 /** Custom code section **/
 
@@ -41,7 +45,7 @@ function* buildSignature(clientId, key, url, method, data, date) {
     let payload = `${method}\n`;
     if (["POST", "PUT", "PATCH"].includes(method)) {
         payload += `${getContentSha256(Buffer.from(data ? JSON.stringify(data) : ""))}\n`;
-        payload += "content-type:application/json; charset=utf-8\n";
+        payload += "content-type:application/json\n";
     } else {
         payload += "\n\n";
     }
@@ -66,7 +70,7 @@ function* buildCustomHeaders(args, url, headers) {
 
 /** End of custom code section **/
 
-export function fetcherImpl(args) {
+function fetcherImpl(args) {
     return __awaiter(this, void 0, void 0, function* () {
         const headers = {};
         if (args.body !== undefined && args.contentType != null) {
@@ -79,8 +83,8 @@ export function fetcherImpl(args) {
                 }
             }
         }
-        const url = createRequestUrl(args.url, args.queryParameters);
-        const requestBody = yield getRequestBody({
+        const url = (0, createRequestUrl_1.createRequestUrl)(args.url, args.queryParameters);
+        const requestBody = yield (0, getRequestBody_1.getRequestBody)({
             body: args.body,
             type: args.requestType === "json" ? "json" : "other",
         });
@@ -88,12 +92,12 @@ export function fetcherImpl(args) {
         // Build our custom auth headers
         yield* buildCustomHeaders(args, url, headers);
 
-        const fetchFn = yield getFetchFn();
+        const fetchFn = yield (0, getFetchFn_1.getFetchFn)();
         try {
-            const response = yield requestWithRetries(() => __awaiter(this, void 0, void 0, function* () {
-                return makeRequest(fetchFn, url, args.method, headers, requestBody, args.timeoutMs, args.abortSignal, args.withCredentials, args.duplex);
+            const response = yield (0, requestWithRetries_1.requestWithRetries)(() => __awaiter(this, void 0, void 0, function* () {
+                return (0, makeRequest_1.makeRequest)(fetchFn, url, args.method, headers, requestBody, args.timeoutMs, args.abortSignal, args.withCredentials, args.duplex);
             }), args.maxRetries);
-            const responseBody = yield getResponseBody(response, args.responseType);
+            const responseBody = yield (0, getResponseBody_1.getResponseBody)(response, args.responseType);
             if (response.status >= 200 && response.status < 400) {
                 return {
                     ok: true,
@@ -143,10 +147,10 @@ export function fetcherImpl(args) {
                 ok: false,
                 error: {
                     reason: "unknown",
-                    errorMessage: toJson(error),
+                    errorMessage: (0, json_1.toJson)(error),
                 },
             };
         }
     });
 }
-export const fetcher = fetcherImpl;
+exports.fetcher = fetcherImpl;

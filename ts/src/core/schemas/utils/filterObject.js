@@ -1,4 +1,7 @@
-export function filterObject(obj, keysToInclude) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.filterObject = filterObject;
+function filterObject(obj, keysToInclude) {
     const keysToIncludeSet = new Set(keysToInclude);
     return Object.entries(obj).reduce((acc, [key, value]) => {
         if (keysToIncludeSet.has(key)) {

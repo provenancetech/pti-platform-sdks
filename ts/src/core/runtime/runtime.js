@@ -1,7 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RUNTIME = void 0;
 /**
  * A constant that indicates which environment and version the SDK is running in.
  */
-export const RUNTIME = evaluateRuntime();
+exports.RUNTIME = evaluateRuntime();
 function evaluateRuntime() {
     var _a, _b, _c, _d, _e;
     /**

@@ -1,4 +1,7 @@
-export function getErrorMessageForIncorrectType(value, expectedType) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getErrorMessageForIncorrectType = getErrorMessageForIncorrectType;
+function getErrorMessageForIncorrectType(value, expectedType) {
     return `Expected ${expectedType}. Received ${getTypeAsString(value)}.`;
 }
 function getTypeAsString(value) {

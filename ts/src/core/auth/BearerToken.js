@@ -1,5 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BearerToken = void 0;
 const BEARER_AUTH_HEADER_PREFIX = /^Bearer /i;
-export const BearerToken = {
+exports.BearerToken = {
     toAuthorizationHeader: (token) => {
         if (token == null) {
             return undefined;

@@ -1,4 +1,7 @@
-export function partition(items, predicate) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.partition = partition;
+function partition(items, predicate) {
     const trueItems = [], falseItems = [];
     for (const item of items) {
         if (predicate(item)) {

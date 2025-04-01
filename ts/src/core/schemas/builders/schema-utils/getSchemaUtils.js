@@ -1,7 +1,14 @@
-import { SchemaType } from "../../Schema";
-import { JsonError } from "./JsonError";
-import { ParseError } from "./ParseError";
-export function getSchemaUtils(schema) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSchemaUtils = getSchemaUtils;
+exports.nullable = nullable;
+exports.optional = optional;
+exports.optionalNullable = optionalNullable;
+exports.transform = transform;
+const Schema_1 = require("../../Schema");
+const JsonError_1 = require("./JsonError");
+const ParseError_1 = require("./ParseError");
+function getSchemaUtils(schema) {
     return {
         nullable: () => nullable(schema),
         optional: () => optional(schema),
@@ -12,21 +19,21 @@ export function getSchemaUtils(schema) {
             if (parsed.ok) {
                 return parsed.value;
             }
-            throw new ParseError(parsed.errors);
+            throw new ParseError_1.ParseError(parsed.errors);
         },
         jsonOrThrow: (parsed, opts) => {
             const raw = schema.json(parsed, opts);
             if (raw.ok) {
                 return raw.value;
             }
-            throw new JsonError(raw.errors);
+            throw new JsonError_1.JsonError(raw.errors);
         },
     };
 }
 /**
  * schema utils are defined in one file to resolve issues with circular imports
  */
-export function nullable(schema) {
+function nullable(schema) {
     const baseSchema = {
         parse: (raw, opts) => {
             if (raw == null) {
@@ -46,11 +53,11 @@ export function nullable(schema) {
             }
             return schema.json(parsed, opts);
         },
-        getType: () => SchemaType.NULLABLE,
+        getType: () => Schema_1.SchemaType.NULLABLE,
     };
     return Object.assign(Object.assign({}, baseSchema), getSchemaUtils(baseSchema));
 }
-export function optional(schema) {
+function optional(schema) {
     const baseSchema = {
         parse: (raw, opts) => {
             if (raw == null) {
@@ -76,11 +83,11 @@ export function optional(schema) {
             }
             return schema.json(parsed, opts);
         },
-        getType: () => SchemaType.OPTIONAL,
+        getType: () => Schema_1.SchemaType.OPTIONAL,
     };
     return Object.assign(Object.assign({}, baseSchema), getSchemaUtils(baseSchema));
 }
-export function optionalNullable(schema) {
+function optionalNullable(schema) {
     const baseSchema = {
         parse: (raw, opts) => {
             if (raw === undefined) {
@@ -112,11 +119,11 @@ export function optionalNullable(schema) {
             }
             return schema.json(parsed, opts);
         },
-        getType: () => SchemaType.OPTIONAL_NULLABLE,
+        getType: () => Schema_1.SchemaType.OPTIONAL_NULLABLE,
     };
     return Object.assign(Object.assign({}, baseSchema), getSchemaUtils(baseSchema));
 }
-export function transform(schema, transformer) {
+function transform(schema, transformer) {
     const baseSchema = {
         parse: (raw, opts) => {
             const parsed = schema.parse(raw, opts);

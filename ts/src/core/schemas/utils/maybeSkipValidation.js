@@ -1,4 +1,7 @@
-export function maybeSkipValidation(schema) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.maybeSkipValidation = maybeSkipValidation;
+function maybeSkipValidation(schema) {
     return Object.assign(Object.assign({}, schema), { json: transformAndMaybeSkipValidation(schema.json), parse: transformAndMaybeSkipValidation(schema.parse) });
 }
 function transformAndMaybeSkipValidation(transform) {
