@@ -3,5 +3,5 @@
  */
 import * as PTI from "../index";
 export interface InvalidRequestError extends PTI.ManagedError {
-    errors: string[];
+    errors?: string[];
 }

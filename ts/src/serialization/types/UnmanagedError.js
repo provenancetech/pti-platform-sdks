@@ -40,7 +40,7 @@ exports.UnmanagedError = void 0;
 const core = __importStar(require("../../core"));
 exports.UnmanagedError = core.serialization
     .object({
-    error: core.serialization.string(),
+    error: core.serialization.string().optional(),
     code: core.serialization.number().optional(),
 })
     .passthrough();

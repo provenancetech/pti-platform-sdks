@@ -41,6 +41,6 @@ const core = __importStar(require("../../core"));
 const ManagedError_1 = require("./ManagedError");
 exports.InvalidRequestError = core.serialization
     .object({
-    errors: core.serialization.list(core.serialization.string()),
+    errors: core.serialization.list(core.serialization.string()).optional(),
 })
     .extend(ManagedError_1.ManagedError);
