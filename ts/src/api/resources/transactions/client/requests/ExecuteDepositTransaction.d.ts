@@ -23,7 +23,8 @@ import * as PTI from "../../../../index";
  *             billingEmail: "user@example.com",
  *             paymentInformation: {
  *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         }
  *     }
  */
@@ -49,5 +50,5 @@ export interface ExecuteDepositTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     sourceMethod: PTI.OneOfExternalPaymentMethod;
-    destinationMethod?: PTI.WalletPaymentMethod;
+    destinationMethod?: PTI.ExecuteDepositTransactionDestinationMethod;
 }
