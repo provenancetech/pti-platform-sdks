@@ -8,6 +8,6 @@ import { ManagedError } from "./ManagedError";
 export declare const InvalidRequestError: core.serialization.ObjectSchema<serializers.InvalidRequestError.Raw, PTI.InvalidRequestError>;
 export declare namespace InvalidRequestError {
     interface Raw extends ManagedError.Raw {
-        errors: string[];
+        errors?: string[] | null;
     }
 }

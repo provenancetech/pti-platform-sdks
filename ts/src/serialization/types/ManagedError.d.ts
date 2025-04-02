@@ -8,8 +8,8 @@ import { ErrorType } from "./ErrorType";
 export declare const ManagedError: core.serialization.ObjectSchema<serializers.ManagedError.Raw, PTI.ManagedError>;
 export declare namespace ManagedError {
     interface Raw {
-        type: ErrorType.Raw;
-        code: number;
+        type?: ErrorType.Raw | null;
+        code?: number | null;
         [key: string]: any;
     }
 }
