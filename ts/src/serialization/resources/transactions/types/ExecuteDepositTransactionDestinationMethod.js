@@ -36,11 +36,11 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InvalidRequestError = void 0;
-const core = __importStar(require("../../core"));
-const ManagedError_1 = require("./ManagedError");
-exports.InvalidRequestError = core.serialization
+exports.ExecuteDepositTransactionDestinationMethod = void 0;
+const core = __importStar(require("../../../../core"));
+const WalletPaymentMethod_1 = require("../../../types/WalletPaymentMethod");
+exports.ExecuteDepositTransactionDestinationMethod = core.serialization
     .object({
-    errors: core.serialization.list(core.serialization.string()).optional(),
+    paymentMethodType: core.serialization.stringLiteral("WALLET").optional(),
 })
-    .extend(ManagedError_1.ManagedError);
+    .extend(WalletPaymentMethod_1.WalletPaymentMethod);

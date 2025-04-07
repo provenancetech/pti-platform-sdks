@@ -41,7 +41,7 @@ const core = __importStar(require("../../core"));
 const ErrorType_1 = require("./ErrorType");
 exports.ManagedError = core.serialization
     .object({
-    type: ErrorType_1.ErrorType,
-    code: core.serialization.number(),
+    type: ErrorType_1.ErrorType.optional(),
+    code: core.serialization.number().optional(),
 })
     .passthrough();
