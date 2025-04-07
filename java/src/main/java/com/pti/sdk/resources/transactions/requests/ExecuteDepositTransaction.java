@@ -13,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import com.pti.sdk.resources.transactions.types.ExecuteDepositTransactionDestinationMethod;
 import com.pti.sdk.types.ITransaction;
 import com.pti.sdk.types.ITransactionType;
 import com.pti.sdk.types.OneOfExternalPaymentMethod;
 import com.pti.sdk.types.OneOfUserSubTypes;
 import com.pti.sdk.types.Total;
 import com.pti.sdk.types.TransactionTypeEnum;
-import com.pti.sdk.types.WalletPaymentMethod;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
@@ -69,7 +69,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
   private final OneOfExternalPaymentMethod sourceMethod;
 
-  private final Optional<WalletPaymentMethod> destinationMethod;
+  private final Optional<ExecuteDepositTransactionDestinationMethod> destinationMethod;
 
   private final Map<String, Object> additionalProperties;
 
@@ -80,7 +80,8 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       Optional<Map<String, Object>> clientMeta, String ptiRequestId, String ptiScenarioId,
       Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
       Optional<String> ptiProviderName, OneOfExternalPaymentMethod sourceMethod,
-      Optional<WalletPaymentMethod> destinationMethod, Map<String, Object> additionalProperties) {
+      Optional<ExecuteDepositTransactionDestinationMethod> destinationMethod,
+      Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
     this.transactionGroupId = transactionGroupId;
@@ -226,7 +227,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
   }
 
   @JsonProperty("destinationMethod")
-  public Optional<WalletPaymentMethod> getDestinationMethod() {
+  public Optional<ExecuteDepositTransactionDestinationMethod> getDestinationMethod() {
     return destinationMethod;
   }
 
@@ -332,9 +333,10 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
     _FinalStage ptiProviderName(String ptiProviderName);
 
-    _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod);
+    _FinalStage destinationMethod(
+        Optional<ExecuteDepositTransactionDestinationMethod> destinationMethod);
 
-    _FinalStage destinationMethod(WalletPaymentMethod destinationMethod);
+    _FinalStage destinationMethod(ExecuteDepositTransactionDestinationMethod destinationMethod);
   }
 
   @JsonIgnoreProperties(
@@ -355,7 +357,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
     private OneOfExternalPaymentMethod sourceMethod;
 
-    private Optional<WalletPaymentMethod> destinationMethod = Optional.empty();
+    private Optional<ExecuteDepositTransactionDestinationMethod> destinationMethod = Optional.empty();
 
     private Optional<String> ptiProviderName = Optional.empty();
 
@@ -468,7 +470,8 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
     }
 
     @Override
-    public _FinalStage destinationMethod(WalletPaymentMethod destinationMethod) {
+    public _FinalStage destinationMethod(
+        ExecuteDepositTransactionDestinationMethod destinationMethod) {
       this.destinationMethod = Optional.ofNullable(destinationMethod);
       return this;
     }
@@ -478,7 +481,8 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
         value = "destinationMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod) {
+    public _FinalStage destinationMethod(
+        Optional<ExecuteDepositTransactionDestinationMethod> destinationMethod) {
       this.destinationMethod = destinationMethod;
       return this;
     }
