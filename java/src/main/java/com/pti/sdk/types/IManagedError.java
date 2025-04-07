@@ -4,8 +4,11 @@
 
 package com.pti.sdk.types;
 
-public interface IManagedError {
-  ErrorType getType();
+import java.lang.Integer;
+import java.util.Optional;
 
-  int getCode();
+public interface IManagedError {
+  Optional<ErrorType> getType();
+
+  Optional<Integer> getCode();
 }

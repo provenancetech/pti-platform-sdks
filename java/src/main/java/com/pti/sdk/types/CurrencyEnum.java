@@ -24,7 +24,11 @@ public enum CurrencyEnum {
 
   LTC("LTC"),
 
-  ADA("ADA");
+  ADA("ADA"),
+
+  XRP("XRP"),
+
+  XLM("XLM");
 
   private final String value;
 
