@@ -134,6 +134,7 @@ export declare class Wallets {
      * @param {Record<string, unknown>} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.ForbiddenError}
      * @throws {@link PTI.NotFoundError}
