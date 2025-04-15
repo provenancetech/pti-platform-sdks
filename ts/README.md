@@ -10,8 +10,8 @@ Building the API client library requires:
 ## Installation
 
 ### Published Package
-If you are not logged in to GitHub npm repository, 
-make sure to use a token which has the "read:write:delete repository" rights.
+If you're not already logged in to the GitHub npm registry, you'll be prompted for your GitHub 
+username and a password — which is actually a personal access token with `read:write:delete repository` scopes.
 ``` shell
 npm login --registry=https://npm.pkg.github.com
 ```
@@ -19,10 +19,12 @@ To publish the generated package to the GitHub npm registry, use the following c
 ``` shell
 yarn publish --access public
 ```
+This command will prompt you to enter the new SDK version number, so there's no need to update package.json manually beforehand.
 
 
 ### Locally
-To use the TypeScript SDK locally using Yarn or Npm, the simplest method is to create a link from this current repository and use this link in your projects.
+To use the TypeScript SDK locally using Yarn or Npm, the simplest method is to create a 
+link from this current repository and use this link in your projects.
 
 First, open a terminal in this directory `pti-platform-sdks/ts` and create a link using
 ```shell
