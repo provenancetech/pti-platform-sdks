@@ -20,7 +20,11 @@ public enum BlockChainEnum {
 
   LITECOIN("LITECOIN"),
 
-  CARDANO("CARDANO");
+  CARDANO("CARDANO"),
+
+  RIPPLE("RIPPLE"),
+
+  STELLAR("STELLAR");
 
   private final String value;
 

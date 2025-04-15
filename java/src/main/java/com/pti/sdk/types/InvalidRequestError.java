@@ -13,30 +13,30 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.String;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = InvalidRequestError.Builder.class
 )
 public final class InvalidRequestError implements IManagedError {
-  private final ErrorType type;
+  private final Optional<ErrorType> type;
 
-  private final int code;
+  private final Optional<Integer> code;
 
-  private final List<String> errors;
+  private final Optional<List<String>> errors;
 
   private final Map<String, Object> additionalProperties;
 
-  private InvalidRequestError(ErrorType type, int code, List<String> errors,
-      Map<String, Object> additionalProperties) {
+  private InvalidRequestError(Optional<ErrorType> type, Optional<Integer> code,
+      Optional<List<String>> errors, Map<String, Object> additionalProperties) {
     this.type = type;
     this.code = code;
     this.errors = errors;
@@ -45,7 +45,7 @@ public final class InvalidRequestError implements IManagedError {
 
   @JsonProperty("type")
   @Override
-  public ErrorType getType() {
+  public Optional<ErrorType> getType() {
     return type;
   }
 
@@ -65,10 +65,19 @@ public final class InvalidRequestError implements IManagedError {
    * MISSING_TRANSACTION_GROUP_ID(1010)
    * DIFFERENT_BUY_SELL_AMOUNT(1011)
    * DIFFERENT_BUY_SELL_CURRENCIES(1012)
+   * WALLET_MISSING_NETWORK(1013)
+   * PAYMENT_METHOD_TYPE_REQUIRED(1014)
+   * AMOUNT_REQUIRED(1015)
    * NO_INTER_CLIENTS_TRANSFERS(2000)
    * CLIENT_CONFIGURATION_ERROR(2001)
    * UNSUPPORTED_OPERATION(2002)
    * COUNTRY_NOT_SUPPORTED(2003)
+   * UNSUPPORTED_CURRENCY(2004)
+   * UNSUPPORTED_FIAT_CURRENCY(2005)
+   * UNSUPPORTED_CRYPTO_CURRENCY(2005)
+   * UNSUPPORTED_DEPOSIT_ADDRESS(2006)
+   * INVALID_WALLET_PROVIDER(2007)
+   * INVALID_WALLET_PROVIDER_CONFIGURATION(2008)
    * NOT_ENOUGH_FUNDS(3000)
    * INVALID_ASSET_OWNERSHIP(3001)
    * FEES_WALLET_NOT_FOUND(3002)
@@ -81,11 +90,21 @@ public final class InvalidRequestError implements IManagedError {
    * INVALID_SOURCE_CURRENCY(3009)
    * INVALID_DESTINATION_CURRENCY(3010)
    * USD_WALLET_ONLY(3011)
+   * NON_CORRESPONDING_USERS_FOR_TRANSACTION(3012)
+   * UNSUPPORTED_SOURCE_METHOD(3013)
+   * WALLET_REFERENCE_ALREADY_EXISTS(3014)
+   * UNABLE_TO_DELETE_WALLET_WITH_NONZERO_BALANCE(3015)
+   * WALLET_DELETED(3016)
+   * WALLET_LABEL_ALREADY_IN_USE(3017)
    * BANK_ONLY(4000)
    * MISSING_EMAIL_ADDRESS(4001)
    * MISSING_BANK_ACCOUNT_INFORMATION(4002)
    * MISSING_BANK_ACCOUNT_NUMBER_INFORMATION(4003)
    * MISSING_BANK_ACCOUNT_TYPE(4004)
+   * FUNDING_FROM_ACH_ONLY(4005)
+   * WITHDRAWING_FROM_WALLET_ONLY(4006)
+   * WITHDRAWING_TO_ACH_WIRE_ONLY(4007)
+   * FUNDING_TO_WALLET_ONLY(4008)
    * MANDATORY_IP_ADDRESS(5000)
    * MANDATORY_EMAIL_ADDRESS(5001)
    * MISSING_CC_INFO(5002)
@@ -97,12 +116,12 @@ public final class InvalidRequestError implements IManagedError {
    */
   @JsonProperty("code")
   @Override
-  public int getCode() {
+  public Optional<Integer> getCode() {
     return code;
   }
 
   @JsonProperty("errors")
-  public List<String> getErrors() {
+  public Optional<List<String>> getErrors() {
     return errors;
   }
 
@@ -118,7 +137,7 @@ public final class InvalidRequestError implements IManagedError {
   }
 
   private boolean equalTo(InvalidRequestError other) {
-    return type.equals(other.type) && code == other.code && errors.equals(other.errors);
+    return type.equals(other.type) && code.equals(other.code) && errors.equals(other.errors);
   }
 
   @Override
@@ -131,39 +150,19 @@ public final class InvalidRequestError implements IManagedError {
     return ObjectMappers.stringify(this);
   }
 
-  public static TypeStage builder() {
+  public static Builder builder() {
     return new Builder();
-  }
-
-  public interface TypeStage {
-    CodeStage type(@NotNull ErrorType type);
-
-    Builder from(InvalidRequestError other);
-  }
-
-  public interface CodeStage {
-    _FinalStage code(int code);
-  }
-
-  public interface _FinalStage {
-    InvalidRequestError build();
-
-    _FinalStage errors(List<String> errors);
-
-    _FinalStage addErrors(String errors);
-
-    _FinalStage addAllErrors(List<String> errors);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, CodeStage, _FinalStage {
-    private ErrorType type;
+  public static final class Builder {
+    private Optional<ErrorType> type = Optional.empty();
 
-    private int code;
+    private Optional<Integer> code = Optional.empty();
 
-    private List<String> errors = new ArrayList<>();
+    private Optional<List<String>> errors = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -171,7 +170,6 @@ public final class InvalidRequestError implements IManagedError {
     private Builder() {
     }
 
-    @Override
     public Builder from(InvalidRequestError other) {
       type(other.getType());
       code(other.getCode());
@@ -179,91 +177,48 @@ public final class InvalidRequestError implements IManagedError {
       return this;
     }
 
-    @Override
-    @JsonSetter("type")
-    public CodeStage type(@NotNull ErrorType type) {
-      this.type = Objects.requireNonNull(type, "type must not be null");
+    @JsonSetter(
+        value = "type",
+        nulls = Nulls.SKIP
+    )
+    public Builder type(Optional<ErrorType> type) {
+      this.type = type;
       return this;
     }
 
-    /**
-     * <h1>Error codes descriptions</h1>
-     * <p>NO_ERROR(0)
-     * INVALID_REQUEST(1000)
-     * MIN_INFO_MISSING(1001)
-     * MIN_ASSESSMENT_MISSING(1002)
-     * ALREADY_IN_PROGRESS(1003)
-     * MISSING_WALLET(1004)
-     * WALLETS_DIFFERENT_CURRENCY(1005)
-     * WALLETS_SAME_CURRENCY(1006)
-     * SOURCE_WALLET_DESTINATION_TOKEN_ONLY(1007)
-     * ITEM_USD_VALUE_REQUIRED_WHEN_MULTIPLE_ITEMS(1008)
-     * INVALID_USER_TAG(1009)
-     * MISSING_TRANSACTION_GROUP_ID(1010)
-     * DIFFERENT_BUY_SELL_AMOUNT(1011)
-     * DIFFERENT_BUY_SELL_CURRENCIES(1012)
-     * NO_INTER_CLIENTS_TRANSFERS(2000)
-     * CLIENT_CONFIGURATION_ERROR(2001)
-     * UNSUPPORTED_OPERATION(2002)
-     * COUNTRY_NOT_SUPPORTED(2003)
-     * NOT_ENOUGH_FUNDS(3000)
-     * INVALID_ASSET_OWNERSHIP(3001)
-     * FEES_WALLET_NOT_FOUND(3002)
-     * REVERT_ONLY_CHARGE_BACK(3003)
-     * MISSING_CORRESPONDING_BUY_TRANSACTION(3004)
-     * ALREADY_EXISTING_CORRESPONDING_TRANSACTION_PAIR(3005)
-     * BUY_TRANSACTION_NOT_SETTLED(3006)
-     * FIAT_ONLY(3007)
-     * SOURCE_DESTINATION_WALLET(3008)
-     * INVALID_SOURCE_CURRENCY(3009)
-     * INVALID_DESTINATION_CURRENCY(3010)
-     * USD_WALLET_ONLY(3011)
-     * BANK_ONLY(4000)
-     * MISSING_EMAIL_ADDRESS(4001)
-     * MISSING_BANK_ACCOUNT_INFORMATION(4002)
-     * MISSING_BANK_ACCOUNT_NUMBER_INFORMATION(4003)
-     * MISSING_BANK_ACCOUNT_TYPE(4004)
-     * MANDATORY_IP_ADDRESS(5000)
-     * MANDATORY_EMAIL_ADDRESS(5001)
-     * MISSING_CC_INFO(5002)
-     * CC_ONLY(5003)
-     * UNABLE_TO_PROVIDE_ESTIMATES(6000)
-     * FUNDING_FROM_CRYPTO_ONLY(6001)
-     * WITHDRAWAL_FROM_WALLET_TO_CRYPTO(6002)
-     * SOURCE_WALLET_CURRENCY_DIFFERENT_THAN_DESTINATION_TOKEN_CURRENCY(6003)</p>
-     * @return Reference to {@code this} so that method calls can be chained together.
-     */
-    @Override
-    @JsonSetter("code")
-    public _FinalStage code(int code) {
+    public Builder type(ErrorType type) {
+      this.type = Optional.ofNullable(type);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "code",
+        nulls = Nulls.SKIP
+    )
+    public Builder code(Optional<Integer> code) {
       this.code = code;
       return this;
     }
 
-    @Override
-    public _FinalStage addAllErrors(List<String> errors) {
-      this.errors.addAll(errors);
+    public Builder code(Integer code) {
+      this.code = Optional.ofNullable(code);
       return this;
     }
 
-    @Override
-    public _FinalStage addErrors(String errors) {
-      this.errors.add(errors);
-      return this;
-    }
-
-    @Override
     @JsonSetter(
         value = "errors",
         nulls = Nulls.SKIP
     )
-    public _FinalStage errors(List<String> errors) {
-      this.errors.clear();
-      this.errors.addAll(errors);
+    public Builder errors(Optional<List<String>> errors) {
+      this.errors = errors;
       return this;
     }
 
-    @Override
+    public Builder errors(List<String> errors) {
+      this.errors = Optional.ofNullable(errors);
+      return this;
+    }
+
     public InvalidRequestError build() {
       return new InvalidRequestError(type, code, errors, additionalProperties);
     }
