@@ -584,6 +584,7 @@ class Wallets {
      * @param {Record<string, unknown>} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.ForbiddenError}
      * @throws {@link PTI.NotFoundError}
@@ -624,6 +625,13 @@ class Wallets {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
                     case 401:
                         throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
