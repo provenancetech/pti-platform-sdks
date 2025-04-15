@@ -42,7 +42,7 @@ const TransactionUpdateProviderName_1 = require("../../types/TransactionUpdatePr
 const TransactionUpdateFeedback_1 = require("../../types/TransactionUpdateFeedback");
 exports.TransactionUpdate = core.serialization.object({
     payload: core.serialization.string().optional(),
-    providerName: TransactionUpdateProviderName_1.TransactionUpdateProviderName,
+    providerName: TransactionUpdateProviderName_1.TransactionUpdateProviderName.optional(),
     feedback: TransactionUpdateFeedback_1.TransactionUpdateFeedback,
     transactionId: core.serialization.string().optional(),
     date: core.serialization.string().optional(),

@@ -10,7 +10,7 @@ export declare const TransactionUpdate: core.serialization.Schema<serializers.Tr
 export declare namespace TransactionUpdate {
     interface Raw {
         payload?: string | null;
-        providerName: TransactionUpdateProviderName.Raw;
+        providerName?: TransactionUpdateProviderName.Raw | null;
         feedback: TransactionUpdateFeedback.Raw;
         transactionId?: string | null;
         date?: string | null;
