@@ -40,6 +40,7 @@ __exportStar(require("./UnmanagedError"), exports);
 __exportStar(require("./AchPaymentMethod"), exports);
 __exportStar(require("./CreditCardPaymentMethod"), exports);
 __exportStar(require("./WirePaymentMethod"), exports);
+__exportStar(require("./WalletPaymentMethodWrapper"), exports);
 __exportStar(require("./WalletPaymentMethod"), exports);
 __exportStar(require("./DepositTransaction"), exports);
 __exportStar(require("./Itin"), exports);

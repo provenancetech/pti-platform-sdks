@@ -50,5 +50,5 @@ export interface ExecuteDepositTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     sourceMethod: PTI.OneOfExternalPaymentMethod;
-    destinationMethod?: PTI.ExecuteDepositTransactionDestinationMethod;
+    destinationMethod?: PTI.WalletPaymentMethodWrapper;
 }

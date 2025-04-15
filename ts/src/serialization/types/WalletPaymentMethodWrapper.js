@@ -36,10 +36,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExecuteTradeTransactionSourceMethod = void 0;
-const core = __importStar(require("../../../../core"));
-const WalletPaymentMethod_1 = require("../../../types/WalletPaymentMethod");
-exports.ExecuteTradeTransactionSourceMethod = core.serialization
+exports.WalletPaymentMethodWrapper = void 0;
+const core = __importStar(require("../../core"));
+const WalletPaymentMethod_1 = require("./WalletPaymentMethod");
+exports.WalletPaymentMethodWrapper = core.serialization
     .object({
     paymentMethodType: core.serialization.stringLiteral("WALLET").optional(),
 })

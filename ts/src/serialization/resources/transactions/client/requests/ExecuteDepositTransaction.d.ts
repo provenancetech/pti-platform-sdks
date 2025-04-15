@@ -5,12 +5,12 @@ import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { OneOfExternalPaymentMethod } from "../../../../types/OneOfExternalPaymentMethod";
-import { ExecuteDepositTransactionDestinationMethod } from "../../types/ExecuteDepositTransactionDestinationMethod";
+import { WalletPaymentMethodWrapper } from "../../../../types/WalletPaymentMethodWrapper";
 import { TransactionType } from "../../../../types/TransactionType";
 export declare const ExecuteDepositTransaction: core.serialization.Schema<serializers.ExecuteDepositTransaction.Raw, Omit<PTI.ExecuteDepositTransaction, "ptiRequestId" | "ptiScenarioId" | "ptiSessionId" | "ptiDisableWebhook" | "ptiProviderName">>;
 export declare namespace ExecuteDepositTransaction {
     interface Raw extends TransactionType.Raw {
         sourceMethod: OneOfExternalPaymentMethod.Raw;
-        destinationMethod?: ExecuteDepositTransactionDestinationMethod.Raw | null;
+        destinationMethod?: WalletPaymentMethodWrapper.Raw | null;
     }
 }

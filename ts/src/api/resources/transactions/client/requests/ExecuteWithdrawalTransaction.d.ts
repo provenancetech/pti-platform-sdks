@@ -49,5 +49,5 @@ export interface ExecuteWithdrawalTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     destinationMethod: PTI.OneOfExternalPaymentMethod;
-    sourceMethod?: PTI.ExecuteWithdrawalTransactionSourceMethod;
+    sourceMethod?: PTI.WalletPaymentMethodWrapper;
 }

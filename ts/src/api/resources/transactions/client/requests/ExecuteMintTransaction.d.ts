@@ -50,5 +50,5 @@ export interface ExecuteMintTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     destination: PTI.OneOfUserSubTypes;
-    destinationMethod: PTI.ExecuteMintTransactionDestinationMethod;
+    destinationMethod: PTI.WalletPaymentMethodWrapper;
 }

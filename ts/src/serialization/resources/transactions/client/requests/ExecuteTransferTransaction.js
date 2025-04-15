@@ -38,14 +38,13 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExecuteTransferTransaction = void 0;
 const core = __importStar(require("../../../../../core"));
-const ExecuteTransferTransactionSourceTransferMethod_1 = require("../../types/ExecuteTransferTransactionSourceTransferMethod");
-const ExecuteTransferTransactionDestinationTransferMethod_1 = require("../../types/ExecuteTransferTransactionDestinationTransferMethod");
+const WalletPaymentMethodWrapper_1 = require("../../../../types/WalletPaymentMethodWrapper");
 const OneOfUserSubTypes_1 = require("../../../../types/OneOfUserSubTypes");
 const TransactionType_1 = require("../../../../types/TransactionType");
 exports.ExecuteTransferTransaction = core.serialization
     .object({
-    sourceTransferMethod: ExecuteTransferTransactionSourceTransferMethod_1.ExecuteTransferTransactionSourceTransferMethod,
-    destinationTransferMethod: ExecuteTransferTransactionDestinationTransferMethod_1.ExecuteTransferTransactionDestinationTransferMethod,
+    sourceTransferMethod: WalletPaymentMethodWrapper_1.WalletPaymentMethodWrapper,
+    destinationTransferMethod: WalletPaymentMethodWrapper_1.WalletPaymentMethodWrapper,
     destination: OneOfUserSubTypes_1.OneOfUserSubTypes,
     destinationClientId: core.serialization.string().optional(),
 })

@@ -4,13 +4,12 @@
 import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { ExecuteTradeTransactionSourceMethod } from "../../types/ExecuteTradeTransactionSourceMethod";
-import { ExecuteTradeTransactionDestinationMethod } from "../../types/ExecuteTradeTransactionDestinationMethod";
+import { WalletPaymentMethodWrapper } from "../../../../types/WalletPaymentMethodWrapper";
 import { TransactionType } from "../../../../types/TransactionType";
 export declare const ExecuteTradeTransaction: core.serialization.Schema<serializers.ExecuteTradeTransaction.Raw, Omit<PTI.ExecuteTradeTransaction, "ptiRequestId" | "ptiScenarioId" | "ptiSessionId" | "ptiDisableWebhook" | "ptiProviderName">>;
 export declare namespace ExecuteTradeTransaction {
     interface Raw extends TransactionType.Raw {
-        sourceMethod: ExecuteTradeTransactionSourceMethod.Raw;
-        destinationMethod: ExecuteTradeTransactionDestinationMethod.Raw;
+        sourceMethod: WalletPaymentMethodWrapper.Raw;
+        destinationMethod: WalletPaymentMethodWrapper.Raw;
     }
 }

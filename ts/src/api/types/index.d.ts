@@ -24,6 +24,7 @@ export * from "./UnmanagedError";
 export * from "./AchPaymentMethod";
 export * from "./CreditCardPaymentMethod";
 export * from "./WirePaymentMethod";
+export * from "./WalletPaymentMethodWrapper";
 export * from "./WalletPaymentMethod";
 export * from "./DepositTransaction";
 export * from "./Itin";

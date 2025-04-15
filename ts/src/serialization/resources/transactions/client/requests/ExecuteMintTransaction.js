@@ -39,11 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExecuteMintTransaction = void 0;
 const core = __importStar(require("../../../../../core"));
 const OneOfUserSubTypes_1 = require("../../../../types/OneOfUserSubTypes");
-const ExecuteMintTransactionDestinationMethod_1 = require("../../types/ExecuteMintTransactionDestinationMethod");
+const WalletPaymentMethodWrapper_1 = require("../../../../types/WalletPaymentMethodWrapper");
 const TransactionType_1 = require("../../../../types/TransactionType");
 exports.ExecuteMintTransaction = core.serialization
     .object({
     destination: OneOfUserSubTypes_1.OneOfUserSubTypes,
-    destinationMethod: ExecuteMintTransactionDestinationMethod_1.ExecuteMintTransactionDestinationMethod,
+    destinationMethod: WalletPaymentMethodWrapper_1.WalletPaymentMethodWrapper,
 })
     .extend(TransactionType_1.TransactionType);

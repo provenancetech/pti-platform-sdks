@@ -52,6 +52,6 @@ export interface ExecuteTradeTransaction extends PTI.TransactionType {
      * Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.
      */
     ptiProviderName?: PTI.ProviderName;
-    sourceMethod: PTI.ExecuteTradeTransactionSourceMethod;
-    destinationMethod: PTI.ExecuteTradeTransactionDestinationMethod;
+    sourceMethod: PTI.WalletPaymentMethodWrapper;
+    destinationMethod: PTI.WalletPaymentMethodWrapper;
 }
