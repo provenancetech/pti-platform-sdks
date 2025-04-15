@@ -23,7 +23,8 @@ import * as PTI from "../../../../index";
  *             paymentInformation: {
  *                 id: "MyBTCWallet",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         }
  *     }
  */
@@ -49,5 +50,5 @@ export interface ExecuteMintTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     destination: PTI.OneOfUserSubTypes;
-    destinationMethod: PTI.WalletPaymentMethod;
+    destinationMethod: PTI.ExecuteMintTransactionDestinationMethod;
 }

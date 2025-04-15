@@ -19,13 +19,15 @@ import * as PTI from "../../../../index";
  *             paymentInformation: {
  *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         },
  *         destinationTransferMethod: {
  *             paymentInformation: {
  *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         },
  *         destination: {
  *             type: "PERSON",
@@ -54,8 +56,8 @@ export interface ExecuteTransferTransaction extends PTI.TransactionType {
      * Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.
      */
     ptiProviderName?: PTI.ProviderName;
-    sourceTransferMethod: PTI.WalletPaymentMethod;
-    destinationTransferMethod: PTI.WalletPaymentMethod;
+    sourceTransferMethod: PTI.ExecuteTransferTransactionSourceTransferMethod;
+    destinationTransferMethod: PTI.ExecuteTransferTransactionDestinationTransferMethod;
     destination: PTI.OneOfUserSubTypes;
     /** Only used for transfers between two different clients. Must be configured before using. */
     destinationClientId?: string;

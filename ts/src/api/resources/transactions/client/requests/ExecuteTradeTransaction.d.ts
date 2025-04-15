@@ -19,13 +19,15 @@ import * as PTI from "../../../../index";
  *             paymentInformation: {
  *                 id: "MySOLWallet",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         },
  *         destinationMethod: {
  *             paymentInformation: {
  *                 id: "MyUSDWallet",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         }
  *     }
  */
@@ -50,6 +52,6 @@ export interface ExecuteTradeTransaction extends PTI.TransactionType {
      * Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.
      */
     ptiProviderName?: PTI.ProviderName;
-    sourceMethod: PTI.WalletPaymentMethod;
-    destinationMethod: PTI.WalletPaymentMethod;
+    sourceMethod: PTI.ExecuteTradeTransactionSourceMethod;
+    destinationMethod: PTI.ExecuteTradeTransactionDestinationMethod;
 }

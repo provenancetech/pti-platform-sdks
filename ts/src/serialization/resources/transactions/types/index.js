@@ -15,5 +15,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ExecuteDepositTransactionDestinationMethod"), exports);
+__exportStar(require("./ExecuteWithdrawalTransactionSourceMethod"), exports);
+__exportStar(require("./ExecutePaymentTransactionDestinationMethod"), exports);
+__exportStar(require("./ExecuteTransferTransactionSourceTransferMethod"), exports);
+__exportStar(require("./ExecuteTransferTransactionDestinationTransferMethod"), exports);
+__exportStar(require("./ExecuteTradeTransactionSourceMethod"), exports);
+__exportStar(require("./ExecuteTradeTransactionDestinationMethod"), exports);
+__exportStar(require("./ExecuteMintTransactionDestinationMethod"), exports);
 __exportStar(require("./TransactionUpdateProviderName"), exports);
 __exportStar(require("./TransactionUpdateFeedback"), exports);

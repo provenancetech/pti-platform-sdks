@@ -154,7 +154,8 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -208,7 +209,8 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -242,13 +244,15 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destinationTransferMethod: {
      *             paymentInformation: {
      *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destination: {
      *             type: "PERSON",
@@ -286,13 +290,15 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "MySOLWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destinationMethod: {
      *             paymentInformation: {
      *                 id: "MyUSDWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -330,7 +336,8 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "MyBTCWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */

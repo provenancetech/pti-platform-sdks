@@ -39,7 +39,8 @@ import * as PTI from "../../../../index";
  *             paymentInformation: {
  *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         }
  *     }
  */
@@ -65,5 +66,5 @@ export interface ExecutePaymentTransaction extends PTI.TransactionType {
      */
     ptiProviderName?: PTI.ProviderName;
     sourceMethod: PTI.OneOfPaymentMethod;
-    destinationMethod?: PTI.WalletPaymentMethod;
+    destinationMethod?: PTI.ExecutePaymentTransactionDestinationMethod;
 }

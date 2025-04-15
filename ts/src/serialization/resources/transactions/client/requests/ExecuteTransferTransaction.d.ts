@@ -4,14 +4,15 @@
 import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { WalletPaymentMethod } from "../../../../types/WalletPaymentMethod";
+import { ExecuteTransferTransactionSourceTransferMethod } from "../../types/ExecuteTransferTransactionSourceTransferMethod";
+import { ExecuteTransferTransactionDestinationTransferMethod } from "../../types/ExecuteTransferTransactionDestinationTransferMethod";
 import { OneOfUserSubTypes } from "../../../../types/OneOfUserSubTypes";
 import { TransactionType } from "../../../../types/TransactionType";
 export declare const ExecuteTransferTransaction: core.serialization.Schema<serializers.ExecuteTransferTransaction.Raw, Omit<PTI.ExecuteTransferTransaction, "ptiRequestId" | "ptiScenarioId" | "ptiSessionId" | "ptiDisableWebhook" | "ptiProviderName">>;
 export declare namespace ExecuteTransferTransaction {
     interface Raw extends TransactionType.Raw {
-        sourceTransferMethod: WalletPaymentMethod.Raw;
-        destinationTransferMethod: WalletPaymentMethod.Raw;
+        sourceTransferMethod: ExecuteTransferTransactionSourceTransferMethod.Raw;
+        destinationTransferMethod: ExecuteTransferTransactionDestinationTransferMethod.Raw;
         destination: OneOfUserSubTypes.Raw;
         destinationClientId?: string | null;
     }
