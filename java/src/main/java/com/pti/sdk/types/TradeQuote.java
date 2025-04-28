@@ -66,7 +66,7 @@ public final class TradeQuote {
     return amount;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TradeQuote && equalTo((TradeQuote) other);
@@ -81,12 +81,12 @@ public final class TradeQuote {
     return estimatedFillPricePerUnit.equals(other.estimatedFillPricePerUnit) && sourceCurrency.equals(other.sourceCurrency) && destinationCurrency.equals(other.destinationCurrency) && amount.equals(other.amount);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.estimatedFillPricePerUnit, this.sourceCurrency, this.destinationCurrency, this.amount);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

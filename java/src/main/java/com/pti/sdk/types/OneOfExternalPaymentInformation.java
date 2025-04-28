@@ -136,12 +136,12 @@ public final class OneOfExternalPaymentInformation {
       this.value = value;
     }
 
-    @Override
+    @java.lang.Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitBankAccount(value);
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof BankAccountValue && equalTo((BankAccountValue) other);
@@ -151,12 +151,12 @@ public final class OneOfExternalPaymentInformation {
       return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
       return "OneOfExternalPaymentInformation{" + "value: " + value + "}";
     }
@@ -177,12 +177,12 @@ public final class OneOfExternalPaymentInformation {
       this.value = value;
     }
 
-    @Override
+    @java.lang.Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitEncryptedCreditCard(value);
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof EncryptedCreditCardValue && equalTo((EncryptedCreditCardValue) other);
@@ -192,12 +192,12 @@ public final class OneOfExternalPaymentInformation {
       return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
       return "OneOfExternalPaymentInformation{" + "value: " + value + "}";
     }
@@ -218,12 +218,12 @@ public final class OneOfExternalPaymentInformation {
       this.value = value;
     }
 
-    @Override
+    @java.lang.Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitCrypto(value);
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof CryptoValue && equalTo((CryptoValue) other);
@@ -233,12 +233,12 @@ public final class OneOfExternalPaymentInformation {
       return value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
       return "OneOfExternalPaymentInformation{" + "value: " + value + "}";
     }
@@ -256,12 +256,12 @@ public final class OneOfExternalPaymentInformation {
     private _UnknownValue(@JsonProperty("value") Object value) {
     }
 
-    @Override
+    @java.lang.Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor._visitUnknown(value);
     }
 
-    @Override
+    @java.lang.Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
@@ -271,12 +271,12 @@ public final class OneOfExternalPaymentInformation {
       return type.equals(other.type) && value.equals(other.value);
     }
 
-    @Override
+    @java.lang.Override
     public int hashCode() {
       return Objects.hash(this.type, this.value);
     }
 
-    @Override
+    @java.lang.Override
     public String toString() {
       return "OneOfExternalPaymentInformation{" + "type: " + type + ", value: " + value + "}";
     }

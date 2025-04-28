@@ -160,13 +160,13 @@ export declare class Marketplace {
      *
      * @example
      *     await client.marketplace.createDigitalItems("userId", [{
-     *             itemReference: "57d6467c-6ae0-434f-8197-e7e9f86f2209",
+     *             itemReference: "ffffffff-6ae0-434f-8197-e7e9f86f2209",
      *             itemTitle: "QB, Mint Condition, #467/500 From Founders Set ",
      *             itemDescription: "Ultra Rare Elite Russell Wilson Level 1",
      *             itemUsdValue: 10,
      *             digitalItemType: "NFT"
      *         }, {
-     *             itemReference: "57d6467c-6ae0-434f-8197-e7e9f86f2210",
+     *             itemReference: "ffffffff-6ae0-434f-8197-e7e9f86f2210",
      *             itemTitle: "QB, Mint Condition, #468/500 From Founders Set",
      *             itemDescription: "Ultra Rare Elite Peyton Manning Level 10",
      *             itemUsdValue: 35,

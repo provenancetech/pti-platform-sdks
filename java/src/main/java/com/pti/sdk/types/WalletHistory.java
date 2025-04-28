@@ -101,7 +101,7 @@ public final class WalletHistory {
     return requestId;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WalletHistory && equalTo((WalletHistory) other);
@@ -116,12 +116,12 @@ public final class WalletHistory {
     return walletId.equals(other.walletId) && pendingBalanceBefore.equals(other.pendingBalanceBefore) && totalBalanceBefore.equals(other.totalBalanceBefore) && lockedBalanceBefore.equals(other.lockedBalanceBefore) && createDateTime.equals(other.createDateTime) && change.equals(other.change) && operationTarget.equals(other.operationTarget) && requestId.equals(other.requestId);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.walletId, this.pendingBalanceBefore, this.totalBalanceBefore, this.lockedBalanceBefore, this.createDateTime, this.change, this.operationTarget, this.requestId);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -194,7 +194,7 @@ public final class WalletHistory {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(WalletHistory other) {
       walletId(other.getWalletId());
       pendingBalanceBefore(other.getPendingBalanceBefore());
@@ -207,20 +207,20 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("walletId")
     public _FinalStage walletId(@NotNull String walletId) {
       this.walletId = Objects.requireNonNull(walletId, "walletId must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage requestId(String requestId) {
       this.requestId = Optional.ofNullable(requestId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "requestId",
         nulls = Nulls.SKIP
@@ -230,13 +230,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage operationTarget(WalletHistoryOperationTarget operationTarget) {
       this.operationTarget = Optional.ofNullable(operationTarget);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "operationTarget",
         nulls = Nulls.SKIP
@@ -246,13 +246,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage change(Double change) {
       this.change = Optional.ofNullable(change);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "change",
         nulls = Nulls.SKIP
@@ -262,13 +262,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage createDateTime(String createDateTime) {
       this.createDateTime = Optional.ofNullable(createDateTime);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "createDateTime",
         nulls = Nulls.SKIP
@@ -278,13 +278,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage lockedBalanceBefore(Double lockedBalanceBefore) {
       this.lockedBalanceBefore = Optional.ofNullable(lockedBalanceBefore);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "lockedBalanceBefore",
         nulls = Nulls.SKIP
@@ -294,13 +294,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage totalBalanceBefore(Double totalBalanceBefore) {
       this.totalBalanceBefore = Optional.ofNullable(totalBalanceBefore);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "totalBalanceBefore",
         nulls = Nulls.SKIP
@@ -310,13 +310,13 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage pendingBalanceBefore(Double pendingBalanceBefore) {
       this.pendingBalanceBefore = Optional.ofNullable(pendingBalanceBefore);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "pendingBalanceBefore",
         nulls = Nulls.SKIP
@@ -326,7 +326,7 @@ public final class WalletHistory {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public WalletHistory build() {
       return new WalletHistory(walletId, pendingBalanceBefore, totalBalanceBefore, lockedBalanceBefore, createDateTime, change, operationTarget, requestId, additionalProperties);
     }

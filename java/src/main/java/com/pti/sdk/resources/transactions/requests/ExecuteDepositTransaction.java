@@ -19,7 +19,7 @@ import com.pti.sdk.types.OneOfExternalPaymentMethod;
 import com.pti.sdk.types.OneOfUserSubTypes;
 import com.pti.sdk.types.Total;
 import com.pti.sdk.types.TransactionTypeEnum;
-import com.pti.sdk.types.WalletPaymentMethod;
+import com.pti.sdk.types.WalletPaymentMethodWrapper;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
@@ -69,7 +69,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
   private final OneOfExternalPaymentMethod sourceMethod;
 
-  private final Optional<WalletPaymentMethod> destinationMethod;
+  private final Optional<WalletPaymentMethodWrapper> destinationMethod;
 
   private final Map<String, Object> additionalProperties;
 
@@ -80,7 +80,8 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       Optional<Map<String, Object>> clientMeta, String ptiRequestId, String ptiScenarioId,
       Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
       Optional<String> ptiProviderName, OneOfExternalPaymentMethod sourceMethod,
-      Optional<WalletPaymentMethod> destinationMethod, Map<String, Object> additionalProperties) {
+      Optional<WalletPaymentMethodWrapper> destinationMethod,
+      Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
     this.transactionGroupId = transactionGroupId;
@@ -103,7 +104,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
   }
 
   @JsonProperty("type")
-  @Override
+  @java.lang.Override
   public TransactionTypeEnum getType() {
     return type;
   }
@@ -112,37 +113,37 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
    * @return The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public Optional<String> getId() {
     return id;
   }
 
   @JsonProperty("transactionGroupId")
-  @Override
+  @java.lang.Override
   public Optional<String> getTransactionGroupId() {
     return transactionGroupId;
   }
 
   @JsonProperty("subClientId")
-  @Override
+  @java.lang.Override
   public Optional<String> getSubClientId() {
     return subClientId;
   }
 
   @JsonProperty("transactionTotal")
-  @Override
+  @java.lang.Override
   public Optional<Total> getTransactionTotal() {
     return transactionTotal;
   }
 
   @JsonProperty("usdValue")
-  @Override
+  @java.lang.Override
   public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
   @JsonProperty("amount")
-  @Override
+  @java.lang.Override
   public double getAmount() {
     return amount;
   }
@@ -151,13 +152,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @Override
+  @java.lang.Override
   public String getDate() {
     return date;
   }
 
   @JsonProperty("initiator")
-  @Override
+  @java.lang.Override
   public OneOfUserSubTypes getInitiator() {
     return initiator;
   }
@@ -166,7 +167,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
    * @return key/value map of extra meta data for this request (used by PTI)
    */
   @JsonProperty("ptiMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getPtiMeta() {
     return ptiMeta;
   }
@@ -175,7 +176,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
    * @return key/value map of extra meta data for this request (used by Client)
    */
   @JsonProperty("clientMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getClientMeta() {
     return clientMeta;
   }
@@ -226,11 +227,11 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
   }
 
   @JsonProperty("destinationMethod")
-  public Optional<WalletPaymentMethod> getDestinationMethod() {
+  public Optional<WalletPaymentMethodWrapper> getDestinationMethod() {
     return destinationMethod;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ExecuteDepositTransaction && equalTo((ExecuteDepositTransaction) other);
@@ -245,12 +246,12 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
     return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && sourceMethod.equals(other.sourceMethod) && destinationMethod.equals(other.destinationMethod);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.sourceMethod, this.destinationMethod);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -332,9 +333,9 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
     _FinalStage ptiProviderName(String ptiProviderName);
 
-    _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod);
+    _FinalStage destinationMethod(Optional<WalletPaymentMethodWrapper> destinationMethod);
 
-    _FinalStage destinationMethod(WalletPaymentMethod destinationMethod);
+    _FinalStage destinationMethod(WalletPaymentMethodWrapper destinationMethod);
   }
 
   @JsonIgnoreProperties(
@@ -355,7 +356,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
 
     private OneOfExternalPaymentMethod sourceMethod;
 
-    private Optional<WalletPaymentMethod> destinationMethod = Optional.empty();
+    private Optional<WalletPaymentMethodWrapper> destinationMethod = Optional.empty();
 
     private Optional<String> ptiProviderName = Optional.empty();
 
@@ -383,7 +384,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(ExecuteDepositTransaction other) {
       type(other.getType());
       id(other.getId());
@@ -406,14 +407,14 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("type")
     public AmountStage type(@NotNull TransactionTypeEnum type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("amount")
     public DateStage amount(double amount) {
       this.amount = amount;
@@ -424,14 +425,14 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>ISO-8601</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("date")
     public InitiatorStage date(@NotNull String date) {
       this.date = Objects.requireNonNull(date, "date must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("initiator")
     public PtiRequestIdStage initiator(@NotNull OneOfUserSubTypes initiator) {
       this.initiator = Objects.requireNonNull(initiator, "initiator must not be null");
@@ -442,7 +443,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>Unique identifier of the request. This ID must be provided and stored by the client of this API at the creation of a transaction. This ID is attached to all PTI internal operations as well as the webhook calls. This ID is required to post feedback about a transaction and get support from PTI for a problem on a transaction. Creating two transactions having the same requestId is not allowed.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("x-pti-request-id")
     public PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId) {
       this.ptiRequestId = Objects.requireNonNull(ptiRequestId, "ptiRequestId must not be null");
@@ -453,32 +454,32 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("x-pti-scenario-id")
     public SourceMethodStage ptiScenarioId(@NotNull String ptiScenarioId) {
       this.ptiScenarioId = Objects.requireNonNull(ptiScenarioId, "ptiScenarioId must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("sourceMethod")
     public _FinalStage sourceMethod(@NotNull OneOfExternalPaymentMethod sourceMethod) {
       this.sourceMethod = Objects.requireNonNull(sourceMethod, "sourceMethod must not be null");
       return this;
     }
 
-    @Override
-    public _FinalStage destinationMethod(WalletPaymentMethod destinationMethod) {
+    @java.lang.Override
+    public _FinalStage destinationMethod(WalletPaymentMethodWrapper destinationMethod) {
       this.destinationMethod = Optional.ofNullable(destinationMethod);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "destinationMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod) {
+    public _FinalStage destinationMethod(Optional<WalletPaymentMethodWrapper> destinationMethod) {
       this.destinationMethod = destinationMethod;
       return this;
     }
@@ -487,13 +488,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiProviderName(String ptiProviderName) {
       this.ptiProviderName = Optional.ofNullable(ptiProviderName);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "x-pti-provider-name",
         nulls = Nulls.SKIP
@@ -507,13 +508,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>Set to true to disable webhook calls for this request.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook) {
       this.ptiDisableWebhook = Optional.ofNullable(ptiDisableWebhook);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "x-pti-disable-webhook",
         nulls = Nulls.SKIP
@@ -527,13 +528,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiSessionId(String ptiSessionId) {
       this.ptiSessionId = Optional.ofNullable(ptiSessionId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "x-pti-session-id",
         nulls = Nulls.SKIP
@@ -547,13 +548,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage clientMeta(Map<String, Object> clientMeta) {
       this.clientMeta = Optional.ofNullable(clientMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "clientMeta",
         nulls = Nulls.SKIP
@@ -567,13 +568,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>key/value map of extra meta data for this request (used by PTI)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiMeta(Map<String, Object> ptiMeta) {
       this.ptiMeta = Optional.ofNullable(ptiMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "ptiMeta",
         nulls = Nulls.SKIP
@@ -583,13 +584,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage usdValue(Double usdValue) {
       this.usdValue = Optional.ofNullable(usdValue);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "usdValue",
         nulls = Nulls.SKIP
@@ -599,13 +600,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage transactionTotal(Total transactionTotal) {
       this.transactionTotal = Optional.ofNullable(transactionTotal);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "transactionTotal",
         nulls = Nulls.SKIP
@@ -615,13 +616,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage subClientId(String subClientId) {
       this.subClientId = Optional.ofNullable(subClientId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "subClientId",
         nulls = Nulls.SKIP
@@ -631,13 +632,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage transactionGroupId(String transactionGroupId) {
       this.transactionGroupId = Optional.ofNullable(transactionGroupId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "transactionGroupId",
         nulls = Nulls.SKIP
@@ -651,13 +652,13 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
      * <p>The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -667,7 +668,7 @@ public final class ExecuteDepositTransaction implements ITransactionType, ITrans
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public ExecuteDepositTransaction build() {
       return new ExecuteDepositTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, sourceMethod, destinationMethod, additionalProperties);
     }

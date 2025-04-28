@@ -137,7 +137,7 @@ public final class Wallet {
     return type;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Wallet && equalTo((Wallet) other);
@@ -152,12 +152,12 @@ public final class Wallet {
     return id.equals(other.id) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

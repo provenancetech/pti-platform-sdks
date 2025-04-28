@@ -67,7 +67,7 @@ public final class WalletHistoryPage {
     return items;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WalletHistoryPage && equalTo((WalletHistoryPage) other);
@@ -82,12 +82,12 @@ public final class WalletHistoryPage {
     return page.equals(other.page) && pageSize.equals(other.pageSize) && total.equals(other.total) && items.equals(other.items);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.page, this.pageSize, this.total, this.items);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

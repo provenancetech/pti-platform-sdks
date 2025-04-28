@@ -57,7 +57,7 @@ public final class CurrencyAsset {
     return networks;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof CurrencyAsset && equalTo((CurrencyAsset) other);
@@ -72,12 +72,12 @@ public final class CurrencyAsset {
     return type.equals(other.type) && currency.equals(other.currency) && networks.equals(other.networks);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.type, this.currency, this.networks);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

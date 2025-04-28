@@ -50,7 +50,7 @@ public final class UploadDocumentRequest {
     return idDocumentMetaData;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UploadDocumentRequest && equalTo((UploadDocumentRequest) other);
@@ -65,12 +65,12 @@ public final class UploadDocumentRequest {
     return metaInformation.equals(other.metaInformation) && idDocumentMetaData.equals(other.idDocumentMetaData);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.metaInformation, this.idDocumentMetaData);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

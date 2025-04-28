@@ -39,12 +39,12 @@ public final class ExternalPaymentInformation implements IExternalPaymentInforma
    * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public Optional<String> getId() {
     return id;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ExternalPaymentInformation && equalTo((ExternalPaymentInformation) other);
@@ -59,12 +59,12 @@ public final class ExternalPaymentInformation implements IExternalPaymentInforma
     return id.equals(other.id);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

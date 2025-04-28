@@ -99,19 +99,19 @@ public final class Person implements IUser {
    * @return Unique identifier for this User. This value MUST be chosen and stored at User creation time.
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public String getId() {
     return id;
   }
 
   @JsonProperty("status")
-  @Override
+  @java.lang.Override
   public Optional<UserStatus> getStatus() {
     return status;
   }
 
   @JsonProperty("statusReason")
-  @Override
+  @java.lang.Override
   public Optional<UserStatusReason> getStatusReason() {
     return statusReason;
   }
@@ -120,19 +120,19 @@ public final class Person implements IUser {
    * @return Tag that characterizes the User. Used for internal classification purposes.
    */
   @JsonProperty("tags")
-  @Override
+  @java.lang.Override
   public Optional<List<String>> getTags() {
     return tags;
   }
 
   @JsonProperty("paymentInformation")
-  @Override
+  @java.lang.Override
   public Optional<List<OneOfExternalPaymentInformation>> getPaymentInformation() {
     return paymentInformation;
   }
 
   @JsonProperty("sourceOfFunds")
-  @Override
+  @java.lang.Override
   public Optional<String> getSourceOfFunds() {
     return sourceOfFunds;
   }
@@ -141,7 +141,7 @@ public final class Person implements IUser {
    * @return Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.
    */
   @JsonProperty("userCreationDate")
-  @Override
+  @java.lang.Override
   public Optional<String> getUserCreationDate() {
     return userCreationDate;
   }
@@ -150,7 +150,7 @@ public final class Person implements IUser {
    * @return key/value map of extra meta data for this request (used by PTI)
    */
   @JsonProperty("userPtiMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getUserPtiMeta() {
     return userPtiMeta;
   }
@@ -159,7 +159,7 @@ public final class Person implements IUser {
    * @return key/value map of extra meta data for this request (used by Client)
    */
   @JsonProperty("userClientMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getUserClientMeta() {
     return userClientMeta;
   }
@@ -218,7 +218,7 @@ public final class Person implements IUser {
     return countryOfCitizenship;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Person && equalTo((Person) other);
@@ -233,12 +233,12 @@ public final class Person implements IUser {
     return id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && addresses.equals(other.addresses) && piis.equals(other.piis) && emails.equals(other.emails) && devices.equals(other.devices) && phones.equals(other.phones) && name.equals(other.name) && gender.equals(other.gender) && dateOfBirth.equals(other.dateOfBirth) && countryOfCitizenship.equals(other.countryOfCitizenship);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.addresses, this.piis, this.emails, this.devices, this.phones, this.name, this.gender, this.dateOfBirth, this.countryOfCitizenship);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -372,7 +372,7 @@ public final class Person implements IUser {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(Person other) {
       id(other.getId());
       status(other.getStatus());
@@ -399,7 +399,7 @@ public final class Person implements IUser {
      * <p>Unique identifier for this User. This value MUST be chosen and stored at User creation time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("id")
     public _FinalStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
@@ -410,13 +410,13 @@ public final class Person implements IUser {
      * <p>Comma separated list of ISO 3166 alpha 1 country codes</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage countryOfCitizenship(String countryOfCitizenship) {
       this.countryOfCitizenship = Optional.ofNullable(countryOfCitizenship);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "countryOfCitizenship",
         nulls = Nulls.SKIP
@@ -430,13 +430,13 @@ public final class Person implements IUser {
      * <p>ISO 8601</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage dateOfBirth(String dateOfBirth) {
       this.dateOfBirth = Optional.ofNullable(dateOfBirth);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "dateOfBirth",
         nulls = Nulls.SKIP
@@ -450,13 +450,13 @@ public final class Person implements IUser {
      * <p>ISO/IEC 5218 / vCard4</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage gender(String gender) {
       this.gender = Optional.ofNullable(gender);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "gender",
         nulls = Nulls.SKIP
@@ -466,13 +466,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage name(Name name) {
       this.name = Optional.ofNullable(name);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "name",
         nulls = Nulls.SKIP
@@ -482,13 +482,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage phones(List<Phone> phones) {
       this.phones = Optional.ofNullable(phones);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "phones",
         nulls = Nulls.SKIP
@@ -498,13 +498,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage devices(List<Device> devices) {
       this.devices = Optional.ofNullable(devices);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "devices",
         nulls = Nulls.SKIP
@@ -514,13 +514,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage emails(List<Email> emails) {
       this.emails = Optional.ofNullable(emails);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "emails",
         nulls = Nulls.SKIP
@@ -530,13 +530,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage piis(List<OneOfPiiSubTypes> piis) {
       this.piis = Optional.ofNullable(piis);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "piis",
         nulls = Nulls.SKIP
@@ -546,13 +546,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage addresses(List<Address> addresses) {
       this.addresses = Optional.ofNullable(addresses);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "addresses",
         nulls = Nulls.SKIP
@@ -566,13 +566,13 @@ public final class Person implements IUser {
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userClientMeta(Map<String, Object> userClientMeta) {
       this.userClientMeta = Optional.ofNullable(userClientMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userClientMeta",
         nulls = Nulls.SKIP
@@ -586,13 +586,13 @@ public final class Person implements IUser {
      * <p>key/value map of extra meta data for this request (used by PTI)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userPtiMeta(Map<String, Object> userPtiMeta) {
       this.userPtiMeta = Optional.ofNullable(userPtiMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userPtiMeta",
         nulls = Nulls.SKIP
@@ -606,13 +606,13 @@ public final class Person implements IUser {
      * <p>Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userCreationDate(String userCreationDate) {
       this.userCreationDate = Optional.ofNullable(userCreationDate);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userCreationDate",
         nulls = Nulls.SKIP
@@ -622,13 +622,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage sourceOfFunds(String sourceOfFunds) {
       this.sourceOfFunds = Optional.ofNullable(sourceOfFunds);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "sourceOfFunds",
         nulls = Nulls.SKIP
@@ -638,14 +638,14 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage paymentInformation(
         List<OneOfExternalPaymentInformation> paymentInformation) {
       this.paymentInformation = Optional.ofNullable(paymentInformation);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "paymentInformation",
         nulls = Nulls.SKIP
@@ -660,13 +660,13 @@ public final class Person implements IUser {
      * <p>Tag that characterizes the User. Used for internal classification purposes.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage tags(List<String> tags) {
       this.tags = Optional.ofNullable(tags);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "tags",
         nulls = Nulls.SKIP
@@ -676,13 +676,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage statusReason(UserStatusReason statusReason) {
       this.statusReason = Optional.ofNullable(statusReason);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "statusReason",
         nulls = Nulls.SKIP
@@ -692,13 +692,13 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage status(UserStatus status) {
       this.status = Optional.ofNullable(status);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "status",
         nulls = Nulls.SKIP
@@ -708,7 +708,7 @@ public final class Person implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public Person build() {
       return new Person(id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, addresses, piis, emails, devices, phones, name, gender, dateOfBirth, countryOfCitizenship, additionalProperties);
     }

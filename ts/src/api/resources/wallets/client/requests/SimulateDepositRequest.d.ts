@@ -9,7 +9,7 @@ import * as PTI from "../../../../index";
  *         paymentMethodType: "ACH"
  *     }
  */
-export interface SimulatePaymentRequest {
+export interface SimulateDepositRequest {
     amount?: number;
     paymentMethodType?: PTI.PaymentMethodType;
 }

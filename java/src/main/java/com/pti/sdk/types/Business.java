@@ -106,19 +106,19 @@ public final class Business implements IUser {
    * @return Unique identifier for this User. This value MUST be chosen and stored at User creation time.
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public String getId() {
     return id;
   }
 
   @JsonProperty("status")
-  @Override
+  @java.lang.Override
   public Optional<UserStatus> getStatus() {
     return status;
   }
 
   @JsonProperty("statusReason")
-  @Override
+  @java.lang.Override
   public Optional<UserStatusReason> getStatusReason() {
     return statusReason;
   }
@@ -127,19 +127,19 @@ public final class Business implements IUser {
    * @return Tag that characterizes the User. Used for internal classification purposes.
    */
   @JsonProperty("tags")
-  @Override
+  @java.lang.Override
   public Optional<List<String>> getTags() {
     return tags;
   }
 
   @JsonProperty("paymentInformation")
-  @Override
+  @java.lang.Override
   public Optional<List<OneOfExternalPaymentInformation>> getPaymentInformation() {
     return paymentInformation;
   }
 
   @JsonProperty("sourceOfFunds")
-  @Override
+  @java.lang.Override
   public Optional<String> getSourceOfFunds() {
     return sourceOfFunds;
   }
@@ -148,7 +148,7 @@ public final class Business implements IUser {
    * @return Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.
    */
   @JsonProperty("userCreationDate")
-  @Override
+  @java.lang.Override
   public Optional<String> getUserCreationDate() {
     return userCreationDate;
   }
@@ -157,7 +157,7 @@ public final class Business implements IUser {
    * @return key/value map of extra meta data for this request (used by PTI)
    */
   @JsonProperty("userPtiMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getUserPtiMeta() {
     return userPtiMeta;
   }
@@ -166,7 +166,7 @@ public final class Business implements IUser {
    * @return key/value map of extra meta data for this request (used by Client)
    */
   @JsonProperty("userClientMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getUserClientMeta() {
     return userClientMeta;
   }
@@ -232,7 +232,7 @@ public final class Business implements IUser {
     return coutryOfIncorporation;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Business && equalTo((Business) other);
@@ -247,12 +247,12 @@ public final class Business implements IUser {
     return id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && biis.equals(other.biis) && addresses.equals(other.addresses) && emails.equals(other.emails) && mainRepresentative.equals(other.mainRepresentative) && coOwners.equals(other.coOwners) && phones.equals(other.phones) && sectors.equals(other.sectors) && creationDate.equals(other.creationDate) && businessType.equals(other.businessType) && businessName.equals(other.businessName) && coutryOfIncorporation.equals(other.coutryOfIncorporation);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.biis, this.addresses, this.emails, this.mainRepresentative, this.coOwners, this.phones, this.sectors, this.creationDate, this.businessType, this.businessName, this.coutryOfIncorporation);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -398,7 +398,7 @@ public final class Business implements IUser {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(Business other) {
       id(other.getId());
       status(other.getStatus());
@@ -427,14 +427,14 @@ public final class Business implements IUser {
      * <p>Unique identifier for this User. This value MUST be chosen and stored at User creation time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("id")
     public MainRepresentativeStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("mainRepresentative")
     public _FinalStage mainRepresentative(@NotNull BusinessOwner mainRepresentative) {
       this.mainRepresentative = Objects.requireNonNull(mainRepresentative, "mainRepresentative must not be null");
@@ -445,13 +445,13 @@ public final class Business implements IUser {
      * <p>ISO 3166 alpha 1 country code, example US</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage coutryOfIncorporation(String coutryOfIncorporation) {
       this.coutryOfIncorporation = Optional.ofNullable(coutryOfIncorporation);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "coutryOfIncorporation",
         nulls = Nulls.SKIP
@@ -461,13 +461,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage businessName(String businessName) {
       this.businessName = Optional.ofNullable(businessName);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "businessName",
         nulls = Nulls.SKIP
@@ -477,13 +477,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage businessType(String businessType) {
       this.businessType = Optional.ofNullable(businessType);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "businessType",
         nulls = Nulls.SKIP
@@ -497,13 +497,13 @@ public final class Business implements IUser {
      * <p>ISO 8601 formatted creation date of the business</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage creationDate(String creationDate) {
       this.creationDate = Optional.ofNullable(creationDate);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "creationDate",
         nulls = Nulls.SKIP
@@ -513,13 +513,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage sectors(List<String> sectors) {
       this.sectors = Optional.ofNullable(sectors);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "sectors",
         nulls = Nulls.SKIP
@@ -529,13 +529,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage phones(List<Phone> phones) {
       this.phones = Optional.ofNullable(phones);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "phones",
         nulls = Nulls.SKIP
@@ -545,13 +545,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage coOwners(List<BusinessOwner> coOwners) {
       this.coOwners = Optional.ofNullable(coOwners);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "coOwners",
         nulls = Nulls.SKIP
@@ -561,13 +561,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage emails(List<Email> emails) {
       this.emails = Optional.ofNullable(emails);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "emails",
         nulls = Nulls.SKIP
@@ -577,13 +577,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage addresses(List<Address> addresses) {
       this.addresses = Optional.ofNullable(addresses);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "addresses",
         nulls = Nulls.SKIP
@@ -593,13 +593,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage biis(List<Ein> biis) {
       this.biis = Optional.ofNullable(biis);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "biis",
         nulls = Nulls.SKIP
@@ -613,13 +613,13 @@ public final class Business implements IUser {
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userClientMeta(Map<String, Object> userClientMeta) {
       this.userClientMeta = Optional.ofNullable(userClientMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userClientMeta",
         nulls = Nulls.SKIP
@@ -633,13 +633,13 @@ public final class Business implements IUser {
      * <p>key/value map of extra meta data for this request (used by PTI)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userPtiMeta(Map<String, Object> userPtiMeta) {
       this.userPtiMeta = Optional.ofNullable(userPtiMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userPtiMeta",
         nulls = Nulls.SKIP
@@ -653,13 +653,13 @@ public final class Business implements IUser {
      * <p>Optional ISO-8601 value. Used to provide the date the User was created in your system. If left empty, it will be populated at current time.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage userCreationDate(String userCreationDate) {
       this.userCreationDate = Optional.ofNullable(userCreationDate);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "userCreationDate",
         nulls = Nulls.SKIP
@@ -669,13 +669,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage sourceOfFunds(String sourceOfFunds) {
       this.sourceOfFunds = Optional.ofNullable(sourceOfFunds);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "sourceOfFunds",
         nulls = Nulls.SKIP
@@ -685,14 +685,14 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage paymentInformation(
         List<OneOfExternalPaymentInformation> paymentInformation) {
       this.paymentInformation = Optional.ofNullable(paymentInformation);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "paymentInformation",
         nulls = Nulls.SKIP
@@ -707,13 +707,13 @@ public final class Business implements IUser {
      * <p>Tag that characterizes the User. Used for internal classification purposes.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage tags(List<String> tags) {
       this.tags = Optional.ofNullable(tags);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "tags",
         nulls = Nulls.SKIP
@@ -723,13 +723,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage statusReason(UserStatusReason statusReason) {
       this.statusReason = Optional.ofNullable(statusReason);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "statusReason",
         nulls = Nulls.SKIP
@@ -739,13 +739,13 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage status(UserStatus status) {
       this.status = Optional.ofNullable(status);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "status",
         nulls = Nulls.SKIP
@@ -755,7 +755,7 @@ public final class Business implements IUser {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public Business build() {
       return new Business(id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, biis, addresses, emails, mainRepresentative, coOwners, phones, sectors, creationDate, businessType, businessName, coutryOfIncorporation, additionalProperties);
     }

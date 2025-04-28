@@ -209,7 +209,7 @@ class Wallets {
      *
      * @example
      *     await client.wallets.createWallet("userId", {
-     *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
+     *         id: "ffffffff-6129-4bda-8a10-8ef234dff30e",
      *         currency: "ETH",
      *         network: "ETHEREUM"
      *     })
@@ -429,7 +429,7 @@ class Wallets {
     /**
      * @param {string} userId
      * @param {string} walletId
-     * @param {PTI.SimulatePaymentRequest} request
+     * @param {PTI.SimulateDepositRequest} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
@@ -438,16 +438,16 @@ class Wallets {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.wallets.simulateWalletPayment("userId", "walletId", {
+     *     await client.wallets.simulateWalletDeposit("userId", "walletId", {
      *         amount: 100,
      *         paymentMethodType: "ACH"
      *     })
      */
-    simulateWalletPayment(userId_1, walletId_1) {
+    simulateWalletDeposit(userId_1, walletId_1) {
         return __awaiter(this, arguments, void 0, function* (userId, walletId, request = {}, requestOptions) {
             var _a, _b;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/simulate-payment`),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, `users/${encodeURIComponent(userId)}/wallets/${encodeURIComponent(walletId)}/simulate-deposit`),
                 method: "POST",
                 headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
                         ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
@@ -456,7 +456,7 @@ class Wallets {
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
-                body: serializers.SimulatePaymentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.SimulateDepositRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
@@ -493,7 +493,7 @@ class Wallets {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets/{walletId}/simulate-payment.");
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /users/{userId}/wallets/{walletId}/simulate-deposit.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,

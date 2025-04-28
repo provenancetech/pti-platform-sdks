@@ -55,7 +55,7 @@ public final class GetWalletHistoryRequest {
     return size;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof GetWalletHistoryRequest && equalTo((GetWalletHistoryRequest) other);
@@ -70,12 +70,12 @@ public final class GetWalletHistoryRequest {
     return page.equals(other.page) && size.equals(other.size);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.page, this.size);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -5,8 +5,8 @@ import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { PaymentMethodType } from "../../../../types/PaymentMethodType";
-export declare const SimulatePaymentRequest: core.serialization.Schema<serializers.SimulatePaymentRequest.Raw, PTI.SimulatePaymentRequest>;
-export declare namespace SimulatePaymentRequest {
+export declare const SimulateDepositRequest: core.serialization.Schema<serializers.SimulateDepositRequest.Raw, PTI.SimulateDepositRequest>;
+export declare namespace SimulateDepositRequest {
     interface Raw {
         amount?: number | null;
         paymentMethodType?: PaymentMethodType.Raw | null;

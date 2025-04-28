@@ -22,37 +22,47 @@ import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
-    builder = CryptoPaymentMethod.Builder.class
+    builder = WalletPaymentMethodWrapper.Builder.class
 )
-public final class CryptoPaymentMethod {
+public final class WalletPaymentMethodWrapper implements IWalletPaymentMethod {
   private final Optional<String> billingEmail;
 
-  private final Optional<CryptoPaymentInformation> paymentInformation;
+  private final Optional<Wallet> paymentInformation;
+
+  private final Optional<String> paymentMethodType;
 
   private final Map<String, Object> additionalProperties;
 
-  private CryptoPaymentMethod(Optional<String> billingEmail,
-      Optional<CryptoPaymentInformation> paymentInformation,
+  private WalletPaymentMethodWrapper(Optional<String> billingEmail,
+      Optional<Wallet> paymentInformation, Optional<String> paymentMethodType,
       Map<String, Object> additionalProperties) {
     this.billingEmail = billingEmail;
     this.paymentInformation = paymentInformation;
+    this.paymentMethodType = paymentMethodType;
     this.additionalProperties = additionalProperties;
   }
 
   @JsonProperty("billingEmail")
+  @java.lang.Override
   public Optional<String> getBillingEmail() {
     return billingEmail;
   }
 
   @JsonProperty("paymentInformation")
-  public Optional<CryptoPaymentInformation> getPaymentInformation() {
+  @java.lang.Override
+  public Optional<Wallet> getPaymentInformation() {
     return paymentInformation;
+  }
+
+  @JsonProperty("paymentMethodType")
+  public Optional<String> getPaymentMethodType() {
+    return paymentMethodType;
   }
 
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof CryptoPaymentMethod && equalTo((CryptoPaymentMethod) other);
+    return other instanceof WalletPaymentMethodWrapper && equalTo((WalletPaymentMethodWrapper) other);
   }
 
   @JsonAnyGetter
@@ -60,13 +70,13 @@ public final class CryptoPaymentMethod {
     return this.additionalProperties;
   }
 
-  private boolean equalTo(CryptoPaymentMethod other) {
-    return billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
+  private boolean equalTo(WalletPaymentMethodWrapper other) {
+    return billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation) && paymentMethodType.equals(other.paymentMethodType);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.billingEmail, this.paymentInformation);
+    return Objects.hash(this.billingEmail, this.paymentInformation, this.paymentMethodType);
   }
 
   @java.lang.Override
@@ -84,7 +94,9 @@ public final class CryptoPaymentMethod {
   public static final class Builder {
     private Optional<String> billingEmail = Optional.empty();
 
-    private Optional<CryptoPaymentInformation> paymentInformation = Optional.empty();
+    private Optional<Wallet> paymentInformation = Optional.empty();
+
+    private Optional<String> paymentMethodType = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -92,9 +104,10 @@ public final class CryptoPaymentMethod {
     private Builder() {
     }
 
-    public Builder from(CryptoPaymentMethod other) {
+    public Builder from(WalletPaymentMethodWrapper other) {
       billingEmail(other.getBillingEmail());
       paymentInformation(other.getPaymentInformation());
+      paymentMethodType(other.getPaymentMethodType());
       return this;
     }
 
@@ -116,18 +129,32 @@ public final class CryptoPaymentMethod {
         value = "paymentInformation",
         nulls = Nulls.SKIP
     )
-    public Builder paymentInformation(Optional<CryptoPaymentInformation> paymentInformation) {
+    public Builder paymentInformation(Optional<Wallet> paymentInformation) {
       this.paymentInformation = paymentInformation;
       return this;
     }
 
-    public Builder paymentInformation(CryptoPaymentInformation paymentInformation) {
+    public Builder paymentInformation(Wallet paymentInformation) {
       this.paymentInformation = Optional.ofNullable(paymentInformation);
       return this;
     }
 
-    public CryptoPaymentMethod build() {
-      return new CryptoPaymentMethod(billingEmail, paymentInformation, additionalProperties);
+    @JsonSetter(
+        value = "paymentMethodType",
+        nulls = Nulls.SKIP
+    )
+    public Builder paymentMethodType(Optional<String> paymentMethodType) {
+      this.paymentMethodType = paymentMethodType;
+      return this;
+    }
+
+    public Builder paymentMethodType(String paymentMethodType) {
+      this.paymentMethodType = Optional.ofNullable(paymentMethodType);
+      return this;
+    }
+
+    public WalletPaymentMethodWrapper build() {
+      return new WalletPaymentMethodWrapper(billingEmail, paymentInformation, paymentMethodType, additionalProperties);
     }
   }
 }

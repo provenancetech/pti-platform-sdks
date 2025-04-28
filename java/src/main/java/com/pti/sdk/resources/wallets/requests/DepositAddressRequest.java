@@ -41,7 +41,7 @@ public final class DepositAddressRequest {
     return multiWalletAddress;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof DepositAddressRequest && equalTo((DepositAddressRequest) other);
@@ -56,12 +56,12 @@ public final class DepositAddressRequest {
     return multiWalletAddress.equals(other.multiWalletAddress);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.multiWalletAddress);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -84,7 +84,7 @@ public final class DocumentMetaInformation {
     return fileId;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof DocumentMetaInformation && equalTo((DocumentMetaInformation) other);
@@ -99,12 +99,12 @@ public final class DocumentMetaInformation {
     return documentType.equals(other.documentType) && contentType.equals(other.contentType) && originalFileName.equals(other.originalFileName) && fileSize.equals(other.fileSize) && tags.equals(other.tags) && fileId.equals(other.fileId);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.documentType, this.contentType, this.originalFileName, this.fileSize, this.tags, this.fileId);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -165,7 +165,7 @@ public final class DocumentMetaInformation {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(DocumentMetaInformation other) {
       documentType(other.getDocumentType());
       contentType(other.getContentType());
@@ -176,7 +176,7 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("documentType")
     public ContentTypeStage documentType(
         @NotNull DocumentMetaInformationDocumentType documentType) {
@@ -184,20 +184,20 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("contentType")
     public _FinalStage contentType(@NotNull String contentType) {
       this.contentType = Objects.requireNonNull(contentType, "contentType must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage fileId(String fileId) {
       this.fileId = Optional.ofNullable(fileId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "fileId",
         nulls = Nulls.SKIP
@@ -207,13 +207,13 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage tags(Map<String, String> tags) {
       this.tags = Optional.ofNullable(tags);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "tags",
         nulls = Nulls.SKIP
@@ -223,13 +223,13 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage fileSize(Integer fileSize) {
       this.fileSize = Optional.ofNullable(fileSize);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "fileSize",
         nulls = Nulls.SKIP
@@ -239,13 +239,13 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage originalFileName(String originalFileName) {
       this.originalFileName = Optional.ofNullable(originalFileName);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "originalFileName",
         nulls = Nulls.SKIP
@@ -255,7 +255,7 @@ public final class DocumentMetaInformation {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public DocumentMetaInformation build() {
       return new DocumentMetaInformation(documentType, contentType, originalFileName, fileSize, tags, fileId, additionalProperties);
     }

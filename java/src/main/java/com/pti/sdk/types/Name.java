@@ -56,7 +56,7 @@ public final class Name {
     return middleName;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Name && equalTo((Name) other);
@@ -71,12 +71,12 @@ public final class Name {
     return firstName.equals(other.firstName) && lastName.equals(other.lastName) && middleName.equals(other.middleName);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.firstName, this.lastName, this.middleName);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

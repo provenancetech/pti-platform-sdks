@@ -49,7 +49,7 @@ public final class PaymentStatusDetail {
     return providerResponseCategory;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof PaymentStatusDetail && equalTo((PaymentStatusDetail) other);
@@ -64,12 +64,12 @@ public final class PaymentStatusDetail {
     return providerResponseCode.equals(other.providerResponseCode) && providerResponseCategory.equals(other.providerResponseCategory);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.providerResponseCode, this.providerResponseCategory);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

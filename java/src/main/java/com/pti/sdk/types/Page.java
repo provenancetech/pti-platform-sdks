@@ -64,37 +64,37 @@ public final class Page implements IPage {
   }
 
   @JsonProperty("totalPages")
-  @Override
+  @java.lang.Override
   public Optional<Integer> getTotalPages() {
     return totalPages;
   }
 
   @JsonProperty("size")
-  @Override
+  @java.lang.Override
   public Optional<Integer> getSize() {
     return size;
   }
 
   @JsonProperty("totalElements")
-  @Override
+  @java.lang.Override
   public Optional<Integer> getTotalElements() {
     return totalElements;
   }
 
   @JsonProperty("last")
-  @Override
+  @java.lang.Override
   public Optional<Boolean> getLast() {
     return last;
   }
 
   @JsonProperty("numberOfElements")
-  @Override
+  @java.lang.Override
   public Optional<Integer> getNumberOfElements() {
     return numberOfElements;
   }
 
   @JsonProperty("pageable")
-  @Override
+  @java.lang.Override
   public Optional<Pageable> getPageable() {
     return pageable;
   }
@@ -105,18 +105,18 @@ public final class Page implements IPage {
   }
 
   @JsonProperty("first")
-  @Override
+  @java.lang.Override
   public Optional<Boolean> getFirst() {
     return first;
   }
 
   @JsonProperty("empty")
-  @Override
+  @java.lang.Override
   public Optional<Boolean> getEmpty() {
     return empty;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Page && equalTo((Page) other);
@@ -131,12 +131,12 @@ public final class Page implements IPage {
     return totalPages.equals(other.totalPages) && size.equals(other.size) && totalElements.equals(other.totalElements) && last.equals(other.last) && numberOfElements.equals(other.numberOfElements) && pageable.equals(other.pageable) && sort.equals(other.sort) && first.equals(other.first) && empty.equals(other.empty);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.totalPages, this.size, this.totalElements, this.last, this.numberOfElements, this.pageable, this.sort, this.first, this.empty);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -21,7 +21,7 @@ public final class BadRequestError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @Override
+  @java.lang.Override
   public InvalidRequestError body() {
     return this.body;
   }

@@ -21,7 +21,7 @@ public final class NotFoundError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @Override
+  @java.lang.Override
   public Object body() {
     return this.body;
   }
