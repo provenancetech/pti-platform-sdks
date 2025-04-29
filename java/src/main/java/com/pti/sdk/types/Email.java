@@ -50,7 +50,7 @@ public final class Email {
     return address;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Email && equalTo((Email) other);
@@ -65,12 +65,12 @@ public final class Email {
     return default_.equals(other.default_) && address.equals(other.address);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.default_, this.address);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -107,27 +107,27 @@ public final class Email {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(Email other) {
       default_(other.getDefault());
       address(other.getAddress());
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("address")
     public _FinalStage address(@NotNull String address) {
       this.address = Objects.requireNonNull(address, "address must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage default_(Boolean default_) {
       this.default_ = Optional.ofNullable(default_);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "default",
         nulls = Nulls.SKIP
@@ -137,7 +137,7 @@ public final class Email {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public Email build() {
       return new Email(default_, address, additionalProperties);
     }

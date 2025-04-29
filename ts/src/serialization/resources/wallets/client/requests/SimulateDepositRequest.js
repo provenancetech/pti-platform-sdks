@@ -36,10 +36,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SimulatePaymentRequest = void 0;
+exports.SimulateDepositRequest = void 0;
 const core = __importStar(require("../../../../../core"));
 const PaymentMethodType_1 = require("../../../../types/PaymentMethodType");
-exports.SimulatePaymentRequest = core.serialization.object({
+exports.SimulateDepositRequest = core.serialization.object({
     amount: core.serialization.number().optional(),
     paymentMethodType: PaymentMethodType_1.PaymentMethodType.optional(),
 });

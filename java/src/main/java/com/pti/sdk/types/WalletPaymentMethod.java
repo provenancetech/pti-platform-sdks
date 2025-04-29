@@ -24,7 +24,7 @@ import java.util.Optional;
 @JsonDeserialize(
     builder = WalletPaymentMethod.Builder.class
 )
-public final class WalletPaymentMethod {
+public final class WalletPaymentMethod implements IWalletPaymentMethod {
   private final Optional<String> billingEmail;
 
   private final Optional<Wallet> paymentInformation;
@@ -39,16 +39,18 @@ public final class WalletPaymentMethod {
   }
 
   @JsonProperty("billingEmail")
+  @java.lang.Override
   public Optional<String> getBillingEmail() {
     return billingEmail;
   }
 
   @JsonProperty("paymentInformation")
+  @java.lang.Override
   public Optional<Wallet> getPaymentInformation() {
     return paymentInformation;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WalletPaymentMethod && equalTo((WalletPaymentMethod) other);
@@ -63,12 +65,12 @@ public final class WalletPaymentMethod {
     return billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.billingEmail, this.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

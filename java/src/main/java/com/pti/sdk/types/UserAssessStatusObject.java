@@ -64,25 +64,25 @@ public final class UserAssessStatusObject implements IActionStatus {
   }
 
   @JsonProperty("resourceType")
-  @Override
+  @java.lang.Override
   public Optional<ResourceType> getResourceType() {
     return resourceType;
   }
 
   @JsonProperty("requestId")
-  @Override
+  @java.lang.Override
   public Optional<String> getRequestId() {
     return requestId;
   }
 
   @JsonProperty("clientId")
-  @Override
+  @java.lang.Override
   public Optional<String> getClientId() {
     return clientId;
   }
 
   @JsonProperty("userId")
-  @Override
+  @java.lang.Override
   public Optional<String> getUserId() {
     return userId;
   }
@@ -91,7 +91,7 @@ public final class UserAssessStatusObject implements IActionStatus {
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @Override
+  @java.lang.Override
   public Optional<String> getDate() {
     return date;
   }
@@ -119,7 +119,7 @@ public final class UserAssessStatusObject implements IActionStatus {
     return refusalReason;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UserAssessStatusObject && equalTo((UserAssessStatusObject) other);
@@ -134,12 +134,12 @@ public final class UserAssessStatusObject implements IActionStatus {
     return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && assessment.equals(other.assessment) && meta.equals(other.meta) && tier.equals(other.tier) && refusalReason.equals(other.refusalReason);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.assessment, this.meta, this.tier, this.refusalReason);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

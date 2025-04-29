@@ -88,7 +88,7 @@ public final class StartUserAssessmentRequest {
     return body;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof StartUserAssessmentRequest && equalTo((StartUserAssessmentRequest) other);
@@ -103,12 +103,12 @@ public final class StartUserAssessmentRequest {
     return ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && body.equals(other.body);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.body);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -163,7 +163,7 @@ public final class StartUserAssessmentRequest {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(StartUserAssessmentRequest other) {
       ptiRequestId(other.getPtiRequestId());
       ptiScenarioId(other.getPtiScenarioId());
@@ -177,7 +177,7 @@ public final class StartUserAssessmentRequest {
      * <p>Unique identifier of the request. This ID must be provided and stored by the client of this API at the creation of a transaction. This ID is attached to all PTI internal operations as well as the webhook calls. This ID is required to post feedback about a transaction and get support from PTI for a problem on a transaction. Creating two transactions having the same requestId is not allowed.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("x-pti-request-id")
     public PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId) {
       this.ptiRequestId = Objects.requireNonNull(ptiRequestId, "ptiRequestId must not be null");
@@ -188,14 +188,14 @@ public final class StartUserAssessmentRequest {
      * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("x-pti-scenario-id")
     public BodyStage ptiScenarioId(@NotNull String ptiScenarioId) {
       this.ptiScenarioId = Objects.requireNonNull(ptiScenarioId, "ptiScenarioId must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("body")
     public _FinalStage body(@NotNull KycRequest body) {
       this.body = Objects.requireNonNull(body, "body must not be null");
@@ -206,13 +206,13 @@ public final class StartUserAssessmentRequest {
      * <p>Set to true to disable webhook calls for this request.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook) {
       this.ptiDisableWebhook = Optional.ofNullable(ptiDisableWebhook);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "x-pti-disable-webhook",
         nulls = Nulls.SKIP
@@ -226,13 +226,13 @@ public final class StartUserAssessmentRequest {
      * <p>Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiSessionId(String ptiSessionId) {
       this.ptiSessionId = Optional.ofNullable(ptiSessionId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "x-pti-session-id",
         nulls = Nulls.SKIP
@@ -242,7 +242,7 @@ public final class StartUserAssessmentRequest {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public StartUserAssessmentRequest build() {
       return new StartUserAssessmentRequest(ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, body, additionalProperties);
     }

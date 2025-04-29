@@ -57,7 +57,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
    * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public Optional<String> getId() {
     return id;
   }
@@ -102,7 +102,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     return clientMeta;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof CryptoPaymentInformation && equalTo((CryptoPaymentInformation) other);
@@ -117,12 +117,12 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     return id.equals(other.id) && walletAddress.equals(other.walletAddress) && currency.equals(other.currency) && network.equals(other.network) && privateBlockchain.equals(other.privateBlockchain) && clientMeta.equals(other.clientMeta);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.walletAddress, this.currency, this.network, this.privateBlockchain, this.clientMeta);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -183,7 +183,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(CryptoPaymentInformation other) {
       id(other.getId());
       walletAddress(other.getWalletAddress());
@@ -198,7 +198,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>Blockchain address for the Wallet</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("walletAddress")
     public CurrencyStage walletAddress(@NotNull String walletAddress) {
       this.walletAddress = Objects.requireNonNull(walletAddress, "walletAddress must not be null");
@@ -209,7 +209,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>Token symbol that your User is trading</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("currency")
     public NetworkStage currency(@NotNull String currency) {
       this.currency = Objects.requireNonNull(currency, "currency must not be null");
@@ -220,7 +220,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>Blockchain network name, example ethereum, bitcoin, solana</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("network")
     public _FinalStage network(@NotNull String network) {
       this.network = Objects.requireNonNull(network, "network must not be null");
@@ -231,13 +231,13 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>key/value map of extra meta data for this payment info, for example, it could be useful to add information to a transaction, like if a subtoken asset is involved</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage clientMeta(Map<String, Object> clientMeta) {
       this.clientMeta = Optional.ofNullable(clientMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "clientMeta",
         nulls = Nulls.SKIP
@@ -251,13 +251,13 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>If blockchain is a private chain</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage privateBlockchain(Boolean privateBlockchain) {
       this.privateBlockchain = Optional.ofNullable(privateBlockchain);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "privateBlockchain",
         nulls = Nulls.SKIP
@@ -271,13 +271,13 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
      * <p>Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -287,7 +287,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public CryptoPaymentInformation build() {
       return new CryptoPaymentInformation(id, walletAddress, currency, network, privateBlockchain, clientMeta, additionalProperties);
     }

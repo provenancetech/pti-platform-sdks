@@ -57,7 +57,7 @@ public final class AchPaymentMethod {
     return paymentInformation;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof AchPaymentMethod && equalTo((AchPaymentMethod) other);
@@ -72,12 +72,12 @@ public final class AchPaymentMethod {
     return currency.equals(other.currency) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.currency, this.billingEmail, this.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

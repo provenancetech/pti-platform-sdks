@@ -76,25 +76,25 @@ public final class TransactionAssessStatusObject implements IActionStatus {
   }
 
   @JsonProperty("resourceType")
-  @Override
+  @java.lang.Override
   public Optional<ResourceType> getResourceType() {
     return resourceType;
   }
 
   @JsonProperty("requestId")
-  @Override
+  @java.lang.Override
   public Optional<String> getRequestId() {
     return requestId;
   }
 
   @JsonProperty("clientId")
-  @Override
+  @java.lang.Override
   public Optional<String> getClientId() {
     return clientId;
   }
 
   @JsonProperty("userId")
-  @Override
+  @java.lang.Override
   public Optional<String> getUserId() {
     return userId;
   }
@@ -103,7 +103,7 @@ public final class TransactionAssessStatusObject implements IActionStatus {
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @Override
+  @java.lang.Override
   public Optional<String> getDate() {
     return date;
   }
@@ -147,7 +147,7 @@ public final class TransactionAssessStatusObject implements IActionStatus {
     return transactionMonitoringResultDetail;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionAssessStatusObject && equalTo((TransactionAssessStatusObject) other);
@@ -162,12 +162,12 @@ public final class TransactionAssessStatusObject implements IActionStatus {
     return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && assessment.equals(other.assessment) && risk.equals(other.risk) && amount.equals(other.amount) && transactionType.equals(other.transactionType) && transactionGroupId.equals(other.transactionGroupId) && meta.equals(other.meta) && transactionMonitoringResultDetail.equals(other.transactionMonitoringResultDetail);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.assessment, this.risk, this.amount, this.transactionType, this.transactionGroupId, this.meta, this.transactionMonitoringResultDetail);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

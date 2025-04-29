@@ -20,20 +20,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = UnmanagedError.Builder.class
 )
 public final class UnmanagedError {
-  private final String error;
+  private final Optional<String> error;
 
   private final Optional<Integer> code;
 
   private final Map<String, Object> additionalProperties;
 
-  private UnmanagedError(String error, Optional<Integer> code,
+  private UnmanagedError(Optional<String> error, Optional<Integer> code,
       Map<String, Object> additionalProperties) {
     this.error = error;
     this.code = code;
@@ -41,7 +40,7 @@ public final class UnmanagedError {
   }
 
   @JsonProperty("error")
-  public String getError() {
+  public Optional<String> getError() {
     return error;
   }
 
@@ -53,7 +52,7 @@ public final class UnmanagedError {
     return code;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UnmanagedError && equalTo((UnmanagedError) other);
@@ -68,39 +67,25 @@ public final class UnmanagedError {
     return error.equals(other.error) && code.equals(other.code);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.error, this.code);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
 
-  public static ErrorStage builder() {
+  public static Builder builder() {
     return new Builder();
-  }
-
-  public interface ErrorStage {
-    _FinalStage error(@NotNull String error);
-
-    Builder from(UnmanagedError other);
-  }
-
-  public interface _FinalStage {
-    UnmanagedError build();
-
-    _FinalStage code(Optional<Integer> code);
-
-    _FinalStage code(Integer code);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements ErrorStage, _FinalStage {
-    private String error;
+  public static final class Builder {
+    private Optional<String> error = Optional.empty();
 
     private Optional<Integer> code = Optional.empty();
 
@@ -110,41 +95,40 @@ public final class UnmanagedError {
     private Builder() {
     }
 
-    @Override
     public Builder from(UnmanagedError other) {
       error(other.getError());
       code(other.getCode());
       return this;
     }
 
-    @Override
-    @JsonSetter("error")
-    public _FinalStage error(@NotNull String error) {
-      this.error = Objects.requireNonNull(error, "error must not be null");
+    @JsonSetter(
+        value = "error",
+        nulls = Nulls.SKIP
+    )
+    public Builder error(Optional<String> error) {
+      this.error = error;
       return this;
     }
 
-    /**
-     * <p>error code</p>
-     * @return Reference to {@code this} so that method calls can be chained together.
-     */
-    @Override
-    public _FinalStage code(Integer code) {
-      this.code = Optional.ofNullable(code);
+    public Builder error(String error) {
+      this.error = Optional.ofNullable(error);
       return this;
     }
 
-    @Override
     @JsonSetter(
         value = "code",
         nulls = Nulls.SKIP
     )
-    public _FinalStage code(Optional<Integer> code) {
+    public Builder code(Optional<Integer> code) {
       this.code = code;
       return this;
     }
 
-    @Override
+    public Builder code(Integer code) {
+      this.code = Optional.ofNullable(code);
+      return this;
+    }
+
     public UnmanagedError build() {
       return new UnmanagedError(error, code, additionalProperties);
     }

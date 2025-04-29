@@ -41,7 +41,7 @@ public final class TransactionAssessStatusObjectTransactionMonitoringResultDetai
     return complianceProviderResponseCode;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionAssessStatusObjectTransactionMonitoringResultDetail && equalTo((TransactionAssessStatusObjectTransactionMonitoringResultDetail) other);
@@ -56,12 +56,12 @@ public final class TransactionAssessStatusObjectTransactionMonitoringResultDetai
     return complianceProviderResponseCode.equals(other.complianceProviderResponseCode);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.complianceProviderResponseCode);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

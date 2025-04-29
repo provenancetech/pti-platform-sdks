@@ -5,7 +5,7 @@ import * as PTI from "../../../../index";
 /**
  * @example
  *     {
- *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
+ *         id: "ffffffff-6129-4bda-8a10-8ef234dff30e",
  *         currency: "ETH",
  *         network: "ETHEREUM"
  *     }

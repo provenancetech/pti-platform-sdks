@@ -59,14 +59,14 @@ public final class GetDigitalItemsRequest {
   }
 
   /**
-   * @return Sort by field. If not specified, the default value is creation date.
+   * @return Sort by field. If not specified, the default value is creationDate.
    */
   @JsonProperty("sortBy")
   public Optional<String> getSortBy() {
     return sortBy;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof GetDigitalItemsRequest && equalTo((GetDigitalItemsRequest) other);
@@ -81,12 +81,12 @@ public final class GetDigitalItemsRequest {
     return page.equals(other.page) && size.equals(other.size) && sortBy.equals(other.sortBy);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.page, this.size, this.sortBy);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

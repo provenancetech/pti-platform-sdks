@@ -75,7 +75,7 @@ public final class Pageable {
     return unpaged;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Pageable && equalTo((Pageable) other);
@@ -90,12 +90,12 @@ public final class Pageable {
     return pageNumber.equals(other.pageNumber) && pageSize.equals(other.pageSize) && offset.equals(other.offset) && paged.equals(other.paged) && unpaged.equals(other.unpaged);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.pageNumber, this.pageSize, this.offset, this.paged, this.unpaged);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -19,7 +19,7 @@ import com.pti.sdk.errors.TooManyRequestsError;
 import com.pti.sdk.errors.UnauthorizedError;
 import com.pti.sdk.resources.wallets.requests.DepositAddressRequest;
 import com.pti.sdk.resources.wallets.requests.GetWalletHistoryRequest;
-import com.pti.sdk.resources.wallets.requests.SimulatePaymentRequest;
+import com.pti.sdk.resources.wallets.requests.SimulateDepositRequest;
 import com.pti.sdk.resources.wallets.requests.WalletCreation;
 import com.pti.sdk.types.CurrencyAsset;
 import com.pti.sdk.types.InvalidRequestError;
@@ -277,16 +277,16 @@ public class WalletsClient {
     }
   }
 
-  public void simulateWalletPayment(String userId, String walletId) {
-    simulateWalletPayment(userId,walletId,SimulatePaymentRequest.builder().build());
+  public void simulateWalletDeposit(String userId, String walletId) {
+    simulateWalletDeposit(userId,walletId,SimulateDepositRequest.builder().build());
   }
 
-  public void simulateWalletPayment(String userId, String walletId,
-      SimulatePaymentRequest request) {
-    simulateWalletPayment(userId,walletId,request,null);
+  public void simulateWalletDeposit(String userId, String walletId,
+      SimulateDepositRequest request) {
+    simulateWalletDeposit(userId,walletId,request,null);
   }
 
-  public void simulateWalletPayment(String userId, String walletId, SimulatePaymentRequest request,
+  public void simulateWalletDeposit(String userId, String walletId, SimulateDepositRequest request,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -294,7 +294,7 @@ public class WalletsClient {
       .addPathSegment(userId)
       .addPathSegments("wallets")
       .addPathSegment(walletId)
-      .addPathSegments("simulate-payment")
+      .addPathSegments("simulate-deposit")
       .build();
     RequestBody body;
     try {

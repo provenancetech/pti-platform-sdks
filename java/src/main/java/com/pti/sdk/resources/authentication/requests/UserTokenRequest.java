@@ -57,7 +57,7 @@ public final class UserTokenRequest {
     return method;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UserTokenRequest && equalTo((UserTokenRequest) other);
@@ -72,12 +72,12 @@ public final class UserTokenRequest {
     return url.equals(other.url) && metaInformation.equals(other.metaInformation) && method.equals(other.method);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.url, this.metaInformation, this.method);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -120,7 +120,7 @@ public final class UserTokenRequest {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(UserTokenRequest other) {
       url(other.getUrl());
       metaInformation(other.getMetaInformation());
@@ -128,27 +128,27 @@ public final class UserTokenRequest {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("url")
     public MethodStage url(@NotNull String url) {
       this.url = Objects.requireNonNull(url, "url must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("method")
     public _FinalStage method(@NotNull String method) {
       this.method = Objects.requireNonNull(method, "method must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage metaInformation(String metaInformation) {
       this.metaInformation = Optional.ofNullable(metaInformation);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "metaInformation",
         nulls = Nulls.SKIP
@@ -158,7 +158,7 @@ public final class UserTokenRequest {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public UserTokenRequest build() {
       return new UserTokenRequest(url, metaInformation, method, additionalProperties);
     }

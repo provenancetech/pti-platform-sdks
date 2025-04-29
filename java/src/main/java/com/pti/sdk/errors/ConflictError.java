@@ -21,7 +21,7 @@ public final class ConflictError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @Override
+  @java.lang.Override
   public UnmanagedError body() {
     return this.body;
   }

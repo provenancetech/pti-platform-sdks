@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 public final class TransactionUpdate {
   private final Optional<String> payload;
 
-  private final TransactionUpdateProviderName providerName;
+  private final Optional<TransactionUpdateProviderName> providerName;
 
   private final TransactionUpdateFeedback feedback;
 
@@ -40,8 +40,9 @@ public final class TransactionUpdate {
 
   private final Map<String, Object> additionalProperties;
 
-  private TransactionUpdate(Optional<String> payload, TransactionUpdateProviderName providerName,
-      TransactionUpdateFeedback feedback, Optional<String> transactionId, Optional<String> date,
+  private TransactionUpdate(Optional<String> payload,
+      Optional<TransactionUpdateProviderName> providerName, TransactionUpdateFeedback feedback,
+      Optional<String> transactionId, Optional<String> date,
       Map<String, Object> additionalProperties) {
     this.payload = payload;
     this.providerName = providerName;
@@ -57,7 +58,7 @@ public final class TransactionUpdate {
   }
 
   @JsonProperty("providerName")
-  public TransactionUpdateProviderName getProviderName() {
+  public Optional<TransactionUpdateProviderName> getProviderName() {
     return providerName;
   }
 
@@ -82,7 +83,7 @@ public final class TransactionUpdate {
     return date;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionUpdate && equalTo((TransactionUpdate) other);
@@ -97,28 +98,24 @@ public final class TransactionUpdate {
     return payload.equals(other.payload) && providerName.equals(other.providerName) && feedback.equals(other.feedback) && transactionId.equals(other.transactionId) && date.equals(other.date);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.payload, this.providerName, this.feedback, this.transactionId, this.date);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
 
-  public static ProviderNameStage builder() {
+  public static FeedbackStage builder() {
     return new Builder();
-  }
-
-  public interface ProviderNameStage {
-    FeedbackStage providerName(@NotNull TransactionUpdateProviderName providerName);
-
-    Builder from(TransactionUpdate other);
   }
 
   public interface FeedbackStage {
     _FinalStage feedback(@NotNull TransactionUpdateFeedback feedback);
+
+    Builder from(TransactionUpdate other);
   }
 
   public interface _FinalStage {
@@ -127,6 +124,10 @@ public final class TransactionUpdate {
     _FinalStage payload(Optional<String> payload);
 
     _FinalStage payload(String payload);
+
+    _FinalStage providerName(Optional<TransactionUpdateProviderName> providerName);
+
+    _FinalStage providerName(TransactionUpdateProviderName providerName);
 
     _FinalStage transactionId(Optional<String> transactionId);
 
@@ -140,14 +141,14 @@ public final class TransactionUpdate {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements ProviderNameStage, FeedbackStage, _FinalStage {
-    private TransactionUpdateProviderName providerName;
-
+  public static final class Builder implements FeedbackStage, _FinalStage {
     private TransactionUpdateFeedback feedback;
 
     private Optional<String> date = Optional.empty();
 
     private Optional<String> transactionId = Optional.empty();
+
+    private Optional<TransactionUpdateProviderName> providerName = Optional.empty();
 
     private Optional<String> payload = Optional.empty();
 
@@ -157,7 +158,7 @@ public final class TransactionUpdate {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(TransactionUpdate other) {
       payload(other.getPayload());
       providerName(other.getProviderName());
@@ -167,14 +168,7 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @Override
-    @JsonSetter("providerName")
-    public FeedbackStage providerName(@NotNull TransactionUpdateProviderName providerName) {
-      this.providerName = Objects.requireNonNull(providerName, "providerName must not be null");
-      return this;
-    }
-
-    @Override
+    @java.lang.Override
     @JsonSetter("feedback")
     public _FinalStage feedback(@NotNull TransactionUpdateFeedback feedback) {
       this.feedback = Objects.requireNonNull(feedback, "feedback must not be null");
@@ -185,13 +179,13 @@ public final class TransactionUpdate {
      * <p>Timestamp when the transaction feedback changed. This will be used in transaction reports. If not provided, it will be set to the time at which the api call is made. The format must be compatible with the ISO-8601 standard. e.g. 2022-01-01T00:00:00</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage date(String date) {
       this.date = Optional.ofNullable(date);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "date",
         nulls = Nulls.SKIP
@@ -205,13 +199,13 @@ public final class TransactionUpdate {
      * <p>A transaction hash or any relevant identifier for the transaction</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage transactionId(String transactionId) {
       this.transactionId = Optional.ofNullable(transactionId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "transactionId",
         nulls = Nulls.SKIP
@@ -221,13 +215,29 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @Override
+    @java.lang.Override
+    public _FinalStage providerName(TransactionUpdateProviderName providerName) {
+      this.providerName = Optional.ofNullable(providerName);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "providerName",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage providerName(Optional<TransactionUpdateProviderName> providerName) {
+      this.providerName = providerName;
+      return this;
+    }
+
+    @java.lang.Override
     public _FinalStage payload(String payload) {
       this.payload = Optional.ofNullable(payload);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "payload",
         nulls = Nulls.SKIP
@@ -237,7 +247,7 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public TransactionUpdate build() {
       return new TransactionUpdate(payload, providerName, feedback, transactionId, date, additionalProperties);
     }

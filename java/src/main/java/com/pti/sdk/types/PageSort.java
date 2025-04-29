@@ -57,7 +57,7 @@ public final class PageSort {
     return empty;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof PageSort && equalTo((PageSort) other);
@@ -72,12 +72,12 @@ public final class PageSort {
     return sorted.equals(other.sorted) && unsorted.equals(other.unsorted) && empty.equals(other.empty);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.sorted, this.unsorted, this.empty);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

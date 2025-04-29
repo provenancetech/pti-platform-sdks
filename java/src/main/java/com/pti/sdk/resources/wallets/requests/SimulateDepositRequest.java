@@ -24,16 +24,16 @@ import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
-    builder = SimulatePaymentRequest.Builder.class
+    builder = SimulateDepositRequest.Builder.class
 )
-public final class SimulatePaymentRequest {
+public final class SimulateDepositRequest {
   private final Optional<Double> amount;
 
   private final Optional<PaymentMethodType> paymentMethodType;
 
   private final Map<String, Object> additionalProperties;
 
-  private SimulatePaymentRequest(Optional<Double> amount,
+  private SimulateDepositRequest(Optional<Double> amount,
       Optional<PaymentMethodType> paymentMethodType, Map<String, Object> additionalProperties) {
     this.amount = amount;
     this.paymentMethodType = paymentMethodType;
@@ -50,10 +50,10 @@ public final class SimulatePaymentRequest {
     return paymentMethodType;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof SimulatePaymentRequest && equalTo((SimulatePaymentRequest) other);
+    return other instanceof SimulateDepositRequest && equalTo((SimulateDepositRequest) other);
   }
 
   @JsonAnyGetter
@@ -61,16 +61,16 @@ public final class SimulatePaymentRequest {
     return this.additionalProperties;
   }
 
-  private boolean equalTo(SimulatePaymentRequest other) {
+  private boolean equalTo(SimulateDepositRequest other) {
     return amount.equals(other.amount) && paymentMethodType.equals(other.paymentMethodType);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.amount, this.paymentMethodType);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -93,7 +93,7 @@ public final class SimulatePaymentRequest {
     private Builder() {
     }
 
-    public Builder from(SimulatePaymentRequest other) {
+    public Builder from(SimulateDepositRequest other) {
       amount(other.getAmount());
       paymentMethodType(other.getPaymentMethodType());
       return this;
@@ -127,8 +127,8 @@ public final class SimulatePaymentRequest {
       return this;
     }
 
-    public SimulatePaymentRequest build() {
-      return new SimulatePaymentRequest(amount, paymentMethodType, additionalProperties);
+    public SimulateDepositRequest build() {
+      return new SimulateDepositRequest(amount, paymentMethodType, additionalProperties);
     }
   }
 }

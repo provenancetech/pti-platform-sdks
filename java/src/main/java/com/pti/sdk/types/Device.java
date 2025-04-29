@@ -57,7 +57,7 @@ public final class Device {
     return deviceData;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Device && equalTo((Device) other);
@@ -72,12 +72,12 @@ public final class Device {
     return fingerPrint.equals(other.fingerPrint) && providerName.equals(other.providerName) && deviceData.equals(other.deviceData);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.fingerPrint, this.providerName, this.deviceData);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -120,7 +120,7 @@ public final class Device {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(Device other) {
       fingerPrint(other.getFingerPrint());
       providerName(other.getProviderName());
@@ -128,27 +128,27 @@ public final class Device {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("fingerPrint")
     public ProviderNameStage fingerPrint(@NotNull String fingerPrint) {
       this.fingerPrint = Objects.requireNonNull(fingerPrint, "fingerPrint must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("providerName")
     public _FinalStage providerName(@NotNull DeviceProviderName providerName) {
       this.providerName = Objects.requireNonNull(providerName, "providerName must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage deviceData(String deviceData) {
       this.deviceData = Optional.ofNullable(deviceData);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "deviceData",
         nulls = Nulls.SKIP
@@ -158,7 +158,7 @@ public final class Device {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public Device build() {
       return new Device(fingerPrint, providerName, deviceData, additionalProperties);
     }

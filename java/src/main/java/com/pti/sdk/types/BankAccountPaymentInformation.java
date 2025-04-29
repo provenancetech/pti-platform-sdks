@@ -63,7 +63,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
    * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public Optional<String> getId() {
     return id;
   }
@@ -124,7 +124,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
     return accountBankName;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof BankAccountPaymentInformation && equalTo((BankAccountPaymentInformation) other);
@@ -139,12 +139,12 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
     return id.equals(other.id) && bankAccountNumber.equals(other.bankAccountNumber) && bankAccountType.equals(other.bankAccountType) && accountHolderName.equals(other.accountHolderName) && bankSwiftCode.equals(other.bankSwiftCode) && bankRoutingNumber.equals(other.bankRoutingNumber) && bankRoutingCheckDigit.equals(other.bankRoutingCheckDigit) && accountBankName.equals(other.accountBankName);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.bankAccountNumber, this.bankAccountType, this.accountHolderName, this.bankSwiftCode, this.bankRoutingNumber, this.bankRoutingCheckDigit, this.accountBankName);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

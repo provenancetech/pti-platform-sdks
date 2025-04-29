@@ -74,7 +74,7 @@ public final class FeeRecipient {
     return feeRecipientType;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof FeeRecipient && equalTo((FeeRecipient) other);
@@ -89,12 +89,12 @@ public final class FeeRecipient {
     return id.equals(other.id) && walletId.equals(other.walletId) && currency.equals(other.currency) && amount == other.amount && feeRecipientType.equals(other.feeRecipientType);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.id, this.walletId, this.currency, this.amount, this.feeRecipientType);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -149,7 +149,7 @@ public final class FeeRecipient {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(FeeRecipient other) {
       id(other.getId());
       walletId(other.getWalletId());
@@ -163,42 +163,42 @@ public final class FeeRecipient {
      * <p>User ID of the Commission Recipient</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("id")
     public WalletIdStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("walletId")
     public CurrencyStage walletId(@NotNull String walletId) {
       this.walletId = Objects.requireNonNull(walletId, "walletId must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("currency")
     public AmountStage currency(@NotNull String currency) {
       this.currency = Objects.requireNonNull(currency, "currency must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("amount")
     public FeeRecipientTypeStage amount(double amount) {
       this.amount = amount;
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("feeRecipientType")
     public _FinalStage feeRecipientType(@NotNull FeeRecipientFeeRecipientType feeRecipientType) {
       this.feeRecipientType = Objects.requireNonNull(feeRecipientType, "feeRecipientType must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public FeeRecipient build() {
       return new FeeRecipient(id, walletId, currency, amount, feeRecipientType, additionalProperties);
     }

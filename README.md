@@ -3,3 +3,4 @@ SDK's for PTI platform
 
 - [Java](java/README.md)
 - [TypeScript](ts/README.md)
+- [Postman](postman/README.md)

@@ -1,3 +1,3 @@
 export { WalletCreation } from "./WalletCreation";
-export { SimulatePaymentRequest } from "./SimulatePaymentRequest";
+export { SimulateDepositRequest } from "./SimulateDepositRequest";
 export { DepositAddressRequest } from "./DepositAddressRequest";

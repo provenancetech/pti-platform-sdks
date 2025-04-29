@@ -71,7 +71,7 @@ public final class TransactionType implements ITransactionType, ITransaction {
   }
 
   @JsonProperty("type")
-  @Override
+  @java.lang.Override
   public TransactionTypeEnum getType() {
     return type;
   }
@@ -80,37 +80,37 @@ public final class TransactionType implements ITransactionType, ITransaction {
    * @return The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.
    */
   @JsonProperty("id")
-  @Override
+  @java.lang.Override
   public Optional<String> getId() {
     return id;
   }
 
   @JsonProperty("transactionGroupId")
-  @Override
+  @java.lang.Override
   public Optional<String> getTransactionGroupId() {
     return transactionGroupId;
   }
 
   @JsonProperty("subClientId")
-  @Override
+  @java.lang.Override
   public Optional<String> getSubClientId() {
     return subClientId;
   }
 
   @JsonProperty("transactionTotal")
-  @Override
+  @java.lang.Override
   public Optional<Total> getTransactionTotal() {
     return transactionTotal;
   }
 
   @JsonProperty("usdValue")
-  @Override
+  @java.lang.Override
   public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
   @JsonProperty("amount")
-  @Override
+  @java.lang.Override
   public double getAmount() {
     return amount;
   }
@@ -119,13 +119,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @Override
+  @java.lang.Override
   public String getDate() {
     return date;
   }
 
   @JsonProperty("initiator")
-  @Override
+  @java.lang.Override
   public OneOfUserSubTypes getInitiator() {
     return initiator;
   }
@@ -134,7 +134,7 @@ public final class TransactionType implements ITransactionType, ITransaction {
    * @return key/value map of extra meta data for this request (used by PTI)
    */
   @JsonProperty("ptiMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getPtiMeta() {
     return ptiMeta;
   }
@@ -143,12 +143,12 @@ public final class TransactionType implements ITransactionType, ITransaction {
    * @return key/value map of extra meta data for this request (used by Client)
    */
   @JsonProperty("clientMeta")
-  @Override
+  @java.lang.Override
   public Optional<Map<String, Object>> getClientMeta() {
     return clientMeta;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionType && equalTo((TransactionType) other);
@@ -163,12 +163,12 @@ public final class TransactionType implements ITransactionType, ITransaction {
     return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -259,7 +259,7 @@ public final class TransactionType implements ITransactionType, ITransaction {
     private Builder() {
     }
 
-    @Override
+    @java.lang.Override
     public Builder from(TransactionType other) {
       type(other.getType());
       id(other.getId());
@@ -275,14 +275,14 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("type")
     public AmountStage type(@NotNull TransactionTypeEnum type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("amount")
     public DateStage amount(double amount) {
       this.amount = amount;
@@ -293,14 +293,14 @@ public final class TransactionType implements ITransactionType, ITransaction {
      * <p>ISO-8601</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     @JsonSetter("date")
     public InitiatorStage date(@NotNull String date) {
       this.date = Objects.requireNonNull(date, "date must not be null");
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter("initiator")
     public _FinalStage initiator(@NotNull OneOfUserSubTypes initiator) {
       this.initiator = Objects.requireNonNull(initiator, "initiator must not be null");
@@ -311,13 +311,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage clientMeta(Map<String, Object> clientMeta) {
       this.clientMeta = Optional.ofNullable(clientMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "clientMeta",
         nulls = Nulls.SKIP
@@ -331,13 +331,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
      * <p>key/value map of extra meta data for this request (used by PTI)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage ptiMeta(Map<String, Object> ptiMeta) {
       this.ptiMeta = Optional.ofNullable(ptiMeta);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "ptiMeta",
         nulls = Nulls.SKIP
@@ -347,13 +347,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage usdValue(Double usdValue) {
       this.usdValue = Optional.ofNullable(usdValue);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "usdValue",
         nulls = Nulls.SKIP
@@ -363,13 +363,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage transactionTotal(Total transactionTotal) {
       this.transactionTotal = Optional.ofNullable(transactionTotal);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "transactionTotal",
         nulls = Nulls.SKIP
@@ -379,13 +379,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage subClientId(String subClientId) {
       this.subClientId = Optional.ofNullable(subClientId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "subClientId",
         nulls = Nulls.SKIP
@@ -395,13 +395,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public _FinalStage transactionGroupId(String transactionGroupId) {
       this.transactionGroupId = Optional.ofNullable(transactionGroupId);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "transactionGroupId",
         nulls = Nulls.SKIP
@@ -415,13 +415,13 @@ public final class TransactionType implements ITransactionType, ITransaction {
      * <p>The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @Override
+    @java.lang.Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @Override
+    @java.lang.Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -431,7 +431,7 @@ public final class TransactionType implements ITransactionType, ITransaction {
       return this;
     }
 
-    @Override
+    @java.lang.Override
     public TransactionType build() {
       return new TransactionType(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, additionalProperties);
     }

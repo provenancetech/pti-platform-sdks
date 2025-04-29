@@ -40,7 +40,7 @@ public final class CryptoPaymentMethodSource {
     return paymentInformation;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof CryptoPaymentMethodSource && equalTo((CryptoPaymentMethodSource) other);
@@ -55,12 +55,12 @@ public final class CryptoPaymentMethodSource {
     return paymentInformation.equals(other.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.paymentInformation);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -63,7 +63,7 @@ export declare class Wallets {
      *
      * @example
      *     await client.wallets.createWallet("userId", {
-     *         id: "c8768405-6129-4bda-8a10-8ef234dff30e",
+     *         id: "ffffffff-6129-4bda-8a10-8ef234dff30e",
      *         currency: "ETH",
      *         network: "ETHEREUM"
      *     })
@@ -98,7 +98,7 @@ export declare class Wallets {
     /**
      * @param {string} userId
      * @param {string} walletId
-     * @param {PTI.SimulatePaymentRequest} request
+     * @param {PTI.SimulateDepositRequest} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
@@ -107,12 +107,12 @@ export declare class Wallets {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.wallets.simulateWalletPayment("userId", "walletId", {
+     *     await client.wallets.simulateWalletDeposit("userId", "walletId", {
      *         amount: 100,
      *         paymentMethodType: "ACH"
      *     })
      */
-    simulateWalletPayment(userId: string, walletId: string, request?: PTI.SimulatePaymentRequest, requestOptions?: Wallets.RequestOptions): Promise<void>;
+    simulateWalletDeposit(userId: string, walletId: string, request?: PTI.SimulateDepositRequest, requestOptions?: Wallets.RequestOptions): Promise<void>;
     /**
      * @param {string} userId
      * @param {string} walletId

@@ -85,25 +85,25 @@ public final class TransactionStatusObject implements IActionStatus {
   }
 
   @JsonProperty("resourceType")
-  @Override
+  @java.lang.Override
   public Optional<ResourceType> getResourceType() {
     return resourceType;
   }
 
   @JsonProperty("requestId")
-  @Override
+  @java.lang.Override
   public Optional<String> getRequestId() {
     return requestId;
   }
 
   @JsonProperty("clientId")
-  @Override
+  @java.lang.Override
   public Optional<String> getClientId() {
     return clientId;
   }
 
   @JsonProperty("userId")
-  @Override
+  @java.lang.Override
   public Optional<String> getUserId() {
     return userId;
   }
@@ -112,7 +112,7 @@ public final class TransactionStatusObject implements IActionStatus {
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @Override
+  @java.lang.Override
   public Optional<String> getDate() {
     return date;
   }
@@ -170,7 +170,7 @@ public final class TransactionStatusObject implements IActionStatus {
     return additionalInfos;
   }
 
-  @Override
+  @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionStatusObject && equalTo((TransactionStatusObject) other);
@@ -185,12 +185,12 @@ public final class TransactionStatusObject implements IActionStatus {
     return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date) && status.equals(other.status) && transactionType.equals(other.transactionType) && paymentMethod.equals(other.paymentMethod) && paymentStatusDetail.equals(other.paymentStatusDetail) && amount.equals(other.amount) && transactionGroupId.equals(other.transactionGroupId) && billingEmail.equals(other.billingEmail) && transactionTotal.equals(other.transactionTotal) && currency.equals(other.currency) && additionalInfos.equals(other.additionalInfos);
   }
 
-  @Override
+  @java.lang.Override
   public int hashCode() {
     return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date, this.status, this.transactionType, this.paymentMethod, this.paymentStatusDetail, this.amount, this.transactionGroupId, this.billingEmail, this.transactionTotal, this.currency, this.additionalInfos);
   }
 
-  @Override
+  @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
