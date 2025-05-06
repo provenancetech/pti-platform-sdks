@@ -38,11 +38,11 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionUpdate = void 0;
 const core = __importStar(require("../../../../../core"));
-const TransactionUpdateProviderName_1 = require("../../types/TransactionUpdateProviderName");
+const ProviderName_1 = require("../../../../types/ProviderName");
 const TransactionUpdateFeedback_1 = require("../../types/TransactionUpdateFeedback");
 exports.TransactionUpdate = core.serialization.object({
     payload: core.serialization.string().optional(),
-    providerName: TransactionUpdateProviderName_1.TransactionUpdateProviderName.optional(),
+    providerName: ProviderName_1.ProviderName.optional(),
     feedback: TransactionUpdateFeedback_1.TransactionUpdateFeedback,
     transactionId: core.serialization.string().optional(),
     date: core.serialization.string().optional(),

@@ -14,7 +14,7 @@ import * as PTI from "../../../../index";
  */
 export interface TransactionUpdate {
     payload?: string;
-    providerName?: PTI.TransactionUpdateProviderName;
+    providerName?: PTI.ProviderName;
     feedback: PTI.TransactionUpdateFeedback;
     /** A transaction hash or any relevant identifier for the transaction */
     transactionId?: string;
