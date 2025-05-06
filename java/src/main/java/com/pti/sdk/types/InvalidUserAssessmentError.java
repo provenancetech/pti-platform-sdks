@@ -44,7 +44,7 @@ public final class InvalidUserAssessmentError implements IManagedError {
   }
 
   @JsonProperty("type")
-  @java.lang.Override
+  @Override
   public Optional<ErrorType> getType() {
     return type;
   }
@@ -116,7 +116,7 @@ public final class InvalidUserAssessmentError implements IManagedError {
    * SOURCE_WALLET_CURRENCY_DIFFERENT_THAN_DESTINATION_TOKEN_CURRENCY(6003)
    */
   @JsonProperty("code")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getCode() {
     return code;
   }
@@ -126,7 +126,7 @@ public final class InvalidUserAssessmentError implements IManagedError {
     return assessment;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof InvalidUserAssessmentError && equalTo((InvalidUserAssessmentError) other);
@@ -141,12 +141,12 @@ public final class InvalidUserAssessmentError implements IManagedError {
     return type.equals(other.type) && code.equals(other.code) && assessment.equals(other.assessment);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.type, this.code, this.assessment);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

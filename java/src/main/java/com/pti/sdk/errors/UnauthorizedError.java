@@ -21,7 +21,7 @@ public final class UnauthorizedError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @java.lang.Override
+  @Override
   public UnmanagedError body() {
     return this.body;
   }

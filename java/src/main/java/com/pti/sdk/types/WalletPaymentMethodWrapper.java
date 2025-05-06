@@ -43,13 +43,13 @@ public final class WalletPaymentMethodWrapper implements IWalletPaymentMethod {
   }
 
   @JsonProperty("billingEmail")
-  @java.lang.Override
+  @Override
   public Optional<String> getBillingEmail() {
     return billingEmail;
   }
 
   @JsonProperty("paymentInformation")
-  @java.lang.Override
+  @Override
   public Optional<Wallet> getPaymentInformation() {
     return paymentInformation;
   }
@@ -59,7 +59,7 @@ public final class WalletPaymentMethodWrapper implements IWalletPaymentMethod {
     return paymentMethodType;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WalletPaymentMethodWrapper && equalTo((WalletPaymentMethodWrapper) other);
@@ -74,12 +74,12 @@ public final class WalletPaymentMethodWrapper implements IWalletPaymentMethod {
     return billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation) && paymentMethodType.equals(other.paymentMethodType);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.billingEmail, this.paymentInformation, this.paymentMethodType);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

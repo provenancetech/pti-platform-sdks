@@ -117,12 +117,12 @@ public final class Pii {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitSsn(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof SsnValue && equalTo((SsnValue) other);
@@ -132,12 +132,12 @@ public final class Pii {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "Pii{" + "value: " + value + "}";
     }
@@ -158,12 +158,12 @@ public final class Pii {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitItin(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof ItinValue && equalTo((ItinValue) other);
@@ -173,12 +173,12 @@ public final class Pii {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "Pii{" + "value: " + value + "}";
     }
@@ -196,12 +196,12 @@ public final class Pii {
     private _UnknownValue(@JsonProperty("value") Object value) {
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor._visitUnknown(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
@@ -211,12 +211,12 @@ public final class Pii {
       return type.equals(other.type) && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.type, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "Pii{" + "type: " + type + ", value: " + value + "}";
     }

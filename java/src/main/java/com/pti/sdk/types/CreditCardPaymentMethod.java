@@ -80,7 +80,7 @@ public final class CreditCardPaymentMethod {
     return paymentInformation;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof CreditCardPaymentMethod && equalTo((CreditCardPaymentMethod) other);
@@ -95,12 +95,12 @@ public final class CreditCardPaymentMethod {
     return currency.equals(other.currency) && billingEmail.equals(other.billingEmail) && transactionDescription.equals(other.transactionDescription) && statementMessage.equals(other.statementMessage) && paymentInformation.equals(other.paymentInformation);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.currency, this.billingEmail, this.transactionDescription, this.statementMessage, this.paymentInformation);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

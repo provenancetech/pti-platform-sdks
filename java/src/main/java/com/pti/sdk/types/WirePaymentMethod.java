@@ -74,7 +74,7 @@ public final class WirePaymentMethod {
     return paymentInformation;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WirePaymentMethod && equalTo((WirePaymentMethod) other);
@@ -89,12 +89,12 @@ public final class WirePaymentMethod {
     return currency.equals(other.currency) && purposeOfPayment.equals(other.purposeOfPayment) && memo.equals(other.memo) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.currency, this.purposeOfPayment, this.memo, this.billingEmail, this.paymentInformation);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

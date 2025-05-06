@@ -73,7 +73,7 @@ public final class UserStatusObject {
     return status;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UserStatusObject && equalTo((UserStatusObject) other);
@@ -88,12 +88,12 @@ public final class UserStatusObject {
     return resourceType.equals(other.resourceType) && clientId.equals(other.clientId) && userId.equals(other.userId) && statusReason.equals(other.statusReason) && status.equals(other.status);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.resourceType, this.clientId, this.userId, this.statusReason, this.status);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

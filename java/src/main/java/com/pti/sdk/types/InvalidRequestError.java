@@ -44,7 +44,7 @@ public final class InvalidRequestError implements IManagedError {
   }
 
   @JsonProperty("type")
-  @java.lang.Override
+  @Override
   public Optional<ErrorType> getType() {
     return type;
   }
@@ -116,7 +116,7 @@ public final class InvalidRequestError implements IManagedError {
    * SOURCE_WALLET_CURRENCY_DIFFERENT_THAN_DESTINATION_TOKEN_CURRENCY(6003)
    */
   @JsonProperty("code")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getCode() {
     return code;
   }
@@ -126,7 +126,7 @@ public final class InvalidRequestError implements IManagedError {
     return errors;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof InvalidRequestError && equalTo((InvalidRequestError) other);
@@ -141,12 +141,12 @@ public final class InvalidRequestError implements IManagedError {
     return type.equals(other.type) && code.equals(other.code) && errors.equals(other.errors);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.type, this.code, this.errors);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

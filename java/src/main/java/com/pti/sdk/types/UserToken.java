@@ -55,7 +55,7 @@ public final class UserToken {
     return tokenType;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UserToken && equalTo((UserToken) other);
@@ -70,12 +70,12 @@ public final class UserToken {
     return accessToken.equals(other.accessToken) && expiresAt == other.expiresAt && tokenType.equals(other.tokenType);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.accessToken, this.expiresAt, this.tokenType);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -118,7 +118,7 @@ public final class UserToken {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(UserToken other) {
       accessToken(other.getAccessToken());
       expiresAt(other.getExpiresAt());
@@ -126,28 +126,28 @@ public final class UserToken {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("accessToken")
     public ExpiresAtStage accessToken(@NotNull String accessToken) {
       this.accessToken = Objects.requireNonNull(accessToken, "accessToken must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("expiresAt")
     public TokenTypeStage expiresAt(double expiresAt) {
       this.expiresAt = expiresAt;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("tokenType")
     public _FinalStage tokenType(@NotNull String tokenType) {
       this.tokenType = Objects.requireNonNull(tokenType, "tokenType must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public UserToken build() {
       return new UserToken(accessToken, expiresAt, tokenType, additionalProperties);
     }

@@ -44,7 +44,7 @@ public final class GetUserPaymentInformationsRequest {
     return type;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof GetUserPaymentInformationsRequest && equalTo((GetUserPaymentInformationsRequest) other);
@@ -59,12 +59,12 @@ public final class GetUserPaymentInformationsRequest {
     return type.equals(other.type);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.type);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

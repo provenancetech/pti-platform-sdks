@@ -46,7 +46,7 @@ public final class ObjectReference {
     return link;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ObjectReference && equalTo((ObjectReference) other);
@@ -61,12 +61,12 @@ public final class ObjectReference {
     return id.equals(other.id) && link.equals(other.link);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.id, this.link);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -103,28 +103,28 @@ public final class ObjectReference {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(ObjectReference other) {
       id(other.getId());
       link(other.getLink());
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("id")
     public LinkStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("link")
     public _FinalStage link(@NotNull String link) {
       this.link = Objects.requireNonNull(link, "link must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public ObjectReference build() {
       return new ObjectReference(id, link, additionalProperties);
     }

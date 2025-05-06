@@ -20,7 +20,11 @@ public enum BlockChainEnum {
 
   LITECOIN("LITECOIN"),
 
-  CARDANO("CARDANO");
+  CARDANO("CARDANO"),
+
+  RIPPLE("RIPPLE"),
+
+  STELLAR("STELLAR");
 
   private final String value;
 
@@ -29,7 +33,7 @@ public enum BlockChainEnum {
   }
 
   @JsonValue
-  @java.lang.Override
+  @Override
   public String toString() {
     return this.value;
   }

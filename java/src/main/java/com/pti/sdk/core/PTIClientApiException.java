@@ -41,7 +41,7 @@ public class PTIClientApiException extends PTIClientException {
     return this.body;
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return "PTIClientApiException{" + "message: " + getMessage() + ", statusCode: " + statusCode + ", body: " + body + "}";
   }

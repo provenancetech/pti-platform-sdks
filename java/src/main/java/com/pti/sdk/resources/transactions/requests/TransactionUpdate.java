@@ -81,7 +81,7 @@ public final class TransactionUpdate {
     return date;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof TransactionUpdate && equalTo((TransactionUpdate) other);
@@ -96,12 +96,12 @@ public final class TransactionUpdate {
     return payload.equals(other.payload) && providerName.equals(other.providerName) && feedback.equals(other.feedback) && transactionId.equals(other.transactionId) && date.equals(other.date);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.payload, this.providerName, this.feedback, this.transactionId, this.date);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -156,7 +156,7 @@ public final class TransactionUpdate {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(TransactionUpdate other) {
       payload(other.getPayload());
       providerName(other.getProviderName());
@@ -166,7 +166,7 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("feedback")
     public _FinalStage feedback(@NotNull TransactionUpdateFeedback feedback) {
       this.feedback = Objects.requireNonNull(feedback, "feedback must not be null");
@@ -177,13 +177,13 @@ public final class TransactionUpdate {
      * <p>Timestamp when the transaction feedback changed. This will be used in transaction reports. If not provided, it will be set to the time at which the api call is made. The format must be compatible with the ISO-8601 standard. e.g. 2022-01-01T00:00:00</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage date(String date) {
       this.date = Optional.ofNullable(date);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "date",
         nulls = Nulls.SKIP
@@ -197,13 +197,13 @@ public final class TransactionUpdate {
      * <p>A transaction hash or any relevant identifier for the transaction</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage transactionId(String transactionId) {
       this.transactionId = Optional.ofNullable(transactionId);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "transactionId",
         nulls = Nulls.SKIP
@@ -213,13 +213,13 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage providerName(String providerName) {
       this.providerName = Optional.ofNullable(providerName);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "providerName",
         nulls = Nulls.SKIP
@@ -229,13 +229,13 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage payload(String payload) {
       this.payload = Optional.ofNullable(payload);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "payload",
         nulls = Nulls.SKIP
@@ -245,7 +245,7 @@ public final class TransactionUpdate {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public TransactionUpdate build() {
       return new TransactionUpdate(payload, providerName, feedback, transactionId, date, additionalProperties);
     }

@@ -69,37 +69,37 @@ public final class UserPage implements IPage {
   }
 
   @JsonProperty("totalPages")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getTotalPages() {
     return totalPages;
   }
 
   @JsonProperty("size")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getSize() {
     return size;
   }
 
   @JsonProperty("totalElements")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getTotalElements() {
     return totalElements;
   }
 
   @JsonProperty("last")
-  @java.lang.Override
+  @Override
   public Optional<Boolean> getLast() {
     return last;
   }
 
   @JsonProperty("numberOfElements")
-  @java.lang.Override
+  @Override
   public Optional<Integer> getNumberOfElements() {
     return numberOfElements;
   }
 
   @JsonProperty("pageable")
-  @java.lang.Override
+  @Override
   public Optional<Pageable> getPageable() {
     return pageable;
   }
@@ -110,13 +110,13 @@ public final class UserPage implements IPage {
   }
 
   @JsonProperty("first")
-  @java.lang.Override
+  @Override
   public Optional<Boolean> getFirst() {
     return first;
   }
 
   @JsonProperty("empty")
-  @java.lang.Override
+  @Override
   public Optional<Boolean> getEmpty() {
     return empty;
   }
@@ -126,7 +126,7 @@ public final class UserPage implements IPage {
     return content;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UserPage && equalTo((UserPage) other);
@@ -141,12 +141,12 @@ public final class UserPage implements IPage {
     return totalPages.equals(other.totalPages) && size.equals(other.size) && totalElements.equals(other.totalElements) && last.equals(other.last) && numberOfElements.equals(other.numberOfElements) && pageable.equals(other.pageable) && sort.equals(other.sort) && first.equals(other.first) && empty.equals(other.empty) && content.equals(other.content);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.totalPages, this.size, this.totalElements, this.last, this.numberOfElements, this.pageable, this.sort, this.first, this.empty, this.content);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

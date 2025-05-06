@@ -82,7 +82,7 @@ public final class Address {
     return default_;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Address && equalTo((Address) other);
@@ -97,12 +97,12 @@ public final class Address {
     return streetAddress.equals(other.streetAddress) && city.equals(other.city) && postalCode.equals(other.postalCode) && stateCode.equals(other.stateCode) && country.equals(other.country) && default_.equals(other.default_);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.streetAddress, this.city, this.postalCode, this.stateCode, this.country, this.default_);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

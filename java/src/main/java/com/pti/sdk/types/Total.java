@@ -56,7 +56,7 @@ public final class Total {
     return subtotal;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Total && equalTo((Total) other);
@@ -71,12 +71,12 @@ public final class Total {
     return fee.equals(other.fee) && total.equals(other.total) && subtotal.equals(other.subtotal);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.fee, this.total, this.subtotal);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

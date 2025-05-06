@@ -47,7 +47,7 @@ public final class BusinessOwner {
     return person;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof BusinessOwner && equalTo((BusinessOwner) other);
@@ -62,12 +62,12 @@ public final class BusinessOwner {
     return ownershipPercent == other.ownershipPercent && person.equals(other.person);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.ownershipPercent, this.person);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -104,28 +104,28 @@ public final class BusinessOwner {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(BusinessOwner other) {
       ownershipPercent(other.getOwnershipPercent());
       person(other.getPerson());
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("ownershipPercent")
     public PersonStage ownershipPercent(int ownershipPercent) {
       this.ownershipPercent = ownershipPercent;
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("person")
     public _FinalStage person(@NotNull Person person) {
       this.person = Objects.requireNonNull(person, "person must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public BusinessOwner build() {
       return new BusinessOwner(ownershipPercent, person, additionalProperties);
     }

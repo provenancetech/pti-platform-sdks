@@ -21,7 +21,7 @@ public final class TooManyRequestsError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @java.lang.Override
+  @Override
   public Object body() {
     return this.body;
   }

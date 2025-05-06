@@ -66,7 +66,7 @@ public final class GetListOfUsersRequest {
     return sortBy;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof GetListOfUsersRequest && equalTo((GetListOfUsersRequest) other);
@@ -81,12 +81,12 @@ public final class GetListOfUsersRequest {
     return page.equals(other.page) && size.equals(other.size) && sortBy.equals(other.sortBy);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.page, this.size, this.sortBy);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

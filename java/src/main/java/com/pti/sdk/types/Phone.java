@@ -60,7 +60,7 @@ public final class Phone {
     return type;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof Phone && equalTo((Phone) other);
@@ -75,12 +75,12 @@ public final class Phone {
     return default_.equals(other.default_) && number.equals(other.number) && type.equals(other.type);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.default_, this.number, this.type);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -95,7 +95,7 @@ public final class DigitalItem {
     return digitalItemType;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof DigitalItem && equalTo((DigitalItem) other);
@@ -110,12 +110,12 @@ public final class DigitalItem {
     return id.equals(other.id) && itemReference.equals(other.itemReference) && itemTitle.equals(other.itemTitle) && itemDescription.equals(other.itemDescription) && itemUsdValue.equals(other.itemUsdValue) && digitalItemType.equals(other.digitalItemType);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.id, this.itemReference, this.itemTitle, this.itemDescription, this.itemUsdValue, this.digitalItemType);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -176,7 +176,7 @@ public final class DigitalItem {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(DigitalItem other) {
       id(other.getId());
       itemReference(other.getItemReference());
@@ -191,7 +191,7 @@ public final class DigitalItem {
      * <p>Reference information about the item, for example could be the contract address of an NFT item.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("itemReference")
     public ItemTitleStage itemReference(@NotNull String itemReference) {
       this.itemReference = Objects.requireNonNull(itemReference, "itemReference must not be null");
@@ -202,7 +202,7 @@ public final class DigitalItem {
      * <p>The name of the item, for example: ShaggyDog#2</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("itemTitle")
     public ItemDescriptionStage itemTitle(@NotNull String itemTitle) {
       this.itemTitle = Objects.requireNonNull(itemTitle, "itemTitle must not be null");
@@ -213,14 +213,14 @@ public final class DigitalItem {
      * <p>Description about the item, for example: Shaggy Dog Collection is an NFT for Dog lovers. It is a manually generated NFT created on the Ethereum network.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("itemDescription")
     public DigitalItemTypeStage itemDescription(@NotNull String itemDescription) {
       this.itemDescription = Objects.requireNonNull(itemDescription, "itemDescription must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("digitalItemType")
     public _FinalStage digitalItemType(@NotNull DigitalItemType digitalItemType) {
       this.digitalItemType = Objects.requireNonNull(digitalItemType, "digitalItemType must not be null");
@@ -231,13 +231,13 @@ public final class DigitalItem {
      * <p>Mandatory when more than one item is provided in the payload. The cost of the item being paid by the User, or the estimated value of the item in question.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage itemUsdValue(Double itemUsdValue) {
       this.itemUsdValue = Optional.ofNullable(itemUsdValue);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "itemUSDValue",
         nulls = Nulls.SKIP
@@ -247,13 +247,13 @@ public final class DigitalItem {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -263,7 +263,7 @@ public final class DigitalItem {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public DigitalItem build() {
       return new DigitalItem(id, itemReference, itemTitle, itemDescription, itemUsdValue, digitalItemType, additionalProperties);
     }

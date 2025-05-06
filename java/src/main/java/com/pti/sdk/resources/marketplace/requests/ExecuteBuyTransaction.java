@@ -116,7 +116,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
   }
 
   @JsonProperty("type")
-  @java.lang.Override
+  @Override
   public TransactionTypeEnum getType() {
     return type;
   }
@@ -125,37 +125,37 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
    * @return The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.
    */
   @JsonProperty("id")
-  @java.lang.Override
+  @Override
   public Optional<String> getId() {
     return id;
   }
 
   @JsonProperty("transactionGroupId")
-  @java.lang.Override
+  @Override
   public Optional<String> getTransactionGroupId() {
     return transactionGroupId;
   }
 
   @JsonProperty("subClientId")
-  @java.lang.Override
+  @Override
   public Optional<String> getSubClientId() {
     return subClientId;
   }
 
   @JsonProperty("transactionTotal")
-  @java.lang.Override
+  @Override
   public Optional<Total> getTransactionTotal() {
     return transactionTotal;
   }
 
   @JsonProperty("usdValue")
-  @java.lang.Override
+  @Override
   public Optional<Double> getUsdValue() {
     return usdValue;
   }
 
   @JsonProperty("amount")
-  @java.lang.Override
+  @Override
   public double getAmount() {
     return amount;
   }
@@ -164,13 +164,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @java.lang.Override
+  @Override
   public String getDate() {
     return date;
   }
 
   @JsonProperty("initiator")
-  @java.lang.Override
+  @Override
   public OneOfUserSubTypes getInitiator() {
     return initiator;
   }
@@ -179,7 +179,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
    * @return key/value map of extra meta data for this request (used by PTI)
    */
   @JsonProperty("ptiMeta")
-  @java.lang.Override
+  @Override
   public Optional<Map<String, Object>> getPtiMeta() {
     return ptiMeta;
   }
@@ -188,7 +188,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
    * @return key/value map of extra meta data for this request (used by Client)
    */
   @JsonProperty("clientMeta")
-  @java.lang.Override
+  @Override
   public Optional<Map<String, Object>> getClientMeta() {
     return clientMeta;
   }
@@ -261,7 +261,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
     return feeRecipients;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ExecuteBuyTransaction && equalTo((ExecuteBuyTransaction) other);
@@ -276,12 +276,12 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
     return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && digitalItem.equals(other.digitalItem) && digitalItems.equals(other.digitalItems) && sourceMethod.equals(other.sourceMethod) && seller.equals(other.seller) && feeRecipients.equals(other.feeRecipients);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.digitalItem, this.digitalItems, this.sourceMethod, this.seller, this.feeRecipients);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -432,7 +432,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(ExecuteBuyTransaction other) {
       type(other.getType());
       id(other.getId());
@@ -458,14 +458,14 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("type")
     public AmountStage type(@NotNull TransactionTypeEnum type) {
       this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("amount")
     public DateStage amount(double amount) {
       this.amount = amount;
@@ -476,14 +476,14 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>ISO-8601</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("date")
     public InitiatorStage date(@NotNull String date) {
       this.date = Objects.requireNonNull(date, "date must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("initiator")
     public PtiRequestIdStage initiator(@NotNull OneOfUserSubTypes initiator) {
       this.initiator = Objects.requireNonNull(initiator, "initiator must not be null");
@@ -494,7 +494,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>Unique identifier of the request. This ID must be provided and stored by the client of this API at the creation of a transaction. This ID is attached to all PTI internal operations as well as the webhook calls. This ID is required to post feedback about a transaction and get support from PTI for a problem on a transaction. Creating two transactions having the same requestId is not allowed.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("x-pti-request-id")
     public PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId) {
       this.ptiRequestId = Objects.requireNonNull(ptiRequestId, "ptiRequestId must not be null");
@@ -505,27 +505,27 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     @JsonSetter("x-pti-scenario-id")
     public SourceMethodStage ptiScenarioId(@NotNull String ptiScenarioId) {
       this.ptiScenarioId = Objects.requireNonNull(ptiScenarioId, "ptiScenarioId must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("sourceMethod")
     public _FinalStage sourceMethod(@NotNull OneOfPaymentMethod sourceMethod) {
       this.sourceMethod = Objects.requireNonNull(sourceMethod, "sourceMethod must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage feeRecipients(List<FeeRecipient> feeRecipients) {
       this.feeRecipients = Optional.ofNullable(feeRecipients);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "feeRecipients",
         nulls = Nulls.SKIP
@@ -535,13 +535,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage seller(OneOfUserSubTypes seller) {
       this.seller = Optional.ofNullable(seller);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "seller",
         nulls = Nulls.SKIP
@@ -555,13 +555,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>One of digitalItem or digitalItems is required.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage digitalItems(List<DigitalItem> digitalItems) {
       this.digitalItems = Optional.ofNullable(digitalItems);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "digitalItems",
         nulls = Nulls.SKIP
@@ -571,13 +571,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage digitalItem(DigitalItem digitalItem) {
       this.digitalItem = Optional.ofNullable(digitalItem);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "digitalItem",
         nulls = Nulls.SKIP
@@ -591,13 +591,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>Used to specify which provider is responsible for handling the given operation. Ignored if the client configuration is not set for passive mode.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage ptiProviderName(String ptiProviderName) {
       this.ptiProviderName = Optional.ofNullable(ptiProviderName);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "x-pti-provider-name",
         nulls = Nulls.SKIP
@@ -611,13 +611,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>Set to true to disable webhook calls for this request.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage ptiDisableWebhook(Boolean ptiDisableWebhook) {
       this.ptiDisableWebhook = Optional.ofNullable(ptiDisableWebhook);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "x-pti-disable-webhook",
         nulls = Nulls.SKIP
@@ -631,13 +631,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage ptiSessionId(String ptiSessionId) {
       this.ptiSessionId = Optional.ofNullable(ptiSessionId);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "x-pti-session-id",
         nulls = Nulls.SKIP
@@ -651,13 +651,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage clientMeta(Map<String, Object> clientMeta) {
       this.clientMeta = Optional.ofNullable(clientMeta);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "clientMeta",
         nulls = Nulls.SKIP
@@ -671,13 +671,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>key/value map of extra meta data for this request (used by PTI)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage ptiMeta(Map<String, Object> ptiMeta) {
       this.ptiMeta = Optional.ofNullable(ptiMeta);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "ptiMeta",
         nulls = Nulls.SKIP
@@ -687,13 +687,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage usdValue(Double usdValue) {
       this.usdValue = Optional.ofNullable(usdValue);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "usdValue",
         nulls = Nulls.SKIP
@@ -703,13 +703,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage transactionTotal(Total transactionTotal) {
       this.transactionTotal = Optional.ofNullable(transactionTotal);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "transactionTotal",
         nulls = Nulls.SKIP
@@ -719,13 +719,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage subClientId(String subClientId) {
       this.subClientId = Optional.ofNullable(subClientId);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "subClientId",
         nulls = Nulls.SKIP
@@ -735,13 +735,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage transactionGroupId(String transactionGroupId) {
       this.transactionGroupId = Optional.ofNullable(transactionGroupId);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "transactionGroupId",
         nulls = Nulls.SKIP
@@ -755,13 +755,13 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
      * <p>The id of the transaction/payment. Optional, will be populated with the value provided in the x-pti-request-id header.</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -771,7 +771,7 @@ public final class ExecuteBuyTransaction implements ITransactionType, ITransacti
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public ExecuteBuyTransaction build() {
       return new ExecuteBuyTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, digitalItem, digitalItems, sourceMethod, seller, feeRecipients, additionalProperties);
     }

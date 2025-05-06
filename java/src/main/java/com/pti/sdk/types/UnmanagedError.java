@@ -52,7 +52,7 @@ public final class UnmanagedError {
     return code;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof UnmanagedError && equalTo((UnmanagedError) other);
@@ -67,12 +67,12 @@ public final class UnmanagedError {
     return error.equals(other.error) && code.equals(other.code);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.error, this.code);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

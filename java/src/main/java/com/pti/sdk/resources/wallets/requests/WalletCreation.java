@@ -94,7 +94,7 @@ public final class WalletCreation {
     return createDateTime;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof WalletCreation && equalTo((WalletCreation) other);
@@ -109,12 +109,12 @@ public final class WalletCreation {
     return id.equals(other.id) && currency.equals(other.currency) && network.equals(other.network) && label.equals(other.label) && multiWalletAddress.equals(other.multiWalletAddress) && createDateTime.equals(other.createDateTime);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.id, this.currency, this.network, this.label, this.multiWalletAddress, this.createDateTime);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
@@ -175,7 +175,7 @@ public final class WalletCreation {
     private Builder() {
     }
 
-    @java.lang.Override
+    @Override
     public Builder from(WalletCreation other) {
       id(other.getId());
       currency(other.getCurrency());
@@ -186,20 +186,20 @@ public final class WalletCreation {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter("currency")
     public _FinalStage currency(@NotNull CurrencyEnum currency) {
       this.currency = Objects.requireNonNull(currency, "currency must not be null");
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage createDateTime(String createDateTime) {
       this.createDateTime = Optional.ofNullable(createDateTime);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "createDateTime",
         nulls = Nulls.SKIP
@@ -209,13 +209,13 @@ public final class WalletCreation {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage multiWalletAddress(Boolean multiWalletAddress) {
       this.multiWalletAddress = Optional.ofNullable(multiWalletAddress);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "multiWalletAddress",
         nulls = Nulls.SKIP
@@ -229,13 +229,13 @@ public final class WalletCreation {
      * <p>Optional readable label</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
-    @java.lang.Override
+    @Override
     public _FinalStage label(String label) {
       this.label = Optional.ofNullable(label);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "label",
         nulls = Nulls.SKIP
@@ -245,13 +245,13 @@ public final class WalletCreation {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage network(BlockChainEnum network) {
       this.network = Optional.ofNullable(network);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "network",
         nulls = Nulls.SKIP
@@ -261,13 +261,13 @@ public final class WalletCreation {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public _FinalStage id(String id) {
       this.id = Optional.ofNullable(id);
       return this;
     }
 
-    @java.lang.Override
+    @Override
     @JsonSetter(
         value = "id",
         nulls = Nulls.SKIP
@@ -277,7 +277,7 @@ public final class WalletCreation {
       return this;
     }
 
-    @java.lang.Override
+    @Override
     public WalletCreation build() {
       return new WalletCreation(id, currency, network, label, multiWalletAddress, createDateTime, additionalProperties);
     }

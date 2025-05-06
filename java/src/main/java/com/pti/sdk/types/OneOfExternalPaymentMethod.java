@@ -153,12 +153,12 @@ public final class OneOfExternalPaymentMethod {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitAch(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof AchValue && equalTo((AchValue) other);
@@ -168,12 +168,12 @@ public final class OneOfExternalPaymentMethod {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "OneOfExternalPaymentMethod{" + "value: " + value + "}";
     }
@@ -194,12 +194,12 @@ public final class OneOfExternalPaymentMethod {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitCreditCard(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof CreditCardValue && equalTo((CreditCardValue) other);
@@ -209,12 +209,12 @@ public final class OneOfExternalPaymentMethod {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "OneOfExternalPaymentMethod{" + "value: " + value + "}";
     }
@@ -235,12 +235,12 @@ public final class OneOfExternalPaymentMethod {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitWire(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof WireValue && equalTo((WireValue) other);
@@ -250,12 +250,12 @@ public final class OneOfExternalPaymentMethod {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "OneOfExternalPaymentMethod{" + "value: " + value + "}";
     }
@@ -276,12 +276,12 @@ public final class OneOfExternalPaymentMethod {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitCrypto(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof CryptoValue && equalTo((CryptoValue) other);
@@ -291,12 +291,12 @@ public final class OneOfExternalPaymentMethod {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "OneOfExternalPaymentMethod{" + "value: " + value + "}";
     }
@@ -314,12 +314,12 @@ public final class OneOfExternalPaymentMethod {
     private _UnknownValue(@JsonProperty("value") Object value) {
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor._visitUnknown(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
@@ -329,12 +329,12 @@ public final class OneOfExternalPaymentMethod {
       return type.equals(other.type) && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.type, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "OneOfExternalPaymentMethod{" + "type: " + type + ", value: " + value + "}";
     }

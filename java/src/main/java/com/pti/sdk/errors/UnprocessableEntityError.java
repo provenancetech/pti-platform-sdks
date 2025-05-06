@@ -21,7 +21,7 @@ public final class UnprocessableEntityError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @java.lang.Override
+  @Override
   public OneOfAssessmentValidationError body() {
     return this.body;
   }

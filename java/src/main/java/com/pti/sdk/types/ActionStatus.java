@@ -49,25 +49,25 @@ public final class ActionStatus implements IActionStatus {
   }
 
   @JsonProperty("resourceType")
-  @java.lang.Override
+  @Override
   public Optional<ResourceType> getResourceType() {
     return resourceType;
   }
 
   @JsonProperty("requestId")
-  @java.lang.Override
+  @Override
   public Optional<String> getRequestId() {
     return requestId;
   }
 
   @JsonProperty("clientId")
-  @java.lang.Override
+  @Override
   public Optional<String> getClientId() {
     return clientId;
   }
 
   @JsonProperty("userId")
-  @java.lang.Override
+  @Override
   public Optional<String> getUserId() {
     return userId;
   }
@@ -76,12 +76,12 @@ public final class ActionStatus implements IActionStatus {
    * @return ISO-8601
    */
   @JsonProperty("date")
-  @java.lang.Override
+  @Override
   public Optional<String> getDate() {
     return date;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ActionStatus && equalTo((ActionStatus) other);
@@ -96,12 +96,12 @@ public final class ActionStatus implements IActionStatus {
     return resourceType.equals(other.resourceType) && requestId.equals(other.requestId) && clientId.equals(other.clientId) && userId.equals(other.userId) && date.equals(other.date);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.resourceType, this.requestId, this.clientId, this.userId, this.date);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

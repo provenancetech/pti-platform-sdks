@@ -84,7 +84,7 @@ public final class EncryptedCreditCardPaymentInformation implements IExternalPay
    * @return Unique identifier for the Payment Information, must be used to refer to a Payment Information for a payment
    */
   @JsonProperty("id")
-  @java.lang.Override
+  @Override
   public Optional<String> getId() {
     return id;
   }
@@ -184,7 +184,7 @@ public final class EncryptedCreditCardPaymentInformation implements IExternalPay
     return meta;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof EncryptedCreditCardPaymentInformation && equalTo((EncryptedCreditCardPaymentInformation) other);
@@ -199,12 +199,12 @@ public final class EncryptedCreditCardPaymentInformation implements IExternalPay
     return id.equals(other.id) && encryptedInformation.equals(other.encryptedInformation) && creditCardLast4.equals(other.creditCardLast4) && cvv.equals(other.cvv) && creditCardType.equals(other.creditCardType) && creditCardFirst6.equals(other.creditCardFirst6) && expirationYear.equals(other.expirationYear) && expirationMonth.equals(other.expirationMonth) && creditCardBin.equals(other.creditCardBin) && creditCardReference.equals(other.creditCardReference) && cardHolderFirstName.equals(other.cardHolderFirstName) && cardHolderLastName.equals(other.cardHolderLastName) && creditCardAddress.equals(other.creditCardAddress) && meta.equals(other.meta);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.id, this.encryptedInformation, this.creditCardLast4, this.cvv, this.creditCardType, this.creditCardFirst6, this.expirationYear, this.expirationMonth, this.creditCardBin, this.creditCardReference, this.cardHolderFirstName, this.cardHolderLastName, this.creditCardAddress, this.meta);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

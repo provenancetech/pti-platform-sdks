@@ -24,7 +24,11 @@ public enum CurrencyEnum {
 
   LTC("LTC"),
 
-  ADA("ADA");
+  ADA("ADA"),
+
+  XRP("XRP"),
+
+  XLM("XLM");
 
   private final String value;
 
@@ -33,7 +37,7 @@ public enum CurrencyEnum {
   }
 
   @JsonValue
-  @java.lang.Override
+  @Override
   public String toString() {
     return this.value;
   }

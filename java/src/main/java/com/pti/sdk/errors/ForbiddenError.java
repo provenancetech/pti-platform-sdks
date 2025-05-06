@@ -21,7 +21,7 @@ public final class ForbiddenError extends PTIClientApiException {
   /**
    * @return the body
    */
-  @java.lang.Override
+  @Override
   public Object body() {
     return this.body;
   }

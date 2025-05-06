@@ -50,7 +50,7 @@ public final class SimulateDepositRequest {
     return paymentMethodType;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof SimulateDepositRequest && equalTo((SimulateDepositRequest) other);
@@ -65,12 +65,12 @@ public final class SimulateDepositRequest {
     return amount.equals(other.amount) && paymentMethodType.equals(other.paymentMethodType);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.amount, this.paymentMethodType);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

@@ -67,7 +67,7 @@ public final class ObjectReferencePage {
     return items;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof ObjectReferencePage && equalTo((ObjectReferencePage) other);
@@ -82,12 +82,12 @@ public final class ObjectReferencePage {
     return page.equals(other.page) && pageSize.equals(other.pageSize) && total.equals(other.total) && items.equals(other.items);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.page, this.pageSize, this.total, this.items);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }

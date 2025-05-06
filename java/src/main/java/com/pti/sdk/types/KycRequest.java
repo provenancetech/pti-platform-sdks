@@ -117,12 +117,12 @@ public final class KycRequest {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitPerson(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof PersonValue && equalTo((PersonValue) other);
@@ -132,12 +132,12 @@ public final class KycRequest {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "KycRequest{" + "value: " + value + "}";
     }
@@ -158,12 +158,12 @@ public final class KycRequest {
       this.value = value;
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor.visitBusiness(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof BusinessValue && equalTo((BusinessValue) other);
@@ -173,12 +173,12 @@ public final class KycRequest {
       return value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "KycRequest{" + "value: " + value + "}";
     }
@@ -196,12 +196,12 @@ public final class KycRequest {
     private _UnknownValue(@JsonProperty("value") Object value) {
     }
 
-    @java.lang.Override
+    @Override
     public <T> T visit(Visitor<T> visitor) {
       return visitor._visitUnknown(value);
     }
 
-    @java.lang.Override
+    @Override
     public boolean equals(Object other) {
       if (this == other) return true;
       return other instanceof _UnknownValue && equalTo((_UnknownValue) other);
@@ -211,12 +211,12 @@ public final class KycRequest {
       return type.equals(other.type) && value.equals(other.value);
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       return Objects.hash(this.type, this.value);
     }
 
-    @java.lang.Override
+    @Override
     public String toString() {
       return "KycRequest{" + "type: " + type + ", value: " + value + "}";
     }

@@ -73,7 +73,7 @@ public final class IdDocumentMetadata {
     return expiryDate;
   }
 
-  @java.lang.Override
+  @Override
   public boolean equals(Object other) {
     if (this == other) return true;
     return other instanceof IdDocumentMetadata && equalTo((IdDocumentMetadata) other);
@@ -88,12 +88,12 @@ public final class IdDocumentMetadata {
     return personName.equals(other.personName) && dateOfBirth.equals(other.dateOfBirth) && documentNumber.equals(other.documentNumber) && nationality.equals(other.nationality) && expiryDate.equals(other.expiryDate);
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     return Objects.hash(this.personName, this.dateOfBirth, this.documentNumber, this.nationality, this.expiryDate);
   }
 
-  @java.lang.Override
+  @Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
