@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public final class TransactionUpdate {
   private final Optional<String> payload;
 
-  private final Optional<Object> providerName;
+  private final Optional<String> providerName;
 
   private final TransactionUpdateFeedback feedback;
 
@@ -39,7 +39,7 @@ public final class TransactionUpdate {
 
   private final Map<String, Object> additionalProperties;
 
-  private TransactionUpdate(Optional<String> payload, Optional<Object> providerName,
+  private TransactionUpdate(Optional<String> payload, Optional<String> providerName,
       TransactionUpdateFeedback feedback, Optional<String> transactionId, Optional<String> date,
       Map<String, Object> additionalProperties) {
     this.payload = payload;
@@ -56,7 +56,7 @@ public final class TransactionUpdate {
   }
 
   @JsonProperty("providerName")
-  public Optional<Object> getProviderName() {
+  public Optional<String> getProviderName() {
     return providerName;
   }
 
@@ -123,9 +123,9 @@ public final class TransactionUpdate {
 
     _FinalStage payload(String payload);
 
-    _FinalStage providerName(Optional<Object> providerName);
+    _FinalStage providerName(Optional<String> providerName);
 
-    _FinalStage providerName(Object providerName);
+    _FinalStage providerName(String providerName);
 
     _FinalStage transactionId(Optional<String> transactionId);
 
@@ -146,7 +146,7 @@ public final class TransactionUpdate {
 
     private Optional<String> transactionId = Optional.empty();
 
-    private Optional<Object> providerName = Optional.empty();
+    private Optional<String> providerName = Optional.empty();
 
     private Optional<String> payload = Optional.empty();
 
@@ -214,7 +214,7 @@ public final class TransactionUpdate {
     }
 
     @java.lang.Override
-    public _FinalStage providerName(Object providerName) {
+    public _FinalStage providerName(String providerName) {
       this.providerName = Optional.ofNullable(providerName);
       return this;
     }
@@ -224,7 +224,7 @@ public final class TransactionUpdate {
         value = "providerName",
         nulls = Nulls.SKIP
     )
-    public _FinalStage providerName(Optional<Object> providerName) {
+    public _FinalStage providerName(Optional<String> providerName) {
       this.providerName = providerName;
       return this;
     }
