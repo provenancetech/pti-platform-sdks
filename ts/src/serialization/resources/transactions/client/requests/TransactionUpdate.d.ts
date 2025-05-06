@@ -4,13 +4,12 @@
 import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { TransactionUpdateProviderName } from "../../types/TransactionUpdateProviderName";
 import { TransactionUpdateFeedback } from "../../types/TransactionUpdateFeedback";
 export declare const TransactionUpdate: core.serialization.Schema<serializers.TransactionUpdate.Raw, PTI.TransactionUpdate>;
 export declare namespace TransactionUpdate {
     interface Raw {
         payload?: string | null;
-        providerName?: TransactionUpdateProviderName.Raw | null;
+        providerName?: unknown | null;
         feedback: TransactionUpdateFeedback.Raw;
         transactionId?: string | null;
         date?: string | null;
