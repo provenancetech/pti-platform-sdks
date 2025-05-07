@@ -149,6 +149,24 @@ export declare class Wallets {
     /**
      * @param {string} userId
      * @param {string} walletId
+     * @param {Record<string, unknown>} request
+     * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ForbiddenError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.wallets.generateWireInstructions("userId", "walletId", {
+     *         "key": "value"
+     *     })
+     */
+    generateWireInstructions(userId: string, walletId: string, request: Record<string, unknown>, requestOptions?: Wallets.RequestOptions): Promise<PTI.Wallet>;
+    /**
+     * @param {string} userId
+     * @param {string} walletId
      * @param {PTI.GetWalletHistoryRequest} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
