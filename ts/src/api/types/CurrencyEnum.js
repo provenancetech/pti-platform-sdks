@@ -14,4 +14,6 @@ exports.CurrencyEnum = {
     Trx: "TRX",
     Ltc: "LTC",
     Ada: "ADA",
+    Xrp: "XRP",
+    Xlm: "XLM",
 };

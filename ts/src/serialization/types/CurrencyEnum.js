@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CurrencyEnum = void 0;
 const core = __importStar(require("../../core"));
-exports.CurrencyEnum = core.serialization.enum_(["BTC", "ETH", "SOL", "POL", "USDC", "USD", "TRX", "LTC", "ADA"]);
+exports.CurrencyEnum = core.serialization.enum_(["BTC", "ETH", "SOL", "POL", "USDC", "USD", "TRX", "LTC", "ADA", "XRP", "XLM"]);

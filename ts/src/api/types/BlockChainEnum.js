@@ -12,4 +12,6 @@ exports.BlockChainEnum = {
     Tron: "TRON",
     Litecoin: "LITECOIN",
     Cardano: "CARDANO",
+    Ripple: "RIPPLE",
+    Stellar: "STELLAR",
 };
