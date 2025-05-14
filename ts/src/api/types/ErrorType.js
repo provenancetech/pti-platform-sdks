@@ -50,6 +50,7 @@ exports.ErrorType = {
     UnableToDeleteWalletWithNonzeroBalance: "UNABLE_TO_DELETE_WALLET_WITH_NONZERO_BALANCE",
     WalletDeleted: "WALLET_DELETED",
     WalletLabelAlreadyInUse: "WALLET_LABEL_ALREADY_IN_USE",
+    ExceededAchPullDepositLimit: "EXCEEDED_ACH_PULL_DEPOSIT_LIMIT",
     BankOnly: "BANK_ONLY",
     MissingEmailAddress: "MISSING_EMAIL_ADDRESS",
     MissingBankAccountInformation: "MISSING_BANK_ACCOUNT_INFORMATION",
