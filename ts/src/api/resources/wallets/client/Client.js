@@ -440,7 +440,8 @@ class Wallets {
      * @example
      *     await client.wallets.simulateWalletDeposit("userId", "walletId", {
      *         amount: 100,
-     *         paymentMethodType: "ACH"
+     *         paymentMethodType: "ACH",
+     *         status: "COMPLETED"
      *     })
      */
     simulateWalletDeposit(userId_1, walletId_1) {

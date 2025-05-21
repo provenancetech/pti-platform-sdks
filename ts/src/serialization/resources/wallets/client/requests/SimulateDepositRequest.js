@@ -42,4 +42,6 @@ const PaymentMethodType_1 = require("../../../../types/PaymentMethodType");
 exports.SimulateDepositRequest = core.serialization.object({
     amount: core.serialization.number().optional(),
     paymentMethodType: PaymentMethodType_1.PaymentMethodType.optional(),
+    status: core.serialization.string().optional(),
+    requestId: core.serialization.string().optional(),
 });
