@@ -6,10 +6,13 @@ import * as PTI from "../../../../index";
  * @example
  *     {
  *         amount: 100,
- *         paymentMethodType: "ACH"
+ *         paymentMethodType: "ACH",
+ *         status: "COMPLETED"
  *     }
  */
 export interface SimulateDepositRequest {
     amount?: number;
     paymentMethodType?: PTI.PaymentMethodType;
+    status?: string;
+    requestId?: string;
 }
