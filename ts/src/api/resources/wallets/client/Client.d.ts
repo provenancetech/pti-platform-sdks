@@ -109,7 +109,8 @@ export declare class Wallets {
      * @example
      *     await client.wallets.simulateWalletDeposit("userId", "walletId", {
      *         amount: 100,
-     *         paymentMethodType: "ACH"
+     *         paymentMethodType: "ACH",
+     *         status: "COMPLETED"
      *     })
      */
     simulateWalletDeposit(userId: string, walletId: string, request?: PTI.SimulateDepositRequest, requestOptions?: Wallets.RequestOptions): Promise<void>;
