@@ -51,6 +51,7 @@ exports.ErrorType = {
     WalletDeleted: "WALLET_DELETED",
     WalletLabelAlreadyInUse: "WALLET_LABEL_ALREADY_IN_USE",
     ExceededAchPullDepositLimit: "EXCEEDED_ACH_PULL_DEPOSIT_LIMIT",
+    UserExceededAchPullDepositLimit: "USER_EXCEEDED_ACH_PULL_DEPOSIT_LIMIT",
     BankOnly: "BANK_ONLY",
     MissingEmailAddress: "MISSING_EMAIL_ADDRESS",
     MissingBankAccountInformation: "MISSING_BANK_ACCOUNT_INFORMATION",
