@@ -1034,17 +1034,20 @@ class Transactions {
         });
     }
     /**
+     * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactions.deleteTransaction("requestId")
+     *     await client.transactions.cancelTransaction("requestId")
      */
-    deleteTransaction(requestId, requestOptions) {
+    cancelTransaction(requestId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
             const _response = yield core.fetcher({
@@ -1066,6 +1069,13 @@ class Transactions {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
                     case 401:
                         throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
