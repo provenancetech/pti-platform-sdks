@@ -355,17 +355,20 @@ export declare class Transactions {
      */
     getTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<PTI.TransactionStatusObject>;
     /**
+     * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactions.deleteTransaction("requestId")
+     *     await client.transactions.cancelTransaction("requestId")
      */
-    deleteTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
+    cancelTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
     /**
      * This endpoint allows adding feedback information to an existing transaction. Here are the possible feedback values with their meaning:
      *

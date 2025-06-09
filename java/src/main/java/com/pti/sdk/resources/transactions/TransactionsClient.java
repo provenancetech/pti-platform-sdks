@@ -744,11 +744,17 @@ public class TransactionsClient {
     }
   }
 
-  public void deleteTransaction(String requestId) {
-    deleteTransaction(requestId,null);
+  /**
+   * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+   */
+  public void cancelTransaction(String requestId) {
+    cancelTransaction(requestId,null);
   }
 
-  public void deleteTransaction(String requestId, RequestOptions requestOptions) {
+  /**
+   * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+   */
+  public void cancelTransaction(String requestId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("transactions")
@@ -772,6 +778,7 @@ public class TransactionsClient {
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       try {
         switch (response.code()) {
+          case 400:throw new BadRequestError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, InvalidRequestError.class));
           case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
           case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
           case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
