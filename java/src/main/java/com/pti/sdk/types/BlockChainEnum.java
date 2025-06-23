@@ -24,7 +24,15 @@ public enum BlockChainEnum {
 
   RIPPLE("RIPPLE"),
 
-  STELLAR("STELLAR");
+  STELLAR("STELLAR"),
+
+  DOGECOIN("DOGECOIN"),
+
+  AVALANCHE("AVALANCHE"),
+
+  TONCOIN("TONCOIN"),
+
+  HEDERA("HEDERA");
 
   private final String value;
 

@@ -28,7 +28,15 @@ public enum CurrencyEnum {
 
   XRP("XRP"),
 
-  XLM("XLM");
+  XLM("XLM"),
+
+  DOGE("DOGE"),
+
+  TON("TON"),
+
+  AVAX("AVAX"),
+
+  HBAR("HBAR");
 
   private final String value;
 

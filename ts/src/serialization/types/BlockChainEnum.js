@@ -48,4 +48,8 @@ exports.BlockChainEnum = core.serialization.enum_([
     "CARDANO",
     "RIPPLE",
     "STELLAR",
+    "DOGECOIN",
+    "AVALANCHE",
+    "TONCOIN",
+    "HEDERA",
 ]);
