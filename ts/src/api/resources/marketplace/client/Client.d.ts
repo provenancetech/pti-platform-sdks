@@ -30,6 +30,18 @@ export declare class Marketplace {
     protected readonly _options: Marketplace.Options;
     constructor(_options: Marketplace.Options);
     /**
+     * @param {PTI.SearchClientWalletsRequest} request
+     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.marketplace.searchClientWallets()
+     */
+    searchClientWallets(request?: PTI.SearchClientWalletsRequest, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReferencePage>;
+    /**
      * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
      *
      * @param {PTI.ExecuteBuyTransaction} request
