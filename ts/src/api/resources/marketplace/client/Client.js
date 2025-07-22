@@ -71,6 +71,95 @@ class Marketplace {
         this._options = _options;
     }
     /**
+     * @param {PTI.SearchClientWalletsRequest} request
+     * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.marketplace.searchClientWallets()
+     */
+    searchClientWallets() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a, _b;
+            const { page, size, sortBy, sortDirection, filters } = request;
+            const _queryParams = {};
+            if (page != null) {
+                _queryParams["page"] = page.toString();
+            }
+            if (size != null) {
+                _queryParams["size"] = size.toString();
+            }
+            if (sortBy != null) {
+                _queryParams["sortBy"] = sortBy;
+            }
+            if (sortDirection != null) {
+                _queryParams["sortDirection"] = sortDirection;
+            }
+            if (filters != null) {
+                _queryParams["filters"] = filters;
+            }
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "wallets/"),
+                method: "GET",
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                queryParameters: _queryParams,
+                requestType: "json",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.ObjectReferencePage.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /wallets/.");
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
      * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
      *
      * @param {PTI.ExecuteBuyTransaction} request
