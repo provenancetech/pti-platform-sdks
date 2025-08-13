@@ -32,6 +32,7 @@ exports.ErrorType = {
     UnsupportedDepositAddress: "UNSUPPORTED_DEPOSIT_ADDRESS",
     InvalidWalletProvider: "INVALID_WALLET_PROVIDER",
     InvalidWalletProviderConfiguration: "INVALID_WALLET_PROVIDER_CONFIGURATION",
+    InvalidAchProviderConfiguration: "INVALID_ACH_PROVIDER_CONFIGURATION",
     NotEnoughFunds: "NOT_ENOUGH_FUNDS",
     InvalidAssetOwnership: "INVALID_ASSET_OWNERSHIP",
     FeesWalletNotFound: "FEES_WALLET_NOT_FOUND",

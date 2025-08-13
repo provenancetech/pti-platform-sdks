@@ -41,6 +41,7 @@ const core = __importStar(require("../../core"));
 const OneOfFiatPaymentInformation_1 = require("./OneOfFiatPaymentInformation");
 exports.AchPaymentMethod = core.serialization
     .object({
+    sameDayAch: core.serialization.boolean().optional(),
     currency: core.serialization.string().optional(),
     billingEmail: core.serialization.string().optional(),
     paymentInformation: OneOfFiatPaymentInformation_1.OneOfFiatPaymentInformation.optional(),
