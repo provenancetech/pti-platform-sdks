@@ -56,7 +56,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Authentication {
-    constructor(_options) {
+    constructor(_options = {}) {
         this._options = _options;
     }
     /**
@@ -144,7 +144,11 @@ class Authentication {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
+            const bearer = yield core.Supplier.get(this._options.token);
+            if (bearer != null) {
+                return `Bearer ${bearer}`;
+            }
+            return undefined;
         });
     }
 }

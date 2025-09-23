@@ -9,7 +9,7 @@ export declare namespace Authentication {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace Authentication {
 }
 export declare class Authentication {
     protected readonly _options: Authentication.Options;
-    constructor(_options: Authentication.Options);
+    constructor(_options?: Authentication.Options);
     /**
      * @param {PTI.UserTokenRequest} request
      * @param {Authentication.RequestOptions} requestOptions - Request-specific configuration.
@@ -45,5 +45,5 @@ export declare class Authentication {
      *     })
      */
     getUserToken(request: PTI.UserTokenRequest, requestOptions?: Authentication.RequestOptions): Promise<PTI.UserToken>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

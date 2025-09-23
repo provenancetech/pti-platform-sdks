@@ -15,7 +15,7 @@ export interface GetDigitalItemsRequest {
      */
     size?: number;
     /**
-     * Sort by field. If not specified, the default value is creationDate.
+     * Sort by field. If not specified, the default value is userCreationDate.
      */
     sortBy?: string;
 }

@@ -9,7 +9,7 @@ export declare namespace Marketplace {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace Marketplace {
 }
 export declare class Marketplace {
     protected readonly _options: Marketplace.Options;
-    constructor(_options: Marketplace.Options);
+    constructor(_options?: Marketplace.Options);
     /**
      * @param {PTI.SearchClientWalletsRequest} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -186,5 +186,5 @@ export declare class Marketplace {
      *         }])
      */
     createDigitalItems(userId: string, request: PTI.DigitalItem[], requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReference[]>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }
