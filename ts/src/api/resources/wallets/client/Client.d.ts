@@ -9,7 +9,7 @@ export declare namespace Wallets {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace Wallets {
 }
 export declare class Wallets {
     protected readonly _options: Wallets.Options;
-    constructor(_options: Wallets.Options);
+    constructor(_options?: Wallets.Options);
     /**
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -180,5 +180,5 @@ export declare class Wallets {
      *     await client.wallets.getWalletHistory("userId", "walletId")
      */
     getWalletHistory(userId: string, walletId: string, request?: PTI.GetWalletHistoryRequest, requestOptions?: Wallets.RequestOptions): Promise<PTI.WalletHistoryPage>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

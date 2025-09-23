@@ -66,7 +66,7 @@ public final class SearchClientWalletsRequest {
   }
 
   /**
-   * @return Sort by field. If not specified, the default value is creationDate.
+   * @return Sort by field. If not specified, the default value is userCreationDate.
    */
   @JsonProperty("sortBy")
   public Optional<String> getSortBy() {
