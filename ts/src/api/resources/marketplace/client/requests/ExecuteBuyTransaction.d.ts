@@ -9,7 +9,7 @@ import * as PTI from "../../../../index";
  *         ptiScenarioId: "x-pti-scenario-id",
  *         usdValue: 5,
  *         amount: 5,
- *         date: "2024-12-13T18:46:40.666+0000",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -17,8 +17,8 @@ import * as PTI from "../../../../index";
  *         type: "BUY",
  *         digitalItem: {
  *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
- *             itemTitle: "itemTitle",
- *             itemDescription: "itemDescription",
+ *             itemTitle: "My first NFT",
+ *             itemDescription: "This is my first NFT",
  *             digitalItemType: "NFT"
  *         },
  *         sourceMethod: {

@@ -9,14 +9,14 @@ import * as PTI from "../../../../index";
  *         ptiScenarioId: "x-pti-scenario-id",
  *         usdValue: 3999.54,
  *         amount: 1,
- *         date: "date",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
  *         },
  *         type: "WITHDRAWAL",
  *         destinationMethod: {
- *             paymentMethodType: "ACH"
+ *             paymentMethodType: "CRYPTO"
  *         },
  *         sourceMethod: {
  *             paymentInformation: {

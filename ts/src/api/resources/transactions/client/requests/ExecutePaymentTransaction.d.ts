@@ -23,7 +23,7 @@ import * as PTI from "../../../../index";
  *         },
  *         usdValue: 6.99,
  *         amount: 6.99,
- *         date: "date",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -38,6 +38,15 @@ import * as PTI from "../../../../index";
  *         destinationMethod: {
  *             paymentInformation: {
  *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
+ *                 label: "MyUSDWallet",
+ *                 currency: "USD",
+ *                 availableBalance: 1000,
+ *                 depositInstruction: {
+ *                     "type": "BANK_ACCOUNT",
+ *                     "accountNumber": "123456789",
+ *                     "routingNumber": "12345678"
+ *                 },
+ *                 createDateTime: "2021-09-28T12:00:00Z",
  *                 type: "WALLET"
  *             },
  *             paymentMethodType: "WALLET"

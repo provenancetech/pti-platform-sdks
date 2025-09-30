@@ -60,7 +60,7 @@ class PaymentInformation {
         this._options = _options;
     }
     /**
-     * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type
+     * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type.
      *
      * @param {string} userId
      * @param {PTI.GetUserPaymentInformationsRequest} request

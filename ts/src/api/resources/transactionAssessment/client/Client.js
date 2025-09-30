@@ -94,7 +94,7 @@ class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
+     *             date: "2024-12-13T18:46:40.666+00:00",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -194,6 +194,10 @@ class TransactionAssessment {
         });
     }
     /**
+     * Retrieves the status of a specific transaction assessment by its request ID.
+     * The response includes details such as the assessment result, risk level, and
+     * relevant evaluation metadata.
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -265,6 +269,10 @@ class TransactionAssessment {
         });
     }
     /**
+     * Validates whether a User is allowed to perform a specific Transaction.
+     * The response indicates whether the transaction is allowed and may return
+     * validation errors if the transaction violates any rules.
+     *
      * @param {PTI.TransactionInformationAssessmentRequest} request
      * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -294,7 +302,7 @@ class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
+     *             date: "2024-12-13T18:46:40.666+00:00",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
