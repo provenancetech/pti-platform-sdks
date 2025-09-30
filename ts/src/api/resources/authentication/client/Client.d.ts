@@ -30,6 +30,8 @@ export declare class Authentication {
     protected readonly _options: Authentication.Options;
     constructor(_options?: Authentication.Options);
     /**
+     * This endpoint generates a User Token that can be used to authenticate requests on behalf of a specific User. The token is obtained by submitting a request payload that specifies the target API resource and method the User intends to access. Use this operation to enable secure, delegated access to API resources without directly sharing the User’s credentials.
+     *
      * @param {PTI.UserTokenRequest} request
      * @param {Authentication.RequestOptions} requestOptions - Request-specific configuration.
      *

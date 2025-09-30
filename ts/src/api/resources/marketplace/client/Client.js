@@ -71,6 +71,10 @@ class Marketplace {
         this._options = _options;
     }
     /**
+     * Retrieves a paginated list of Wallets belonging to your users.
+     * Supports filtering by balance, currency, network, and user ID.
+     * Multiple filters can be combined, and results can be sorted and paginated.
+     *
      * @param {PTI.SearchClientWalletsRequest} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -102,7 +106,7 @@ class Marketplace {
                 _queryParams["filters"] = filters;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "wallets/"),
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "wallets"),
                 method: "GET",
                 headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
                         ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
@@ -151,7 +155,7 @@ class Marketplace {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /wallets/.");
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling GET /wallets.");
                 case "unknown":
                     throw new errors.PTIError({
                         message: _response.error.errorMessage,
@@ -160,7 +164,7 @@ class Marketplace {
         });
     }
     /**
-     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
+     * This endpoint is used to execute a Digital Item buy (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the Transaction is executed.
      *
      * @param {PTI.ExecuteBuyTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -178,7 +182,7 @@ class Marketplace {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -186,8 +190,8 @@ class Marketplace {
      *         type: "BUY",
      *         digitalItem: {
      *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
+     *             itemTitle: "My first NFT",
+     *             itemDescription: "This is my first NFT",
      *             digitalItemType: "NFT"
      *         },
      *         sourceMethod: {
@@ -286,7 +290,7 @@ class Marketplace {
         });
     }
     /**
-     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item sell (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteSellTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -304,7 +308,7 @@ class Marketplace {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -312,8 +316,8 @@ class Marketplace {
      *         type: "SELL",
      *         digitalItem: {
      *             itemReference: "f5511285-9d0b-41fd-8ae7-0817bb7462ba",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
+     *             itemTitle: "My first NFT",
+     *             itemDescription: "This is my first NFT",
      *             digitalItemType: "NFT"
      *         },
      *         destinationMethod: {
@@ -412,6 +416,8 @@ class Marketplace {
         });
     }
     /**
+     * This endpoint retrieves detailed information about a specific Digital Item identified by its `digitalItemId`. The response includes metadata such as the item type, title, description, reference and valuation details.  Use this operation to display or verify the properties of a Digital Item  in the Marketplace.
+     *
      * @param {string} digitalItemId
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -483,6 +489,8 @@ class Marketplace {
         });
     }
     /**
+     * This endpoint is used to delete a specific Digital Item from a User’s  account. Once deleted, the item will no longer appear in the User’s list  of Digital Items.
+     *
      * @param {string} digitalItemId
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -552,6 +560,8 @@ class Marketplace {
         });
     }
     /**
+     * This endpoint is used to retrieve the list of Digital Items that belong to a specific User. Results can be paginated using the `page` and `size`  parameters, and sorted using the `sortBy` parameter. By default, results  are sorted by `creationDate`.
+     *
      * @param {string} userId
      * @param {PTI.GetDigitalItemsRequest} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -636,6 +646,8 @@ class Marketplace {
         });
     }
     /**
+     * This endpoint is used to create one or more Digital Items for a specific User.  Up to 100 Digital Items can be created in a single request.
+     *
      * @param {string} userId
      * @param {PTI.DigitalItem[]} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.

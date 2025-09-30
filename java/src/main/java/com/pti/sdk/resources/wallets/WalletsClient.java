@@ -46,10 +46,22 @@ public class WalletsClient {
     this.clientOptions = clientOptions;
   }
 
+  /**
+   * Retrieves a list of all assets supported by the platform. Each asset includes
+   * its currency, type, and, for cryptocurrencies, the networks on which it is
+   * supported. This information is useful for wallet operations, transactions,
+   * and trading.
+   */
   public List<CurrencyAsset> getListOfAssets() {
     return getListOfAssets(null);
   }
 
+  /**
+   * Retrieves a list of all assets supported by the platform. Each asset includes
+   * its currency, type, and, for cryptocurrencies, the networks on which it is
+   * supported. This information is useful for wallet operations, transactions,
+   * and trading.
+   */
   public List<CurrencyAsset> getListOfAssets(RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -88,10 +100,22 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Retrieves a list of wallets for a specific user. Each wallet includes the wallet type,
+   * unique ID, currency, associated blockchain network (if applicable), optional label,
+   * multi-address support flag, and creation date. The endpoint returns up to 100 wallets
+   * per request.
+   */
   public List<Wallet> getWallets(String userId) {
     return getWallets(userId,null);
   }
 
+  /**
+   * Retrieves a list of wallets for a specific user. Each wallet includes the wallet type,
+   * unique ID, currency, associated blockchain network (if applicable), optional label,
+   * multi-address support flag, and creation date. The endpoint returns up to 100 wallets
+   * per request.
+   */
   public List<Wallet> getWallets(String userId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -133,10 +157,24 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Creates a new wallet for a specific user. The request includes the wallet type,
+   * a unique wallet ID, the currency, and for cryptocurrencies, the blockchain network.
+   * Optional fields include a human-readable label and whether the wallet supports multiple
+   * addresses. The newly created wallet can then be used for transactions, deposits, or
+   * other wallet-related operations.
+   */
   public Wallet createWallet(String userId, WalletCreation request) {
     return createWallet(userId,request,null);
   }
 
+  /**
+   * Creates a new wallet for a specific user. The request includes the wallet type,
+   * a unique wallet ID, the currency, and for cryptocurrencies, the blockchain network.
+   * Optional fields include a human-readable label and whether the wallet supports multiple
+   * addresses. The newly created wallet can then be used for transactions, deposits, or
+   * other wallet-related operations.
+   */
   public Wallet createWallet(String userId, WalletCreation request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -186,10 +224,20 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Retrieves a specific wallet for a user by its walletId. The response includes the
+   * wallet's currency, network, type, optional label, balance information, creation
+   * timestamp, and other relevant metadata.
+   */
   public Wallet getWallet(String userId, String walletId) {
     return getWallet(userId,walletId,null);
   }
 
+  /**
+   * Retrieves a specific wallet for a user by its walletId. The response includes the
+   * wallet's currency, network, type, optional label, balance information, creation
+   * timestamp, and other relevant metadata.
+   */
   public Wallet getWallet(String userId, String walletId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -231,10 +279,22 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Deletes a specific wallet for the given user. The wallet to be deleted is identified
+   * by its walletId. Only wallets with a zero balance can be deleted; wallets containing
+   * funds cannot be removed. Once deleted, the wallet and any associated metadata will
+   * no longer be accessible.
+   */
   public void deleteWallet(String userId, String walletId) {
     deleteWallet(userId,walletId,null);
   }
 
+  /**
+   * Deletes a specific wallet for the given user. The wallet to be deleted is identified
+   * by its walletId. Only wallets with a zero balance can be deleted; wallets containing
+   * funds cannot be removed. Once deleted, the wallet and any associated metadata will
+   * no longer be accessible.
+   */
   public void deleteWallet(String userId, String walletId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -277,15 +337,36 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Simulates a deposit into a user's wallet without actually processing a real
+   * transaction. The request specifies the amount and the payment method type.
+   * The response provides the expected result of the deposit, including status
+   * and any applicable metadata, allowing you to validate transaction behavior
+   * before executing real deposits.
+   */
   public void simulateWalletDeposit(String userId, String walletId) {
     simulateWalletDeposit(userId,walletId,SimulateDepositRequest.builder().build());
   }
 
+  /**
+   * Simulates a deposit into a user's wallet without actually processing a real
+   * transaction. The request specifies the amount and the payment method type.
+   * The response provides the expected result of the deposit, including status
+   * and any applicable metadata, allowing you to validate transaction behavior
+   * before executing real deposits.
+   */
   public void simulateWalletDeposit(String userId, String walletId,
       SimulateDepositRequest request) {
     simulateWalletDeposit(userId,walletId,request,null);
   }
 
+  /**
+   * Simulates a deposit into a user's wallet without actually processing a real
+   * transaction. The request specifies the amount and the payment method type.
+   * The response provides the expected result of the deposit, including status
+   * and any applicable metadata, allowing you to validate transaction behavior
+   * before executing real deposits.
+   */
   public void simulateWalletDeposit(String userId, String walletId, SimulateDepositRequest request,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -338,15 +419,30 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Creates a new deposit address for a user's cryptocurrency wallet.
+   * This allows the user to receive crypto deposits on the specified wallet.
+   * The response includes the wallet details along with its deposit instructions.
+   */
   public Wallet createWalletDepositAddress(String userId, String walletId) {
     return createWalletDepositAddress(userId,walletId,DepositAddressRequest.builder().build());
   }
 
+  /**
+   * Creates a new deposit address for a user's cryptocurrency wallet.
+   * This allows the user to receive crypto deposits on the specified wallet.
+   * The response includes the wallet details along with its deposit instructions.
+   */
   public Wallet createWalletDepositAddress(String userId, String walletId,
       DepositAddressRequest request) {
     return createWalletDepositAddress(userId,walletId,request,null);
   }
 
+  /**
+   * Creates a new deposit address for a user's cryptocurrency wallet.
+   * This allows the user to receive crypto deposits on the specified wallet.
+   * The response includes the wallet details along with its deposit instructions.
+   */
   public Wallet createWalletDepositAddress(String userId, String walletId,
       DepositAddressRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -399,11 +495,23 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Creates a virtual bank account associated with a user's wallet.
+   * This account can be used to receive fiat deposits directly into the wallet.
+   * The response returns the wallet details along with the virtual bank account
+   * and its deposit instruction.
+   */
   public Wallet createWalletVirtualBankAccount(String userId, String walletId,
       Map<String, Object> request) {
     return createWalletVirtualBankAccount(userId,walletId,request,null);
   }
 
+  /**
+   * Creates a virtual bank account associated with a user's wallet.
+   * This account can be used to receive fiat deposits directly into the wallet.
+   * The response returns the wallet details along with the virtual bank account
+   * and its deposit instruction.
+   */
   public Wallet createWalletVirtualBankAccount(String userId, String walletId,
       Map<String, Object> request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -457,11 +565,21 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Generates wire transfer instructions for a user's wallet to facilitate
+   * fiat deposits. The response includes the wallet details along with
+   * the generated wire instructions for completing the deposit.
+   */
   public Wallet generateWireInstructions(String userId, String walletId,
       Map<String, Object> request) {
     return generateWireInstructions(userId,walletId,request,null);
   }
 
+  /**
+   * Generates wire transfer instructions for a user's wallet to facilitate
+   * fiat deposits. The response includes the wallet details along with
+   * the generated wire instructions for completing the deposit.
+   */
   public Wallet generateWireInstructions(String userId, String walletId,
       Map<String, Object> request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -515,15 +633,30 @@ public class WalletsClient {
     }
   }
 
+  /**
+   * Retrieves the historical balance and transaction records for a specific user's wallet.
+   * Supports pagination using <code>page</code> and <code>size</code> query parameters. Each entry in the history
+   * includes details about deposits, withdrawals, and other balance-affecting operations.
+   */
   public WalletHistoryPage getWalletHistory(String userId, String walletId) {
     return getWalletHistory(userId,walletId,GetWalletHistoryRequest.builder().build());
   }
 
+  /**
+   * Retrieves the historical balance and transaction records for a specific user's wallet.
+   * Supports pagination using <code>page</code> and <code>size</code> query parameters. Each entry in the history
+   * includes details about deposits, withdrawals, and other balance-affecting operations.
+   */
   public WalletHistoryPage getWalletHistory(String userId, String walletId,
       GetWalletHistoryRequest request) {
     return getWalletHistory(userId,walletId,request,null);
   }
 
+  /**
+   * Retrieves the historical balance and transaction records for a specific user's wallet.
+   * Supports pagination using <code>page</code> and <code>size</code> query parameters. Each entry in the history
+   * includes details about deposits, withdrawals, and other balance-affecting operations.
+   */
   public WalletHistoryPage getWalletHistory(String userId, String walletId,
       GetWalletHistoryRequest request, RequestOptions requestOptions) {
     HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()

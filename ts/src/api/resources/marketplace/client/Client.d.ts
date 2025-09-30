@@ -30,6 +30,10 @@ export declare class Marketplace {
     protected readonly _options: Marketplace.Options;
     constructor(_options?: Marketplace.Options);
     /**
+     * Retrieves a paginated list of Wallets belonging to your users.
+     * Supports filtering by balance, currency, network, and user ID.
+     * Multiple filters can be combined, and results can be sorted and paginated.
+     *
      * @param {PTI.SearchClientWalletsRequest} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -42,7 +46,7 @@ export declare class Marketplace {
      */
     searchClientWallets(request?: PTI.SearchClientWalletsRequest, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReferencePage>;
     /**
-     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
+     * This endpoint is used to execute a Digital Item buy (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the Transaction is executed.
      *
      * @param {PTI.ExecuteBuyTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -60,7 +64,7 @@ export declare class Marketplace {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -68,8 +72,8 @@ export declare class Marketplace {
      *         type: "BUY",
      *         digitalItem: {
      *             itemReference: "21d7c009-8469-41ae-83d7-393085fd6fef",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
+     *             itemTitle: "My first NFT",
+     *             itemDescription: "This is my first NFT",
      *             digitalItemType: "NFT"
      *         },
      *         sourceMethod: {
@@ -83,7 +87,7 @@ export declare class Marketplace {
      */
     digitalItemBuy(request: PTI.ExecuteBuyTransaction, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReference>;
     /**
-     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item sell (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteSellTransaction} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -101,7 +105,7 @@ export declare class Marketplace {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -109,8 +113,8 @@ export declare class Marketplace {
      *         type: "SELL",
      *         digitalItem: {
      *             itemReference: "f5511285-9d0b-41fd-8ae7-0817bb7462ba",
-     *             itemTitle: "itemTitle",
-     *             itemDescription: "itemDescription",
+     *             itemTitle: "My first NFT",
+     *             itemDescription: "This is my first NFT",
      *             digitalItemType: "NFT"
      *         },
      *         destinationMethod: {
@@ -124,6 +128,8 @@ export declare class Marketplace {
      */
     digitalItemSell(request: PTI.ExecuteSellTransaction, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReference>;
     /**
+     * This endpoint retrieves detailed information about a specific Digital Item identified by its `digitalItemId`. The response includes metadata such as the item type, title, description, reference and valuation details.  Use this operation to display or verify the properties of a Digital Item  in the Marketplace.
+     *
      * @param {string} digitalItemId
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -136,6 +142,8 @@ export declare class Marketplace {
      */
     getDigitalItem(digitalItemId: string, requestOptions?: Marketplace.RequestOptions): Promise<PTI.DigitalItem>;
     /**
+     * This endpoint is used to delete a specific Digital Item from a User’s  account. Once deleted, the item will no longer appear in the User’s list  of Digital Items.
+     *
      * @param {string} digitalItemId
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -149,6 +157,8 @@ export declare class Marketplace {
      */
     deleteDigitalItem(digitalItemId: string, requestOptions?: Marketplace.RequestOptions): Promise<void>;
     /**
+     * This endpoint is used to retrieve the list of Digital Items that belong to a specific User. Results can be paginated using the `page` and `size`  parameters, and sorted using the `sortBy` parameter. By default, results  are sorted by `creationDate`.
+     *
      * @param {string} userId
      * @param {PTI.GetDigitalItemsRequest} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.
@@ -162,6 +172,8 @@ export declare class Marketplace {
      */
     getDigitalItems(userId: string, request?: PTI.GetDigitalItemsRequest, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReferencePage>;
     /**
+     * This endpoint is used to create one or more Digital Items for a specific User.  Up to 100 Digital Items can be created in a single request.
+     *
      * @param {string} userId
      * @param {PTI.DigitalItem[]} request
      * @param {Marketplace.RequestOptions} requestOptions - Request-specific configuration.

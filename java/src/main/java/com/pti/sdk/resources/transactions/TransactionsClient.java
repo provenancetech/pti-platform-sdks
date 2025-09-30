@@ -53,10 +53,20 @@ public class TransactionsClient {
     this.clientOptions = clientOptions;
   }
 
+  /**
+   * Estimates the fill price and associated costs of a Trade transaction.
+   * The response returns a quote including the estimated fill price per unit,
+   * the source and destination currencies, and the trade amount.
+   */
   public TradeQuote estimationTransactionCost(TradeTransaction request) {
     return estimationTransactionCost(request,null);
   }
 
+  /**
+   * Estimates the fill price and associated costs of a Trade transaction.
+   * The response returns a quote including the estimated fill price per unit,
+   * the source and destination currencies, and the trade amount.
+   */
   public TradeQuote estimationTransactionCost(TradeTransaction request,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -107,14 +117,14 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint is used to execute a deposit (crypto/fiat -in) transaction for a User. The transaction assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a deposit (crypto/fiat -in) transaction  for a User. The transaction assessment and User information requirement  are evaluated before the transaction is executed.
    */
   public ObjectReference deposit(ExecuteDepositTransaction request) {
     return deposit(request,null);
   }
 
   /**
-   * This endpoint is used to execute a deposit (crypto/fiat -in) transaction for a User. The transaction assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a deposit (crypto/fiat -in) transaction  for a User. The transaction assessment and User information requirement  are evaluated before the transaction is executed.
    */
   public ObjectReference deposit(ExecuteDepositTransaction request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -206,14 +216,14 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint is used to execute a withdrawal of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a withdrawal of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
    */
   public ObjectReference withdrawal(ExecuteWithdrawalTransaction request) {
     return withdrawal(request,null);
   }
 
   /**
-   * This endpoint is used to execute a withdrawal of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a withdrawal of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
    */
   public ObjectReference withdrawal(ExecuteWithdrawalTransaction request,
       RequestOptions requestOptions) {
@@ -306,14 +316,14 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint is used to execute a generic payment of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a generic payment of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
    */
   public ObjectReference payment(ExecutePaymentTransaction request) {
     return payment(request,null);
   }
 
   /**
-   * This endpoint is used to execute a generic payment of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a generic payment of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
    */
   public ObjectReference payment(ExecutePaymentTransaction request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -604,14 +614,14 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint is used to execute a mint transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a mint transaction for a User. The  Transaction Assessment and User information requirement are evaluated  before the transaction is executed.
    */
   public ObjectReference mint(ExecuteMintTransaction request) {
     return mint(request,null);
   }
 
   /**
-   * This endpoint is used to execute a mint transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+   * This endpoint is used to execute a mint transaction for a User. The  Transaction Assessment and User information requirement are evaluated  before the transaction is executed.
    */
   public ObjectReference mint(ExecuteMintTransaction request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -700,10 +710,18 @@ public class TransactionsClient {
     }
   }
 
+  /**
+   * Retrieves the details and current status of a specific Transaction by its ID.
+   * The response includes the transaction’s status and related information.
+   */
   public TransactionStatusObject getTransaction(String requestId) {
     return getTransaction(requestId,null);
   }
 
+  /**
+   * Retrieves the details and current status of a specific Transaction by its ID.
+   * The response includes the transaction’s status and related information.
+   */
   public TransactionStatusObject getTransaction(String requestId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -745,14 +763,16 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+   * This endpoint is used to attempt a Transaction cancellation.
+   * If the call is successful, it means we were able to cancel the Transaction.
    */
   public void cancelTransaction(String requestId) {
     cancelTransaction(requestId,null);
   }
 
   /**
-   * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+   * This endpoint is used to attempt a Transaction cancellation.
+   * If the call is successful, it means we were able to cancel the Transaction.
    */
   public void cancelTransaction(String requestId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()

@@ -51,14 +51,29 @@ public class MarketplaceClient {
     this.clientOptions = clientOptions;
   }
 
+  /**
+   * Retrieves a paginated list of Wallets belonging to your users.
+   * Supports filtering by balance, currency, network, and user ID.
+   * Multiple filters can be combined, and results can be sorted and paginated.
+   */
   public ObjectReferencePage searchClientWallets() {
     return searchClientWallets(SearchClientWalletsRequest.builder().build());
   }
 
+  /**
+   * Retrieves a paginated list of Wallets belonging to your users.
+   * Supports filtering by balance, currency, network, and user ID.
+   * Multiple filters can be combined, and results can be sorted and paginated.
+   */
   public ObjectReferencePage searchClientWallets(SearchClientWalletsRequest request) {
     return searchClientWallets(request,null);
   }
 
+  /**
+   * Retrieves a paginated list of Wallets belonging to your users.
+   * Supports filtering by balance, currency, network, and user ID.
+   * Multiple filters can be combined, and results can be sorted and paginated.
+   */
   public ObjectReferencePage searchClientWallets(SearchClientWalletsRequest request,
       RequestOptions requestOptions) {
     HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -112,14 +127,14 @@ public class MarketplaceClient {
     }
 
     /**
-     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
+     * This endpoint is used to execute a Digital Item buy (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the Transaction is executed.
      */
     public ObjectReference digitalItemBuy(ExecuteBuyTransaction request) {
       return digitalItemBuy(request,null);
     }
 
     /**
-     * This endpoint is used to execute a Digital Item buy (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the Transaction is executed.
+     * This endpoint is used to execute a Digital Item buy (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the Transaction is executed.
      */
     public ObjectReference digitalItemBuy(ExecuteBuyTransaction request,
         RequestOptions requestOptions) {
@@ -221,14 +236,14 @@ public class MarketplaceClient {
     }
 
     /**
-     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item sell (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      */
     public ObjectReference digitalItemSell(ExecuteSellTransaction request) {
       return digitalItemSell(request,null);
     }
 
     /**
-     * This endpoint is used to execute a Digital Item sell (token, nft, other) transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a Digital Item sell (token, nft, other)  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      */
     public ObjectReference digitalItemSell(ExecuteSellTransaction request,
         RequestOptions requestOptions) {
@@ -329,10 +344,16 @@ public class MarketplaceClient {
       }
     }
 
+    /**
+     * This endpoint retrieves detailed information about a specific Digital Item identified by its <code>digitalItemId</code>. The response includes metadata such as the item type, title, description, reference and valuation details.  Use this operation to display or verify the properties of a Digital Item  in the Marketplace.
+     */
     public DigitalItem getDigitalItem(String digitalItemId) {
       return getDigitalItem(digitalItemId,null);
     }
 
+    /**
+     * This endpoint retrieves detailed information about a specific Digital Item identified by its <code>digitalItemId</code>. The response includes metadata such as the item type, title, description, reference and valuation details.  Use this operation to display or verify the properties of a Digital Item  in the Marketplace.
+     */
     public DigitalItem getDigitalItem(String digitalItemId, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -373,10 +394,16 @@ public class MarketplaceClient {
       }
     }
 
+    /**
+     * This endpoint is used to delete a specific Digital Item from a User’s  account. Once deleted, the item will no longer appear in the User’s list  of Digital Items.
+     */
     public void deleteDigitalItem(String digitalItemId) {
       deleteDigitalItem(digitalItemId,null);
     }
 
+    /**
+     * This endpoint is used to delete a specific Digital Item from a User’s  account. Once deleted, the item will no longer appear in the User’s list  of Digital Items.
+     */
     public void deleteDigitalItem(String digitalItemId, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -417,14 +444,23 @@ public class MarketplaceClient {
       }
     }
 
+    /**
+     * This endpoint is used to retrieve the list of Digital Items that belong to a specific User. Results can be paginated using the <code>page</code> and <code>size</code>  parameters, and sorted using the <code>sortBy</code> parameter. By default, results  are sorted by <code>creationDate</code>.
+     */
     public ObjectReferencePage getDigitalItems(String userId) {
       return getDigitalItems(userId,GetDigitalItemsRequest.builder().build());
     }
 
+    /**
+     * This endpoint is used to retrieve the list of Digital Items that belong to a specific User. Results can be paginated using the <code>page</code> and <code>size</code>  parameters, and sorted using the <code>sortBy</code> parameter. By default, results  are sorted by <code>creationDate</code>.
+     */
     public ObjectReferencePage getDigitalItems(String userId, GetDigitalItemsRequest request) {
       return getDigitalItems(userId,request,null);
     }
 
+    /**
+     * This endpoint is used to retrieve the list of Digital Items that belong to a specific User. Results can be paginated using the <code>page</code> and <code>size</code>  parameters, and sorted using the <code>sortBy</code> parameter. By default, results  are sorted by <code>creationDate</code>.
+     */
     public ObjectReferencePage getDigitalItems(String userId, GetDigitalItemsRequest request,
         RequestOptions requestOptions) {
       HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -473,10 +509,16 @@ public class MarketplaceClient {
         }
       }
 
+      /**
+       * This endpoint is used to create one or more Digital Items for a specific User.  Up to 100 Digital Items can be created in a single request.
+       */
       public List<ObjectReference> createDigitalItems(String userId, List<DigitalItem> request) {
         return createDigitalItems(userId,request,null);
       }
 
+      /**
+       * This endpoint is used to create one or more Digital Items for a specific User.  Up to 100 Digital Items can be created in a single request.
+       */
       public List<ObjectReference> createDigitalItems(String userId, List<DigitalItem> request,
           RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()

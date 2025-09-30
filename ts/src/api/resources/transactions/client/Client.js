@@ -71,6 +71,10 @@ class Transactions {
         this._options = _options;
     }
     /**
+     * Estimates the fill price and associated costs of a Trade transaction.
+     * The response returns a quote including the estimated fill price per unit,
+     * the source and destination currencies, and the trade amount.
+     *
      * @param {PTI.TradeTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -99,7 +103,7 @@ class Transactions {
      *         },
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -109,7 +113,7 @@ class Transactions {
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
      *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
+     *                 currency: "USD",
      *                 network: "network"
      *             }
      *         },
@@ -194,7 +198,7 @@ class Transactions {
         });
     }
     /**
-     * This endpoint is used to execute a deposit (crypto/fiat -in) transaction for a User. The transaction assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a deposit (crypto/fiat -in) transaction  for a User. The transaction assessment and User information requirement  are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteDepositTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -213,7 +217,7 @@ class Transactions {
      *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -223,9 +227,18 @@ class Transactions {
      *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
-     *             billingEmail: "user@example.com",
      *             paymentInformation: {
-     *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
+     *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
+     *                 label: "MyUSDWallet",
+     *                 currency: "USD",
+     *                 availableBalance: 1000,
+     *                 depositInstruction: {
+     *                     "type": "BANK_ACCOUNT",
+     *                     "accountNumber": "123456789",
+     *                     "routingNumber": "12345678"
+     *                 },
+     *                 createDateTime: "2021-09-28T12:00:00Z",
+     *                 type: "WALLET"
      *             },
      *             paymentMethodType: "WALLET"
      *         }
@@ -318,7 +331,7 @@ class Transactions {
         });
     }
     /**
-     * This endpoint is used to execute a withdrawal of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a withdrawal of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteWithdrawalTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -336,14 +349,14 @@ class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 3999.54,
      *         amount: 1,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "WITHDRAWAL",
      *         destinationMethod: {
-     *             paymentMethodType: "ACH"
+     *             paymentMethodType: "CRYPTO"
      *         },
      *         sourceMethod: {
      *             paymentInformation: {
@@ -441,7 +454,7 @@ class Transactions {
         });
     }
     /**
-     * This endpoint is used to execute a generic payment of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a generic payment of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecutePaymentTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -473,7 +486,7 @@ class Transactions {
      *         },
      *         usdValue: 6.99,
      *         amount: 6.99,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -488,6 +501,15 @@ class Transactions {
      *         destinationMethod: {
      *             paymentInformation: {
      *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
+     *                 label: "MyUSDWallet",
+     *                 currency: "USD",
+     *                 availableBalance: 1000,
+     *                 depositInstruction: {
+     *                     "type": "BANK_ACCOUNT",
+     *                     "accountNumber": "123456789",
+     *                     "routingNumber": "12345678"
+     *                 },
+     *                 createDateTime: "2021-09-28T12:00:00Z",
      *                 type: "WALLET"
      *             },
      *             paymentMethodType: "WALLET"
@@ -599,7 +621,7 @@ class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 200,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -730,7 +752,7 @@ class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 113,
      *         amount: 0.5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -839,7 +861,7 @@ class Transactions {
         });
     }
     /**
-     * This endpoint is used to execute a mint transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a mint transaction for a User. The  Transaction Assessment and User information requirement are evaluated  before the transaction is executed.
      *
      * @param {PTI.ExecuteMintTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -857,7 +879,7 @@ class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 0.55,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -963,6 +985,9 @@ class Transactions {
         });
     }
     /**
+     * Retrieves the details and current status of a specific Transaction by its ID.
+     * The response includes the transaction’s status and related information.
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1034,7 +1059,8 @@ class Transactions {
         });
     }
     /**
-     * This endpoint is used to attempt a Transaction cancellation. If the call is successful, it means we were able to cancel the Transaction
+     * This endpoint is used to attempt a Transaction cancellation.
+     * If the call is successful, it means we were able to cancel the Transaction.
      *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -1138,7 +1164,7 @@ class Transactions {
      *         providerName: "UNKNOWN",
      *         feedback: "SETTLED",
      *         transactionId: "UUID",
-     *         date: "2024-12-13T18:46:40.666+0000"
+     *         date: "2024-12-13T18:46:40.666+00:00"
      *     })
      */
     provideFeedback(requestId, request, requestOptions) {
