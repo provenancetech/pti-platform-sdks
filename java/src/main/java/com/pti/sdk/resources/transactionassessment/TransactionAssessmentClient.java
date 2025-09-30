@@ -111,10 +111,20 @@ public class TransactionAssessmentClient {
     }
   }
 
+  /**
+   * Retrieves the status of a specific transaction assessment by its request ID.
+   * The response includes details such as the assessment result, risk level, and
+   * relevant evaluation metadata.
+   */
   public TransactionAssessStatusObject getTransactionAssess(String requestId) {
     return getTransactionAssess(requestId,null);
   }
 
+  /**
+   * Retrieves the status of a specific transaction assessment by its request ID.
+   * The response includes details such as the assessment result, risk level, and
+   * relevant evaluation metadata.
+   */
   public TransactionAssessStatusObject getTransactionAssess(String requestId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -156,11 +166,21 @@ public class TransactionAssessmentClient {
     }
   }
 
+  /**
+   * Validates whether a User is allowed to perform a specific Transaction.
+   * The response indicates whether the transaction is allowed and may return
+   * validation errors if the transaction violates any rules.
+   */
   public OneOfAssessmentValidationError transactionInformationAssessment(
       TransactionInformationAssessmentRequest request) {
     return transactionInformationAssessment(request,null);
   }
 
+  /**
+   * Validates whether a User is allowed to perform a specific Transaction.
+   * The response indicates whether the transaction is allowed and may return
+   * validation errors if the transaction violates any rules.
+   */
   public OneOfAssessmentValidationError transactionInformationAssessment(
       TransactionInformationAssessmentRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()

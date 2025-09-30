@@ -3,6 +3,8 @@
  */
 import * as PTI from "../index";
 export interface AchPaymentMethod {
+    /** Used to identify whether this ACH will be a same day (true) or standard (false) ACH. */
+    sameDayAch?: boolean;
     currency?: string;
     billingEmail?: string;
     paymentInformation?: PTI.OneOfFiatPaymentInformation;

@@ -37,10 +37,16 @@ public class AuthenticationClient {
     this.clientOptions = clientOptions;
   }
 
+  /**
+   * This endpoint generates a User Token that can be used to authenticate requests on behalf of a specific User. The token is obtained by submitting a request payload that specifies the target API resource and method the User intends to access. Use this operation to enable secure, delegated access to API resources without directly sharing the User’s credentials.
+   */
   public UserToken getUserToken(UserTokenRequest request) {
     return getUserToken(request,null);
   }
 
+  /**
+   * This endpoint generates a User Token that can be used to authenticate requests on behalf of a specific User. The token is obtained by submitting a request payload that specifies the target API resource and method the User intends to access. Use this operation to enable secure, delegated access to API resources without directly sharing the User’s credentials.
+   */
   public UserToken getUserToken(UserTokenRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 

@@ -56,10 +56,15 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Wallets {
-    constructor(_options) {
+    constructor(_options = {}) {
         this._options = _options;
     }
     /**
+     * Retrieves a list of all assets supported by the platform. Each asset includes
+     * its currency, type, and, for cryptocurrencies, the networks on which it is
+     * supported. This information is useful for wallet operations, transactions,
+     * and trading.
+     *
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link PTI.UnauthorizedError}
@@ -127,6 +132,11 @@ class Wallets {
         });
     }
     /**
+     * Retrieves a list of wallets for a specific user. Each wallet includes the wallet type,
+     * unique ID, currency, associated blockchain network (if applicable), optional label,
+     * multi-address support flag, and creation date. The endpoint returns up to 100 wallets
+     * per request.
+     *
      * @param {string} userId
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -198,6 +208,12 @@ class Wallets {
         });
     }
     /**
+     * Creates a new wallet for a specific user. The request includes the wallet type,
+     * a unique wallet ID, the currency, and for cryptocurrencies, the blockchain network.
+     * Optional fields include a human-readable label and whether the wallet supports multiple
+     * addresses. The newly created wallet can then be used for transactions, deposits, or
+     * other wallet-related operations.
+     *
      * @param {string} userId
      * @param {PTI.WalletCreation} request
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
@@ -283,6 +299,10 @@ class Wallets {
         });
     }
     /**
+     * Retrieves a specific wallet for a user by its walletId. The response includes the
+     * wallet's currency, network, type, optional label, balance information, creation
+     * timestamp, and other relevant metadata.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
@@ -352,6 +372,11 @@ class Wallets {
         });
     }
     /**
+     * Deletes a specific wallet for the given user. The wallet to be deleted is identified
+     * by its walletId. Only wallets with a zero balance can be deleted; wallets containing
+     * funds cannot be removed. Once deleted, the wallet and any associated metadata will
+     * no longer be accessible.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {Wallets.RequestOptions} requestOptions - Request-specific configuration.
@@ -427,6 +452,12 @@ class Wallets {
         });
     }
     /**
+     * Simulates a deposit into a user's wallet without actually processing a real
+     * transaction. The request specifies the amount and the payment method type.
+     * The response provides the expected result of the deposit, including status
+     * and any applicable metadata, allowing you to validate transaction behavior
+     * before executing real deposits.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {PTI.SimulateDepositRequest} request
@@ -440,7 +471,8 @@ class Wallets {
      * @example
      *     await client.wallets.simulateWalletDeposit("userId", "walletId", {
      *         amount: 100,
-     *         paymentMethodType: "ACH"
+     *         paymentMethodType: "ACH",
+     *         status: "COMPLETED"
      *     })
      */
     simulateWalletDeposit(userId_1, walletId_1) {
@@ -502,6 +534,10 @@ class Wallets {
         });
     }
     /**
+     * Creates a new deposit address for a user's cryptocurrency wallet.
+     * This allows the user to receive crypto deposits on the specified wallet.
+     * The response includes the wallet details along with its deposit instructions.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {PTI.DepositAddressRequest} request
@@ -579,6 +615,11 @@ class Wallets {
         });
     }
     /**
+     * Creates a virtual bank account associated with a user's wallet.
+     * This account can be used to receive fiat deposits directly into the wallet.
+     * The response returns the wallet details along with the virtual bank account
+     * and its deposit instruction.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {Record<string, unknown>} request
@@ -668,6 +709,10 @@ class Wallets {
         });
     }
     /**
+     * Generates wire transfer instructions for a user's wallet to facilitate
+     * fiat deposits. The response includes the wallet details along with
+     * the generated wire instructions for completing the deposit.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {Record<string, unknown>} request
@@ -757,6 +802,10 @@ class Wallets {
         });
     }
     /**
+     * Retrieves the historical balance and transaction records for a specific user's wallet.
+     * Supports pagination using `page` and `size` query parameters. Each entry in the history
+     * includes details about deposits, withdrawals, and other balance-affecting operations.
+     *
      * @param {string} userId
      * @param {string} walletId
      * @param {PTI.GetWalletHistoryRequest} request
@@ -843,7 +892,11 @@ class Wallets {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
+            const bearer = yield core.Supplier.get(this._options.token);
+            if (bearer != null) {
+                return `Bearer ${bearer}`;
+            }
+            return undefined;
         });
     }
 }

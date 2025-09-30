@@ -10,5 +10,7 @@ export declare namespace SimulateDepositRequest {
     interface Raw {
         amount?: number | null;
         paymentMethodType?: PaymentMethodType.Raw | null;
+        status?: string | null;
+        requestId?: string | null;
     }
 }

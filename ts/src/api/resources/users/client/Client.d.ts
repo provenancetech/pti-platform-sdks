@@ -11,7 +11,7 @@ export declare namespace Users {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -30,8 +30,13 @@ export declare namespace Users {
 }
 export declare class Users {
     protected readonly _options: Users.Options;
-    constructor(_options: Users.Options);
+    constructor(_options?: Users.Options);
     /**
+     * Retrieves a paginated list of users associated with the specified client.
+     * You can control the number of results returned per page and specify an
+     * offset to navigate through the collection. Results can also be sorted
+     * by supported fields to simplify client-side processing.
+     *
      * @param {PTI.GetListOfUsersRequest} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -43,6 +48,14 @@ export declare class Users {
      */
     getListOfUsers(request?: PTI.GetListOfUsersRequest, requestOptions?: Users.RequestOptions): Promise<PTI.UserPage>;
     /**
+     * Creates a new user under the client account. The request must include all
+     * required user information in the request body.
+     *
+     * After a user is created, your system can receive real-time status updates
+     * through the provided callback URL. These callbacks notify your server of
+     * important changes to the user’s lifecycle (e.g., activation, deactivation,
+     * or verification status).
+     *
      * @param {PTI.OneOfUserSubTypes} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -59,6 +72,13 @@ export declare class Users {
      */
     addAUser(request: PTI.OneOfUserSubTypes, requestOptions?: Users.RequestOptions): Promise<PTI.OneOfUserSubTypes>;
     /**
+     * Replaces the entire User record with the data provided in the request body.
+     * All existing information will be overwritten — fields not included in the
+     * request will be cleared.
+     *
+     * Use this endpoint when you need to fully update a User’s profile, rather than
+     * making partial changes.
+     *
      * @param {PTI.OneOfUserSubTypes} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -75,6 +95,13 @@ export declare class Users {
      */
     updateUser(request: PTI.OneOfUserSubTypes, requestOptions?: Users.RequestOptions): Promise<PTI.OneOfUserSubTypes>;
     /**
+     * Updates specific fields of an existing User without overwriting the entire
+     * record. Only the properties included in the request body will be modified;
+     * all other data remains unchanged.
+     *
+     * This endpoint is useful for incremental updates, such as adding new contact
+     * details, updating addresses, or modifying optional profile fields.
+     *
      * @param {PTI.OneOfUserSubTypes} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -91,7 +118,7 @@ export declare class Users {
      */
     mergeUserInfo(request: PTI.OneOfUserSubTypes, requestOptions?: Users.RequestOptions): Promise<PTI.OneOfUserSubTypes>;
     /**
-     * This endpoint is used to get the information for a specific User. The information returned is the information that was collected for the User. PII information is not returned.
+     * This endpoint is used to get the information for a specific User.  The information returned is the information that was collected for the User. PII information is not returned.
      *
      * @param {string} userId
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
@@ -105,7 +132,7 @@ export declare class Users {
      */
     getUser(userId: string, requestOptions?: Users.RequestOptions): Promise<PTI.OneOfUserSubTypes>;
     /**
-     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     * This endpoint is used to assess a User. Depending on what information is  available on the User,  a tier level will be assigned to the assessment,  the higher the level is, the more permission he will get on your  platform.  Please refer to PTI documentation for more information on the  tier levels configuration and scenarios.
      *
      * @param {PTI.StartUserAssessmentRequest} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
@@ -129,6 +156,13 @@ export declare class Users {
      */
     startUserAssessment(request: PTI.StartUserAssessmentRequest, requestOptions?: Users.RequestOptions): Promise<PTI.ObjectReference>;
     /**
+     * Retrieves the most recent assessment for a specific User. Assessments reflect
+     * the User's verification status, risk tier, and any relevant KYC (Know Your
+     * Customer) information.
+     *
+     * This endpoint is useful for quickly checking the User’s current verification
+     * level and status without retrieving the full history of assessments.
+     *
      * @param {string} userId
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -141,6 +175,14 @@ export declare class Users {
      */
     getLastKyc(userId: string, requestOptions?: Users.RequestOptions): Promise<PTI.UserAssessStatusObject>;
     /**
+     * Allows uploading a document for a specific User, such as a passport, driver’s
+     * license, or other identification. The request can include metadata about the
+     * document and any associated ID information.
+     *
+     * Uploaded documents are used for KYC verification, compliance checks, and
+     * record-keeping purposes. The file must be sent as binary data and cannot
+     * exceed 5 MB in size.
+     *
      * @param {File | fs.ReadStream | Blob | undefined} document
      * @param {string} userId
      * @param {PTI.UploadDocumentRequest} request
@@ -155,5 +197,5 @@ export declare class Users {
      *     await client.users.uploadDocument(fs.createReadStream("/path/to/your/file"), "userId", {})
      */
     uploadDocument(document: File | fs.ReadStream | Blob | undefined, userId: string, request: PTI.UploadDocumentRequest, requestOptions?: Users.RequestOptions): Promise<void>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

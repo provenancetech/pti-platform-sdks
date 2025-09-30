@@ -8,6 +8,7 @@ import { OneOfFiatPaymentInformation } from "./OneOfFiatPaymentInformation";
 export declare const AchPaymentMethod: core.serialization.ObjectSchema<serializers.AchPaymentMethod.Raw, PTI.AchPaymentMethod>;
 export declare namespace AchPaymentMethod {
     interface Raw {
+        sameDayAch?: boolean | null;
         currency?: string | null;
         billingEmail?: string | null;
         paymentInformation?: OneOfFiatPaymentInformation.Raw | null;

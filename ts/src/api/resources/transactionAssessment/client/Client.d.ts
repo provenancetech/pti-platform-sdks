@@ -9,7 +9,7 @@ export declare namespace TransactionAssessment {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace TransactionAssessment {
 }
 export declare class TransactionAssessment {
     protected readonly _options: TransactionAssessment.Options;
-    constructor(_options: TransactionAssessment.Options);
+    constructor(_options?: TransactionAssessment.Options);
     /**
      * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
      *
@@ -64,7 +64,7 @@ export declare class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
+     *             date: "2024-12-13T18:46:40.666+00:00",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -81,6 +81,10 @@ export declare class TransactionAssessment {
      */
     assessTransaction(request: PTI.AssessTransactionRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.ObjectReference>;
     /**
+     * Retrieves the status of a specific transaction assessment by its request ID.
+     * The response includes details such as the assessment result, risk level, and
+     * relevant evaluation metadata.
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -93,6 +97,10 @@ export declare class TransactionAssessment {
      */
     getTransactionAssess(requestId: PTI.UuidLikeStr, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.TransactionAssessStatusObject>;
     /**
+     * Validates whether a User is allowed to perform a specific Transaction.
+     * The response indicates whether the transaction is allowed and may return
+     * validation errors if the transaction violates any rules.
+     *
      * @param {PTI.TransactionInformationAssessmentRequest} request
      * @param {TransactionAssessment.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -122,7 +130,7 @@ export declare class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+0000",
+     *             date: "2024-12-13T18:46:40.666+00:00",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -138,5 +146,5 @@ export declare class TransactionAssessment {
      *     })
      */
     transactionInformationAssessment(request: PTI.TransactionInformationAssessmentRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.OneOfAssessmentValidationError>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

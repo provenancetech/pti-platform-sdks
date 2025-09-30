@@ -10,7 +10,7 @@ import * as PTI from "../../../../index";
  *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
  *         usdValue: 100,
  *         amount: 100,
- *         date: "2024-12-13T18:46:40.666+0000",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -20,9 +20,18 @@ import * as PTI from "../../../../index";
  *             paymentMethodType: "CREDIT_CARD"
  *         },
  *         destinationMethod: {
- *             billingEmail: "user@example.com",
  *             paymentInformation: {
- *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
+ *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
+ *                 label: "MyUSDWallet",
+ *                 currency: "USD",
+ *                 availableBalance: 1000,
+ *                 depositInstruction: {
+ *                     "type": "BANK_ACCOUNT",
+ *                     "accountNumber": "123456789",
+ *                     "routingNumber": "12345678"
+ *                 },
+ *                 createDateTime: "2021-09-28T12:00:00Z",
+ *                 type: "WALLET"
  *             },
  *             paymentMethodType: "WALLET"
  *         }

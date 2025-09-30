@@ -53,14 +53,32 @@ public class UsersClient {
     this.clientOptions = clientOptions;
   }
 
+  /**
+   * Retrieves a paginated list of users associated with the specified client.
+   * You can control the number of results returned per page and specify an
+   * offset to navigate through the collection. Results can also be sorted
+   * by supported fields to simplify client-side processing.
+   */
   public UserPage getListOfUsers() {
     return getListOfUsers(GetListOfUsersRequest.builder().build());
   }
 
+  /**
+   * Retrieves a paginated list of users associated with the specified client.
+   * You can control the number of results returned per page and specify an
+   * offset to navigate through the collection. Results can also be sorted
+   * by supported fields to simplify client-side processing.
+   */
   public UserPage getListOfUsers(GetListOfUsersRequest request) {
     return getListOfUsers(request,null);
   }
 
+  /**
+   * Retrieves a paginated list of users associated with the specified client.
+   * You can control the number of results returned per page and specify an
+   * offset to navigate through the collection. Results can also be sorted
+   * by supported fields to simplify client-side processing.
+   */
   public UserPage getListOfUsers(GetListOfUsersRequest request, RequestOptions requestOptions) {
     HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -105,10 +123,26 @@ public class UsersClient {
       }
     }
 
+    /**
+     * Creates a new user under the client account. The request must include all
+     * required user information in the request body.
+     * <p>After a user is created, your system can receive real-time status updates
+     * through the provided callback URL. These callbacks notify your server of
+     * important changes to the user’s lifecycle (e.g., activation, deactivation,
+     * or verification status).</p>
+     */
     public OneOfUserSubTypes addAUser(OneOfUserSubTypes request) {
       return addAUser(request,null);
     }
 
+    /**
+     * Creates a new user under the client account. The request must include all
+     * required user information in the request body.
+     * <p>After a user is created, your system can receive real-time status updates
+     * through the provided callback URL. These callbacks notify your server of
+     * important changes to the user’s lifecycle (e.g., activation, deactivation,
+     * or verification status).</p>
+     */
     public OneOfUserSubTypes addAUser(OneOfUserSubTypes request, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -156,10 +190,24 @@ public class UsersClient {
       }
     }
 
+    /**
+     * Replaces the entire User record with the data provided in the request body.
+     * All existing information will be overwritten — fields not included in the
+     * request will be cleared.
+     * <p>Use this endpoint when you need to fully update a User’s profile, rather than
+     * making partial changes.</p>
+     */
     public OneOfUserSubTypes updateUser(OneOfUserSubTypes request) {
       return updateUser(request,null);
     }
 
+    /**
+     * Replaces the entire User record with the data provided in the request body.
+     * All existing information will be overwritten — fields not included in the
+     * request will be cleared.
+     * <p>Use this endpoint when you need to fully update a User’s profile, rather than
+     * making partial changes.</p>
+     */
     public OneOfUserSubTypes updateUser(OneOfUserSubTypes request, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -207,10 +255,24 @@ public class UsersClient {
       }
     }
 
+    /**
+     * Updates specific fields of an existing User without overwriting the entire
+     * record. Only the properties included in the request body will be modified;
+     * all other data remains unchanged.
+     * <p>This endpoint is useful for incremental updates, such as adding new contact
+     * details, updating addresses, or modifying optional profile fields.</p>
+     */
     public OneOfUserSubTypes mergeUserInfo(OneOfUserSubTypes request) {
       return mergeUserInfo(request,null);
     }
 
+    /**
+     * Updates specific fields of an existing User without overwriting the entire
+     * record. Only the properties included in the request body will be modified;
+     * all other data remains unchanged.
+     * <p>This endpoint is useful for incremental updates, such as adding new contact
+     * details, updating addresses, or modifying optional profile fields.</p>
+     */
     public OneOfUserSubTypes mergeUserInfo(OneOfUserSubTypes request,
         RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -260,14 +322,14 @@ public class UsersClient {
     }
 
     /**
-     * This endpoint is used to get the information for a specific User. The information returned is the information that was collected for the User. PII information is not returned.
+     * This endpoint is used to get the information for a specific User.  The information returned is the information that was collected for the User. PII information is not returned.
      */
     public OneOfUserSubTypes getUser(String userId) {
       return getUser(userId,null);
     }
 
     /**
-     * This endpoint is used to get the information for a specific User. The information returned is the information that was collected for the User. PII information is not returned.
+     * This endpoint is used to get the information for a specific User.  The information returned is the information that was collected for the User. PII information is not returned.
      */
     public OneOfUserSubTypes getUser(String userId, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
@@ -310,14 +372,14 @@ public class UsersClient {
     }
 
     /**
-     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     * This endpoint is used to assess a User. Depending on what information is  available on the User,  a tier level will be assigned to the assessment,  the higher the level is, the more permission he will get on your  platform.  Please refer to PTI documentation for more information on the  tier levels configuration and scenarios.
      */
     public ObjectReference startUserAssessment(StartUserAssessmentRequest request) {
       return startUserAssessment(request,null);
     }
 
     /**
-     * This endpoint is used to assess a User. Depending on what information is available on the User,  a tier level will be assigned to the assessment, the higher the level is, the more permission he will get on your platform.  Please refer to PTI documentation for more information on the tier levels configuration and scenarios.
+     * This endpoint is used to assess a User. Depending on what information is  available on the User,  a tier level will be assigned to the assessment,  the higher the level is, the more permission he will get on your  platform.  Please refer to PTI documentation for more information on the  tier levels configuration and scenarios.
      */
     public ObjectReference startUserAssessment(StartUserAssessmentRequest request,
         RequestOptions requestOptions) {
@@ -376,10 +438,24 @@ public class UsersClient {
       }
     }
 
+    /**
+     * Retrieves the most recent assessment for a specific User. Assessments reflect
+     * the User's verification status, risk tier, and any relevant KYC (Know Your
+     * Customer) information.
+     * <p>This endpoint is useful for quickly checking the User’s current verification
+     * level and status without retrieving the full history of assessments.</p>
+     */
     public UserAssessStatusObject getLastKyc(String userId) {
       return getLastKyc(userId,null);
     }
 
+    /**
+     * Retrieves the most recent assessment for a specific User. Assessments reflect
+     * the User's verification status, risk tier, and any relevant KYC (Know Your
+     * Customer) information.
+     * <p>This endpoint is useful for quickly checking the User’s current verification
+     * level and status without retrieving the full history of assessments.</p>
+     */
     public UserAssessStatusObject getLastKyc(String userId, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -421,15 +497,39 @@ public class UsersClient {
       }
     }
 
+    /**
+     * Allows uploading a document for a specific User, such as a passport, driver’s
+     * license, or other identification. The request can include metadata about the
+     * document and any associated ID information.
+     * <p>Uploaded documents are used for KYC verification, compliance checks, and
+     * record-keeping purposes. The file must be sent as binary data and cannot
+     * exceed 5 MB in size.</p>
+     */
     public void uploadDocument(String userId, Optional<File> document) {
       uploadDocument(userId,document,UploadDocumentRequest.builder().build());
     }
 
+    /**
+     * Allows uploading a document for a specific User, such as a passport, driver’s
+     * license, or other identification. The request can include metadata about the
+     * document and any associated ID information.
+     * <p>Uploaded documents are used for KYC verification, compliance checks, and
+     * record-keeping purposes. The file must be sent as binary data and cannot
+     * exceed 5 MB in size.</p>
+     */
     public void uploadDocument(String userId, Optional<File> document,
         UploadDocumentRequest request) {
       uploadDocument(userId,document,request,null);
     }
 
+    /**
+     * Allows uploading a document for a specific User, such as a passport, driver’s
+     * license, or other identification. The request can include metadata about the
+     * document and any associated ID information.
+     * <p>Uploaded documents are used for KYC verification, compliance checks, and
+     * record-keeping purposes. The file must be sent as binary data and cannot
+     * exceed 5 MB in size.</p>
+     */
     public void uploadDocument(String userId, Optional<File> document,
         UploadDocumentRequest request, RequestOptions requestOptions) {
       HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()

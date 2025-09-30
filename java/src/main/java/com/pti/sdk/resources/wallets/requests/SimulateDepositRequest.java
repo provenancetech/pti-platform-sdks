@@ -31,12 +31,19 @@ public final class SimulateDepositRequest {
 
   private final Optional<PaymentMethodType> paymentMethodType;
 
+  private final Optional<String> status;
+
+  private final Optional<String> requestId;
+
   private final Map<String, Object> additionalProperties;
 
   private SimulateDepositRequest(Optional<Double> amount,
-      Optional<PaymentMethodType> paymentMethodType, Map<String, Object> additionalProperties) {
+      Optional<PaymentMethodType> paymentMethodType, Optional<String> status,
+      Optional<String> requestId, Map<String, Object> additionalProperties) {
     this.amount = amount;
     this.paymentMethodType = paymentMethodType;
+    this.status = status;
+    this.requestId = requestId;
     this.additionalProperties = additionalProperties;
   }
 
@@ -48,6 +55,16 @@ public final class SimulateDepositRequest {
   @JsonProperty("paymentMethodType")
   public Optional<PaymentMethodType> getPaymentMethodType() {
     return paymentMethodType;
+  }
+
+  @JsonProperty("status")
+  public Optional<String> getStatus() {
+    return status;
+  }
+
+  @JsonProperty("requestId")
+  public Optional<String> getRequestId() {
+    return requestId;
   }
 
   @java.lang.Override
@@ -62,12 +79,12 @@ public final class SimulateDepositRequest {
   }
 
   private boolean equalTo(SimulateDepositRequest other) {
-    return amount.equals(other.amount) && paymentMethodType.equals(other.paymentMethodType);
+    return amount.equals(other.amount) && paymentMethodType.equals(other.paymentMethodType) && status.equals(other.status) && requestId.equals(other.requestId);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.amount, this.paymentMethodType);
+    return Objects.hash(this.amount, this.paymentMethodType, this.status, this.requestId);
   }
 
   @java.lang.Override
@@ -87,6 +104,10 @@ public final class SimulateDepositRequest {
 
     private Optional<PaymentMethodType> paymentMethodType = Optional.empty();
 
+    private Optional<String> status = Optional.empty();
+
+    private Optional<String> requestId = Optional.empty();
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -96,6 +117,8 @@ public final class SimulateDepositRequest {
     public Builder from(SimulateDepositRequest other) {
       amount(other.getAmount());
       paymentMethodType(other.getPaymentMethodType());
+      status(other.getStatus());
+      requestId(other.getRequestId());
       return this;
     }
 
@@ -127,8 +150,36 @@ public final class SimulateDepositRequest {
       return this;
     }
 
+    @JsonSetter(
+        value = "status",
+        nulls = Nulls.SKIP
+    )
+    public Builder status(Optional<String> status) {
+      this.status = status;
+      return this;
+    }
+
+    public Builder status(String status) {
+      this.status = Optional.ofNullable(status);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "requestId",
+        nulls = Nulls.SKIP
+    )
+    public Builder requestId(Optional<String> requestId) {
+      this.requestId = requestId;
+      return this;
+    }
+
+    public Builder requestId(String requestId) {
+      this.requestId = Optional.ofNullable(requestId);
+      return this;
+    }
+
     public SimulateDepositRequest build() {
-      return new SimulateDepositRequest(amount, paymentMethodType, additionalProperties);
+      return new SimulateDepositRequest(amount, paymentMethodType, status, requestId, additionalProperties);
     }
   }
 }

@@ -9,7 +9,7 @@ export declare namespace Authentication {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,8 +28,10 @@ export declare namespace Authentication {
 }
 export declare class Authentication {
     protected readonly _options: Authentication.Options;
-    constructor(_options: Authentication.Options);
+    constructor(_options?: Authentication.Options);
     /**
+     * This endpoint generates a User Token that can be used to authenticate requests on behalf of a specific User. The token is obtained by submitting a request payload that specifies the target API resource and method the User intends to access. Use this operation to enable secure, delegated access to API resources without directly sharing the User’s credentials.
+     *
      * @param {PTI.UserTokenRequest} request
      * @param {Authentication.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -45,5 +47,5 @@ export declare class Authentication {
      *     })
      */
     getUserToken(request: PTI.UserTokenRequest, requestOptions?: Authentication.RequestOptions): Promise<PTI.UserToken>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

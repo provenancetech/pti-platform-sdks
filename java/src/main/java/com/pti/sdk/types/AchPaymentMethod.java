@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Boolean;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import java.util.Optional;
     builder = AchPaymentMethod.Builder.class
 )
 public final class AchPaymentMethod {
+  private final Optional<Boolean> sameDayAch;
+
   private final Optional<String> currency;
 
   private final Optional<String> billingEmail;
@@ -33,13 +36,22 @@ public final class AchPaymentMethod {
 
   private final Map<String, Object> additionalProperties;
 
-  private AchPaymentMethod(Optional<String> currency, Optional<String> billingEmail,
-      Optional<OneOfFiatPaymentInformation> paymentInformation,
+  private AchPaymentMethod(Optional<Boolean> sameDayAch, Optional<String> currency,
+      Optional<String> billingEmail, Optional<OneOfFiatPaymentInformation> paymentInformation,
       Map<String, Object> additionalProperties) {
+    this.sameDayAch = sameDayAch;
     this.currency = currency;
     this.billingEmail = billingEmail;
     this.paymentInformation = paymentInformation;
     this.additionalProperties = additionalProperties;
+  }
+
+  /**
+   * @return Used to identify whether this ACH will be a same day (true) or standard (false) ACH.
+   */
+  @JsonProperty("sameDayAch")
+  public Optional<Boolean> getSameDayAch() {
+    return sameDayAch;
   }
 
   @JsonProperty("currency")
@@ -69,12 +81,12 @@ public final class AchPaymentMethod {
   }
 
   private boolean equalTo(AchPaymentMethod other) {
-    return currency.equals(other.currency) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
+    return sameDayAch.equals(other.sameDayAch) && currency.equals(other.currency) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.currency, this.billingEmail, this.paymentInformation);
+    return Objects.hash(this.sameDayAch, this.currency, this.billingEmail, this.paymentInformation);
   }
 
   @java.lang.Override
@@ -90,6 +102,8 @@ public final class AchPaymentMethod {
       ignoreUnknown = true
   )
   public static final class Builder {
+    private Optional<Boolean> sameDayAch = Optional.empty();
+
     private Optional<String> currency = Optional.empty();
 
     private Optional<String> billingEmail = Optional.empty();
@@ -103,9 +117,24 @@ public final class AchPaymentMethod {
     }
 
     public Builder from(AchPaymentMethod other) {
+      sameDayAch(other.getSameDayAch());
       currency(other.getCurrency());
       billingEmail(other.getBillingEmail());
       paymentInformation(other.getPaymentInformation());
+      return this;
+    }
+
+    @JsonSetter(
+        value = "sameDayAch",
+        nulls = Nulls.SKIP
+    )
+    public Builder sameDayAch(Optional<Boolean> sameDayAch) {
+      this.sameDayAch = sameDayAch;
+      return this;
+    }
+
+    public Builder sameDayAch(Boolean sameDayAch) {
+      this.sameDayAch = Optional.ofNullable(sameDayAch);
       return this;
     }
 
@@ -152,7 +181,7 @@ public final class AchPaymentMethod {
     }
 
     public AchPaymentMethod build() {
-      return new AchPaymentMethod(currency, billingEmail, paymentInformation, additionalProperties);
+      return new AchPaymentMethod(sameDayAch, currency, billingEmail, paymentInformation, additionalProperties);
     }
   }
 }

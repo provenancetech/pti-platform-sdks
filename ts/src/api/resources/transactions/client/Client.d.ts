@@ -9,7 +9,7 @@ export declare namespace Transactions {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,8 +28,12 @@ export declare namespace Transactions {
 }
 export declare class Transactions {
     protected readonly _options: Transactions.Options;
-    constructor(_options: Transactions.Options);
+    constructor(_options?: Transactions.Options);
     /**
+     * Estimates the fill price and associated costs of a Trade transaction.
+     * The response returns a quote including the estimated fill price per unit,
+     * the source and destination currencies, and the trade amount.
+     *
      * @param {PTI.TradeTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -58,7 +62,7 @@ export declare class Transactions {
      *         },
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -68,7 +72,7 @@ export declare class Transactions {
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
      *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
+     *                 currency: "USD",
      *                 network: "network"
      *             }
      *         },
@@ -84,7 +88,7 @@ export declare class Transactions {
      */
     estimationTransactionCost(request: PTI.TradeTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.TradeQuote>;
     /**
-     * This endpoint is used to execute a deposit (crypto/fiat -in) transaction for a User. The transaction assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a deposit (crypto/fiat -in) transaction  for a User. The transaction assessment and User information requirement  are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteDepositTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -103,7 +107,7 @@ export declare class Transactions {
      *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "2024-12-13T18:46:40.666+0000",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -113,9 +117,18 @@ export declare class Transactions {
      *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
-     *             billingEmail: "user@example.com",
      *             paymentInformation: {
-     *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82"
+     *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
+     *                 label: "MyUSDWallet",
+     *                 currency: "USD",
+     *                 availableBalance: 1000,
+     *                 depositInstruction: {
+     *                     "type": "BANK_ACCOUNT",
+     *                     "accountNumber": "123456789",
+     *                     "routingNumber": "12345678"
+     *                 },
+     *                 createDateTime: "2021-09-28T12:00:00Z",
+     *                 type: "WALLET"
      *             },
      *             paymentMethodType: "WALLET"
      *         }
@@ -123,7 +136,7 @@ export declare class Transactions {
      */
     deposit(request: PTI.ExecuteDepositTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     /**
-     * This endpoint is used to execute a withdrawal of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a withdrawal of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecuteWithdrawalTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -141,14 +154,14 @@ export declare class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 3999.54,
      *         amount: 1,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "WITHDRAWAL",
      *         destinationMethod: {
-     *             paymentMethodType: "ACH"
+     *             paymentMethodType: "CRYPTO"
      *         },
      *         sourceMethod: {
      *             paymentInformation: {
@@ -161,7 +174,7 @@ export declare class Transactions {
      */
     withdrawal(request: PTI.ExecuteWithdrawalTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     /**
-     * This endpoint is used to execute a generic payment of fiat or crypto transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a generic payment of fiat or crypto  transaction for a User. The Transaction Assessment and User information  requirement are evaluated before the transaction is executed.
      *
      * @param {PTI.ExecutePaymentTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -193,7 +206,7 @@ export declare class Transactions {
      *         },
      *         usdValue: 6.99,
      *         amount: 6.99,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -208,6 +221,15 @@ export declare class Transactions {
      *         destinationMethod: {
      *             paymentInformation: {
      *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
+     *                 label: "MyUSDWallet",
+     *                 currency: "USD",
+     *                 availableBalance: 1000,
+     *                 depositInstruction: {
+     *                     "type": "BANK_ACCOUNT",
+     *                     "accountNumber": "123456789",
+     *                     "routingNumber": "12345678"
+     *                 },
+     *                 createDateTime: "2021-09-28T12:00:00Z",
      *                 type: "WALLET"
      *             },
      *             paymentMethodType: "WALLET"
@@ -234,7 +256,7 @@ export declare class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 200,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -280,7 +302,7 @@ export declare class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 113,
      *         amount: 0.5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -304,7 +326,7 @@ export declare class Transactions {
      */
     trade(request: PTI.ExecuteTradeTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     /**
-     * This endpoint is used to execute a mint transaction for a User. The Transaction Assessment and User information requirement are evaluated before the transaction is executed.
+     * This endpoint is used to execute a mint transaction for a User. The  Transaction Assessment and User information requirement are evaluated  before the transaction is executed.
      *
      * @param {PTI.ExecuteMintTransaction} request
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
@@ -322,7 +344,7 @@ export declare class Transactions {
      *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 0.55,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -343,6 +365,9 @@ export declare class Transactions {
      */
     mint(request: PTI.ExecuteMintTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     /**
+     * Retrieves the details and current status of a specific Transaction by its ID.
+     * The response includes the transaction’s status and related information.
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -355,17 +380,21 @@ export declare class Transactions {
      */
     getTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<PTI.TransactionStatusObject>;
     /**
+     * This endpoint is used to attempt a Transaction cancellation.
+     * If the call is successful, it means we were able to cancel the Transaction.
+     *
      * @param {PTI.UuidLikeStr} requestId
      * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link PTI.BadRequestError}
      * @throws {@link PTI.UnauthorizedError}
      * @throws {@link PTI.NotFoundError}
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactions.deleteTransaction("requestId")
+     *     await client.transactions.cancelTransaction("requestId")
      */
-    deleteTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
+    cancelTransaction(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
     /**
      * This endpoint allows adding feedback information to an existing transaction. Here are the possible feedback values with their meaning:
      *
@@ -395,9 +424,9 @@ export declare class Transactions {
      *         providerName: "UNKNOWN",
      *         feedback: "SETTLED",
      *         transactionId: "UUID",
-     *         date: "2024-12-13T18:46:40.666+0000"
+     *         date: "2024-12-13T18:46:40.666+00:00"
      *     })
      */
     provideFeedback(requestId: PTI.UuidLikeStr, request: PTI.TransactionUpdate, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

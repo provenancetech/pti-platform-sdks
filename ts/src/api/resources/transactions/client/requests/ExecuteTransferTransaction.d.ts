@@ -9,7 +9,7 @@ import * as PTI from "../../../../index";
  *         ptiScenarioId: "x-pti-scenario-id",
  *         usdValue: 200,
  *         amount: 200,
- *         date: "date",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
