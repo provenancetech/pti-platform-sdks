@@ -22,6 +22,8 @@ exports.ErrorType = {
     WalletMissingNetwork: "WALLET_MISSING_NETWORK",
     PaymentMethodTypeRequired: "PAYMENT_METHOD_TYPE_REQUIRED",
     AmountRequired: "AMOUNT_REQUIRED",
+    InvalidTransactionType: "INVALID_TRANSACTION_TYPE",
+    InvalidTransactionStatus: "INVALID_TRANSACTION_STATUS",
     NoInterClientsTransfers: "NO_INTER_CLIENTS_TRANSFERS",
     ClientConfigurationError: "CLIENT_CONFIGURATION_ERROR",
     UnsupportedOperation: "UNSUPPORTED_OPERATION",
