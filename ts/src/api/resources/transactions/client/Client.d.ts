@@ -428,5 +428,21 @@ export declare class Transactions {
      *     })
      */
     provideFeedback(requestId: PTI.UuidLikeStr, request: PTI.TransactionUpdate, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
+    /**
+     * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+     *
+     * @param {PTI.UuidLikeStr} requestId - Request ID used when the transaction was initially logged
+     * @param {PTI.TransactionAction} request
+     * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactions.performAction("requestId", {})
+     */
+    performAction(requestId: PTI.UuidLikeStr, request: PTI.TransactionAction, requestOptions?: Transactions.RequestOptions): Promise<PTI.TransactionStatusObject>;
     protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

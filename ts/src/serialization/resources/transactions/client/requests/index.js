@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionUpdate = exports.ExecuteMintTransaction = exports.ExecuteTradeTransaction = exports.ExecuteTransferTransaction = exports.ExecutePaymentTransaction = exports.ExecuteWithdrawalTransaction = exports.ExecuteDepositTransaction = void 0;
+exports.TransactionAction = exports.TransactionUpdate = exports.ExecuteMintTransaction = exports.ExecuteTradeTransaction = exports.ExecuteTransferTransaction = exports.ExecutePaymentTransaction = exports.ExecuteWithdrawalTransaction = exports.ExecuteDepositTransaction = void 0;
 var ExecuteDepositTransaction_1 = require("./ExecuteDepositTransaction");
 Object.defineProperty(exports, "ExecuteDepositTransaction", { enumerable: true, get: function () { return ExecuteDepositTransaction_1.ExecuteDepositTransaction; } });
 var ExecuteWithdrawalTransaction_1 = require("./ExecuteWithdrawalTransaction");
@@ -15,3 +15,5 @@ var ExecuteMintTransaction_1 = require("./ExecuteMintTransaction");
 Object.defineProperty(exports, "ExecuteMintTransaction", { enumerable: true, get: function () { return ExecuteMintTransaction_1.ExecuteMintTransaction; } });
 var TransactionUpdate_1 = require("./TransactionUpdate");
 Object.defineProperty(exports, "TransactionUpdate", { enumerable: true, get: function () { return TransactionUpdate_1.TransactionUpdate; } });
+var TransactionAction_1 = require("./TransactionAction");
+Object.defineProperty(exports, "TransactionAction", { enumerable: true, get: function () { return TransactionAction_1.TransactionAction; } });

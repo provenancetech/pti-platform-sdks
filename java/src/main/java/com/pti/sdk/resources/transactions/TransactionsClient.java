@@ -23,6 +23,7 @@ import com.pti.sdk.resources.transactions.requests.ExecutePaymentTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteTradeTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteTransferTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteWithdrawalTransaction;
+import com.pti.sdk.resources.transactions.requests.TransactionAction;
 import com.pti.sdk.resources.transactions.requests.TransactionUpdate;
 import com.pti.sdk.types.InvalidRequestError;
 import com.pti.sdk.types.ObjectReference;
@@ -874,6 +875,66 @@ public class TransactionsClient {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
         return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ObjectReference.class);
+      }
+      String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+      try {
+        switch (response.code()) {
+          case 400:throw new BadRequestError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, InvalidRequestError.class));
+          case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
+          case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+        }
+      }
+      catch (JsonProcessingException ignored) {
+        // unable to map error response, throwing generic error
+      }
+      throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+    }
+    catch (IOException e) {
+      throw new PTIClientException("Network error executing HTTP request", e);
+    }
+  }
+
+  /**
+   * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+   */
+  public TransactionStatusObject performAction(String requestId, TransactionAction request) {
+    return performAction(requestId,request,null);
+  }
+
+  /**
+   * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+   */
+  public TransactionStatusObject performAction(String requestId, TransactionAction request,
+      RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("transactions")
+      .addPathSegment(requestId)
+      .addPathSegments("actions")
+      .build();
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+    }
+    catch(JsonProcessingException e) {
+      throw new PTIClientException("Failed to serialize request", e);
+    }
+    Request okhttpRequest = new Request.Builder()
+      .url(httpUrl)
+      .method("POST", body)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
+      .build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    try (Response response = client.newCall(okhttpRequest).execute()) {
+      ResponseBody responseBody = response.body();
+      if (response.isSuccessful()) {
+        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), TransactionStatusObject.class);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       try {
