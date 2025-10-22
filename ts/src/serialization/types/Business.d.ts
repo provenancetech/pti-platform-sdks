@@ -9,6 +9,8 @@ import { Address } from "./Address";
 import { Email } from "./Email";
 import { BusinessOwner } from "./BusinessOwner";
 import { Phone } from "./Phone";
+import { BusinessBusinessQuestionnaire } from "./BusinessBusinessQuestionnaire";
+import { BusinessBusinessCategory } from "./BusinessBusinessCategory";
 import { User } from "./User";
 export declare const Business: core.serialization.ObjectSchema<serializers.Business.Raw, PTI.Business>;
 export declare namespace Business {
@@ -23,6 +25,10 @@ export declare namespace Business {
         creationDate?: string | null;
         businessType?: string | null;
         businessName?: string | null;
-        coutryOfIncorporation?: string | null;
+        countryOfIncorporation?: string | null;
+        businessDbaName?: string | null;
+        businessQuestionnaire?: BusinessBusinessQuestionnaire.Raw | null;
+        businessCategory?: BusinessBusinessCategory.Raw | null;
+        website?: string | null;
     }
 }

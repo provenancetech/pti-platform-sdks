@@ -65,7 +65,15 @@ public final class Business implements IUser {
 
   private final Optional<String> businessName;
 
-  private final Optional<String> coutryOfIncorporation;
+  private final Optional<String> countryOfIncorporation;
+
+  private final Optional<String> businessDbaName;
+
+  private final Optional<BusinessBusinessQuestionnaire> businessQuestionnaire;
+
+  private final Optional<BusinessBusinessCategory> businessCategory;
+
+  private final Optional<String> website;
 
   private final Map<String, Object> additionalProperties;
 
@@ -78,7 +86,10 @@ public final class Business implements IUser {
       BusinessOwner mainRepresentative, Optional<List<BusinessOwner>> coOwners,
       Optional<List<Phone>> phones, Optional<List<String>> sectors, Optional<String> creationDate,
       Optional<String> businessType, Optional<String> businessName,
-      Optional<String> coutryOfIncorporation, Map<String, Object> additionalProperties) {
+      Optional<String> countryOfIncorporation, Optional<String> businessDbaName,
+      Optional<BusinessBusinessQuestionnaire> businessQuestionnaire,
+      Optional<BusinessBusinessCategory> businessCategory, Optional<String> website,
+      Map<String, Object> additionalProperties) {
     this.id = id;
     this.status = status;
     this.statusReason = statusReason;
@@ -98,7 +109,11 @@ public final class Business implements IUser {
     this.creationDate = creationDate;
     this.businessType = businessType;
     this.businessName = businessName;
-    this.coutryOfIncorporation = coutryOfIncorporation;
+    this.countryOfIncorporation = countryOfIncorporation;
+    this.businessDbaName = businessDbaName;
+    this.businessQuestionnaire = businessQuestionnaire;
+    this.businessCategory = businessCategory;
+    this.website = website;
     this.additionalProperties = additionalProperties;
   }
 
@@ -227,9 +242,41 @@ public final class Business implements IUser {
   /**
    * @return ISO 3166 alpha 1 country code, example US
    */
-  @JsonProperty("coutryOfIncorporation")
-  public Optional<String> getCoutryOfIncorporation() {
-    return coutryOfIncorporation;
+  @JsonProperty("countryOfIncorporation")
+  public Optional<String> getCountryOfIncorporation() {
+    return countryOfIncorporation;
+  }
+
+  /**
+   * @return Doing business as name
+   */
+  @JsonProperty("businessDbaName")
+  public Optional<String> getBusinessDbaName() {
+    return businessDbaName;
+  }
+
+  /**
+   * @return An optional list of questions to answer.
+   */
+  @JsonProperty("businessQuestionnaire")
+  public Optional<BusinessBusinessQuestionnaire> getBusinessQuestionnaire() {
+    return businessQuestionnaire;
+  }
+
+  /**
+   * @return Category or field of work that the business belongs to.
+   */
+  @JsonProperty("businessCategory")
+  public Optional<BusinessBusinessCategory> getBusinessCategory() {
+    return businessCategory;
+  }
+
+  /**
+   * @return Business Website
+   */
+  @JsonProperty("website")
+  public Optional<String> getWebsite() {
+    return website;
   }
 
   @java.lang.Override
@@ -244,12 +291,12 @@ public final class Business implements IUser {
   }
 
   private boolean equalTo(Business other) {
-    return id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && biis.equals(other.biis) && addresses.equals(other.addresses) && emails.equals(other.emails) && mainRepresentative.equals(other.mainRepresentative) && coOwners.equals(other.coOwners) && phones.equals(other.phones) && sectors.equals(other.sectors) && creationDate.equals(other.creationDate) && businessType.equals(other.businessType) && businessName.equals(other.businessName) && coutryOfIncorporation.equals(other.coutryOfIncorporation);
+    return id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && biis.equals(other.biis) && addresses.equals(other.addresses) && emails.equals(other.emails) && mainRepresentative.equals(other.mainRepresentative) && coOwners.equals(other.coOwners) && phones.equals(other.phones) && sectors.equals(other.sectors) && creationDate.equals(other.creationDate) && businessType.equals(other.businessType) && businessName.equals(other.businessName) && countryOfIncorporation.equals(other.countryOfIncorporation) && businessDbaName.equals(other.businessDbaName) && businessQuestionnaire.equals(other.businessQuestionnaire) && businessCategory.equals(other.businessCategory) && website.equals(other.website);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.biis, this.addresses, this.emails, this.mainRepresentative, this.coOwners, this.phones, this.sectors, this.creationDate, this.businessType, this.businessName, this.coutryOfIncorporation);
+    return Objects.hash(this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.biis, this.addresses, this.emails, this.mainRepresentative, this.coOwners, this.phones, this.sectors, this.creationDate, this.businessType, this.businessName, this.countryOfIncorporation, this.businessDbaName, this.businessQuestionnaire, this.businessCategory, this.website);
   }
 
   @java.lang.Override
@@ -343,9 +390,26 @@ public final class Business implements IUser {
 
     _FinalStage businessName(String businessName);
 
-    _FinalStage coutryOfIncorporation(Optional<String> coutryOfIncorporation);
+    _FinalStage countryOfIncorporation(Optional<String> countryOfIncorporation);
 
-    _FinalStage coutryOfIncorporation(String coutryOfIncorporation);
+    _FinalStage countryOfIncorporation(String countryOfIncorporation);
+
+    _FinalStage businessDbaName(Optional<String> businessDbaName);
+
+    _FinalStage businessDbaName(String businessDbaName);
+
+    _FinalStage businessQuestionnaire(
+        Optional<BusinessBusinessQuestionnaire> businessQuestionnaire);
+
+    _FinalStage businessQuestionnaire(BusinessBusinessQuestionnaire businessQuestionnaire);
+
+    _FinalStage businessCategory(Optional<BusinessBusinessCategory> businessCategory);
+
+    _FinalStage businessCategory(BusinessBusinessCategory businessCategory);
+
+    _FinalStage website(Optional<String> website);
+
+    _FinalStage website(String website);
   }
 
   @JsonIgnoreProperties(
@@ -356,7 +420,15 @@ public final class Business implements IUser {
 
     private BusinessOwner mainRepresentative;
 
-    private Optional<String> coutryOfIncorporation = Optional.empty();
+    private Optional<String> website = Optional.empty();
+
+    private Optional<BusinessBusinessCategory> businessCategory = Optional.empty();
+
+    private Optional<BusinessBusinessQuestionnaire> businessQuestionnaire = Optional.empty();
+
+    private Optional<String> businessDbaName = Optional.empty();
+
+    private Optional<String> countryOfIncorporation = Optional.empty();
 
     private Optional<String> businessName = Optional.empty();
 
@@ -419,7 +491,11 @@ public final class Business implements IUser {
       creationDate(other.getCreationDate());
       businessType(other.getBusinessType());
       businessName(other.getBusinessName());
-      coutryOfIncorporation(other.getCoutryOfIncorporation());
+      countryOfIncorporation(other.getCountryOfIncorporation());
+      businessDbaName(other.getBusinessDbaName());
+      businessQuestionnaire(other.getBusinessQuestionnaire());
+      businessCategory(other.getBusinessCategory());
+      website(other.getWebsite());
       return this;
     }
 
@@ -442,22 +518,103 @@ public final class Business implements IUser {
     }
 
     /**
-     * <p>ISO 3166 alpha 1 country code, example US</p>
+     * <p>Business Website</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
-    public _FinalStage coutryOfIncorporation(String coutryOfIncorporation) {
-      this.coutryOfIncorporation = Optional.ofNullable(coutryOfIncorporation);
+    public _FinalStage website(String website) {
+      this.website = Optional.ofNullable(website);
       return this;
     }
 
     @java.lang.Override
     @JsonSetter(
-        value = "coutryOfIncorporation",
+        value = "website",
         nulls = Nulls.SKIP
     )
-    public _FinalStage coutryOfIncorporation(Optional<String> coutryOfIncorporation) {
-      this.coutryOfIncorporation = coutryOfIncorporation;
+    public _FinalStage website(Optional<String> website) {
+      this.website = website;
+      return this;
+    }
+
+    /**
+     * <p>Category or field of work that the business belongs to.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage businessCategory(BusinessBusinessCategory businessCategory) {
+      this.businessCategory = Optional.ofNullable(businessCategory);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "businessCategory",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage businessCategory(Optional<BusinessBusinessCategory> businessCategory) {
+      this.businessCategory = businessCategory;
+      return this;
+    }
+
+    /**
+     * <p>An optional list of questions to answer.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage businessQuestionnaire(BusinessBusinessQuestionnaire businessQuestionnaire) {
+      this.businessQuestionnaire = Optional.ofNullable(businessQuestionnaire);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "businessQuestionnaire",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage businessQuestionnaire(
+        Optional<BusinessBusinessQuestionnaire> businessQuestionnaire) {
+      this.businessQuestionnaire = businessQuestionnaire;
+      return this;
+    }
+
+    /**
+     * <p>Doing business as name</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage businessDbaName(String businessDbaName) {
+      this.businessDbaName = Optional.ofNullable(businessDbaName);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "businessDbaName",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage businessDbaName(Optional<String> businessDbaName) {
+      this.businessDbaName = businessDbaName;
+      return this;
+    }
+
+    /**
+     * <p>ISO 3166 alpha 1 country code, example US</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage countryOfIncorporation(String countryOfIncorporation) {
+      this.countryOfIncorporation = Optional.ofNullable(countryOfIncorporation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "countryOfIncorporation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage countryOfIncorporation(Optional<String> countryOfIncorporation) {
+      this.countryOfIncorporation = countryOfIncorporation;
       return this;
     }
 
@@ -757,7 +914,7 @@ public final class Business implements IUser {
 
     @java.lang.Override
     public Business build() {
-      return new Business(id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, biis, addresses, emails, mainRepresentative, coOwners, phones, sectors, creationDate, businessType, businessName, coutryOfIncorporation, additionalProperties);
+      return new Business(id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, biis, addresses, emails, mainRepresentative, coOwners, phones, sectors, creationDate, businessType, businessName, countryOfIncorporation, businessDbaName, businessQuestionnaire, businessCategory, website, additionalProperties);
     }
   }
 }

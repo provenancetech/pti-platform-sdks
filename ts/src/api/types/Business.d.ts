@@ -15,5 +15,13 @@ export interface Business extends PTI.User {
     businessType?: string;
     businessName?: string;
     /** ISO 3166 alpha 1 country code, example US */
-    coutryOfIncorporation?: string;
+    countryOfIncorporation?: string;
+    /** Doing business as name */
+    businessDbaName?: string;
+    /** An optional list of questions to answer. */
+    businessQuestionnaire?: PTI.BusinessBusinessQuestionnaire;
+    /** Category or field of work that the business belongs to. */
+    businessCategory?: PTI.BusinessBusinessCategory;
+    /** Business Website */
+    website?: string;
 }
