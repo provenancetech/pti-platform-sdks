@@ -36,32 +36,30 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Business = void 0;
+exports.BusinessBusinessCategory = void 0;
 const core = __importStar(require("../../core"));
-const OneOfBiiSubTypes_1 = require("./OneOfBiiSubTypes");
-const Address_1 = require("./Address");
-const Email_1 = require("./Email");
-const BusinessOwner_1 = require("./BusinessOwner");
-const Phone_1 = require("./Phone");
-const BusinessBusinessQuestionnaire_1 = require("./BusinessBusinessQuestionnaire");
-const BusinessBusinessCategory_1 = require("./BusinessBusinessCategory");
-const User_1 = require("./User");
-exports.Business = core.serialization
-    .object({
-    biis: core.serialization.list(OneOfBiiSubTypes_1.OneOfBiiSubTypes).optional(),
-    addresses: core.serialization.list(Address_1.Address).optional(),
-    emails: core.serialization.list(Email_1.Email).optional(),
-    mainRepresentative: BusinessOwner_1.BusinessOwner,
-    coOwners: core.serialization.list(BusinessOwner_1.BusinessOwner).optional(),
-    phones: core.serialization.list(Phone_1.Phone).optional(),
-    sectors: core.serialization.list(core.serialization.string()).optional(),
-    creationDate: core.serialization.string().optional(),
-    businessType: core.serialization.string().optional(),
-    businessName: core.serialization.string().optional(),
-    countryOfIncorporation: core.serialization.string().optional(),
-    businessDbaName: core.serialization.string().optional(),
-    businessQuestionnaire: BusinessBusinessQuestionnaire_1.BusinessBusinessQuestionnaire.optional(),
-    businessCategory: BusinessBusinessCategory_1.BusinessBusinessCategory.optional(),
-    website: core.serialization.string().optional(),
-})
-    .extend(User_1.User);
+exports.BusinessBusinessCategory = core.serialization.enum_([
+    "ACCOUNTING",
+    "AEROSPACE",
+    "AGRICULTURE",
+    "ART",
+    "AUTOMOTIVE",
+    "CONSTRUCTION",
+    "EDUCATION",
+    "ENERGY",
+    "ENGINEERING",
+    "ENTERTAINMENT",
+    "FARMING",
+    "FASHION",
+    "FINANCIAL_SERVICES",
+    "GAMING",
+    "INSURANCE",
+    "MANUFACTURING",
+    "MARKETING",
+    "MEDICAL",
+    "MUSIC",
+    "OTHER",
+    "REAL_ESTATE",
+    "RETAIL",
+    "ROYALTIES",
+]);

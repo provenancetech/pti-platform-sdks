@@ -4,6 +4,8 @@ export * from "./BankAccountPaymentInformationBankAccountType";
 export * from "./BankAccountPaymentInformation";
 export * from "./ExternalPaymentInformation";
 export * from "./Bii";
+export * from "./BusinessBusinessQuestionnaire";
+export * from "./BusinessBusinessCategory";
 export * from "./Business";
 export * from "./User";
 export * from "./BusinessOwner";

@@ -36,32 +36,17 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Business = void 0;
+exports.BusinessBusinessQuestionnaire = void 0;
 const core = __importStar(require("../../core"));
-const OneOfBiiSubTypes_1 = require("./OneOfBiiSubTypes");
-const Address_1 = require("./Address");
-const Email_1 = require("./Email");
-const BusinessOwner_1 = require("./BusinessOwner");
-const Phone_1 = require("./Phone");
-const BusinessBusinessQuestionnaire_1 = require("./BusinessBusinessQuestionnaire");
-const BusinessBusinessCategory_1 = require("./BusinessBusinessCategory");
-const User_1 = require("./User");
-exports.Business = core.serialization
-    .object({
-    biis: core.serialization.list(OneOfBiiSubTypes_1.OneOfBiiSubTypes).optional(),
-    addresses: core.serialization.list(Address_1.Address).optional(),
-    emails: core.serialization.list(Email_1.Email).optional(),
-    mainRepresentative: BusinessOwner_1.BusinessOwner,
-    coOwners: core.serialization.list(BusinessOwner_1.BusinessOwner).optional(),
-    phones: core.serialization.list(Phone_1.Phone).optional(),
-    sectors: core.serialization.list(core.serialization.string()).optional(),
-    creationDate: core.serialization.string().optional(),
-    businessType: core.serialization.string().optional(),
-    businessName: core.serialization.string().optional(),
-    countryOfIncorporation: core.serialization.string().optional(),
-    businessDbaName: core.serialization.string().optional(),
-    businessQuestionnaire: BusinessBusinessQuestionnaire_1.BusinessBusinessQuestionnaire.optional(),
-    businessCategory: BusinessBusinessCategory_1.BusinessBusinessCategory.optional(),
-    website: core.serialization.string().optional(),
-})
-    .extend(User_1.User);
+exports.BusinessBusinessQuestionnaire = core.serialization.object({
+    businessDescription: core.serialization.string().optional(),
+    salesChannels: core.serialization.string().optional(),
+    monthlyVolumeUsd: core.serialization.property("monthlyVolumeUSD", core.serialization.number().optional()),
+    annualVolumeUsd: core.serialization.property("annualVolumeUSD", core.serialization.number().optional()),
+    legalAndDisciplinary: core.serialization.string().optional(),
+    pePs: core.serialization.property("PEPs", core.serialization.string().optional()),
+    sanctionScreening: core.serialization.string().optional(),
+    customerIdVerification: core.serialization.property("customerIDVerification", core.serialization.string().optional()),
+    customerRiskRating: core.serialization.string().optional(),
+    fraudPrevention: core.serialization.string().optional(),
+});

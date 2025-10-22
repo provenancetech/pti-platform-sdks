@@ -20,6 +20,8 @@ __exportStar(require("./BankAccountPaymentInformationBankAccountType"), exports)
 __exportStar(require("./BankAccountPaymentInformation"), exports);
 __exportStar(require("./ExternalPaymentInformation"), exports);
 __exportStar(require("./Bii"), exports);
+__exportStar(require("./BusinessBusinessQuestionnaire"), exports);
+__exportStar(require("./BusinessBusinessCategory"), exports);
 __exportStar(require("./Business"), exports);
 __exportStar(require("./User"), exports);
 __exportStar(require("./BusinessOwner"), exports);
