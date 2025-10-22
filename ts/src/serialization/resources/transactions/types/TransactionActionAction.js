@@ -36,9 +36,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionAction = void 0;
-const core = __importStar(require("../../../../../core"));
-const TransactionActionAction_1 = require("../../types/TransactionActionAction");
-exports.TransactionAction = core.serialization.object({
-    action: TransactionActionAction_1.TransactionActionAction,
-});
+exports.TransactionActionAction = void 0;
+const core = __importStar(require("../../../../core"));
+exports.TransactionActionAction = core.serialization.enum_(["SETTLE_ACH", "RETURN_ACH"]);
