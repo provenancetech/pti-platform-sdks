@@ -53,4 +53,5 @@ exports.TransactionStatus = core.serialization.enum_([
     "CHARGED_BACK_REVERSED",
     "CANCELED",
     "REFUNDED",
+    "RETURNED",
 ]);

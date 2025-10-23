@@ -441,7 +441,9 @@ export declare class Transactions {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactions.performAction("requestId", {})
+     *     await client.transactions.performAction("requestId", {
+     *         action: "SETTLE_ACH"
+     *     })
      */
     performAction(requestId: PTI.UuidLikeStr, request: PTI.TransactionAction, requestOptions?: Transactions.RequestOptions): Promise<PTI.TransactionStatusObject>;
     protected _getAuthorizationHeader(): Promise<string | undefined>;

@@ -1248,7 +1248,9 @@ class Transactions {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.transactions.performAction("requestId", {})
+     *     await client.transactions.performAction("requestId", {
+     *         action: "SETTLE_ACH"
+     *     })
      */
     performAction(requestId, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -1263,7 +1265,7 @@ class Transactions {
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
-                body: Object.assign(Object.assign({}, serializers.TransactionAction.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" })), { action: "SETTLE_ACH" }),
+                body: serializers.TransactionAction.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,

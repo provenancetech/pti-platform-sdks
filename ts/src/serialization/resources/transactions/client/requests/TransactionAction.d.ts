@@ -4,8 +4,10 @@
 import * as serializers from "../../../../index";
 import * as PTI from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { TransactionActionAction } from "../../types/TransactionActionAction";
 export declare const TransactionAction: core.serialization.Schema<serializers.TransactionAction.Raw, PTI.TransactionAction>;
 export declare namespace TransactionAction {
     interface Raw {
+        action: TransactionActionAction.Raw;
     }
 }
