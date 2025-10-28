@@ -9,33 +9,41 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import com.pti.sdk.resources.transactions.types.TransactionActionAction;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = TransactionAction.Builder.class
 )
 public final class TransactionAction {
+  private final TransactionActionAction action;
+
   private final Map<String, Object> additionalProperties;
 
-  private TransactionAction(Map<String, Object> additionalProperties) {
+  private TransactionAction(TransactionActionAction action,
+      Map<String, Object> additionalProperties) {
+    this.action = action;
     this.additionalProperties = additionalProperties;
   }
 
   @JsonProperty("action")
-  public String getAction() {
-    return "SETTLE_ACH";
+  public TransactionActionAction getAction() {
+    return action;
   }
 
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof TransactionAction;
+    return other instanceof TransactionAction && equalTo((TransactionAction) other);
   }
 
   @JsonAnyGetter
@@ -43,31 +51,62 @@ public final class TransactionAction {
     return this.additionalProperties;
   }
 
+  private boolean equalTo(TransactionAction other) {
+    return action.equals(other.action);
+  }
+
+  @java.lang.Override
+  public int hashCode() {
+    return Objects.hash(this.action);
+  }
+
   @java.lang.Override
   public String toString() {
     return ObjectMappers.stringify(this);
   }
 
-  public static Builder builder() {
+  public static ActionStage builder() {
     return new Builder();
+  }
+
+  public interface ActionStage {
+    _FinalStage action(@NotNull TransactionActionAction action);
+
+    Builder from(TransactionAction other);
+  }
+
+  public interface _FinalStage {
+    TransactionAction build();
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder {
+  public static final class Builder implements ActionStage, _FinalStage {
+    private TransactionActionAction action;
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
     private Builder() {
     }
 
+    @java.lang.Override
     public Builder from(TransactionAction other) {
+      action(other.getAction());
       return this;
     }
 
+    @java.lang.Override
+    @JsonSetter("action")
+    public _FinalStage action(@NotNull TransactionActionAction action) {
+      this.action = Objects.requireNonNull(action, "action must not be null");
+      return this;
+    }
+
+    @java.lang.Override
     public TransactionAction build() {
-      return new TransactionAction(additionalProperties);
+      return new TransactionAction(action, additionalProperties);
     }
   }
 }

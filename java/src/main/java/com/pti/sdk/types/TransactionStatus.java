@@ -34,7 +34,9 @@ public enum TransactionStatus {
 
   CANCELED("CANCELED"),
 
-  REFUNDED("REFUNDED");
+  REFUNDED("REFUNDED"),
+
+  RETURNED("RETURNED");
 
   private final String value;
 

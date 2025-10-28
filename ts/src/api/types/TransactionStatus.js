@@ -19,4 +19,5 @@ exports.TransactionStatus = {
     ChargedBackReversed: "CHARGED_BACK_REVERSED",
     Canceled: "CANCELED",
     Refunded: "REFUNDED",
+    Returned: "RETURNED",
 };
