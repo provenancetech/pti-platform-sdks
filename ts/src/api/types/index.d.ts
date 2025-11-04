@@ -54,6 +54,7 @@ export * from "./CryptoPaymentMethodDestination";
 export * from "./CryptoPaymentMethodSource";
 export * from "./CryptoPaymentMethod";
 export * from "./Transaction";
+export * from "./DeviceInformation";
 export * from "./TransferTransaction";
 export * from "./SellTransaction";
 export * from "./BuyTransaction";

@@ -20,7 +20,9 @@ public enum TransactionUpdateFeedback {
 
   CHARGED_BACK("CHARGED_BACK"),
 
-  ERROR("ERROR");
+  ERROR("ERROR"),
+
+  PENDING_SETTLEMENT("PENDING_SETTLEMENT");
 
   private final String value;
 

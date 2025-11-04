@@ -49,6 +49,8 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<DeviceInformation> deviceInformation;
+
   private final Optional<OneOfPaymentMethod> sourceTransferMethod;
 
   private final Optional<OneOfPaymentMethod> destinationTransferMethod;
@@ -63,7 +65,8 @@ public final class TransferTransaction implements ITransactionType, ITransaction
       Optional<String> transactionGroupId, Optional<String> subClientId,
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, Optional<OneOfPaymentMethod> sourceTransferMethod,
+      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      Optional<OneOfPaymentMethod> sourceTransferMethod,
       Optional<OneOfPaymentMethod> destinationTransferMethod,
       Optional<OneOfUserSubTypes> destination, Optional<String> destinationClientId,
       Map<String, Object> additionalProperties) {
@@ -78,6 +81,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
     this.clientMeta = clientMeta;
+    this.deviceInformation = deviceInformation;
     this.sourceTransferMethod = sourceTransferMethod;
     this.destinationTransferMethod = destinationTransferMethod;
     this.destination = destination;
@@ -163,6 +167,12 @@ public final class TransferTransaction implements ITransactionType, ITransaction
     return clientMeta;
   }
 
+  @JsonProperty("deviceInformation")
+  @java.lang.Override
+  public Optional<DeviceInformation> getDeviceInformation() {
+    return deviceInformation;
+  }
+
   @JsonProperty("sourceTransferMethod")
   public Optional<OneOfPaymentMethod> getSourceTransferMethod() {
     return sourceTransferMethod;
@@ -198,12 +208,12 @@ public final class TransferTransaction implements ITransactionType, ITransaction
   }
 
   private boolean equalTo(TransferTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
   }
 
   @java.lang.Override
@@ -264,6 +274,10 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
+    _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation);
+
+    _FinalStage deviceInformation(DeviceInformation deviceInformation);
+
     _FinalStage sourceTransferMethod(Optional<OneOfPaymentMethod> sourceTransferMethod);
 
     _FinalStage sourceTransferMethod(OneOfPaymentMethod sourceTransferMethod);
@@ -301,6 +315,8 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
     private Optional<OneOfPaymentMethod> sourceTransferMethod = Optional.empty();
 
+    private Optional<DeviceInformation> deviceInformation = Optional.empty();
+
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
@@ -334,6 +350,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
+      deviceInformation(other.getDeviceInformation());
       sourceTransferMethod(other.getSourceTransferMethod());
       destinationTransferMethod(other.getDestinationTransferMethod());
       destination(other.getDestination());
@@ -439,6 +456,22 @@ public final class TransferTransaction implements ITransactionType, ITransaction
     )
     public _FinalStage sourceTransferMethod(Optional<OneOfPaymentMethod> sourceTransferMethod) {
       this.sourceTransferMethod = sourceTransferMethod;
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage deviceInformation(DeviceInformation deviceInformation) {
+      this.deviceInformation = Optional.ofNullable(deviceInformation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "deviceInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation) {
+      this.deviceInformation = deviceInformation;
       return this;
     }
 
@@ -568,7 +601,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
     @java.lang.Override
     public TransferTransaction build() {
-      return new TransferTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
+      return new TransferTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
     }
   }
 }

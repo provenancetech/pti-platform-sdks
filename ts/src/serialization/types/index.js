@@ -70,6 +70,7 @@ __exportStar(require("./CryptoPaymentMethodDestination"), exports);
 __exportStar(require("./CryptoPaymentMethodSource"), exports);
 __exportStar(require("./CryptoPaymentMethod"), exports);
 __exportStar(require("./Transaction"), exports);
+__exportStar(require("./DeviceInformation"), exports);
 __exportStar(require("./TransferTransaction"), exports);
 __exportStar(require("./SellTransaction"), exports);
 __exportStar(require("./BuyTransaction"), exports);

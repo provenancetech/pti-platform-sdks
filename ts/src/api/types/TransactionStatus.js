@@ -20,4 +20,5 @@ exports.TransactionStatus = {
     Canceled: "CANCELED",
     Refunded: "REFUNDED",
     Returned: "RETURNED",
+    PendingSettlement: "PENDING_SETTLEMENT",
 };

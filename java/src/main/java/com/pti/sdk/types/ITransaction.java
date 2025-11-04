@@ -30,4 +30,6 @@ public interface ITransaction {
   Optional<Map<String, Object>> getPtiMeta();
 
   Optional<Map<String, Object>> getClientMeta();
+
+  Optional<DeviceInformation> getDeviceInformation();
 }

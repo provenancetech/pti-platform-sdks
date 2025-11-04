@@ -181,6 +181,9 @@ public class MarketplaceClient {
       if (request.getClientMeta().isPresent()) {
         properties.put("clientMeta", request.getClientMeta());
       }
+      if (request.getDeviceInformation().isPresent()) {
+        properties.put("deviceInformation", request.getDeviceInformation());
+      }
       RequestBody body;
       try {
         body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
@@ -289,6 +292,9 @@ public class MarketplaceClient {
       }
       if (request.getClientMeta().isPresent()) {
         properties.put("clientMeta", request.getClientMeta());
+      }
+      if (request.getDeviceInformation().isPresent()) {
+        properties.put("deviceInformation", request.getDeviceInformation());
       }
       RequestBody body;
       try {

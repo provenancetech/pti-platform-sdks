@@ -162,6 +162,9 @@ public class TransactionsClient {
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
     }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
+    }
     RequestBody body;
     try {
       body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
@@ -262,6 +265,9 @@ public class TransactionsClient {
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
     }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
+    }
     RequestBody body;
     try {
       body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
@@ -360,6 +366,9 @@ public class TransactionsClient {
     }
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
+    }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
     }
     RequestBody body;
     try {
@@ -463,6 +472,9 @@ public class TransactionsClient {
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
     }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
+    }
     RequestBody body;
     try {
       body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
@@ -560,6 +572,9 @@ public class TransactionsClient {
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
     }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
+    }
     RequestBody body;
     try {
       body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
@@ -656,6 +671,9 @@ public class TransactionsClient {
     }
     if (request.getClientMeta().isPresent()) {
       properties.put("clientMeta", request.getClientMeta());
+    }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
     }
     RequestBody body;
     try {
@@ -820,6 +838,7 @@ public class TransactionsClient {
    * <p>| Feedback | Meaning |
    * |----------|---------|
    * | <code>ACCEPTED</code> | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code> |
+   * | <code>PENDING_SETTLEMENT</code> | A trade transaction is being processed by the processor  and is awaiting settlement.
    * | <code>SETTLED</code>  | The transaction was accepted and fully finalized by the processor. The transfer of value has occured. |
    * | <code>CANCELLED</code>  | The transaction was accepted but cancelled prior to being settled |
    * | <code>AWAITING_PAYMENT</code> | A deposit transaction is being processed and is in a state where it is waiting for the user to complete the payment by funding the target address provided or making a deposit using the specified payment method. |
@@ -837,6 +856,7 @@ public class TransactionsClient {
    * <p>| Feedback | Meaning |
    * |----------|---------|
    * | <code>ACCEPTED</code> | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as <code>SETTLED</code> or <code>CANCELLED</code> |
+   * | <code>PENDING_SETTLEMENT</code> | A trade transaction is being processed by the processor  and is awaiting settlement.
    * | <code>SETTLED</code>  | The transaction was accepted and fully finalized by the processor. The transfer of value has occured. |
    * | <code>CANCELLED</code>  | The transaction was accepted but cancelled prior to being settled |
    * | <code>AWAITING_PAYMENT</code> | A deposit transaction is being processed and is in a state where it is waiting for the user to complete the payment by funding the target address provided or making a deposit using the specified payment method. |

@@ -36,15 +36,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionUpdateFeedback = void 0;
-const core = __importStar(require("../../../../core"));
-exports.TransactionUpdateFeedback = core.serialization.enum_([
-    "SETTLED",
-    "ACCEPTED",
-    "CANCELLED",
-    "REJECTED",
-    "REFUNDED",
-    "CHARGED_BACK",
-    "ERROR",
-    "PENDING_SETTLEMENT",
-]);
+exports.DeviceInformation = void 0;
+const core = __importStar(require("../../core"));
+exports.DeviceInformation = core.serialization.object({
+    ip: core.serialization.string().optional(),
+    userAgent: core.serialization.string().optional(),
+});
