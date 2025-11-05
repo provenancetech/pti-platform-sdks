@@ -916,14 +916,14 @@ public class TransactionsClient {
   }
 
   /**
-   * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+   * This endpoint can be used to force the Settlement of an ACH deposit or to &quot;simulate&quot; an ACH Return.  This endpoint is only functional in non-Production environments.
    */
   public TransactionStatusObject performAction(String requestId, TransactionAction request) {
     return performAction(requestId,request,null);
   }
 
   /**
-   * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+   * This endpoint can be used to force the Settlement of an ACH deposit or to &quot;simulate&quot; an ACH Return.  This endpoint is only functional in non-Production environments.
    */
   public TransactionStatusObject performAction(String requestId, TransactionAction request,
       RequestOptions requestOptions) {
