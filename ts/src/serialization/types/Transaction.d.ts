@@ -8,6 +8,7 @@ import { UuidLikeStrTransactionGroup } from "./UuidLikeStrTransactionGroup";
 import { UuidLikeStrSubClient } from "./UuidLikeStrSubClient";
 import { Total } from "./Total";
 import { OneOfUserSubTypes } from "./OneOfUserSubTypes";
+import { DeviceInformation } from "./DeviceInformation";
 export declare const Transaction: core.serialization.ObjectSchema<serializers.Transaction.Raw, PTI.Transaction>;
 export declare namespace Transaction {
     interface Raw {
@@ -21,5 +22,6 @@ export declare namespace Transaction {
         initiator: OneOfUserSubTypes.Raw;
         ptiMeta?: Record<string, unknown> | null;
         clientMeta?: Record<string, unknown> | null;
+        deviceInformation?: DeviceInformation.Raw | null;
     }
 }

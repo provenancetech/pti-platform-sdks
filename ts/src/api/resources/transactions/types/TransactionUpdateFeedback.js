@@ -12,4 +12,5 @@ exports.TransactionUpdateFeedback = {
     Refunded: "REFUNDED",
     ChargedBack: "CHARGED_BACK",
     Error: "ERROR",
+    PendingSettlement: "PENDING_SETTLEMENT",
 };

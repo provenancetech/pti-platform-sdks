@@ -49,6 +49,8 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<DeviceInformation> deviceInformation;
+
   private final Optional<CryptoPaymentMethodDestination> destinationMethod;
 
   private final Optional<CryptoPaymentMethodSource> sourceMethod;
@@ -59,7 +61,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
       Optional<String> transactionGroupId, Optional<String> subClientId,
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta,
+      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
       Optional<CryptoPaymentMethodDestination> destinationMethod,
       Optional<CryptoPaymentMethodSource> sourceMethod, Map<String, Object> additionalProperties) {
     this.type = type;
@@ -73,6 +75,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
     this.clientMeta = clientMeta;
+    this.deviceInformation = deviceInformation;
     this.destinationMethod = destinationMethod;
     this.sourceMethod = sourceMethod;
     this.additionalProperties = additionalProperties;
@@ -156,6 +159,12 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     return clientMeta;
   }
 
+  @JsonProperty("deviceInformation")
+  @java.lang.Override
+  public Optional<DeviceInformation> getDeviceInformation() {
+    return deviceInformation;
+  }
+
   @JsonProperty("destinationMethod")
   public Optional<CryptoPaymentMethodDestination> getDestinationMethod() {
     return destinationMethod;
@@ -178,12 +187,12 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
   }
 
   private boolean equalTo(TradeTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.destinationMethod, this.sourceMethod);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.destinationMethod, this.sourceMethod);
   }
 
   @java.lang.Override
@@ -244,6 +253,10 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
+    _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation);
+
+    _FinalStage deviceInformation(DeviceInformation deviceInformation);
+
     _FinalStage destinationMethod(Optional<CryptoPaymentMethodDestination> destinationMethod);
 
     _FinalStage destinationMethod(CryptoPaymentMethodDestination destinationMethod);
@@ -268,6 +281,8 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     private Optional<CryptoPaymentMethodSource> sourceMethod = Optional.empty();
 
     private Optional<CryptoPaymentMethodDestination> destinationMethod = Optional.empty();
+
+    private Optional<DeviceInformation> deviceInformation = Optional.empty();
 
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
@@ -302,6 +317,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
+      deviceInformation(other.getDeviceInformation());
       destinationMethod(other.getDestinationMethod());
       sourceMethod(other.getSourceMethod());
       return this;
@@ -369,6 +385,22 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     public _FinalStage destinationMethod(
         Optional<CryptoPaymentMethodDestination> destinationMethod) {
       this.destinationMethod = destinationMethod;
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage deviceInformation(DeviceInformation deviceInformation) {
+      this.deviceInformation = Optional.ofNullable(deviceInformation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "deviceInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation) {
+      this.deviceInformation = deviceInformation;
       return this;
     }
 
@@ -498,7 +530,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     @java.lang.Override
     public TradeTransaction build() {
-      return new TradeTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, destinationMethod, sourceMethod, additionalProperties);
+      return new TradeTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, destinationMethod, sourceMethod, additionalProperties);
     }
   }
 }

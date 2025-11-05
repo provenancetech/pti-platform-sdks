@@ -20,4 +20,5 @@ export interface Transaction {
     ptiMeta?: Record<string, unknown>;
     /** key/value map of extra meta data for this request (used by Client) */
     clientMeta?: Record<string, unknown>;
+    deviceInformation?: PTI.DeviceInformation;
 }

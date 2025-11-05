@@ -1141,6 +1141,7 @@ class Transactions {
      * | Feedback | Meaning |
      * |----------|---------|
      * | `ACCEPTED` | The transaction was accepted by the processor and is deemed to be in a pending state. This feedback is not a final state and should be followed by antoher feedback such as `SETTLED` or `CANCELLED` |
+     * | `PENDING_SETTLEMENT` | A trade transaction is being processed by the processor  and is awaiting settlement.
      * | `SETTLED`  | The transaction was accepted and fully finalized by the processor. The transfer of value has occured. |
      * | `CANCELLED`  | The transaction was accepted but cancelled prior to being settled |
      * | `AWAITING_PAYMENT` | A deposit transaction is being processed and is in a state where it is waiting for the user to complete the payment by funding the target address provided or making a deposit using the specified payment method. |

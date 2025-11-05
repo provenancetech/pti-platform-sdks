@@ -42,6 +42,7 @@ const UuidLikeStrTransactionGroup_1 = require("./UuidLikeStrTransactionGroup");
 const UuidLikeStrSubClient_1 = require("./UuidLikeStrSubClient");
 const Total_1 = require("./Total");
 const OneOfUserSubTypes_1 = require("./OneOfUserSubTypes");
+const DeviceInformation_1 = require("./DeviceInformation");
 exports.Transaction = core.serialization.object({
     id: core.serialization.string().optional(),
     transactionGroupId: UuidLikeStrTransactionGroup_1.UuidLikeStrTransactionGroup.optional(),
@@ -53,4 +54,5 @@ exports.Transaction = core.serialization.object({
     initiator: OneOfUserSubTypes_1.OneOfUserSubTypes,
     ptiMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     clientMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    deviceInformation: DeviceInformation_1.DeviceInformation.optional(),
 });

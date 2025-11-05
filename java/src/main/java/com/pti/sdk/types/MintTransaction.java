@@ -49,6 +49,8 @@ public final class MintTransaction implements ITransactionType, ITransaction {
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<DeviceInformation> deviceInformation;
+
   private final Optional<OneOfUserSubTypes> destination;
 
   private final Optional<CryptoPaymentMethod> destinationMethod;
@@ -59,8 +61,9 @@ public final class MintTransaction implements ITransactionType, ITransaction {
       Optional<String> transactionGroupId, Optional<String> subClientId,
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, Optional<OneOfUserSubTypes> destination,
-      Optional<CryptoPaymentMethod> destinationMethod, Map<String, Object> additionalProperties) {
+      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      Optional<OneOfUserSubTypes> destination, Optional<CryptoPaymentMethod> destinationMethod,
+      Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
     this.transactionGroupId = transactionGroupId;
@@ -72,6 +75,7 @@ public final class MintTransaction implements ITransactionType, ITransaction {
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
     this.clientMeta = clientMeta;
+    this.deviceInformation = deviceInformation;
     this.destination = destination;
     this.destinationMethod = destinationMethod;
     this.additionalProperties = additionalProperties;
@@ -155,6 +159,12 @@ public final class MintTransaction implements ITransactionType, ITransaction {
     return clientMeta;
   }
 
+  @JsonProperty("deviceInformation")
+  @java.lang.Override
+  public Optional<DeviceInformation> getDeviceInformation() {
+    return deviceInformation;
+  }
+
   @JsonProperty("destination")
   public Optional<OneOfUserSubTypes> getDestination() {
     return destination;
@@ -177,12 +187,12 @@ public final class MintTransaction implements ITransactionType, ITransaction {
   }
 
   private boolean equalTo(MintTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && destination.equals(other.destination) && destinationMethod.equals(other.destinationMethod);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && destination.equals(other.destination) && destinationMethod.equals(other.destinationMethod);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.destination, this.destinationMethod);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.destination, this.destinationMethod);
   }
 
   @java.lang.Override
@@ -243,6 +253,10 @@ public final class MintTransaction implements ITransactionType, ITransaction {
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
+    _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation);
+
+    _FinalStage deviceInformation(DeviceInformation deviceInformation);
+
     _FinalStage destination(Optional<OneOfUserSubTypes> destination);
 
     _FinalStage destination(OneOfUserSubTypes destination);
@@ -267,6 +281,8 @@ public final class MintTransaction implements ITransactionType, ITransaction {
     private Optional<CryptoPaymentMethod> destinationMethod = Optional.empty();
 
     private Optional<OneOfUserSubTypes> destination = Optional.empty();
+
+    private Optional<DeviceInformation> deviceInformation = Optional.empty();
 
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
@@ -301,6 +317,7 @@ public final class MintTransaction implements ITransactionType, ITransaction {
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
+      deviceInformation(other.getDeviceInformation());
       destination(other.getDestination());
       destinationMethod(other.getDestinationMethod());
       return this;
@@ -367,6 +384,22 @@ public final class MintTransaction implements ITransactionType, ITransaction {
     )
     public _FinalStage destination(Optional<OneOfUserSubTypes> destination) {
       this.destination = destination;
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage deviceInformation(DeviceInformation deviceInformation) {
+      this.deviceInformation = Optional.ofNullable(deviceInformation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "deviceInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation) {
+      this.deviceInformation = deviceInformation;
       return this;
     }
 
@@ -496,7 +529,7 @@ public final class MintTransaction implements ITransactionType, ITransaction {
 
     @java.lang.Override
     public MintTransaction build() {
-      return new MintTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, destination, destinationMethod, additionalProperties);
+      return new MintTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, destination, destinationMethod, additionalProperties);
     }
   }
 }

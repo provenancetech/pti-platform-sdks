@@ -6,5 +6,5 @@ import * as PTI from "../../api/index";
 import * as core from "../../core";
 export declare const TransactionStatus: core.serialization.Schema<serializers.TransactionStatus.Raw, PTI.TransactionStatus>;
 export declare namespace TransactionStatus {
-    type Raw = "PENDING" | "ERROR" | "MANUAL_REVIEW" | "REFUSED" | "AWAITING_PAYMENT" | "AUTHORIZED" | "ACCEPTED" | "BAD_REQUEST" | "SETTLED" | "CAPTURED" | "CHARGED_BACK" | "CHARGED_BACK_REVERSED" | "CANCELED" | "REFUNDED" | "RETURNED";
+    type Raw = "PENDING" | "ERROR" | "MANUAL_REVIEW" | "REFUSED" | "AWAITING_PAYMENT" | "AUTHORIZED" | "ACCEPTED" | "BAD_REQUEST" | "SETTLED" | "CAPTURED" | "CHARGED_BACK" | "CHARGED_BACK_REVERSED" | "CANCELED" | "REFUNDED" | "RETURNED" | "PENDING_SETTLEMENT";
 }

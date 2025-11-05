@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import com.pti.sdk.types.DeviceInformation;
 import com.pti.sdk.types.ITransaction;
 import com.pti.sdk.types.ITransactionType;
 import com.pti.sdk.types.OneOfExternalPaymentMethod;
@@ -57,6 +58,8 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<DeviceInformation> deviceInformation;
+
   private final String ptiRequestId;
 
   private final String ptiScenarioId;
@@ -77,9 +80,10 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
       Optional<String> transactionGroupId, Optional<String> subClientId,
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, String ptiRequestId, String ptiScenarioId,
-      Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
-      Optional<String> ptiProviderName, OneOfExternalPaymentMethod destinationMethod,
+      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      String ptiRequestId, String ptiScenarioId, Optional<String> ptiSessionId,
+      Optional<Boolean> ptiDisableWebhook, Optional<String> ptiProviderName,
+      OneOfExternalPaymentMethod destinationMethod,
       Optional<WalletPaymentMethodWrapper> sourceMethod, Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
@@ -92,6 +96,7 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
     this.clientMeta = clientMeta;
+    this.deviceInformation = deviceInformation;
     this.ptiRequestId = ptiRequestId;
     this.ptiScenarioId = ptiScenarioId;
     this.ptiSessionId = ptiSessionId;
@@ -180,6 +185,12 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
     return clientMeta;
   }
 
+  @JsonProperty("deviceInformation")
+  @java.lang.Override
+  public Optional<DeviceInformation> getDeviceInformation() {
+    return deviceInformation;
+  }
+
   /**
    * @return Unique identifier of the request. This ID must be provided and stored by the client of this API at the creation of a transaction. This ID is attached to all PTI internal operations as well as the webhook calls. This ID is required to post feedback about a transaction and get support from PTI for a problem on a transaction. Creating two transactions having the same requestId is not allowed.
    */
@@ -242,12 +253,12 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
   }
 
   private boolean equalTo(ExecuteWithdrawalTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && ptiRequestId.equals(other.ptiRequestId) && ptiScenarioId.equals(other.ptiScenarioId) && ptiSessionId.equals(other.ptiSessionId) && ptiDisableWebhook.equals(other.ptiDisableWebhook) && ptiProviderName.equals(other.ptiProviderName) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.destinationMethod, this.sourceMethod);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.ptiRequestId, this.ptiScenarioId, this.ptiSessionId, this.ptiDisableWebhook, this.ptiProviderName, this.destinationMethod, this.sourceMethod);
   }
 
   @java.lang.Override
@@ -320,6 +331,10 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
+    _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation);
+
+    _FinalStage deviceInformation(DeviceInformation deviceInformation);
+
     _FinalStage ptiSessionId(Optional<String> ptiSessionId);
 
     _FinalStage ptiSessionId(String ptiSessionId);
@@ -363,6 +378,8 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
 
     private Optional<String> ptiSessionId = Optional.empty();
 
+    private Optional<DeviceInformation> deviceInformation = Optional.empty();
+
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
@@ -396,6 +413,7 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
+      deviceInformation(other.getDeviceInformation());
       ptiRequestId(other.getPtiRequestId());
       ptiScenarioId(other.getPtiScenarioId());
       ptiSessionId(other.getPtiSessionId());
@@ -543,6 +561,22 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
       return this;
     }
 
+    @java.lang.Override
+    public _FinalStage deviceInformation(DeviceInformation deviceInformation) {
+      this.deviceInformation = Optional.ofNullable(deviceInformation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "deviceInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation) {
+      this.deviceInformation = deviceInformation;
+      return this;
+    }
+
     /**
      * <p>key/value map of extra meta data for this request (used by Client)</p>
      * @return Reference to {@code this} so that method calls can be chained together.
@@ -669,7 +703,7 @@ public final class ExecuteWithdrawalTransaction implements ITransactionType, ITr
 
     @java.lang.Override
     public ExecuteWithdrawalTransaction build() {
-      return new ExecuteWithdrawalTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, destinationMethod, sourceMethod, additionalProperties);
+      return new ExecuteWithdrawalTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName, destinationMethod, sourceMethod, additionalProperties);
     }
   }
 }

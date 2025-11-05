@@ -49,6 +49,8 @@ public final class SellTransaction implements ITransactionType, ITransaction {
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<DeviceInformation> deviceInformation;
+
   private final Optional<OneOfPaymentMethod> destinationMethod;
 
   private final Optional<OneOfPaymentMethod> sourceMethod;
@@ -63,9 +65,10 @@ public final class SellTransaction implements ITransactionType, ITransaction {
       Optional<String> transactionGroupId, Optional<String> subClientId,
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, Optional<OneOfPaymentMethod> destinationMethod,
-      Optional<OneOfPaymentMethod> sourceMethod, Optional<DigitalItem> digitalItem,
-      Optional<OneOfUserSubTypes> buyer, Map<String, Object> additionalProperties) {
+      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      Optional<OneOfPaymentMethod> destinationMethod, Optional<OneOfPaymentMethod> sourceMethod,
+      Optional<DigitalItem> digitalItem, Optional<OneOfUserSubTypes> buyer,
+      Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
     this.transactionGroupId = transactionGroupId;
@@ -77,6 +80,7 @@ public final class SellTransaction implements ITransactionType, ITransaction {
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
     this.clientMeta = clientMeta;
+    this.deviceInformation = deviceInformation;
     this.destinationMethod = destinationMethod;
     this.sourceMethod = sourceMethod;
     this.digitalItem = digitalItem;
@@ -162,6 +166,12 @@ public final class SellTransaction implements ITransactionType, ITransaction {
     return clientMeta;
   }
 
+  @JsonProperty("deviceInformation")
+  @java.lang.Override
+  public Optional<DeviceInformation> getDeviceInformation() {
+    return deviceInformation;
+  }
+
   @JsonProperty("destinationMethod")
   public Optional<OneOfPaymentMethod> getDestinationMethod() {
     return destinationMethod;
@@ -194,12 +204,12 @@ public final class SellTransaction implements ITransactionType, ITransaction {
   }
 
   private boolean equalTo(SellTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod) && digitalItem.equals(other.digitalItem) && buyer.equals(other.buyer);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod) && digitalItem.equals(other.digitalItem) && buyer.equals(other.buyer);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.destinationMethod, this.sourceMethod, this.digitalItem, this.buyer);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.destinationMethod, this.sourceMethod, this.digitalItem, this.buyer);
   }
 
   @java.lang.Override
@@ -260,6 +270,10 @@ public final class SellTransaction implements ITransactionType, ITransaction {
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
 
+    _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation);
+
+    _FinalStage deviceInformation(DeviceInformation deviceInformation);
+
     _FinalStage destinationMethod(Optional<OneOfPaymentMethod> destinationMethod);
 
     _FinalStage destinationMethod(OneOfPaymentMethod destinationMethod);
@@ -297,6 +311,8 @@ public final class SellTransaction implements ITransactionType, ITransaction {
 
     private Optional<OneOfPaymentMethod> destinationMethod = Optional.empty();
 
+    private Optional<DeviceInformation> deviceInformation = Optional.empty();
+
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
@@ -330,6 +346,7 @@ public final class SellTransaction implements ITransactionType, ITransaction {
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
       clientMeta(other.getClientMeta());
+      deviceInformation(other.getDeviceInformation());
       destinationMethod(other.getDestinationMethod());
       sourceMethod(other.getSourceMethod());
       digitalItem(other.getDigitalItem());
@@ -430,6 +447,22 @@ public final class SellTransaction implements ITransactionType, ITransaction {
     )
     public _FinalStage destinationMethod(Optional<OneOfPaymentMethod> destinationMethod) {
       this.destinationMethod = destinationMethod;
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage deviceInformation(DeviceInformation deviceInformation) {
+      this.deviceInformation = Optional.ofNullable(deviceInformation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "deviceInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage deviceInformation(Optional<DeviceInformation> deviceInformation) {
+      this.deviceInformation = deviceInformation;
       return this;
     }
 
@@ -559,7 +592,7 @@ public final class SellTransaction implements ITransactionType, ITransaction {
 
     @java.lang.Override
     public SellTransaction build() {
-      return new SellTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, destinationMethod, sourceMethod, digitalItem, buyer, additionalProperties);
+      return new SellTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, destinationMethod, sourceMethod, digitalItem, buyer, additionalProperties);
     }
   }
 }
