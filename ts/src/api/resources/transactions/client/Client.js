@@ -1237,7 +1237,7 @@ class Transactions {
         });
     }
     /**
-     * This endpoint can be used to force the Settlement of an ACH deposit so there is no need to  wait for the regular “next day” settlement of ACH Deposits. This endpoint is only functional in non-Production environments.
+     * This endpoint can be used to force the Settlement of an ACH deposit or to "simulate" an ACH Return.  This endpoint is only functional in non-Production environments.
      *
      * @param {PTI.UuidLikeStr} requestId - Request ID used when the transaction was initially logged
      * @param {PTI.TransactionAction} request
