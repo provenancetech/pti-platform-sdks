@@ -4,7 +4,7 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
-export declare const ProviderResponseCode: core.serialization.Schema<serializers.ProviderResponseCode.Raw, PTI.ProviderResponseCode>;
-export declare namespace ProviderResponseCode {
+export declare const ResponseCode: core.serialization.Schema<serializers.ResponseCode.Raw, PTI.ResponseCode>;
+export declare namespace ResponseCode {
     type Raw = "PTI_TECHNICAL_ERROR" | "TECHNICAL_ERROR" | "PAYMENT_PROVIDER_TECHNICAL_ERROR" | "FRAUD_SUSPICION" | "BLOCKED_COUNTRY" | "AVS_CHECK_FAILED" | "CVV_CHECK_FAILED" | "PAYMENT_INSTRUMENT_PROBLEM" | "PAYMENT_PROVIDER_DECLINED" | "DECLINED";
 }

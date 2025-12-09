@@ -22,7 +22,9 @@ public enum TransactionUpdateFeedback {
 
   ERROR("ERROR"),
 
-  PENDING_SETTLEMENT("PENDING_SETTLEMENT");
+  PENDING_SETTLEMENT("PENDING_SETTLEMENT"),
+
+  RETURNED("RETURNED");
 
   private final String value;
 

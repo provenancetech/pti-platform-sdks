@@ -36,15 +36,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaymentStatusDetail = void 0;
+exports.ResponseCategory = void 0;
 const core = __importStar(require("../../core"));
-const ResponseCode_1 = require("./ResponseCode");
-const ProviderResponseCode_1 = require("./ProviderResponseCode");
-const ResponseCategory_1 = require("./ResponseCategory");
-const ProviderResponseCategory_1 = require("./ProviderResponseCategory");
-exports.PaymentStatusDetail = core.serialization.object({
-    responseCode: ResponseCode_1.ResponseCode.optional(),
-    providerResponseCode: ProviderResponseCode_1.ProviderResponseCode.optional(),
-    responseCategory: ResponseCategory_1.ResponseCategory.optional(),
-    providerResponseCategory: ProviderResponseCategory_1.ProviderResponseCategory.optional(),
-});
+exports.ResponseCategory = core.serialization.enum_(["ERROR", "SOFT_DECLINE", "HARD_DECLINE"]);

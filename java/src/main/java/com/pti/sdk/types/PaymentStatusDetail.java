@@ -25,23 +25,41 @@ import java.util.Optional;
     builder = PaymentStatusDetail.Builder.class
 )
 public final class PaymentStatusDetail {
+  private final Optional<ResponseCode> responseCode;
+
   private final Optional<ProviderResponseCode> providerResponseCode;
+
+  private final Optional<ResponseCategory> responseCategory;
 
   private final Optional<ProviderResponseCategory> providerResponseCategory;
 
   private final Map<String, Object> additionalProperties;
 
-  private PaymentStatusDetail(Optional<ProviderResponseCode> providerResponseCode,
+  private PaymentStatusDetail(Optional<ResponseCode> responseCode,
+      Optional<ProviderResponseCode> providerResponseCode,
+      Optional<ResponseCategory> responseCategory,
       Optional<ProviderResponseCategory> providerResponseCategory,
       Map<String, Object> additionalProperties) {
+    this.responseCode = responseCode;
     this.providerResponseCode = providerResponseCode;
+    this.responseCategory = responseCategory;
     this.providerResponseCategory = providerResponseCategory;
     this.additionalProperties = additionalProperties;
+  }
+
+  @JsonProperty("responseCode")
+  public Optional<ResponseCode> getResponseCode() {
+    return responseCode;
   }
 
   @JsonProperty("providerResponseCode")
   public Optional<ProviderResponseCode> getProviderResponseCode() {
     return providerResponseCode;
+  }
+
+  @JsonProperty("responseCategory")
+  public Optional<ResponseCategory> getResponseCategory() {
+    return responseCategory;
   }
 
   @JsonProperty("providerResponseCategory")
@@ -61,12 +79,12 @@ public final class PaymentStatusDetail {
   }
 
   private boolean equalTo(PaymentStatusDetail other) {
-    return providerResponseCode.equals(other.providerResponseCode) && providerResponseCategory.equals(other.providerResponseCategory);
+    return responseCode.equals(other.responseCode) && providerResponseCode.equals(other.providerResponseCode) && responseCategory.equals(other.responseCategory) && providerResponseCategory.equals(other.providerResponseCategory);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.providerResponseCode, this.providerResponseCategory);
+    return Objects.hash(this.responseCode, this.providerResponseCode, this.responseCategory, this.providerResponseCategory);
   }
 
   @java.lang.Override
@@ -82,7 +100,11 @@ public final class PaymentStatusDetail {
       ignoreUnknown = true
   )
   public static final class Builder {
+    private Optional<ResponseCode> responseCode = Optional.empty();
+
     private Optional<ProviderResponseCode> providerResponseCode = Optional.empty();
+
+    private Optional<ResponseCategory> responseCategory = Optional.empty();
 
     private Optional<ProviderResponseCategory> providerResponseCategory = Optional.empty();
 
@@ -93,8 +115,24 @@ public final class PaymentStatusDetail {
     }
 
     public Builder from(PaymentStatusDetail other) {
+      responseCode(other.getResponseCode());
       providerResponseCode(other.getProviderResponseCode());
+      responseCategory(other.getResponseCategory());
       providerResponseCategory(other.getProviderResponseCategory());
+      return this;
+    }
+
+    @JsonSetter(
+        value = "responseCode",
+        nulls = Nulls.SKIP
+    )
+    public Builder responseCode(Optional<ResponseCode> responseCode) {
+      this.responseCode = responseCode;
+      return this;
+    }
+
+    public Builder responseCode(ResponseCode responseCode) {
+      this.responseCode = Optional.ofNullable(responseCode);
       return this;
     }
 
@@ -109,6 +147,20 @@ public final class PaymentStatusDetail {
 
     public Builder providerResponseCode(ProviderResponseCode providerResponseCode) {
       this.providerResponseCode = Optional.ofNullable(providerResponseCode);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "responseCategory",
+        nulls = Nulls.SKIP
+    )
+    public Builder responseCategory(Optional<ResponseCategory> responseCategory) {
+      this.responseCategory = responseCategory;
+      return this;
+    }
+
+    public Builder responseCategory(ResponseCategory responseCategory) {
+      this.responseCategory = Optional.ofNullable(responseCategory);
       return this;
     }
 
@@ -128,7 +180,7 @@ public final class PaymentStatusDetail {
     }
 
     public PaymentStatusDetail build() {
-      return new PaymentStatusDetail(providerResponseCode, providerResponseCategory, additionalProperties);
+      return new PaymentStatusDetail(responseCode, providerResponseCode, responseCategory, providerResponseCategory, additionalProperties);
     }
   }
 }

@@ -3,6 +3,8 @@
  */
 import * as PTI from "../index";
 export interface PaymentStatusDetail {
+    responseCode?: PTI.ResponseCode;
     providerResponseCode?: PTI.ProviderResponseCode;
+    responseCategory?: PTI.ResponseCategory;
     providerResponseCategory?: PTI.ProviderResponseCategory;
 }

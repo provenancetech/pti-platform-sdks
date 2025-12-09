@@ -104,6 +104,8 @@ __exportStar(require("./TransactionStatus"), exports);
 __exportStar(require("./ActionStatus"), exports);
 __exportStar(require("./ProviderResponseCode"), exports);
 __exportStar(require("./ProviderResponseCategory"), exports);
+__exportStar(require("./ResponseCode"), exports);
+__exportStar(require("./ResponseCategory"), exports);
 __exportStar(require("./PaymentStatusDetail"), exports);
 __exportStar(require("./TransactionStatusObject"), exports);
 __exportStar(require("./TagsType"), exports);

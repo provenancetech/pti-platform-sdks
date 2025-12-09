@@ -4,12 +4,16 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
+import { ResponseCode } from "./ResponseCode";
 import { ProviderResponseCode } from "./ProviderResponseCode";
+import { ResponseCategory } from "./ResponseCategory";
 import { ProviderResponseCategory } from "./ProviderResponseCategory";
 export declare const PaymentStatusDetail: core.serialization.ObjectSchema<serializers.PaymentStatusDetail.Raw, PTI.PaymentStatusDetail>;
 export declare namespace PaymentStatusDetail {
     interface Raw {
+        responseCode?: ResponseCode.Raw | null;
         providerResponseCode?: ProviderResponseCode.Raw | null;
+        responseCategory?: ResponseCategory.Raw | null;
         providerResponseCategory?: ProviderResponseCategory.Raw | null;
     }
 }

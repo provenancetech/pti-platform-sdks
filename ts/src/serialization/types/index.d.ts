@@ -88,6 +88,8 @@ export * from "./TransactionStatus";
 export * from "./ActionStatus";
 export * from "./ProviderResponseCode";
 export * from "./ProviderResponseCategory";
+export * from "./ResponseCode";
+export * from "./ResponseCategory";
 export * from "./PaymentStatusDetail";
 export * from "./TransactionStatusObject";
 export * from "./TagsType";

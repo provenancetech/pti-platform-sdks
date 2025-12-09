@@ -36,15 +36,17 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaymentStatusDetail = void 0;
+exports.ResponseCode = void 0;
 const core = __importStar(require("../../core"));
-const ResponseCode_1 = require("./ResponseCode");
-const ProviderResponseCode_1 = require("./ProviderResponseCode");
-const ResponseCategory_1 = require("./ResponseCategory");
-const ProviderResponseCategory_1 = require("./ProviderResponseCategory");
-exports.PaymentStatusDetail = core.serialization.object({
-    responseCode: ResponseCode_1.ResponseCode.optional(),
-    providerResponseCode: ProviderResponseCode_1.ProviderResponseCode.optional(),
-    responseCategory: ResponseCategory_1.ResponseCategory.optional(),
-    providerResponseCategory: ProviderResponseCategory_1.ProviderResponseCategory.optional(),
-});
+exports.ResponseCode = core.serialization.enum_([
+    "PTI_TECHNICAL_ERROR",
+    "TECHNICAL_ERROR",
+    "PAYMENT_PROVIDER_TECHNICAL_ERROR",
+    "FRAUD_SUSPICION",
+    "BLOCKED_COUNTRY",
+    "AVS_CHECK_FAILED",
+    "CVV_CHECK_FAILED",
+    "PAYMENT_INSTRUMENT_PROBLEM",
+    "PAYMENT_PROVIDER_DECLINED",
+    "DECLINED",
+]);
