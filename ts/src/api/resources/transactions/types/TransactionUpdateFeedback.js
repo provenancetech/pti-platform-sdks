@@ -13,4 +13,5 @@ exports.TransactionUpdateFeedback = {
     ChargedBack: "CHARGED_BACK",
     Error: "ERROR",
     PendingSettlement: "PENDING_SETTLEMENT",
+    Returned: "RETURNED",
 };

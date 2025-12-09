@@ -845,7 +845,8 @@ public class TransactionsClient {
    * | <code>REJECTED</code> | The transaction was declined by the processor |
    * | <code>REFUNDED</code> | An intentional, settled transaction was refunded |
    * | <code>CHARGED_BACK</code> | A settled transaction was disputed and refunded |
-   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |</p>
+   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |
+   * | <code>RETURNED</code> | The transaction could not be processed and will be returned to the originating bank.</p>
    */
   public ObjectReference provideFeedback(String requestId, TransactionUpdate request) {
     return provideFeedback(requestId,request,null);
@@ -863,7 +864,8 @@ public class TransactionsClient {
    * | <code>REJECTED</code> | The transaction was declined by the processor |
    * | <code>REFUNDED</code> | An intentional, settled transaction was refunded |
    * | <code>CHARGED_BACK</code> | A settled transaction was disputed and refunded |
-   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |</p>
+   * | <code>ERROR</code> | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |
+   * | <code>RETURNED</code> | The transaction could not be processed and will be returned to the originating bank.</p>
    */
   public ObjectReference provideFeedback(String requestId, TransactionUpdate request,
       RequestOptions requestOptions) {

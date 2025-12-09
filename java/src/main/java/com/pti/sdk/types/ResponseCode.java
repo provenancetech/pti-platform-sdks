@@ -7,7 +7,7 @@ package com.pti.sdk.types;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
-public enum ProviderResponseCode {
+public enum ResponseCode {
   PTI_TECHNICAL_ERROR("PTI_TECHNICAL_ERROR"),
 
   TECHNICAL_ERROR("TECHNICAL_ERROR"),
@@ -30,7 +30,7 @@ public enum ProviderResponseCode {
 
   private final String value;
 
-  ProviderResponseCode(String value) {
+  ResponseCode(String value) {
     this.value = value;
   }
 

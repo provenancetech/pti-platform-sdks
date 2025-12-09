@@ -47,4 +47,5 @@ exports.TransactionUpdateFeedback = core.serialization.enum_([
     "CHARGED_BACK",
     "ERROR",
     "PENDING_SETTLEMENT",
+    "RETURNED",
 ]);

@@ -4,8 +4,8 @@
 /**
  * Deprecated, use responseCategory instead
  */
-export type ProviderResponseCategory = "ERROR" | "SOFT_DECLINE" | "HARD_DECLINE";
-export declare const ProviderResponseCategory: {
+export type ResponseCategory = "ERROR" | "SOFT_DECLINE" | "HARD_DECLINE";
+export declare const ResponseCategory: {
     readonly Error: "ERROR";
     readonly SoftDecline: "SOFT_DECLINE";
     readonly HardDecline: "HARD_DECLINE";

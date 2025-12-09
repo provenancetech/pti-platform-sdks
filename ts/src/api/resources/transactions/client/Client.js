@@ -1149,6 +1149,7 @@ class Transactions {
      * | `REFUNDED` | An intentional, settled transaction was refunded |
      * | `CHARGED_BACK` | A settled transaction was disputed and refunded |
      * | `ERROR` | The processor returned an error, the transaction is assumed to be non existent from the processor standpoint |
+     * | `RETURNED` | The transaction could not be processed and will be returned to the originating bank.
      *
      * @param {PTI.UuidLikeStr} requestId - Request ID used when the transaction was initially logged
      * @param {PTI.TransactionUpdate} request

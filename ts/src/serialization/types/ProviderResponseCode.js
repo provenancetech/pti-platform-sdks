@@ -40,6 +40,7 @@ exports.ProviderResponseCode = void 0;
 const core = __importStar(require("../../core"));
 exports.ProviderResponseCode = core.serialization.enum_([
     "PTI_TECHNICAL_ERROR",
+    "TECHNICAL_ERROR",
     "PAYMENT_PROVIDER_TECHNICAL_ERROR",
     "FRAUD_SUSPICION",
     "BLOCKED_COUNTRY",
@@ -47,4 +48,5 @@ exports.ProviderResponseCode = core.serialization.enum_([
     "CVV_CHECK_FAILED",
     "PAYMENT_INSTRUMENT_PROBLEM",
     "PAYMENT_PROVIDER_DECLINED",
+    "DECLINED",
 ]);

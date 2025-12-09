@@ -6,5 +6,5 @@ import * as PTI from "../../../../api/index";
 import * as core from "../../../../core";
 export declare const TransactionUpdateFeedback: core.serialization.Schema<serializers.TransactionUpdateFeedback.Raw, PTI.TransactionUpdateFeedback>;
 export declare namespace TransactionUpdateFeedback {
-    type Raw = "SETTLED" | "ACCEPTED" | "CANCELLED" | "REJECTED" | "REFUNDED" | "CHARGED_BACK" | "ERROR" | "PENDING_SETTLEMENT";
+    type Raw = "SETTLED" | "ACCEPTED" | "CANCELLED" | "REJECTED" | "REFUNDED" | "CHARGED_BACK" | "ERROR" | "PENDING_SETTLEMENT" | "RETURNED";
 }
