@@ -59,6 +59,7 @@ exports.ErrorType = {
     MaximumAchPullLimitExceeded: "MAXIMUM_ACH_PULL_LIMIT_EXCEEDED",
     TransactionCannotBeCanceled: "TRANSACTION_CANNOT_BE_CANCELED",
     BlockedAsset: "BLOCKED_ASSET",
+    ManualBankAccountNotAllowed: "MANUAL_BANK_ACCOUNT_NOT_ALLOWED",
     BankOnly: "BANK_ONLY",
     MissingEmailAddress: "MISSING_EMAIL_ADDRESS",
     MissingBankAccountInformation: "MISSING_BANK_ACCOUNT_INFORMATION",
