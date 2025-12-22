@@ -17,4 +17,6 @@ export interface BankAccountPaymentInformation extends PTI.ExternalPaymentInform
     bankRoutingCheckDigit?: string;
     /** Name of the bank of the account, Required for OUTGOING WIRE transactions, persisted as part of the Payment Information */
     accountBankName?: string;
+    /** Plaid processor token, only field needed if provided */
+    plaidProcessorToken?: string;
 }

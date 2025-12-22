@@ -16,5 +16,6 @@ export declare namespace BankAccountPaymentInformation {
         bankRoutingNumber?: string | null;
         bankRoutingCheckDigit?: string | null;
         accountBankName?: string | null;
+        plaidProcessorToken?: string | null;
     }
 }

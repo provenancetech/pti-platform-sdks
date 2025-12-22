@@ -49,5 +49,6 @@ exports.BankAccountPaymentInformation = core.serialization
     bankRoutingNumber: core.serialization.string().optional(),
     bankRoutingCheckDigit: core.serialization.string().optional(),
     accountBankName: core.serialization.string().optional(),
+    plaidProcessorToken: core.serialization.string().optional(),
 })
     .extend(ExternalPaymentInformation_1.ExternalPaymentInformation);

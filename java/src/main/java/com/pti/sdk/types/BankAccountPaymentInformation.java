@@ -41,13 +41,16 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
   private final Optional<String> accountBankName;
 
+  private final Optional<String> plaidProcessorToken;
+
   private final Map<String, Object> additionalProperties;
 
   private BankAccountPaymentInformation(Optional<String> id, Optional<String> bankAccountNumber,
       Optional<BankAccountPaymentInformationBankAccountType> bankAccountType,
       Optional<String> accountHolderName, Optional<String> bankSwiftCode,
       Optional<String> bankRoutingNumber, Optional<String> bankRoutingCheckDigit,
-      Optional<String> accountBankName, Map<String, Object> additionalProperties) {
+      Optional<String> accountBankName, Optional<String> plaidProcessorToken,
+      Map<String, Object> additionalProperties) {
     this.id = id;
     this.bankAccountNumber = bankAccountNumber;
     this.bankAccountType = bankAccountType;
@@ -56,6 +59,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
     this.bankRoutingNumber = bankRoutingNumber;
     this.bankRoutingCheckDigit = bankRoutingCheckDigit;
     this.accountBankName = accountBankName;
+    this.plaidProcessorToken = plaidProcessorToken;
     this.additionalProperties = additionalProperties;
   }
 
@@ -124,6 +128,14 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
     return accountBankName;
   }
 
+  /**
+   * @return Plaid processor token, only field needed if provided
+   */
+  @JsonProperty("plaidProcessorToken")
+  public Optional<String> getPlaidProcessorToken() {
+    return plaidProcessorToken;
+  }
+
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
@@ -136,12 +148,12 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
   }
 
   private boolean equalTo(BankAccountPaymentInformation other) {
-    return id.equals(other.id) && bankAccountNumber.equals(other.bankAccountNumber) && bankAccountType.equals(other.bankAccountType) && accountHolderName.equals(other.accountHolderName) && bankSwiftCode.equals(other.bankSwiftCode) && bankRoutingNumber.equals(other.bankRoutingNumber) && bankRoutingCheckDigit.equals(other.bankRoutingCheckDigit) && accountBankName.equals(other.accountBankName);
+    return id.equals(other.id) && bankAccountNumber.equals(other.bankAccountNumber) && bankAccountType.equals(other.bankAccountType) && accountHolderName.equals(other.accountHolderName) && bankSwiftCode.equals(other.bankSwiftCode) && bankRoutingNumber.equals(other.bankRoutingNumber) && bankRoutingCheckDigit.equals(other.bankRoutingCheckDigit) && accountBankName.equals(other.accountBankName) && plaidProcessorToken.equals(other.plaidProcessorToken);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.id, this.bankAccountNumber, this.bankAccountType, this.accountHolderName, this.bankSwiftCode, this.bankRoutingNumber, this.bankRoutingCheckDigit, this.accountBankName);
+    return Objects.hash(this.id, this.bankAccountNumber, this.bankAccountType, this.accountHolderName, this.bankSwiftCode, this.bankRoutingNumber, this.bankRoutingCheckDigit, this.accountBankName, this.plaidProcessorToken);
   }
 
   @java.lang.Override
@@ -173,6 +185,8 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
 
     private Optional<String> accountBankName = Optional.empty();
 
+    private Optional<String> plaidProcessorToken = Optional.empty();
+
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -188,6 +202,7 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
       bankRoutingNumber(other.getBankRoutingNumber());
       bankRoutingCheckDigit(other.getBankRoutingCheckDigit());
       accountBankName(other.getAccountBankName());
+      plaidProcessorToken(other.getPlaidProcessorToken());
       return this;
     }
 
@@ -304,8 +319,22 @@ public final class BankAccountPaymentInformation implements IExternalPaymentInfo
       return this;
     }
 
+    @JsonSetter(
+        value = "plaidProcessorToken",
+        nulls = Nulls.SKIP
+    )
+    public Builder plaidProcessorToken(Optional<String> plaidProcessorToken) {
+      this.plaidProcessorToken = plaidProcessorToken;
+      return this;
+    }
+
+    public Builder plaidProcessorToken(String plaidProcessorToken) {
+      this.plaidProcessorToken = Optional.ofNullable(plaidProcessorToken);
+      return this;
+    }
+
     public BankAccountPaymentInformation build() {
-      return new BankAccountPaymentInformation(id, bankAccountNumber, bankAccountType, accountHolderName, bankSwiftCode, bankRoutingNumber, bankRoutingCheckDigit, accountBankName, additionalProperties);
+      return new BankAccountPaymentInformation(id, bankAccountNumber, bankAccountType, accountHolderName, bankSwiftCode, bankRoutingNumber, bankRoutingCheckDigit, accountBankName, plaidProcessorToken, additionalProperties);
     }
   }
 }
