@@ -6,13 +6,16 @@ package com.pti.sdk.core;
 
 import java.io.File;
 import java.lang.String;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 import com.nimbusds.jose.util.IOUtils;
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 
 public final class ClientOptions {
     private final Environment environment;
@@ -118,6 +121,11 @@ public final class ClientOptions {
             OkHttpClient okhttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(privateKey))
                     .addInterceptor(new RetryInterceptor(3))
+                    .connectTimeout(30, TimeUnit.SECONDS)   // connection establishment
+                    .readTimeout(180, TimeUnit.SECONDS)     // ← Increase this (most important)
+                    .writeTimeout(30, TimeUnit.SECONDS)     // sending the request
+                    .connectionPool(new ConnectionPool(100, 5, TimeUnit.MINUTES))
+                    .protocols(Collections.singletonList(Protocol.HTTP_1_1)) // force HTTP/1.1 if you suspect HTTP/2 issues
                     .build();
             return new ClientOptions(environment, privateKey, headers, headerSuppliers, okhttpClient);
         }
