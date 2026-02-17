@@ -49,6 +49,7 @@ export * from "./Pii";
 export * from "./Phone";
 export * from "./Ssn";
 export * from "./StateCode";
+export * from "./TravelRuleData";
 export * from "./CryptoPaymentInformation";
 export * from "./CryptoPaymentMethodDestination";
 export * from "./CryptoPaymentMethodSource";
