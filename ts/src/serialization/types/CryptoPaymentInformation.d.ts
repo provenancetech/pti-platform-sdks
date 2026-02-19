@@ -4,6 +4,7 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
+import { TravelRuleData } from "./TravelRuleData";
 import { ExternalPaymentInformation } from "./ExternalPaymentInformation";
 export declare const CryptoPaymentInformation: core.serialization.ObjectSchema<serializers.CryptoPaymentInformation.Raw, PTI.CryptoPaymentInformation>;
 export declare namespace CryptoPaymentInformation {
@@ -13,5 +14,6 @@ export declare namespace CryptoPaymentInformation {
         network: string;
         privateBlockchain?: boolean | null;
         clientMeta?: Record<string, unknown> | null;
+        travelRuleData?: TravelRuleData.Raw | null;
     }
 }

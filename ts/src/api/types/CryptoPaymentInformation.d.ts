@@ -13,4 +13,5 @@ export interface CryptoPaymentInformation extends PTI.ExternalPaymentInformation
     privateBlockchain?: boolean;
     /** key/value map of extra meta data for this payment info, for example, it could be useful to add information to a transaction, like if a subtoken asset is involved */
     clientMeta?: Record<string, unknown>;
+    travelRuleData?: PTI.TravelRuleData;
 }

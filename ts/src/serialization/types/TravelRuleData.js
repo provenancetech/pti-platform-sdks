@@ -36,17 +36,11 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CryptoPaymentInformation = void 0;
+exports.TravelRuleData = void 0;
 const core = __importStar(require("../../core"));
-const TravelRuleData_1 = require("./TravelRuleData");
-const ExternalPaymentInformation_1 = require("./ExternalPaymentInformation");
-exports.CryptoPaymentInformation = core.serialization
-    .object({
-    walletAddress: core.serialization.string(),
-    currency: core.serialization.string(),
-    network: core.serialization.string(),
-    privateBlockchain: core.serialization.boolean().optional(),
-    clientMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    travelRuleData: TravelRuleData_1.TravelRuleData.optional(),
-})
-    .extend(ExternalPaymentInformation_1.ExternalPaymentInformation);
+exports.TravelRuleData = core.serialization.object({
+    beneficiaryName: core.serialization.string().optional(),
+    beneficiaryFinancialInstitution: core.serialization.string().optional(),
+    beneficiaryNonCustodialWallet: core.serialization.string().optional(),
+    isSelf: core.serialization.boolean().optional(),
+});

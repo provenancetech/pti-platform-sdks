@@ -39,17 +39,20 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
 
   private final Optional<Map<String, Object>> clientMeta;
 
+  private final Optional<TravelRuleData> travelRuleData;
+
   private final Map<String, Object> additionalProperties;
 
   private CryptoPaymentInformation(Optional<String> id, String walletAddress, String currency,
       String network, Optional<Boolean> privateBlockchain, Optional<Map<String, Object>> clientMeta,
-      Map<String, Object> additionalProperties) {
+      Optional<TravelRuleData> travelRuleData, Map<String, Object> additionalProperties) {
     this.id = id;
     this.walletAddress = walletAddress;
     this.currency = currency;
     this.network = network;
     this.privateBlockchain = privateBlockchain;
     this.clientMeta = clientMeta;
+    this.travelRuleData = travelRuleData;
     this.additionalProperties = additionalProperties;
   }
 
@@ -102,6 +105,11 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     return clientMeta;
   }
 
+  @JsonProperty("travelRuleData")
+  public Optional<TravelRuleData> getTravelRuleData() {
+    return travelRuleData;
+  }
+
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
@@ -114,12 +122,12 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   }
 
   private boolean equalTo(CryptoPaymentInformation other) {
-    return id.equals(other.id) && walletAddress.equals(other.walletAddress) && currency.equals(other.currency) && network.equals(other.network) && privateBlockchain.equals(other.privateBlockchain) && clientMeta.equals(other.clientMeta);
+    return id.equals(other.id) && walletAddress.equals(other.walletAddress) && currency.equals(other.currency) && network.equals(other.network) && privateBlockchain.equals(other.privateBlockchain) && clientMeta.equals(other.clientMeta) && travelRuleData.equals(other.travelRuleData);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.id, this.walletAddress, this.currency, this.network, this.privateBlockchain, this.clientMeta);
+    return Objects.hash(this.id, this.walletAddress, this.currency, this.network, this.privateBlockchain, this.clientMeta, this.travelRuleData);
   }
 
   @java.lang.Override
@@ -159,6 +167,10 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     _FinalStage clientMeta(Optional<Map<String, Object>> clientMeta);
 
     _FinalStage clientMeta(Map<String, Object> clientMeta);
+
+    _FinalStage travelRuleData(Optional<TravelRuleData> travelRuleData);
+
+    _FinalStage travelRuleData(TravelRuleData travelRuleData);
   }
 
   @JsonIgnoreProperties(
@@ -170,6 +182,8 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     private String currency;
 
     private String network;
+
+    private Optional<TravelRuleData> travelRuleData = Optional.empty();
 
     private Optional<Map<String, Object>> clientMeta = Optional.empty();
 
@@ -191,6 +205,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
       network(other.getNetwork());
       privateBlockchain(other.getPrivateBlockchain());
       clientMeta(other.getClientMeta());
+      travelRuleData(other.getTravelRuleData());
       return this;
     }
 
@@ -224,6 +239,22 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     @JsonSetter("network")
     public _FinalStage network(@NotNull String network) {
       this.network = Objects.requireNonNull(network, "network must not be null");
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage travelRuleData(TravelRuleData travelRuleData) {
+      this.travelRuleData = Optional.ofNullable(travelRuleData);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "travelRuleData",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage travelRuleData(Optional<TravelRuleData> travelRuleData) {
+      this.travelRuleData = travelRuleData;
       return this;
     }
 
@@ -289,7 +320,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
 
     @java.lang.Override
     public CryptoPaymentInformation build() {
-      return new CryptoPaymentInformation(id, walletAddress, currency, network, privateBlockchain, clientMeta, additionalProperties);
+      return new CryptoPaymentInformation(id, walletAddress, currency, network, privateBlockchain, clientMeta, travelRuleData, additionalProperties);
     }
   }
 }
