@@ -4,13 +4,7 @@
 
 package com.pti.sdk;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.RSADecrypter;
-import com.nimbusds.jose.crypto.RSASSAVerifier;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.util.Base64URL;
 import com.pti.sdk.core.ClientOptions;
 import com.pti.sdk.core.Suppliers;
 import com.pti.sdk.resources.authentication.AuthenticationClient;
@@ -24,8 +18,11 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.util.Map;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.function.Supplier;
 
 public class PTIClient {
@@ -88,29 +85,42 @@ public class PTIClient {
     return new PTIClientBuilder();
   }
   
-  public String decodeWebhookPayload(String payload) throws ParseException, JOSEException, IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    Map<String, String> payloadMap = mapper.readValue(payload, new TypeReference<>() {});
-    RSAKey privateKey = RSAKey.parse(clientOptions.privateKey());
-    JWEObject jweObject = new JWEObject(
-            Base64URL.from(payloadMap.get("protected")),
-            Base64URL.from(payloadMap.get("encrypted_key")),
-            Base64URL.from(payloadMap.get("iv")),
-            Base64URL.from(payloadMap.get("ciphertext")),
-            Base64URL.from(payloadMap.get("tag"))
-    );  
-    jweObject.decrypt(new RSADecrypter(privateKey));
-    Map<String, Object> jwsParts = jweObject.getPayload().toJSONObject(); 
-    JWSObject jwsObject = new JWSObject(
-            Base64URL.from((String) jwsParts.get("protected")),
-            Base64URL.from((String) jwsParts.get("payload")),
-            Base64URL.from((String) jwsParts.get("signature"))
-    );
-    String ptiPublicKey = IOUtils.resourceToString("/" + clientOptions.environment().getKeyName(), StandardCharsets.UTF_8);
-    RSAKey publicKey = RSAKey.parse(ptiPublicKey);
-    if (!jwsObject.verify(new RSASSAVerifier(publicKey))) {
-      throw new IllegalStateException("JWE verification failed");
+  public void verifyWebhookSignature(String payload, String xSignatureHttpHeader) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+
+    String pemContent = IOUtils.resourceToString("/" + clientOptions.environment().getKeyName(), StandardCharsets.UTF_8);
+
+    // Sanitize the PEM string, Remove the header, footer, and any whitespace/newlines
+    String publicKeyPem = pemContent
+            .replace("-----BEGIN PUBLIC KEY-----", "")
+            .replaceAll(System.lineSeparator(), "")
+            .replace("-----END PUBLIC KEY-----", "")
+            .trim();
+
+    byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyPem);
+    
+    // Reconstruct the Public Key
+    KeyFactory kf = KeyFactory.getInstance("Ed25519");
+    PublicKey publicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
+
+    // Initialize the Signature object
+    Signature sig = Signature.getInstance("Ed25519");
+    sig.initVerify(publicKey);
+
+    // Supply the data
+    sig.update(payload.trim().getBytes());
+
+    // Extract v1 signature from header
+    String signatureBase64 = Arrays.stream(xSignatureHttpHeader.split(","))
+            .map(String::trim) // Vital for HTTP headers which often have spaces
+            .filter(s -> s.regionMatches(true, 0, "v1=", 0, 3))
+            .map(s -> s.substring(3))
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("Signature verification failed - Missing signature"));
+    
+    // Decode and verify the signature
+    byte[] signatureBytes = Base64.getDecoder().decode(signatureBase64);
+    if (!sig.verify(signatureBytes)) {
+      throw new IllegalStateException("Signature verification failed - Mismatch");
     }
-    return jwsObject.getPayload().toString();
   }
 }

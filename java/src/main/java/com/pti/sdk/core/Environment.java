@@ -7,8 +7,8 @@ package com.pti.sdk.core;
 import java.lang.String;
 
 public final class Environment {
-  public static final Environment STAGING = new Environment("https://api.staging.fiant.io/v1", "pti_public_staging.jwk");
-  public static final Environment PROD = new Environment("https://api.platform.fiant.io/v1", "pti_public_prod.jwk");
+  public static final Environment STAGING = new Environment("https://api.staging.fiant.io/v1", "pti-staging-public.pem");
+  public static final Environment PROD = new Environment("https://api.platform.fiant.io/v1", "pti-prod-public.pem");
 
   private final String url;
   
