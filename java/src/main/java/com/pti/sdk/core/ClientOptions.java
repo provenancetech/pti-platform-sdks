@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import com.nimbusds.jose.util.IOUtils;
 import okhttp3.OkHttpClient;
 
+@SuppressWarnings("unused")
 public final class ClientOptions {
     private final Environment environment;
 
@@ -69,6 +70,7 @@ public final class ClientOptions {
         return new Builder();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
         private Environment environment;
 
@@ -77,6 +79,8 @@ public final class ClientOptions {
         private final Map<String, Supplier<String>> headerSuppliers = new HashMap<>();
 
         private String privateKeyPath = null;
+        
+        private int retryCount = 0;
 
         public Builder privateKeyPath(String privateKeyPath) {
             this.privateKeyPath = privateKeyPath;
@@ -113,11 +117,16 @@ public final class ClientOptions {
             }
         }
         
+        public Builder retryCount(int retryCount) {
+            this.retryCount = retryCount;
+            return this;
+        }
+        
         public ClientOptions build() {
             String privateKey = getPrivateKeyFileContent();
             OkHttpClient okhttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(privateKey))
-                    .addInterceptor(new RetryInterceptor(3))
+                    .addInterceptor(new RetryInterceptor(retryCount))
                     .build();
             return new ClientOptions(environment, privateKey, headers, headerSuppliers, okhttpClient);
         }
