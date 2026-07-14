@@ -14,7 +14,7 @@ public final class PTIClientBuilder {
   private String ptiClientId = null;
 
   private Environment environment = Environment.STAGING;
-
+  
   /**
    * Sets ptiClientId
    */
@@ -30,6 +30,11 @@ public final class PTIClientBuilder {
   
   public PTIClientBuilder privateKeyPath(String privateKeyPath) {
     this.clientOptionsBuilder.privateKeyPath(privateKeyPath);
+    return this;
+  }
+  
+  public PTIClientBuilder retryCount(int retryCount) {
+    this.clientOptionsBuilder.retryCount(retryCount);
     return this;
   }
 
