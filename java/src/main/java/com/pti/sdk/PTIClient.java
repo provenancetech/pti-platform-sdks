@@ -84,7 +84,7 @@ public class PTIClient {
   public static PTIClientBuilder builder() {
     return new PTIClientBuilder();
   }
-  
+
   public void verifyWebhookSignature(String payload, String xSignatureHttpHeader) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
 
     String pemContent = IOUtils.resourceToString("/" + clientOptions.environment().getKeyName(), StandardCharsets.UTF_8);
@@ -97,7 +97,7 @@ public class PTIClient {
             .trim();
 
     byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyPem);
-    
+
     // Reconstruct the Public Key
     KeyFactory kf = KeyFactory.getInstance("Ed25519");
     PublicKey publicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
@@ -116,7 +116,7 @@ public class PTIClient {
             .map(s -> s.substring(3))
             .findFirst()
             .orElseThrow(() -> new IllegalStateException("Signature verification failed - Missing signature"));
-    
+
     // Decode and verify the signature
     byte[] signatureBytes = Base64.getDecoder().decode(signatureBase64);
     if (!sig.verify(signatureBytes)) {

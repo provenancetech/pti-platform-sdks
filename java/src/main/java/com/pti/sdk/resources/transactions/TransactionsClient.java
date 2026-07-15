@@ -178,7 +178,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
@@ -281,7 +283,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
@@ -383,7 +387,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
@@ -488,7 +494,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
@@ -588,7 +596,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }
@@ -688,7 +698,9 @@ public class TransactionsClient {
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
     _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
-    _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
     if (request.getPtiSessionId().isPresent()) {
       _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
     }

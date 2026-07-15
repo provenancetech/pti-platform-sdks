@@ -6,7 +6,6 @@ import * as PTI from "../../../../index";
  * @example
  *     {
  *         ptiRequestId: "x-pti-request-id",
- *         ptiScenarioId: "x-pti-scenario-id",
  *         usdValue: 200,
  *         amount: 0.55,
  *         date: "2024-12-13T18:46:40.666+00:00",
@@ -34,9 +33,9 @@ export interface ExecuteMintTransaction extends PTI.TransactionType {
      */
     ptiRequestId: PTI.UuidLikeStr;
     /**
-     * Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
+     * Deprecated header that represented a User action under which transaction amounts would accumulate and controlled the User Assessment requirements.  Values passed in will be ignored going forward.
      */
-    ptiScenarioId: PTI.UuidLikeStr;
+    ptiScenarioId?: PTI.UuidLikeStr;
     /**
      * Session ID associated to a UI session for a specific User. Should match the value passed to the PTI SDK at initialization.
      */

@@ -36,16 +36,18 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KycRequest = void 0;
+exports.PersonKycRequestOperation = void 0;
 const core = __importStar(require("../../core"));
-const PersonKycRequest_1 = require("./PersonKycRequest");
-const BusinessKycRequest_1 = require("./BusinessKycRequest");
-exports.KycRequest = core.serialization
-    .union("type", {
-    PERSON: PersonKycRequest_1.PersonKycRequest,
-    BUSINESS: BusinessKycRequest_1.BusinessKycRequest,
-})
-    .transform({
-    transform: (value) => value,
-    untransform: (value) => value,
-});
+exports.PersonKycRequestOperation = core.serialization.enum_([
+    "BUSINESS_ONBOARDING",
+    "BUY",
+    "DEPOSIT",
+    "MAX_TIER",
+    "MINT",
+    "ONBOARDING",
+    "PAYMENT",
+    "WITHDRAWAL",
+    "SELL",
+    "TRADE",
+    "TRANSFER",
+]);

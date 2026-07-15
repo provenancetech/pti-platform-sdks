@@ -510,7 +510,6 @@ class Users {
      * @example
      *     await client.users.startUserAssessment({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         body: {
      *             type: "PERSON",
      *             id: "id"
@@ -530,9 +529,9 @@ class Users {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",

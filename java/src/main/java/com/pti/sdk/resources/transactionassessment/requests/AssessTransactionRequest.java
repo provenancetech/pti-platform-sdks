@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 public final class AssessTransactionRequest {
   private final String ptiRequestId;
 
-  private final String ptiScenarioId;
+  private final Optional<String> ptiScenarioId;
 
   private final Optional<String> ptiSessionId;
 
@@ -40,7 +40,7 @@ public final class AssessTransactionRequest {
 
   private final Map<String, Object> additionalProperties;
 
-  private AssessTransactionRequest(String ptiRequestId, String ptiScenarioId,
+  private AssessTransactionRequest(String ptiRequestId, Optional<String> ptiScenarioId,
       Optional<String> ptiSessionId, Optional<Boolean> ptiDisableWebhook,
       OneOfTransactionSubTypes body, Map<String, Object> additionalProperties) {
     this.ptiRequestId = ptiRequestId;
@@ -60,10 +60,10 @@ public final class AssessTransactionRequest {
   }
 
   /**
-   * @return Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
+   * @return Deprecated header that represented a User action under which transaction amounts would accumulate and controlled the User Assessment requirements.  Values passed in will be ignored going forward.
    */
   @JsonProperty("x-pti-scenario-id")
-  public String getPtiScenarioId() {
+  public Optional<String> getPtiScenarioId() {
     return ptiScenarioId;
   }
 
@@ -118,13 +118,9 @@ public final class AssessTransactionRequest {
   }
 
   public interface PtiRequestIdStage {
-    PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId);
+    BodyStage ptiRequestId(@NotNull String ptiRequestId);
 
     Builder from(AssessTransactionRequest other);
-  }
-
-  public interface PtiScenarioIdStage {
-    BodyStage ptiScenarioId(@NotNull String ptiScenarioId);
   }
 
   public interface BodyStage {
@@ -133,6 +129,10 @@ public final class AssessTransactionRequest {
 
   public interface _FinalStage {
     AssessTransactionRequest build();
+
+    _FinalStage ptiScenarioId(Optional<String> ptiScenarioId);
+
+    _FinalStage ptiScenarioId(String ptiScenarioId);
 
     _FinalStage ptiSessionId(Optional<String> ptiSessionId);
 
@@ -146,16 +146,16 @@ public final class AssessTransactionRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements PtiRequestIdStage, PtiScenarioIdStage, BodyStage, _FinalStage {
+  public static final class Builder implements PtiRequestIdStage, BodyStage, _FinalStage {
     private String ptiRequestId;
-
-    private String ptiScenarioId;
 
     private OneOfTransactionSubTypes body;
 
     private Optional<Boolean> ptiDisableWebhook = Optional.empty();
 
     private Optional<String> ptiSessionId = Optional.empty();
+
+    private Optional<String> ptiScenarioId = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -179,19 +179,8 @@ public final class AssessTransactionRequest {
      */
     @java.lang.Override
     @JsonSetter("x-pti-request-id")
-    public PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId) {
+    public BodyStage ptiRequestId(@NotNull String ptiRequestId) {
       this.ptiRequestId = Objects.requireNonNull(ptiRequestId, "ptiRequestId must not be null");
-      return this;
-    }
-
-    /**
-     * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
-     * @return Reference to {@code this} so that method calls can be chained together.
-     */
-    @java.lang.Override
-    @JsonSetter("x-pti-scenario-id")
-    public BodyStage ptiScenarioId(@NotNull String ptiScenarioId) {
-      this.ptiScenarioId = Objects.requireNonNull(ptiScenarioId, "ptiScenarioId must not be null");
       return this;
     }
 
@@ -239,6 +228,26 @@ public final class AssessTransactionRequest {
     )
     public _FinalStage ptiSessionId(Optional<String> ptiSessionId) {
       this.ptiSessionId = ptiSessionId;
+      return this;
+    }
+
+    /**
+     * <p>Deprecated header that represented a User action under which transaction amounts would accumulate and controlled the User Assessment requirements.  Values passed in will be ignored going forward.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage ptiScenarioId(String ptiScenarioId) {
+      this.ptiScenarioId = Optional.ofNullable(ptiScenarioId);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "x-pti-scenario-id",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage ptiScenarioId(Optional<String> ptiScenarioId) {
+      this.ptiScenarioId = ptiScenarioId;
       return this;
     }
 

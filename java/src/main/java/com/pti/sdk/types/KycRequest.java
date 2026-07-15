@@ -31,11 +31,11 @@ public final class KycRequest {
     return value.visit(visitor);
   }
 
-  public static KycRequest person(Person value) {
+  public static KycRequest person(PersonKycRequest value) {
     return new KycRequest(new PersonValue(value));
   }
 
-  public static KycRequest business(Business value) {
+  public static KycRequest business(BusinessKycRequest value) {
     return new KycRequest(new BusinessValue(value));
   }
 
@@ -51,14 +51,14 @@ public final class KycRequest {
     return value instanceof _UnknownValue;
   }
 
-  public Optional<Person> getPerson() {
+  public Optional<PersonKycRequest> getPerson() {
     if (isPerson()) {
       return Optional.of(((PersonValue) value).value);
     }
     return Optional.empty();
   }
 
-  public Optional<Business> getBusiness() {
+  public Optional<BusinessKycRequest> getBusiness() {
     if (isBusiness()) {
       return Optional.of(((BusinessValue) value).value);
     }
@@ -78,9 +78,9 @@ public final class KycRequest {
   }
 
   public interface Visitor<T> {
-    T visitPerson(Person person);
+    T visitPerson(PersonKycRequest person);
 
-    T visitBusiness(Business business);
+    T visitBusiness(BusinessKycRequest business);
 
     T _visitUnknown(Object unknownType);
   }
@@ -105,7 +105,7 @@ public final class KycRequest {
   @JsonTypeName("PERSON")
   private static final class PersonValue implements Value {
     @JsonUnwrapped
-    private Person value;
+    private PersonKycRequest value;
 
     @JsonCreator(
         mode = JsonCreator.Mode.PROPERTIES
@@ -113,7 +113,7 @@ public final class KycRequest {
     private PersonValue() {
     }
 
-    private PersonValue(Person value) {
+    private PersonValue(PersonKycRequest value) {
       this.value = value;
     }
 
@@ -146,7 +146,7 @@ public final class KycRequest {
   @JsonTypeName("BUSINESS")
   private static final class BusinessValue implements Value {
     @JsonUnwrapped
-    private Business value;
+    private BusinessKycRequest value;
 
     @JsonCreator(
         mode = JsonCreator.Mode.PROPERTIES
@@ -154,7 +154,7 @@ public final class KycRequest {
     private BusinessValue() {
     }
 
-    private BusinessValue(Business value) {
+    private BusinessValue(BusinessKycRequest value) {
       this.value = value;
     }
 
