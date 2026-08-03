@@ -45,7 +45,6 @@ export declare class TransactionAssessment {
      * @example
      *     await client.transactionAssessment.assessTransaction({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         body: {
      *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *             transactionTotal: {
@@ -111,7 +110,6 @@ export declare class TransactionAssessment {
      * @example
      *     await client.transactionAssessment.transactionInformationAssessment({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         body: {
      *             transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *             transactionTotal: {

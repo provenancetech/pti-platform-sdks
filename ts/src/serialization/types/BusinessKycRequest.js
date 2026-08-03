@@ -36,16 +36,15 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KycRequest = void 0;
+exports.BusinessKycRequest = void 0;
 const core = __importStar(require("../../core"));
-const PersonKycRequest_1 = require("./PersonKycRequest");
-const BusinessKycRequest_1 = require("./BusinessKycRequest");
-exports.KycRequest = core.serialization
-    .union("type", {
-    PERSON: PersonKycRequest_1.PersonKycRequest,
-    BUSINESS: BusinessKycRequest_1.BusinessKycRequest,
+const BusinessKycRequestOperation_1 = require("./BusinessKycRequestOperation");
+const Business_1 = require("./Business");
+exports.BusinessKycRequest = core.serialization
+    .object({
+    operation: BusinessKycRequestOperation_1.BusinessKycRequestOperation.optional(),
+    intendedTransactionUsdValue: core.serialization.number().optional(),
+    ptiMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    clientMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
 })
-    .transform({
-    transform: (value) => value,
-    untransform: (value) => value,
-});
+    .extend(Business_1.Business);

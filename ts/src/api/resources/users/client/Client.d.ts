@@ -147,7 +147,6 @@ export declare class Users {
      * @example
      *     await client.users.startUserAssessment({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         body: {
      *             type: "PERSON",
      *             id: "id"

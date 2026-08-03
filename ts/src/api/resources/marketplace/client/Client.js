@@ -179,7 +179,6 @@ class Marketplace {
      * @example
      *     await client.marketplace.digitalItemBuy({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -216,9 +215,9 @@ class Marketplace {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -305,7 +304,6 @@ class Marketplace {
      * @example
      *     await client.marketplace.digitalItemSell({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -342,9 +340,9 @@ class Marketplace {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })

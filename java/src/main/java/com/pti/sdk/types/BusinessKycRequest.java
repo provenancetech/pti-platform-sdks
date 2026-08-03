@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -24,9 +25,9 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
-    builder = Business.Builder.class
+    builder = BusinessKycRequest.Builder.class
 )
-public final class Business implements IBusiness, IUser {
+public final class BusinessKycRequest implements IBusiness, IUser {
   private final Optional<List<Ein>> biis;
 
   private final Optional<List<Address>> addresses;
@@ -75,9 +76,17 @@ public final class Business implements IBusiness, IUser {
 
   private final Optional<Map<String, Object>> userClientMeta;
 
+  private final Optional<BusinessKycRequestOperation> operation;
+
+  private final Optional<Double> intendedTransactionUsdValue;
+
+  private final Optional<Map<String, Object>> ptiMeta;
+
+  private final Optional<Map<String, Object>> clientMeta;
+
   private final Map<String, Object> additionalProperties;
 
-  private Business(Optional<List<Ein>> biis, Optional<List<Address>> addresses,
+  private BusinessKycRequest(Optional<List<Ein>> biis, Optional<List<Address>> addresses,
       Optional<List<Email>> emails, BusinessOwner mainRepresentative,
       Optional<List<BusinessOwner>> coOwners, Optional<List<Phone>> phones,
       Optional<List<String>> sectors, Optional<String> creationDate, Optional<String> businessType,
@@ -90,6 +99,8 @@ public final class Business implements IBusiness, IUser {
       Optional<List<OneOfExternalPaymentInformation>> paymentInformation,
       Optional<String> sourceOfFunds, Optional<String> userCreationDate,
       Optional<Map<String, Object>> userPtiMeta, Optional<Map<String, Object>> userClientMeta,
+      Optional<BusinessKycRequestOperation> operation, Optional<Double> intendedTransactionUsdValue,
+      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
       Map<String, Object> additionalProperties) {
     this.biis = biis;
     this.addresses = addresses;
@@ -115,6 +126,10 @@ public final class Business implements IBusiness, IUser {
     this.userCreationDate = userCreationDate;
     this.userPtiMeta = userPtiMeta;
     this.userClientMeta = userClientMeta;
+    this.operation = operation;
+    this.intendedTransactionUsdValue = intendedTransactionUsdValue;
+    this.ptiMeta = ptiMeta;
+    this.clientMeta = clientMeta;
     this.additionalProperties = additionalProperties;
   }
 
@@ -293,10 +308,42 @@ public final class Business implements IBusiness, IUser {
     return userClientMeta;
   }
 
+  /**
+   * @return When provided allows fine grain control over what data is collected when performing the kyc. Defaults to 'ONBOARDING' operation flow.
+   */
+  @JsonProperty("operation")
+  public Optional<BusinessKycRequestOperation> getOperation() {
+    return operation;
+  }
+
+  /**
+   * @return The value of the transaction that the User is intending to perform in USD
+   */
+  @JsonProperty("intendedTransactionUsdValue")
+  public Optional<Double> getIntendedTransactionUsdValue() {
+    return intendedTransactionUsdValue;
+  }
+
+  /**
+   * @return key/value map of extra meta data for this request (used by PTI)
+   */
+  @JsonProperty("ptiMeta")
+  public Optional<Map<String, Object>> getPtiMeta() {
+    return ptiMeta;
+  }
+
+  /**
+   * @return key/value map of extra meta data for this request (used by Client)
+   */
+  @JsonProperty("clientMeta")
+  public Optional<Map<String, Object>> getClientMeta() {
+    return clientMeta;
+  }
+
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof Business && equalTo((Business) other);
+    return other instanceof BusinessKycRequest && equalTo((BusinessKycRequest) other);
   }
 
   @JsonAnyGetter
@@ -304,13 +351,13 @@ public final class Business implements IBusiness, IUser {
     return this.additionalProperties;
   }
 
-  private boolean equalTo(Business other) {
-    return biis.equals(other.biis) && addresses.equals(other.addresses) && emails.equals(other.emails) && mainRepresentative.equals(other.mainRepresentative) && coOwners.equals(other.coOwners) && phones.equals(other.phones) && sectors.equals(other.sectors) && creationDate.equals(other.creationDate) && businessType.equals(other.businessType) && businessName.equals(other.businessName) && countryOfIncorporation.equals(other.countryOfIncorporation) && businessDbaName.equals(other.businessDbaName) && businessQuestionnaire.equals(other.businessQuestionnaire) && businessCategory.equals(other.businessCategory) && website.equals(other.website) && id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta);
+  private boolean equalTo(BusinessKycRequest other) {
+    return biis.equals(other.biis) && addresses.equals(other.addresses) && emails.equals(other.emails) && mainRepresentative.equals(other.mainRepresentative) && coOwners.equals(other.coOwners) && phones.equals(other.phones) && sectors.equals(other.sectors) && creationDate.equals(other.creationDate) && businessType.equals(other.businessType) && businessName.equals(other.businessName) && countryOfIncorporation.equals(other.countryOfIncorporation) && businessDbaName.equals(other.businessDbaName) && businessQuestionnaire.equals(other.businessQuestionnaire) && businessCategory.equals(other.businessCategory) && website.equals(other.website) && id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && operation.equals(other.operation) && intendedTransactionUsdValue.equals(other.intendedTransactionUsdValue) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.biis, this.addresses, this.emails, this.mainRepresentative, this.coOwners, this.phones, this.sectors, this.creationDate, this.businessType, this.businessName, this.countryOfIncorporation, this.businessDbaName, this.businessQuestionnaire, this.businessCategory, this.website, this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta);
+    return Objects.hash(this.biis, this.addresses, this.emails, this.mainRepresentative, this.coOwners, this.phones, this.sectors, this.creationDate, this.businessType, this.businessName, this.countryOfIncorporation, this.businessDbaName, this.businessQuestionnaire, this.businessCategory, this.website, this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.operation, this.intendedTransactionUsdValue, this.ptiMeta, this.clientMeta);
   }
 
   @java.lang.Override
@@ -325,7 +372,7 @@ public final class Business implements IBusiness, IUser {
   public interface MainRepresentativeStage {
     IdStage mainRepresentative(@NotNull BusinessOwner mainRepresentative);
 
-    Builder from(Business other);
+    Builder from(BusinessKycRequest other);
   }
 
   public interface IdStage {
@@ -333,7 +380,7 @@ public final class Business implements IBusiness, IUser {
   }
 
   public interface _FinalStage {
-    Business build();
+    BusinessKycRequest build();
 
     _FinalStage biis(Optional<List<Ein>> biis);
 
@@ -424,6 +471,22 @@ public final class Business implements IBusiness, IUser {
     _FinalStage userClientMeta(Optional<Map<String, Object>> userClientMeta);
 
     _FinalStage userClientMeta(Map<String, Object> userClientMeta);
+
+    _FinalStage operation(Optional<BusinessKycRequestOperation> operation);
+
+    _FinalStage operation(BusinessKycRequestOperation operation);
+
+    _FinalStage intendedTransactionUsdValue(Optional<Double> intendedTransactionUsdValue);
+
+    _FinalStage intendedTransactionUsdValue(Double intendedTransactionUsdValue);
+
+    _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
+
+    _FinalStage ptiMeta(Map<String, Object> ptiMeta);
+
+    _FinalStage clientMeta(Optional<Map<String, Object>> clientMeta);
+
+    _FinalStage clientMeta(Map<String, Object> clientMeta);
   }
 
   @JsonIgnoreProperties(
@@ -433,6 +496,14 @@ public final class Business implements IBusiness, IUser {
     private BusinessOwner mainRepresentative;
 
     private String id;
+
+    private Optional<Map<String, Object>> clientMeta = Optional.empty();
+
+    private Optional<Map<String, Object>> ptiMeta = Optional.empty();
+
+    private Optional<Double> intendedTransactionUsdValue = Optional.empty();
+
+    private Optional<BusinessKycRequestOperation> operation = Optional.empty();
 
     private Optional<Map<String, Object>> userClientMeta = Optional.empty();
 
@@ -485,7 +556,7 @@ public final class Business implements IBusiness, IUser {
     }
 
     @java.lang.Override
-    public Builder from(Business other) {
+    public Builder from(BusinessKycRequest other) {
       biis(other.getBiis());
       addresses(other.getAddresses());
       emails(other.getEmails());
@@ -510,6 +581,10 @@ public final class Business implements IBusiness, IUser {
       userCreationDate(other.getUserCreationDate());
       userPtiMeta(other.getUserPtiMeta());
       userClientMeta(other.getUserClientMeta());
+      operation(other.getOperation());
+      intendedTransactionUsdValue(other.getIntendedTransactionUsdValue());
+      ptiMeta(other.getPtiMeta());
+      clientMeta(other.getClientMeta());
       return this;
     }
 
@@ -528,6 +603,86 @@ public final class Business implements IBusiness, IUser {
     @JsonSetter("id")
     public _FinalStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
+      return this;
+    }
+
+    /**
+     * <p>key/value map of extra meta data for this request (used by Client)</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage clientMeta(Map<String, Object> clientMeta) {
+      this.clientMeta = Optional.ofNullable(clientMeta);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "clientMeta",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage clientMeta(Optional<Map<String, Object>> clientMeta) {
+      this.clientMeta = clientMeta;
+      return this;
+    }
+
+    /**
+     * <p>key/value map of extra meta data for this request (used by PTI)</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage ptiMeta(Map<String, Object> ptiMeta) {
+      this.ptiMeta = Optional.ofNullable(ptiMeta);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "ptiMeta",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta) {
+      this.ptiMeta = ptiMeta;
+      return this;
+    }
+
+    /**
+     * <p>The value of the transaction that the User is intending to perform in USD</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage intendedTransactionUsdValue(Double intendedTransactionUsdValue) {
+      this.intendedTransactionUsdValue = Optional.ofNullable(intendedTransactionUsdValue);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "intendedTransactionUsdValue",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage intendedTransactionUsdValue(Optional<Double> intendedTransactionUsdValue) {
+      this.intendedTransactionUsdValue = intendedTransactionUsdValue;
+      return this;
+    }
+
+    /**
+     * <p>When provided allows fine grain control over what data is collected when performing the kyc. Defaults to 'ONBOARDING' operation flow.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage operation(BusinessKycRequestOperation operation) {
+      this.operation = Optional.ofNullable(operation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "operation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage operation(Optional<BusinessKycRequestOperation> operation) {
+      this.operation = operation;
       return this;
     }
 
@@ -927,8 +1082,8 @@ public final class Business implements IBusiness, IUser {
     }
 
     @java.lang.Override
-    public Business build() {
-      return new Business(biis, addresses, emails, mainRepresentative, coOwners, phones, sectors, creationDate, businessType, businessName, countryOfIncorporation, businessDbaName, businessQuestionnaire, businessCategory, website, id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, additionalProperties);
+    public BusinessKycRequest build() {
+      return new BusinessKycRequest(biis, addresses, emails, mainRepresentative, coOwners, phones, sectors, creationDate, businessType, businessName, countryOfIncorporation, businessDbaName, businessQuestionnaire, businessCategory, website, id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, operation, intendedTransactionUsdValue, ptiMeta, clientMeta, additionalProperties);
     }
   }
 }

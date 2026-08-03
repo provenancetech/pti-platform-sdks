@@ -62,7 +62,7 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
 
   private final String ptiRequestId;
 
-  private final String ptiScenarioId;
+  private final Optional<String> ptiScenarioId;
 
   private final Optional<String> ptiSessionId;
 
@@ -81,7 +81,7 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
       Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
       OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
       Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
-      String ptiRequestId, String ptiScenarioId, Optional<String> ptiSessionId,
+      String ptiRequestId, Optional<String> ptiScenarioId, Optional<String> ptiSessionId,
       Optional<Boolean> ptiDisableWebhook, Optional<String> ptiProviderName,
       OneOfPaymentMethod sourceMethod, Optional<WalletPaymentMethodWrapper> destinationMethod,
       Map<String, Object> additionalProperties) {
@@ -200,10 +200,10 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
   }
 
   /**
-   * @return Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.
+   * @return Deprecated header that represented a User action under which transaction amounts would accumulate and controlled the User Assessment requirements.  Values passed in will be ignored going forward.
    */
   @JsonProperty("x-pti-scenario-id")
-  public String getPtiScenarioId() {
+  public Optional<String> getPtiScenarioId() {
     return ptiScenarioId;
   }
 
@@ -289,11 +289,7 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
   }
 
   public interface PtiRequestIdStage {
-    PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId);
-  }
-
-  public interface PtiScenarioIdStage {
-    SourceMethodStage ptiScenarioId(@NotNull String ptiScenarioId);
+    SourceMethodStage ptiRequestId(@NotNull String ptiRequestId);
   }
 
   public interface SourceMethodStage {
@@ -335,6 +331,10 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
 
     _FinalStage deviceInformation(DeviceInformation deviceInformation);
 
+    _FinalStage ptiScenarioId(Optional<String> ptiScenarioId);
+
+    _FinalStage ptiScenarioId(String ptiScenarioId);
+
     _FinalStage ptiSessionId(Optional<String> ptiSessionId);
 
     _FinalStage ptiSessionId(String ptiSessionId);
@@ -355,7 +355,7 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, AmountStage, DateStage, InitiatorStage, PtiRequestIdStage, PtiScenarioIdStage, SourceMethodStage, _FinalStage {
+  public static final class Builder implements TypeStage, AmountStage, DateStage, InitiatorStage, PtiRequestIdStage, SourceMethodStage, _FinalStage {
     private TransactionTypeEnum type;
 
     private double amount;
@@ -366,8 +366,6 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
 
     private String ptiRequestId;
 
-    private String ptiScenarioId;
-
     private OneOfPaymentMethod sourceMethod;
 
     private Optional<WalletPaymentMethodWrapper> destinationMethod = Optional.empty();
@@ -377,6 +375,8 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
     private Optional<Boolean> ptiDisableWebhook = Optional.empty();
 
     private Optional<String> ptiSessionId = Optional.empty();
+
+    private Optional<String> ptiScenarioId = Optional.empty();
 
     private Optional<DeviceInformation> deviceInformation = Optional.empty();
 
@@ -462,19 +462,8 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
      */
     @java.lang.Override
     @JsonSetter("x-pti-request-id")
-    public PtiScenarioIdStage ptiRequestId(@NotNull String ptiRequestId) {
+    public SourceMethodStage ptiRequestId(@NotNull String ptiRequestId) {
       this.ptiRequestId = Objects.requireNonNull(ptiRequestId, "ptiRequestId must not be null");
-      return this;
-    }
-
-    /**
-     * <p>Represents a User action under which transaction amounts will accumulated and will control the User Assessment requirements. The values this header can take must be agreed upon and communicated to PTI. Setting unknown values here will generate an error.</p>
-     * @return Reference to {@code this} so that method calls can be chained together.
-     */
-    @java.lang.Override
-    @JsonSetter("x-pti-scenario-id")
-    public SourceMethodStage ptiScenarioId(@NotNull String ptiScenarioId) {
-      this.ptiScenarioId = Objects.requireNonNull(ptiScenarioId, "ptiScenarioId must not be null");
       return this;
     }
 
@@ -558,6 +547,26 @@ public final class ExecutePaymentTransaction implements ITransactionType, ITrans
     )
     public _FinalStage ptiSessionId(Optional<String> ptiSessionId) {
       this.ptiSessionId = ptiSessionId;
+      return this;
+    }
+
+    /**
+     * <p>Deprecated header that represented a User action under which transaction amounts would accumulate and controlled the User Assessment requirements.  Values passed in will be ignored going forward.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage ptiScenarioId(String ptiScenarioId) {
+      this.ptiScenarioId = Optional.ofNullable(ptiScenarioId);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "x-pti-scenario-id",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage ptiScenarioId(Optional<String> ptiScenarioId) {
+      this.ptiScenarioId = ptiScenarioId;
       return this;
     }
 

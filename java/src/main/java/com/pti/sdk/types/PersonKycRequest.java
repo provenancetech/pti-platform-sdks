@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
 import java.util.HashMap;
@@ -24,9 +25,9 @@ import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
-    builder = Person.Builder.class
+    builder = PersonKycRequest.Builder.class
 )
-public final class Person implements IPerson, IUser {
+public final class PersonKycRequest implements IPerson, IUser {
   private final Optional<List<Address>> addresses;
 
   private final Optional<List<OneOfPiiSubTypes>> piis;
@@ -63,9 +64,17 @@ public final class Person implements IPerson, IUser {
 
   private final Optional<Map<String, Object>> userClientMeta;
 
+  private final Optional<PersonKycRequestOperation> operation;
+
+  private final Optional<Double> intendedTransactionUsdValue;
+
+  private final Optional<Map<String, Object>> ptiMeta;
+
+  private final Optional<Map<String, Object>> clientMeta;
+
   private final Map<String, Object> additionalProperties;
 
-  private Person(Optional<List<Address>> addresses, Optional<List<OneOfPiiSubTypes>> piis,
+  private PersonKycRequest(Optional<List<Address>> addresses, Optional<List<OneOfPiiSubTypes>> piis,
       Optional<List<Email>> emails, Optional<List<Device>> devices, Optional<List<Phone>> phones,
       Optional<Name> name, Optional<String> gender, Optional<String> dateOfBirth,
       Optional<String> countryOfCitizenship, String id, Optional<UserStatus> status,
@@ -73,6 +82,8 @@ public final class Person implements IPerson, IUser {
       Optional<List<OneOfExternalPaymentInformation>> paymentInformation,
       Optional<String> sourceOfFunds, Optional<String> userCreationDate,
       Optional<Map<String, Object>> userPtiMeta, Optional<Map<String, Object>> userClientMeta,
+      Optional<PersonKycRequestOperation> operation, Optional<Double> intendedTransactionUsdValue,
+      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
       Map<String, Object> additionalProperties) {
     this.addresses = addresses;
     this.piis = piis;
@@ -92,6 +103,10 @@ public final class Person implements IPerson, IUser {
     this.userCreationDate = userCreationDate;
     this.userPtiMeta = userPtiMeta;
     this.userClientMeta = userClientMeta;
+    this.operation = operation;
+    this.intendedTransactionUsdValue = intendedTransactionUsdValue;
+    this.ptiMeta = ptiMeta;
+    this.clientMeta = clientMeta;
     this.additionalProperties = additionalProperties;
   }
 
@@ -227,10 +242,42 @@ public final class Person implements IPerson, IUser {
     return userClientMeta;
   }
 
+  /**
+   * @return When provided allows fine grain control over what data is collected when performing the kyc. Defaults to 'ONBOARDING' operation flow.
+   */
+  @JsonProperty("operation")
+  public Optional<PersonKycRequestOperation> getOperation() {
+    return operation;
+  }
+
+  /**
+   * @return The value of the transaction that the User is intending to perform in USD
+   */
+  @JsonProperty("intendedTransactionUsdValue")
+  public Optional<Double> getIntendedTransactionUsdValue() {
+    return intendedTransactionUsdValue;
+  }
+
+  /**
+   * @return key/value map of extra meta data for this request (used by PTI)
+   */
+  @JsonProperty("ptiMeta")
+  public Optional<Map<String, Object>> getPtiMeta() {
+    return ptiMeta;
+  }
+
+  /**
+   * @return key/value map of extra meta data for this request (used by Client)
+   */
+  @JsonProperty("clientMeta")
+  public Optional<Map<String, Object>> getClientMeta() {
+    return clientMeta;
+  }
+
   @java.lang.Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof Person && equalTo((Person) other);
+    return other instanceof PersonKycRequest && equalTo((PersonKycRequest) other);
   }
 
   @JsonAnyGetter
@@ -238,13 +285,13 @@ public final class Person implements IPerson, IUser {
     return this.additionalProperties;
   }
 
-  private boolean equalTo(Person other) {
-    return addresses.equals(other.addresses) && piis.equals(other.piis) && emails.equals(other.emails) && devices.equals(other.devices) && phones.equals(other.phones) && name.equals(other.name) && gender.equals(other.gender) && dateOfBirth.equals(other.dateOfBirth) && countryOfCitizenship.equals(other.countryOfCitizenship) && id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta);
+  private boolean equalTo(PersonKycRequest other) {
+    return addresses.equals(other.addresses) && piis.equals(other.piis) && emails.equals(other.emails) && devices.equals(other.devices) && phones.equals(other.phones) && name.equals(other.name) && gender.equals(other.gender) && dateOfBirth.equals(other.dateOfBirth) && countryOfCitizenship.equals(other.countryOfCitizenship) && id.equals(other.id) && status.equals(other.status) && statusReason.equals(other.statusReason) && tags.equals(other.tags) && paymentInformation.equals(other.paymentInformation) && sourceOfFunds.equals(other.sourceOfFunds) && userCreationDate.equals(other.userCreationDate) && userPtiMeta.equals(other.userPtiMeta) && userClientMeta.equals(other.userClientMeta) && operation.equals(other.operation) && intendedTransactionUsdValue.equals(other.intendedTransactionUsdValue) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.addresses, this.piis, this.emails, this.devices, this.phones, this.name, this.gender, this.dateOfBirth, this.countryOfCitizenship, this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta);
+    return Objects.hash(this.addresses, this.piis, this.emails, this.devices, this.phones, this.name, this.gender, this.dateOfBirth, this.countryOfCitizenship, this.id, this.status, this.statusReason, this.tags, this.paymentInformation, this.sourceOfFunds, this.userCreationDate, this.userPtiMeta, this.userClientMeta, this.operation, this.intendedTransactionUsdValue, this.ptiMeta, this.clientMeta);
   }
 
   @java.lang.Override
@@ -259,11 +306,11 @@ public final class Person implements IPerson, IUser {
   public interface IdStage {
     _FinalStage id(@NotNull String id);
 
-    Builder from(Person other);
+    Builder from(PersonKycRequest other);
   }
 
   public interface _FinalStage {
-    Person build();
+    PersonKycRequest build();
 
     _FinalStage addresses(Optional<List<Address>> addresses);
 
@@ -333,6 +380,22 @@ public final class Person implements IPerson, IUser {
     _FinalStage userClientMeta(Optional<Map<String, Object>> userClientMeta);
 
     _FinalStage userClientMeta(Map<String, Object> userClientMeta);
+
+    _FinalStage operation(Optional<PersonKycRequestOperation> operation);
+
+    _FinalStage operation(PersonKycRequestOperation operation);
+
+    _FinalStage intendedTransactionUsdValue(Optional<Double> intendedTransactionUsdValue);
+
+    _FinalStage intendedTransactionUsdValue(Double intendedTransactionUsdValue);
+
+    _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
+
+    _FinalStage ptiMeta(Map<String, Object> ptiMeta);
+
+    _FinalStage clientMeta(Optional<Map<String, Object>> clientMeta);
+
+    _FinalStage clientMeta(Map<String, Object> clientMeta);
   }
 
   @JsonIgnoreProperties(
@@ -340,6 +403,14 @@ public final class Person implements IPerson, IUser {
   )
   public static final class Builder implements IdStage, _FinalStage {
     private String id;
+
+    private Optional<Map<String, Object>> clientMeta = Optional.empty();
+
+    private Optional<Map<String, Object>> ptiMeta = Optional.empty();
+
+    private Optional<Double> intendedTransactionUsdValue = Optional.empty();
+
+    private Optional<PersonKycRequestOperation> operation = Optional.empty();
 
     private Optional<Map<String, Object>> userClientMeta = Optional.empty();
 
@@ -382,7 +453,7 @@ public final class Person implements IPerson, IUser {
     }
 
     @java.lang.Override
-    public Builder from(Person other) {
+    public Builder from(PersonKycRequest other) {
       addresses(other.getAddresses());
       piis(other.getPiis());
       emails(other.getEmails());
@@ -401,6 +472,10 @@ public final class Person implements IPerson, IUser {
       userCreationDate(other.getUserCreationDate());
       userPtiMeta(other.getUserPtiMeta());
       userClientMeta(other.getUserClientMeta());
+      operation(other.getOperation());
+      intendedTransactionUsdValue(other.getIntendedTransactionUsdValue());
+      ptiMeta(other.getPtiMeta());
+      clientMeta(other.getClientMeta());
       return this;
     }
 
@@ -412,6 +487,86 @@ public final class Person implements IPerson, IUser {
     @JsonSetter("id")
     public _FinalStage id(@NotNull String id) {
       this.id = Objects.requireNonNull(id, "id must not be null");
+      return this;
+    }
+
+    /**
+     * <p>key/value map of extra meta data for this request (used by Client)</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage clientMeta(Map<String, Object> clientMeta) {
+      this.clientMeta = Optional.ofNullable(clientMeta);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "clientMeta",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage clientMeta(Optional<Map<String, Object>> clientMeta) {
+      this.clientMeta = clientMeta;
+      return this;
+    }
+
+    /**
+     * <p>key/value map of extra meta data for this request (used by PTI)</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage ptiMeta(Map<String, Object> ptiMeta) {
+      this.ptiMeta = Optional.ofNullable(ptiMeta);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "ptiMeta",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta) {
+      this.ptiMeta = ptiMeta;
+      return this;
+    }
+
+    /**
+     * <p>The value of the transaction that the User is intending to perform in USD</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage intendedTransactionUsdValue(Double intendedTransactionUsdValue) {
+      this.intendedTransactionUsdValue = Optional.ofNullable(intendedTransactionUsdValue);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "intendedTransactionUsdValue",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage intendedTransactionUsdValue(Optional<Double> intendedTransactionUsdValue) {
+      this.intendedTransactionUsdValue = intendedTransactionUsdValue;
+      return this;
+    }
+
+    /**
+     * <p>When provided allows fine grain control over what data is collected when performing the kyc. Defaults to 'ONBOARDING' operation flow.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage operation(PersonKycRequestOperation operation) {
+      this.operation = Optional.ofNullable(operation);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "operation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage operation(Optional<PersonKycRequestOperation> operation) {
+      this.operation = operation;
       return this;
     }
 
@@ -718,8 +873,8 @@ public final class Person implements IPerson, IUser {
     }
 
     @java.lang.Override
-    public Person build() {
-      return new Person(addresses, piis, emails, devices, phones, name, gender, dateOfBirth, countryOfCitizenship, id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, additionalProperties);
+    public PersonKycRequest build() {
+      return new PersonKycRequest(addresses, piis, emails, devices, phones, name, gender, dateOfBirth, countryOfCitizenship, id, status, statusReason, tags, paymentInformation, sourceOfFunds, userCreationDate, userPtiMeta, userClientMeta, operation, intendedTransactionUsdValue, ptiMeta, clientMeta, additionalProperties);
     }
   }
 }

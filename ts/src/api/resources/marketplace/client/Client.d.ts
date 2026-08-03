@@ -61,7 +61,6 @@ export declare class Marketplace {
      * @example
      *     await client.marketplace.digitalItemBuy({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -102,7 +101,6 @@ export declare class Marketplace {
      * @example
      *     await client.marketplace.digitalItemSell({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 5,
      *         amount: 5,
      *         date: "2024-12-13T18:46:40.666+00:00",

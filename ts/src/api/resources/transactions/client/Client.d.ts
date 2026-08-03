@@ -103,7 +103,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.deposit({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *         usdValue: 100,
      *         amount: 100,
@@ -151,7 +150,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.withdrawal({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 3999.54,
      *         amount: 1,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -189,7 +187,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.payment({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         transactionTotal: {
      *             fee: {
      *                 amount: 0,
@@ -253,7 +250,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.transfer({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 200,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -299,7 +295,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.trade({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 113,
      *         amount: 0.5,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -341,7 +336,6 @@ export declare class Transactions {
      * @example
      *     await client.transactions.mint({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 0.55,
      *         date: "2024-12-13T18:46:40.666+00:00",

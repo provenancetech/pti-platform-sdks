@@ -213,7 +213,6 @@ class Transactions {
      * @example
      *     await client.transactions.deposit({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *         usdValue: 100,
      *         amount: 100,
@@ -257,9 +256,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -346,7 +345,6 @@ class Transactions {
      * @example
      *     await client.transactions.withdrawal({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 3999.54,
      *         amount: 1,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -380,9 +378,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -469,7 +467,6 @@ class Transactions {
      * @example
      *     await client.transactions.payment({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         transactionTotal: {
      *             fee: {
      *                 amount: 0,
@@ -529,9 +526,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -618,7 +615,6 @@ class Transactions {
      * @example
      *     await client.transactions.transfer({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 200,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -660,9 +656,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -749,7 +745,6 @@ class Transactions {
      * @example
      *     await client.transactions.trade({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 113,
      *         amount: 0.5,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -787,9 +782,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
@@ -876,7 +871,6 @@ class Transactions {
      * @example
      *     await client.transactions.mint({
      *         ptiRequestId: "x-pti-request-id",
-     *         ptiScenarioId: "x-pti-scenario-id",
      *         usdValue: 200,
      *         amount: 0.55,
      *         date: "2024-12-13T18:46:40.666+00:00",
@@ -911,9 +905,9 @@ class Transactions {
                         })
                         : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
                         unrecognizedObjectKeys: "strip",
-                    }), "x-pti-scenario-id": serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, {
-                        unrecognizedObjectKeys: "strip",
-                    }), "x-pti-session-id": ptiSessionId != null
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
                         ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
                         : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
                         ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
