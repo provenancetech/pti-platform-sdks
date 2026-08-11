@@ -38,8 +38,10 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WalletPaymentMethod = void 0;
 const core = __importStar(require("../../core"));
+const PaymentMethodType_1 = require("./PaymentMethodType");
 const Wallet_1 = require("./Wallet");
 exports.WalletPaymentMethod = core.serialization.object({
+    paymentMethodType: PaymentMethodType_1.PaymentMethodType,
     billingEmail: core.serialization.string().optional(),
     paymentInformation: Wallet_1.Wallet.optional(),
 });

@@ -9,7 +9,7 @@ export declare namespace PaymentInformation {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace PaymentInformation {
 }
 export declare class PaymentInformation {
     protected readonly _options: PaymentInformation.Options;
-    constructor(_options?: PaymentInformation.Options);
+    constructor(_options: PaymentInformation.Options);
     /**
      * This endpoint is used to get the Payment Information for a specific User. The information returned is the information that was collected for the User. You can filter by Payment Information type.
      *
@@ -41,7 +41,9 @@ export declare class PaymentInformation {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.paymentInformation.getUserPaymentInformations("userId")
+     *     await client.paymentInformation.getUserPaymentInformations("userId", {
+     *         type: "BANK_ACCOUNT"
+     *     })
      */
     getUserPaymentInformations(userId: string, request?: PTI.GetUserPaymentInformationsRequest, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation[]>;
     /**
@@ -110,5 +112,5 @@ export declare class PaymentInformation {
      *     })
      */
     updatePaymentInformation(userId: string, paymentInformationId: string, request: PTI.OneOfExternalPaymentInformation, requestOptions?: PaymentInformation.RequestOptions): Promise<PTI.OneOfExternalPaymentInformation>;
-    protected _getAuthorizationHeader(): Promise<string | undefined>;
+    protected _getAuthorizationHeader(): Promise<string>;
 }

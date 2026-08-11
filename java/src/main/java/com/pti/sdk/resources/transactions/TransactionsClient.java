@@ -154,6 +154,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {
@@ -259,6 +262,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {
@@ -363,6 +369,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {
@@ -470,6 +479,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {
@@ -572,6 +584,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {
@@ -674,6 +689,9 @@ public class TransactionsClient {
       properties.put("usdValue", request.getUsdValue());
     }
     properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
     properties.put("date", request.getDate());
     properties.put("initiator", request.getInitiator());
     if (request.getPtiMeta().isPresent()) {

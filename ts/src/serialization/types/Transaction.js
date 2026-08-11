@@ -50,6 +50,7 @@ exports.Transaction = core.serialization.object({
     transactionTotal: Total_1.Total.optional(),
     usdValue: core.serialization.number().optional(),
     amount: core.serialization.number(),
+    useInstantSettlement: core.serialization.boolean().optional(),
     date: core.serialization.string(),
     initiator: OneOfUserSubTypes_1.OneOfUserSubTypes,
     ptiMeta: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),

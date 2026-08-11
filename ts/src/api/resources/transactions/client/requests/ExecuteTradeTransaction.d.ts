@@ -8,25 +8,25 @@ import * as PTI from "../../../../index";
  *         ptiRequestId: "x-pti-request-id",
  *         usdValue: 113,
  *         amount: 0.5,
- *         date: "2024-12-13T18:46:40.666+00:00",
+ *         date: "date",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
  *         },
  *         type: "TRADE",
  *         sourceMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "MySOLWallet",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         },
  *         destinationMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "MyUSDWallet",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         }
  *     }
  */

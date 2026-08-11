@@ -3,6 +3,7 @@
  */
 import * as PTI from "../index";
 export interface CryptoPaymentInformation extends PTI.ExternalPaymentInformation {
+    type: PTI.ExternalPaymentInformationType;
     /** Blockchain address for the Wallet */
     walletAddress: string;
     /** Token symbol that your User is trading */

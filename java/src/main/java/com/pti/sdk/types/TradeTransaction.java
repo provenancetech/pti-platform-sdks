@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
@@ -41,6 +42,8 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
   private final double amount;
 
+  private final Optional<Boolean> useInstantSettlement;
+
   private final String date;
 
   private final OneOfUserSubTypes initiator;
@@ -59,9 +62,10 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
   private TradeTransaction(TransactionTypeEnum type, Optional<String> id,
       Optional<String> transactionGroupId, Optional<String> subClientId,
-      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
-      OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount,
+      Optional<Boolean> useInstantSettlement, String date, OneOfUserSubTypes initiator,
+      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
+      Optional<DeviceInformation> deviceInformation,
       Optional<CryptoPaymentMethodDestination> destinationMethod,
       Optional<CryptoPaymentMethodSource> sourceMethod, Map<String, Object> additionalProperties) {
     this.type = type;
@@ -71,6 +75,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     this.transactionTotal = transactionTotal;
     this.usdValue = usdValue;
     this.amount = amount;
+    this.useInstantSettlement = useInstantSettlement;
     this.date = date;
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
@@ -124,6 +129,15 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
   @java.lang.Override
   public double getAmount() {
     return amount;
+  }
+
+  /**
+   * @return Set to true to instantly settle an ACH pull deposit using the client's Instant Settlement Wallet. The user's wallet is credited immediately at deposit creation, funded by a synchronous debit of the Instant Settlement Wallet. Only applicable to ACH pull deposits.
+   */
+  @JsonProperty("useInstantSettlement")
+  @java.lang.Override
+  public Optional<Boolean> getUseInstantSettlement() {
+    return useInstantSettlement;
   }
 
   /**
@@ -187,12 +201,12 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
   }
 
   private boolean equalTo(TradeTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && useInstantSettlement.equals(other.useInstantSettlement) && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && destinationMethod.equals(other.destinationMethod) && sourceMethod.equals(other.sourceMethod);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.destinationMethod, this.sourceMethod);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.useInstantSettlement, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.destinationMethod, this.sourceMethod);
   }
 
   @java.lang.Override
@@ -245,6 +259,10 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     _FinalStage usdValue(Double usdValue);
 
+    _FinalStage useInstantSettlement(Optional<Boolean> useInstantSettlement);
+
+    _FinalStage useInstantSettlement(Boolean useInstantSettlement);
+
     _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
 
     _FinalStage ptiMeta(Map<String, Object> ptiMeta);
@@ -288,6 +306,8 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
 
+    private Optional<Boolean> useInstantSettlement = Optional.empty();
+
     private Optional<Double> usdValue = Optional.empty();
 
     private Optional<Total> transactionTotal = Optional.empty();
@@ -313,6 +333,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
       transactionTotal(other.getTransactionTotal());
       usdValue(other.getUsdValue());
       amount(other.getAmount());
+      useInstantSettlement(other.getUseInstantSettlement());
       date(other.getDate());
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
@@ -444,6 +465,26 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
       return this;
     }
 
+    /**
+     * <p>Set to true to instantly settle an ACH pull deposit using the client's Instant Settlement Wallet. The user's wallet is credited immediately at deposit creation, funded by a synchronous debit of the Instant Settlement Wallet. Only applicable to ACH pull deposits.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage useInstantSettlement(Boolean useInstantSettlement) {
+      this.useInstantSettlement = Optional.ofNullable(useInstantSettlement);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "useInstantSettlement",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage useInstantSettlement(Optional<Boolean> useInstantSettlement) {
+      this.useInstantSettlement = useInstantSettlement;
+      return this;
+    }
+
     @java.lang.Override
     public _FinalStage usdValue(Double usdValue) {
       this.usdValue = Optional.ofNullable(usdValue);
@@ -530,7 +571,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     @java.lang.Override
     public TradeTransaction build() {
-      return new TradeTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, destinationMethod, sourceMethod, additionalProperties);
+      return new TradeTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, useInstantSettlement, date, initiator, ptiMeta, clientMeta, deviceInformation, destinationMethod, sourceMethod, additionalProperties);
     }
   }
 }
