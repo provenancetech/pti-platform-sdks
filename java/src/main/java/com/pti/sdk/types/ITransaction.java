@@ -4,6 +4,7 @@
 
 package com.pti.sdk.types;
 
+import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
@@ -22,6 +23,8 @@ public interface ITransaction {
   Optional<Double> getUsdValue();
 
   double getAmount();
+
+  Optional<Boolean> getUseInstantSettlement();
 
   String getDate();
 

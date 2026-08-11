@@ -9,7 +9,7 @@ export declare namespace Wallets {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace Wallets {
 }
 export declare class Wallets {
     protected readonly _options: Wallets.Options;
-    constructor(_options?: Wallets.Options);
+    constructor(_options: Wallets.Options);
     /**
      * Retrieves a list of all assets supported by the platform. Each asset includes
      * its currency, type, and, for cryptocurrencies, the networks on which it is
@@ -225,8 +225,11 @@ export declare class Wallets {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.wallets.getWalletHistory("userId", "walletId")
+     *     await client.wallets.getWalletHistory("userId", "walletId", {
+     *         page: 1,
+     *         size: 1
+     *     })
      */
     getWalletHistory(userId: string, walletId: string, request?: PTI.GetWalletHistoryRequest, requestOptions?: Wallets.RequestOptions): Promise<PTI.WalletHistoryPage>;
-    protected _getAuthorizationHeader(): Promise<string | undefined>;
+    protected _getAuthorizationHeader(): Promise<string>;
 }

@@ -3,7 +3,13 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         page: 1,
+ *         size: 1,
+ *         sortBy: "sortBy",
+ *         sortDirection: "sortDirection",
+ *         filters: "filters"
+ *     }
  */
 export interface SearchClientWalletsRequest {
     /**

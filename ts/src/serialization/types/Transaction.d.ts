@@ -18,6 +18,7 @@ export declare namespace Transaction {
         transactionTotal?: Total.Raw | null;
         usdValue?: number | null;
         amount: number;
+        useInstantSettlement?: boolean | null;
         date: string;
         initiator: OneOfUserSubTypes.Raw;
         ptiMeta?: Record<string, unknown> | null;

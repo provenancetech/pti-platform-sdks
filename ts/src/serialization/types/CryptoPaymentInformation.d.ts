@@ -4,11 +4,13 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
+import { ExternalPaymentInformationType } from "./ExternalPaymentInformationType";
 import { TravelRuleData } from "./TravelRuleData";
 import { ExternalPaymentInformation } from "./ExternalPaymentInformation";
 export declare const CryptoPaymentInformation: core.serialization.ObjectSchema<serializers.CryptoPaymentInformation.Raw, PTI.CryptoPaymentInformation>;
 export declare namespace CryptoPaymentInformation {
     interface Raw extends ExternalPaymentInformation.Raw {
+        type: ExternalPaymentInformationType.Raw;
         walletAddress: string;
         currency: string;
         network: string;

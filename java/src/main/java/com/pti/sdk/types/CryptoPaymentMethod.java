@@ -19,24 +19,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(
     builder = CryptoPaymentMethod.Builder.class
 )
 public final class CryptoPaymentMethod {
+  private final PaymentMethodType paymentMethodType;
+
   private final Optional<String> billingEmail;
 
   private final Optional<CryptoPaymentInformation> paymentInformation;
 
   private final Map<String, Object> additionalProperties;
 
-  private CryptoPaymentMethod(Optional<String> billingEmail,
+  private CryptoPaymentMethod(PaymentMethodType paymentMethodType, Optional<String> billingEmail,
       Optional<CryptoPaymentInformation> paymentInformation,
       Map<String, Object> additionalProperties) {
+    this.paymentMethodType = paymentMethodType;
     this.billingEmail = billingEmail;
     this.paymentInformation = paymentInformation;
     this.additionalProperties = additionalProperties;
+  }
+
+  @JsonProperty("paymentMethodType")
+  public PaymentMethodType getPaymentMethodType() {
+    return paymentMethodType;
   }
 
   @JsonProperty("billingEmail")
@@ -61,12 +70,12 @@ public final class CryptoPaymentMethod {
   }
 
   private boolean equalTo(CryptoPaymentMethod other) {
-    return billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
+    return paymentMethodType.equals(other.paymentMethodType) && billingEmail.equals(other.billingEmail) && paymentInformation.equals(other.paymentInformation);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.billingEmail, this.paymentInformation);
+    return Objects.hash(this.paymentMethodType, this.billingEmail, this.paymentInformation);
   }
 
   @java.lang.Override
@@ -74,17 +83,37 @@ public final class CryptoPaymentMethod {
     return ObjectMappers.stringify(this);
   }
 
-  public static Builder builder() {
+  public static PaymentMethodTypeStage builder() {
     return new Builder();
+  }
+
+  public interface PaymentMethodTypeStage {
+    _FinalStage paymentMethodType(@NotNull PaymentMethodType paymentMethodType);
+
+    Builder from(CryptoPaymentMethod other);
+  }
+
+  public interface _FinalStage {
+    CryptoPaymentMethod build();
+
+    _FinalStage billingEmail(Optional<String> billingEmail);
+
+    _FinalStage billingEmail(String billingEmail);
+
+    _FinalStage paymentInformation(Optional<CryptoPaymentInformation> paymentInformation);
+
+    _FinalStage paymentInformation(CryptoPaymentInformation paymentInformation);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder {
-    private Optional<String> billingEmail = Optional.empty();
+  public static final class Builder implements PaymentMethodTypeStage, _FinalStage {
+    private PaymentMethodType paymentMethodType;
 
     private Optional<CryptoPaymentInformation> paymentInformation = Optional.empty();
+
+    private Optional<String> billingEmail = Optional.empty();
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -92,42 +121,56 @@ public final class CryptoPaymentMethod {
     private Builder() {
     }
 
+    @java.lang.Override
     public Builder from(CryptoPaymentMethod other) {
+      paymentMethodType(other.getPaymentMethodType());
       billingEmail(other.getBillingEmail());
       paymentInformation(other.getPaymentInformation());
       return this;
     }
 
-    @JsonSetter(
-        value = "billingEmail",
-        nulls = Nulls.SKIP
-    )
-    public Builder billingEmail(Optional<String> billingEmail) {
-      this.billingEmail = billingEmail;
+    @java.lang.Override
+    @JsonSetter("paymentMethodType")
+    public _FinalStage paymentMethodType(@NotNull PaymentMethodType paymentMethodType) {
+      this.paymentMethodType = Objects.requireNonNull(paymentMethodType, "paymentMethodType must not be null");
       return this;
     }
 
-    public Builder billingEmail(String billingEmail) {
-      this.billingEmail = Optional.ofNullable(billingEmail);
-      return this;
-    }
-
-    @JsonSetter(
-        value = "paymentInformation",
-        nulls = Nulls.SKIP
-    )
-    public Builder paymentInformation(Optional<CryptoPaymentInformation> paymentInformation) {
-      this.paymentInformation = paymentInformation;
-      return this;
-    }
-
-    public Builder paymentInformation(CryptoPaymentInformation paymentInformation) {
+    @java.lang.Override
+    public _FinalStage paymentInformation(CryptoPaymentInformation paymentInformation) {
       this.paymentInformation = Optional.ofNullable(paymentInformation);
       return this;
     }
 
+    @java.lang.Override
+    @JsonSetter(
+        value = "paymentInformation",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage paymentInformation(Optional<CryptoPaymentInformation> paymentInformation) {
+      this.paymentInformation = paymentInformation;
+      return this;
+    }
+
+    @java.lang.Override
+    public _FinalStage billingEmail(String billingEmail) {
+      this.billingEmail = Optional.ofNullable(billingEmail);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "billingEmail",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage billingEmail(Optional<String> billingEmail) {
+      this.billingEmail = billingEmail;
+      return this;
+    }
+
+    @java.lang.Override
     public CryptoPaymentMethod build() {
-      return new CryptoPaymentMethod(billingEmail, paymentInformation, additionalProperties);
+      return new CryptoPaymentMethod(paymentMethodType, billingEmail, paymentInformation, additionalProperties);
     }
   }
 }

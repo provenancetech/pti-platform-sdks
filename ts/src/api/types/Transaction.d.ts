@@ -13,6 +13,8 @@ export interface Transaction {
     transactionTotal?: PTI.Total;
     usdValue?: number;
     amount: number;
+    /** Set to true to instantly settle an ACH pull deposit using the client's Instant Settlement Wallet. The user's wallet is credited immediately at deposit creation, funded by a synchronous debit of the Instant Settlement Wallet. Only applicable to ACH pull deposits. */
+    useInstantSettlement?: boolean;
     /** ISO-8601 */
     date: string;
     initiator: PTI.OneOfUserSubTypes;

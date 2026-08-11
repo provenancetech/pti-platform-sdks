@@ -3,7 +3,10 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         page: 1,
+ *         size: 1
+ *     }
  */
 export interface GetWalletHistoryRequest {
     /**

@@ -56,7 +56,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class PaymentInformation {
-    constructor(_options = {}) {
+    constructor(_options) {
         this._options = _options;
     }
     /**
@@ -71,7 +71,9 @@ class PaymentInformation {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.paymentInformation.getUserPaymentInformations("userId")
+     *     await client.paymentInformation.getUserPaymentInformations("userId", {
+     *         type: "BANK_ACCOUNT"
+     *     })
      */
     getUserPaymentInformations(userId_1) {
         return __awaiter(this, arguments, void 0, function* (userId, request = {}, requestOptions) {
@@ -449,11 +451,7 @@ class PaymentInformation {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this._options.token);
-            if (bearer != null) {
-                return `Bearer ${bearer}`;
-            }
-            return undefined;
+            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
         });
     }
 }

@@ -9,7 +9,7 @@ import * as PTI from "../../../../index";
  *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
  *         usdValue: 100,
  *         amount: 100,
- *         date: "2024-12-13T18:46:40.666+00:00",
+ *         date: "date",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -19,6 +19,7 @@ import * as PTI from "../../../../index";
  *             paymentMethodType: "CREDIT_CARD"
  *         },
  *         destinationMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
  *                 label: "MyUSDWallet",
@@ -31,8 +32,7 @@ import * as PTI from "../../../../index";
  *                 },
  *                 createDateTime: "2021-09-28T12:00:00Z",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         }
  *     }
  */

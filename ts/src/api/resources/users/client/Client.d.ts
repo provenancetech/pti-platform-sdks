@@ -11,7 +11,7 @@ export declare namespace Users {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -30,7 +30,7 @@ export declare namespace Users {
 }
 export declare class Users {
     protected readonly _options: Users.Options;
-    constructor(_options?: Users.Options);
+    constructor(_options: Users.Options);
     /**
      * Retrieves a paginated list of users associated with the specified client.
      * You can control the number of results returned per page and specify an
@@ -44,7 +44,11 @@ export declare class Users {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.users.getListOfUsers()
+     *     await client.users.getListOfUsers({
+     *         page: 1,
+     *         size: 1,
+     *         sortBy: "sortBy"
+     *     })
      */
     getListOfUsers(request?: PTI.GetListOfUsersRequest, requestOptions?: Users.RequestOptions): Promise<PTI.UserPage>;
     /**
@@ -196,5 +200,5 @@ export declare class Users {
      *     await client.users.uploadDocument(fs.createReadStream("/path/to/your/file"), "userId", {})
      */
     uploadDocument(document: File | fs.ReadStream | Blob | undefined, userId: string, request: PTI.UploadDocumentRequest, requestOptions?: Users.RequestOptions): Promise<void>;
-    protected _getAuthorizationHeader(): Promise<string | undefined>;
+    protected _getAuthorizationHeader(): Promise<string>;
 }

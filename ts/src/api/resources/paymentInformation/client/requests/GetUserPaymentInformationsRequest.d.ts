@@ -4,7 +4,9 @@
 import * as PTI from "../../../../index";
 /**
  * @example
- *     {}
+ *     {
+ *         type: "BANK_ACCOUNT"
+ *     }
  */
 export interface GetUserPaymentInformationsRequest {
     /**

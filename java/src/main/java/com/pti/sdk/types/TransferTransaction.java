@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pti.sdk.core.ObjectMappers;
+import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Object;
 import java.lang.String;
@@ -41,6 +42,8 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
   private final double amount;
 
+  private final Optional<Boolean> useInstantSettlement;
+
   private final String date;
 
   private final OneOfUserSubTypes initiator;
@@ -63,9 +66,10 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
   private TransferTransaction(TransactionTypeEnum type, Optional<String> id,
       Optional<String> transactionGroupId, Optional<String> subClientId,
-      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount, String date,
-      OneOfUserSubTypes initiator, Optional<Map<String, Object>> ptiMeta,
-      Optional<Map<String, Object>> clientMeta, Optional<DeviceInformation> deviceInformation,
+      Optional<Total> transactionTotal, Optional<Double> usdValue, double amount,
+      Optional<Boolean> useInstantSettlement, String date, OneOfUserSubTypes initiator,
+      Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
+      Optional<DeviceInformation> deviceInformation,
       Optional<OneOfPaymentMethod> sourceTransferMethod,
       Optional<OneOfPaymentMethod> destinationTransferMethod,
       Optional<OneOfUserSubTypes> destination, Optional<String> destinationClientId,
@@ -77,6 +81,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
     this.transactionTotal = transactionTotal;
     this.usdValue = usdValue;
     this.amount = amount;
+    this.useInstantSettlement = useInstantSettlement;
     this.date = date;
     this.initiator = initiator;
     this.ptiMeta = ptiMeta;
@@ -132,6 +137,15 @@ public final class TransferTransaction implements ITransactionType, ITransaction
   @java.lang.Override
   public double getAmount() {
     return amount;
+  }
+
+  /**
+   * @return Set to true to instantly settle an ACH pull deposit using the client's Instant Settlement Wallet. The user's wallet is credited immediately at deposit creation, funded by a synchronous debit of the Instant Settlement Wallet. Only applicable to ACH pull deposits.
+   */
+  @JsonProperty("useInstantSettlement")
+  @java.lang.Override
+  public Optional<Boolean> getUseInstantSettlement() {
+    return useInstantSettlement;
   }
 
   /**
@@ -208,12 +222,12 @@ public final class TransferTransaction implements ITransactionType, ITransaction
   }
 
   private boolean equalTo(TransferTransaction other) {
-    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
+    return type.equals(other.type) && id.equals(other.id) && transactionGroupId.equals(other.transactionGroupId) && subClientId.equals(other.subClientId) && transactionTotal.equals(other.transactionTotal) && usdValue.equals(other.usdValue) && amount == other.amount && useInstantSettlement.equals(other.useInstantSettlement) && date.equals(other.date) && initiator.equals(other.initiator) && ptiMeta.equals(other.ptiMeta) && clientMeta.equals(other.clientMeta) && deviceInformation.equals(other.deviceInformation) && sourceTransferMethod.equals(other.sourceTransferMethod) && destinationTransferMethod.equals(other.destinationTransferMethod) && destination.equals(other.destination) && destinationClientId.equals(other.destinationClientId);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
+    return Objects.hash(this.type, this.id, this.transactionGroupId, this.subClientId, this.transactionTotal, this.usdValue, this.amount, this.useInstantSettlement, this.date, this.initiator, this.ptiMeta, this.clientMeta, this.deviceInformation, this.sourceTransferMethod, this.destinationTransferMethod, this.destination, this.destinationClientId);
   }
 
   @java.lang.Override
@@ -265,6 +279,10 @@ public final class TransferTransaction implements ITransactionType, ITransaction
     _FinalStage usdValue(Optional<Double> usdValue);
 
     _FinalStage usdValue(Double usdValue);
+
+    _FinalStage useInstantSettlement(Optional<Boolean> useInstantSettlement);
+
+    _FinalStage useInstantSettlement(Boolean useInstantSettlement);
 
     _FinalStage ptiMeta(Optional<Map<String, Object>> ptiMeta);
 
@@ -321,6 +339,8 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
     private Optional<Map<String, Object>> ptiMeta = Optional.empty();
 
+    private Optional<Boolean> useInstantSettlement = Optional.empty();
+
     private Optional<Double> usdValue = Optional.empty();
 
     private Optional<Total> transactionTotal = Optional.empty();
@@ -346,6 +366,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
       transactionTotal(other.getTransactionTotal());
       usdValue(other.getUsdValue());
       amount(other.getAmount());
+      useInstantSettlement(other.getUseInstantSettlement());
       date(other.getDate());
       initiator(other.getInitiator());
       ptiMeta(other.getPtiMeta());
@@ -515,6 +536,26 @@ public final class TransferTransaction implements ITransactionType, ITransaction
       return this;
     }
 
+    /**
+     * <p>Set to true to instantly settle an ACH pull deposit using the client's Instant Settlement Wallet. The user's wallet is credited immediately at deposit creation, funded by a synchronous debit of the Instant Settlement Wallet. Only applicable to ACH pull deposits.</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    public _FinalStage useInstantSettlement(Boolean useInstantSettlement) {
+      this.useInstantSettlement = Optional.ofNullable(useInstantSettlement);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "useInstantSettlement",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage useInstantSettlement(Optional<Boolean> useInstantSettlement) {
+      this.useInstantSettlement = useInstantSettlement;
+      return this;
+    }
+
     @java.lang.Override
     public _FinalStage usdValue(Double usdValue) {
       this.usdValue = Optional.ofNullable(usdValue);
@@ -601,7 +642,7 @@ public final class TransferTransaction implements ITransactionType, ITransaction
 
     @java.lang.Override
     public TransferTransaction build() {
-      return new TransferTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, date, initiator, ptiMeta, clientMeta, deviceInformation, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
+      return new TransferTransaction(type, id, transactionGroupId, subClientId, transactionTotal, usdValue, amount, useInstantSettlement, date, initiator, ptiMeta, clientMeta, deviceInformation, sourceTransferMethod, destinationTransferMethod, destination, destinationClientId, additionalProperties);
     }
   }
 }

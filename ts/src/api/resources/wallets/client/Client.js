@@ -56,7 +56,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Wallets {
-    constructor(_options = {}) {
+    constructor(_options) {
         this._options = _options;
     }
     /**
@@ -817,7 +817,10 @@ class Wallets {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.wallets.getWalletHistory("userId", "walletId")
+     *     await client.wallets.getWalletHistory("userId", "walletId", {
+     *         page: 1,
+     *         size: 1
+     *     })
      */
     getWalletHistory(userId_1, walletId_1) {
         return __awaiter(this, arguments, void 0, function* (userId, walletId, request = {}, requestOptions) {
@@ -892,11 +895,7 @@ class Wallets {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this._options.token);
-            if (bearer != null) {
-                return `Bearer ${bearer}`;
-            }
-            return undefined;
+            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
         });
     }
 }

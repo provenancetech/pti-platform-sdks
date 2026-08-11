@@ -3,6 +3,7 @@
  */
 import * as PTI from "../index";
 export interface WalletPaymentMethod {
+    paymentMethodType: PTI.PaymentMethodType;
     billingEmail?: string;
     paymentInformation?: PTI.Wallet;
 }
