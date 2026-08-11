@@ -8,25 +8,25 @@ import * as PTI from "../../../../index";
  *         ptiRequestId: "x-pti-request-id",
  *         usdValue: 200,
  *         amount: 200,
- *         date: "2024-12-13T18:46:40.666+00:00",
+ *         date: "date",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
  *         },
  *         type: "TRANSFER",
  *         sourceTransferMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         },
  *         destinationTransferMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         },
  *         destination: {
  *             type: "PERSON",

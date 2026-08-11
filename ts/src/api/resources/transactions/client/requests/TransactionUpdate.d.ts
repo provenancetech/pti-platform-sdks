@@ -9,7 +9,7 @@ import * as PTI from "../../../../index";
  *         providerName: "UNKNOWN",
  *         feedback: "SETTLED",
  *         transactionId: "UUID",
- *         date: "2024-12-13T18:46:40.666+00:00"
+ *         date: "date"
  *     }
  */
 export interface TransactionUpdate {

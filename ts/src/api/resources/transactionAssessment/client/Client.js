@@ -56,7 +56,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class TransactionAssessment {
-    constructor(_options = {}) {
+    constructor(_options) {
         this._options = _options;
     }
     /**
@@ -93,7 +93,7 @@ class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+00:00",
+     *             date: "date",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -103,6 +103,7 @@ class TransactionAssessment {
      *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
+     *                 paymentMethodType: "WALLET",
      *                 paymentMethodType: "WALLET"
      *             }
      *         }
@@ -300,7 +301,7 @@ class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+00:00",
+     *             date: "date",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -310,6 +311,7 @@ class TransactionAssessment {
      *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
+     *                 paymentMethodType: "WALLET",
      *                 paymentMethodType: "WALLET"
      *             }
      *         }
@@ -385,11 +387,7 @@ class TransactionAssessment {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this._options.token);
-            if (bearer != null) {
-                return `Bearer ${bearer}`;
-            }
-            return undefined;
+            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
         });
     }
 }

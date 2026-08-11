@@ -38,10 +38,12 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoPaymentInformation = void 0;
 const core = __importStar(require("../../core"));
+const ExternalPaymentInformationType_1 = require("./ExternalPaymentInformationType");
 const TravelRuleData_1 = require("./TravelRuleData");
 const ExternalPaymentInformation_1 = require("./ExternalPaymentInformation");
 exports.CryptoPaymentInformation = core.serialization
     .object({
+    type: ExternalPaymentInformationType_1.ExternalPaymentInformationType,
     walletAddress: core.serialization.string(),
     currency: core.serialization.string(),
     network: core.serialization.string(),

@@ -8,7 +8,7 @@ import * as PTI from "../../../../index";
  *         ptiRequestId: "x-pti-request-id",
  *         usdValue: 200,
  *         amount: 0.55,
- *         date: "2024-12-13T18:46:40.666+00:00",
+ *         date: "date",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -19,11 +19,11 @@ import * as PTI from "../../../../index";
  *             id: "id"
  *         },
  *         destinationMethod: {
+ *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "MyBTCWallet",
  *                 type: "WALLET"
- *             },
- *             paymentMethodType: "WALLET"
+ *             }
  *         }
  *     }
  */

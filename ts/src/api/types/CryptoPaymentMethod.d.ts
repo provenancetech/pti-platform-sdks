@@ -3,6 +3,7 @@
  */
 import * as PTI from "../index";
 export interface CryptoPaymentMethod {
+    paymentMethodType: PTI.PaymentMethodType;
     billingEmail?: string;
     paymentInformation?: PTI.CryptoPaymentInformation;
     /** Accepts any additional properties */

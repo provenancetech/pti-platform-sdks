@@ -38,9 +38,11 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoPaymentMethod = void 0;
 const core = __importStar(require("../../core"));
+const PaymentMethodType_1 = require("./PaymentMethodType");
 const CryptoPaymentInformation_1 = require("./CryptoPaymentInformation");
 exports.CryptoPaymentMethod = core.serialization
     .object({
+    paymentMethodType: PaymentMethodType_1.PaymentMethodType,
     billingEmail: core.serialization.string().optional(),
     paymentInformation: CryptoPaymentInformation_1.CryptoPaymentInformation.optional(),
 })

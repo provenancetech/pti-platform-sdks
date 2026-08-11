@@ -9,7 +9,7 @@ export declare namespace TransactionAssessment {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token?: core.Supplier<core.BearerToken | undefined>;
+        token: core.Supplier<core.BearerToken>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace TransactionAssessment {
 }
 export declare class TransactionAssessment {
     protected readonly _options: TransactionAssessment.Options;
-    constructor(_options?: TransactionAssessment.Options);
+    constructor(_options: TransactionAssessment.Options);
     /**
      * This endpoint is used to assess a Transaction. The Transaction Assessment and User information requirement are evaluated. This step is also done when executing a Transaction, but it can be called as a standalone.
      *
@@ -63,7 +63,7 @@ export declare class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+00:00",
+     *             date: "date",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -73,6 +73,7 @@ export declare class TransactionAssessment {
      *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
+     *                 paymentMethodType: "WALLET",
      *                 paymentMethodType: "WALLET"
      *             }
      *         }
@@ -128,7 +129,7 @@ export declare class TransactionAssessment {
      *             },
      *             usdValue: 100,
      *             amount: 100,
-     *             date: "2024-12-13T18:46:40.666+00:00",
+     *             date: "date",
      *             initiator: {
      *                 type: "PERSON",
      *                 id: "id"
@@ -138,11 +139,12 @@ export declare class TransactionAssessment {
      *                 paymentMethodType: "CREDIT_CARD"
      *             },
      *             destinationMethod: {
+     *                 paymentMethodType: "WALLET",
      *                 paymentMethodType: "WALLET"
      *             }
      *         }
      *     })
      */
     transactionInformationAssessment(request: PTI.TransactionInformationAssessmentRequest, requestOptions?: TransactionAssessment.RequestOptions): Promise<PTI.OneOfAssessmentValidationError>;
-    protected _getAuthorizationHeader(): Promise<string | undefined>;
+    protected _getAuthorizationHeader(): Promise<string>;
 }

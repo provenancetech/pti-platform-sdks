@@ -3,7 +3,11 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         page: 1,
+ *         size: 1,
+ *         sortBy: "sortBy"
+ *     }
  */
 export interface GetDigitalItemsRequest {
     /**

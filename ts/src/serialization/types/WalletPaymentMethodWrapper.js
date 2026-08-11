@@ -38,9 +38,9 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WalletPaymentMethodWrapper = void 0;
 const core = __importStar(require("../../core"));
-const WalletPaymentMethod_1 = require("./WalletPaymentMethod");
-exports.WalletPaymentMethodWrapper = core.serialization
-    .object({
+const Wallet_1 = require("./Wallet");
+exports.WalletPaymentMethodWrapper = core.serialization.object({
     paymentMethodType: core.serialization.stringLiteral("WALLET").optional(),
-})
-    .extend(WalletPaymentMethod_1.WalletPaymentMethod);
+    billingEmail: core.serialization.string().optional(),
+    paymentInformation: Wallet_1.Wallet.optional(),
+});
