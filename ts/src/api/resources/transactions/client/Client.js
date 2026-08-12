@@ -110,21 +110,27 @@ class Transactions {
      *         },
      *         type: "DEPOSIT",
      *         destinationMethod: {
+     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
-     *                 type: "BANK_ACCOUNT",
-     *                 walletAddress: "walletAddress",
+     *                 label: "MyUSDWallet",
      *                 currency: "USD",
-     *                 network: "network"
+     *                 availableBalance: 1000,
+     *                 depositInstruction: {
+     *                     "type": "BANK_ACCOUNT",
+     *                     "accountNumber": "123456789",
+     *                     "routingNumber": "12345678"
+     *                 },
+     *                 createDateTime: "2021-09-28T12:00:00Z",
+     *                 type: "WALLET"
      *             }
      *         },
      *         sourceMethod: {
+     *             paymentMethodType: "CREDIT_CARD",
+     *             billingEmail: "user@example.com",
      *             paymentInformation: {
      *                 id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
-     *                 type: "ENCRYPTED_CREDIT_CARD",
-     *                 walletAddress: "walletAddress",
-     *                 currency: "currency",
-     *                 network: "network"
+     *                 type: "WALLET"
      *             }
      *         }
      *     })

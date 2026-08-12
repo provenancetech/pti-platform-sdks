@@ -50,8 +50,6 @@ export * from "./Ssn";
 export * from "./StateCode";
 export * from "./TravelRuleData";
 export * from "./CryptoPaymentInformation";
-export * from "./CryptoPaymentMethodDestination";
-export * from "./CryptoPaymentMethodSource";
 export * from "./CryptoPaymentMethod";
 export * from "./Transaction";
 export * from "./DeviceInformation";

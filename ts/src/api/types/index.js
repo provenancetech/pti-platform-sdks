@@ -66,8 +66,6 @@ __exportStar(require("./Ssn"), exports);
 __exportStar(require("./StateCode"), exports);
 __exportStar(require("./TravelRuleData"), exports);
 __exportStar(require("./CryptoPaymentInformation"), exports);
-__exportStar(require("./CryptoPaymentMethodDestination"), exports);
-__exportStar(require("./CryptoPaymentMethodSource"), exports);
 __exportStar(require("./CryptoPaymentMethod"), exports);
 __exportStar(require("./Transaction"), exports);
 __exportStar(require("./DeviceInformation"), exports);
