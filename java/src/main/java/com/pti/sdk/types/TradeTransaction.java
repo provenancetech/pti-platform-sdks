@@ -54,9 +54,9 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
   private final Optional<DeviceInformation> deviceInformation;
 
-  private final Optional<CryptoPaymentMethodDestination> destinationMethod;
+  private final Optional<WalletPaymentMethod> destinationMethod;
 
-  private final Optional<CryptoPaymentMethodSource> sourceMethod;
+  private final Optional<WalletPaymentMethod> sourceMethod;
 
   private final Map<String, Object> additionalProperties;
 
@@ -66,8 +66,8 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
       Optional<Boolean> useInstantSettlement, String date, OneOfUserSubTypes initiator,
       Optional<Map<String, Object>> ptiMeta, Optional<Map<String, Object>> clientMeta,
       Optional<DeviceInformation> deviceInformation,
-      Optional<CryptoPaymentMethodDestination> destinationMethod,
-      Optional<CryptoPaymentMethodSource> sourceMethod, Map<String, Object> additionalProperties) {
+      Optional<WalletPaymentMethod> destinationMethod, Optional<WalletPaymentMethod> sourceMethod,
+      Map<String, Object> additionalProperties) {
     this.type = type;
     this.id = id;
     this.transactionGroupId = transactionGroupId;
@@ -180,12 +180,12 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
   }
 
   @JsonProperty("destinationMethod")
-  public Optional<CryptoPaymentMethodDestination> getDestinationMethod() {
+  public Optional<WalletPaymentMethod> getDestinationMethod() {
     return destinationMethod;
   }
 
   @JsonProperty("sourceMethod")
-  public Optional<CryptoPaymentMethodSource> getSourceMethod() {
+  public Optional<WalletPaymentMethod> getSourceMethod() {
     return sourceMethod;
   }
 
@@ -275,13 +275,13 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     _FinalStage deviceInformation(DeviceInformation deviceInformation);
 
-    _FinalStage destinationMethod(Optional<CryptoPaymentMethodDestination> destinationMethod);
+    _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod);
 
-    _FinalStage destinationMethod(CryptoPaymentMethodDestination destinationMethod);
+    _FinalStage destinationMethod(WalletPaymentMethod destinationMethod);
 
-    _FinalStage sourceMethod(Optional<CryptoPaymentMethodSource> sourceMethod);
+    _FinalStage sourceMethod(Optional<WalletPaymentMethod> sourceMethod);
 
-    _FinalStage sourceMethod(CryptoPaymentMethodSource sourceMethod);
+    _FinalStage sourceMethod(WalletPaymentMethod sourceMethod);
   }
 
   @JsonIgnoreProperties(
@@ -296,9 +296,9 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
 
     private OneOfUserSubTypes initiator;
 
-    private Optional<CryptoPaymentMethodSource> sourceMethod = Optional.empty();
+    private Optional<WalletPaymentMethod> sourceMethod = Optional.empty();
 
-    private Optional<CryptoPaymentMethodDestination> destinationMethod = Optional.empty();
+    private Optional<WalletPaymentMethod> destinationMethod = Optional.empty();
 
     private Optional<DeviceInformation> deviceInformation = Optional.empty();
 
@@ -377,7 +377,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
     }
 
     @java.lang.Override
-    public _FinalStage sourceMethod(CryptoPaymentMethodSource sourceMethod) {
+    public _FinalStage sourceMethod(WalletPaymentMethod sourceMethod) {
       this.sourceMethod = Optional.ofNullable(sourceMethod);
       return this;
     }
@@ -387,13 +387,13 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
         value = "sourceMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage sourceMethod(Optional<CryptoPaymentMethodSource> sourceMethod) {
+    public _FinalStage sourceMethod(Optional<WalletPaymentMethod> sourceMethod) {
       this.sourceMethod = sourceMethod;
       return this;
     }
 
     @java.lang.Override
-    public _FinalStage destinationMethod(CryptoPaymentMethodDestination destinationMethod) {
+    public _FinalStage destinationMethod(WalletPaymentMethod destinationMethod) {
       this.destinationMethod = Optional.ofNullable(destinationMethod);
       return this;
     }
@@ -403,8 +403,7 @@ public final class TradeTransaction implements ITransactionType, ITransaction {
         value = "destinationMethod",
         nulls = Nulls.SKIP
     )
-    public _FinalStage destinationMethod(
-        Optional<CryptoPaymentMethodDestination> destinationMethod) {
+    public _FinalStage destinationMethod(Optional<WalletPaymentMethod> destinationMethod) {
       this.destinationMethod = destinationMethod;
       return this;
     }
