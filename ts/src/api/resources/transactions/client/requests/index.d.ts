@@ -6,3 +6,4 @@ export { type ExecuteTradeTransaction } from "./ExecuteTradeTransaction";
 export { type ExecuteMintTransaction } from "./ExecuteMintTransaction";
 export { type TransactionUpdate } from "./TransactionUpdate";
 export { type TransactionAction } from "./TransactionAction";
+export { type ExecuteStakeTransaction } from "./ExecuteStakeTransaction";

@@ -74,6 +74,7 @@ __exportStar(require("./SellTransaction"), exports);
 __exportStar(require("./BuyTransaction"), exports);
 __exportStar(require("./PaymentTransaction"), exports);
 __exportStar(require("./MintTransaction"), exports);
+__exportStar(require("./StakeTransaction"), exports);
 __exportStar(require("./TradeTransaction"), exports);
 __exportStar(require("./TransactionTypeEnum"), exports);
 __exportStar(require("./TransactionType"), exports);

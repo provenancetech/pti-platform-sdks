@@ -1325,6 +1325,125 @@ class Transactions {
             }
         });
     }
+    /**
+     * This endpoint is used to execute a Stake transaction. The Transaction Assessment and User Information requirement are evaluated before the Transaction is executed.
+     *
+     * @param {PTI.ExecuteStakeTransaction} request
+     * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ForbiddenError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.UnprocessableEntityError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactions.stakes({
+     *         ptiRequestId: "x-pti-request-id",
+     *         usdValue: 113,
+     *         amount: 0.5,
+     *         date: "date",
+     *         initiator: {
+     *             type: "PERSON",
+     *             id: "id"
+     *         },
+     *         type: "STAKE",
+     *         sourceMethod: {
+     *             paymentMethodType: "WALLET",
+     *             paymentInformation: {
+     *                 id: "MySOLWallet",
+     *                 type: "WALLET"
+     *             }
+     *         }
+     *     })
+     */
+    stakes(request, requestOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
+            const { ptiRequestId, ptiScenarioId, ptiSessionId, ptiDisableWebhook, ptiProviderName } = request, _body = __rest(request, ["ptiRequestId", "ptiScenarioId", "ptiSessionId", "ptiDisableWebhook", "ptiProviderName"]);
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_b = (_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment))) !== null && _b !== void 0 ? _b : environments.PTIEnvironment.Default, "stakes"),
+                method: "POST",
+                headers: Object.assign({ Authorization: yield this._getAuthorizationHeader(), "x-pti-client-id": (yield core.Supplier.get(this._options.ptiClientId)) != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(yield core.Supplier.get(this._options.ptiClientId), {
+                            unrecognizedObjectKeys: "strip",
+                        })
+                        : undefined, "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version, "x-pti-request-id": serializers.UuidLikeStr.jsonOrThrow(ptiRequestId, {
+                        unrecognizedObjectKeys: "strip",
+                    }), "x-pti-scenario-id": ptiScenarioId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiScenarioId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-session-id": ptiSessionId != null
+                        ? serializers.UuidLikeStr.jsonOrThrow(ptiSessionId, { unrecognizedObjectKeys: "strip" })
+                        : undefined, "x-pti-disable-webhook": ptiDisableWebhook != null ? ptiDisableWebhook.toString() : undefined, "x-pti-provider-name": ptiProviderName != null
+                        ? serializers.ProviderName.jsonOrThrow(ptiProviderName, { unrecognizedObjectKeys: "strip" })
+                        : undefined }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                requestType: "json",
+                body: serializers.ExecuteStakeTransaction.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.ObjectReference.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new PTI.BadRequestError(serializers.InvalidRequestError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 401:
+                        throw new PTI.UnauthorizedError(serializers.UnmanagedError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 403:
+                        throw new PTI.ForbiddenError(_response.error.body);
+                    case 404:
+                        throw new PTI.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new PTI.UnprocessableEntityError(serializers.OneOfAssessmentValidationError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }));
+                    case 429:
+                        throw new PTI.TooManyRequestsError(_response.error.body);
+                    default:
+                        throw new errors.PTIError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.PTIError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.PTITimeoutError("Timeout exceeded when calling POST /stakes.");
+                case "unknown":
+                    throw new errors.PTIError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
             return `Bearer ${yield core.Supplier.get(this._options.token)}`;

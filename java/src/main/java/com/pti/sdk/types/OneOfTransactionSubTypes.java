@@ -53,6 +53,8 @@ public final class OneOfTransactionSubTypes {
       return visitor.visit((TradeTransaction) this.value);
     } else if(this.type == 7) {
       return visitor.visit((PaymentTransaction) this.value);
+    } else if(this.type == 8) {
+      return visitor.visit((StakeTransaction) this.value);
     }
     throw new IllegalStateException("Failed to visit value. This should never happen.");
   }
@@ -109,6 +111,10 @@ public final class OneOfTransactionSubTypes {
     return new OneOfTransactionSubTypes(value, 7);
   }
 
+  public static OneOfTransactionSubTypes of(StakeTransaction value) {
+    return new OneOfTransactionSubTypes(value, 8);
+  }
+
   public interface Visitor<T> {
     T visit(DepositTransaction value);
 
@@ -125,6 +131,8 @@ public final class OneOfTransactionSubTypes {
     T visit(TradeTransaction value);
 
     T visit(PaymentTransaction value);
+
+    T visit(StakeTransaction value);
   }
 
   static final class Deserializer extends StdDeserializer<OneOfTransactionSubTypes> {
@@ -166,6 +174,10 @@ public final class OneOfTransactionSubTypes {
       }
       try {
         return of(ObjectMappers.JSON_MAPPER.convertValue(value, PaymentTransaction.class));
+      } catch(IllegalArgumentException e) {
+      }
+      try {
+        return of(ObjectMappers.JSON_MAPPER.convertValue(value, StakeTransaction.class));
       } catch(IllegalArgumentException e) {
       }
       throw new JsonParseException(p, "Failed to deserialize");

@@ -6,3 +6,4 @@ export { ExecuteTradeTransaction } from "./ExecuteTradeTransaction";
 export { ExecuteMintTransaction } from "./ExecuteMintTransaction";
 export { TransactionUpdate } from "./TransactionUpdate";
 export { TransactionAction } from "./TransactionAction";
+export { ExecuteStakeTransaction } from "./ExecuteStakeTransaction";

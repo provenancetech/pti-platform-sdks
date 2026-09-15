@@ -12,7 +12,8 @@ import { BuyTransaction } from "./BuyTransaction";
 import { MintTransaction } from "./MintTransaction";
 import { TradeTransaction } from "./TradeTransaction";
 import { PaymentTransaction } from "./PaymentTransaction";
+import { StakeTransaction } from "./StakeTransaction";
 export declare const OneOfTransactionSubTypes: core.serialization.Schema<serializers.OneOfTransactionSubTypes.Raw, PTI.OneOfTransactionSubTypes>;
 export declare namespace OneOfTransactionSubTypes {
-    type Raw = DepositTransaction.Raw | WithdrawalTransaction.Raw | TransferTransaction.Raw | SellTransaction.Raw | BuyTransaction.Raw | MintTransaction.Raw | TradeTransaction.Raw | PaymentTransaction.Raw;
+    type Raw = DepositTransaction.Raw | WithdrawalTransaction.Raw | TransferTransaction.Raw | SellTransaction.Raw | BuyTransaction.Raw | MintTransaction.Raw | TradeTransaction.Raw | PaymentTransaction.Raw | StakeTransaction.Raw;
 }
