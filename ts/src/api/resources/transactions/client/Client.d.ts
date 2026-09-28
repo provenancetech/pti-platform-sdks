@@ -451,5 +451,39 @@ export declare class Transactions {
      *     })
      */
     performAction(requestId: PTI.UuidLikeStr, request: PTI.TransactionAction, requestOptions?: Transactions.RequestOptions): Promise<PTI.TransactionStatusObject>;
+    /**
+     * This endpoint is used to execute a Stake transaction. The Transaction Assessment and User Information requirement are evaluated before the Transaction is executed.
+     *
+     * @param {PTI.ExecuteStakeTransaction} request
+     * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ForbiddenError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.UnprocessableEntityError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactions.stakes({
+     *         ptiRequestId: "x-pti-request-id",
+     *         usdValue: 113,
+     *         amount: 0.5,
+     *         date: "date",
+     *         initiator: {
+     *             type: "PERSON",
+     *             id: "id"
+     *         },
+     *         type: "STAKE",
+     *         sourceMethod: {
+     *             paymentMethodType: "WALLET",
+     *             paymentInformation: {
+     *                 id: "MySOLWallet",
+     *                 type: "WALLET"
+     *             }
+     *         }
+     *     })
+     */
+    stakes(request: PTI.ExecuteStakeTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     protected _getAuthorizationHeader(): Promise<string>;
 }

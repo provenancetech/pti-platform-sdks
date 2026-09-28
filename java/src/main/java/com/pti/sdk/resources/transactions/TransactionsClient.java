@@ -20,6 +20,7 @@ import com.pti.sdk.errors.UnprocessableEntityError;
 import com.pti.sdk.resources.transactions.requests.ExecuteDepositTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteMintTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecutePaymentTransaction;
+import com.pti.sdk.resources.transactions.requests.ExecuteStakeTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteTradeTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteTransferTransaction;
 import com.pti.sdk.resources.transactions.requests.ExecuteWithdrawalTransaction;
@@ -994,6 +995,110 @@ public class TransactionsClient {
           case 400:throw new BadRequestError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, InvalidRequestError.class));
           case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
           case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+        }
+      }
+      catch (JsonProcessingException ignored) {
+        // unable to map error response, throwing generic error
+      }
+      throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+    }
+    catch (IOException e) {
+      throw new PTIClientException("Network error executing HTTP request", e);
+    }
+  }
+
+  /**
+   * This endpoint is used to execute a Stake transaction. The Transaction Assessment and User Information requirement are evaluated before the Transaction is executed.
+   */
+  public ObjectReference stakes(ExecuteStakeTransaction request) {
+    return stakes(request,null);
+  }
+
+  /**
+   * This endpoint is used to execute a Stake transaction. The Transaction Assessment and User Information requirement are evaluated before the Transaction is executed.
+   */
+  public ObjectReference stakes(ExecuteStakeTransaction request, RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("stakes")
+      .build();
+    Map<String, Object> properties = new HashMap<>();
+    properties.put("sourceMethod", request.getSourceMethod());
+    properties.put("type", request.getType());
+    if (request.getId().isPresent()) {
+      properties.put("id", request.getId());
+    }
+    if (request.getTransactionGroupId().isPresent()) {
+      properties.put("transactionGroupId", request.getTransactionGroupId());
+    }
+    if (request.getSubClientId().isPresent()) {
+      properties.put("subClientId", request.getSubClientId());
+    }
+    if (request.getTransactionTotal().isPresent()) {
+      properties.put("transactionTotal", request.getTransactionTotal());
+    }
+    if (request.getUsdValue().isPresent()) {
+      properties.put("usdValue", request.getUsdValue());
+    }
+    properties.put("amount", request.getAmount());
+    if (request.getUseInstantSettlement().isPresent()) {
+      properties.put("useInstantSettlement", request.getUseInstantSettlement());
+    }
+    properties.put("date", request.getDate());
+    properties.put("initiator", request.getInitiator());
+    if (request.getPtiMeta().isPresent()) {
+      properties.put("ptiMeta", request.getPtiMeta());
+    }
+    if (request.getClientMeta().isPresent()) {
+      properties.put("clientMeta", request.getClientMeta());
+    }
+    if (request.getDeviceInformation().isPresent()) {
+      properties.put("deviceInformation", request.getDeviceInformation());
+    }
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
+    }
+    catch(Exception e) {
+      throw new RuntimeException(e);
+    }
+    Request.Builder _requestBuilder = new Request.Builder()
+      .url(httpUrl)
+      .method("POST", body)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json").addHeader("Accept", "application/json");
+    _requestBuilder.addHeader("x-pti-request-id", request.getPtiRequestId());
+    if (request.getPtiScenarioId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-scenario-id", request.getPtiScenarioId().get());
+    }
+    if (request.getPtiSessionId().isPresent()) {
+      _requestBuilder.addHeader("x-pti-session-id", request.getPtiSessionId().get());
+    }
+    if (request.getPtiDisableWebhook().isPresent()) {
+      _requestBuilder.addHeader("x-pti-disable-webhook", request.getPtiDisableWebhook().get().toString());
+    }
+    if (request.getPtiProviderName().isPresent()) {
+      _requestBuilder.addHeader("x-pti-provider-name", request.getPtiProviderName().get());
+    }
+    Request okhttpRequest = _requestBuilder.build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    try (Response response = client.newCall(okhttpRequest).execute()) {
+      ResponseBody responseBody = response.body();
+      if (response.isSuccessful()) {
+        return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ObjectReference.class);
+      }
+      String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+      try {
+        switch (response.code()) {
+          case 400:throw new BadRequestError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, InvalidRequestError.class));
+          case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
+          case 403:throw new ForbiddenError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 422:throw new UnprocessableEntityError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, OneOfAssessmentValidationError.class));
           case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
         }
       }

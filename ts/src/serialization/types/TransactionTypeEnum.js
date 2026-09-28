@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionTypeEnum = void 0;
 const core = __importStar(require("../../core"));
-exports.TransactionTypeEnum = core.serialization.enum_(["DEPOSIT", "WITHDRAWAL", "PAYMENT", "TRANSFER", "SELL", "BUY", "MINT", "TRADE"]);
+exports.TransactionTypeEnum = core.serialization.enum_(["DEPOSIT", "WITHDRAWAL", "PAYMENT", "TRANSFER", "SELL", "BUY", "MINT", "TRADE", "STAKE"]);

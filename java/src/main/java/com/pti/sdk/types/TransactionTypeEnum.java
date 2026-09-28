@@ -22,7 +22,9 @@ public enum TransactionTypeEnum {
 
   MINT("MINT"),
 
-  TRADE("TRADE");
+  TRADE("TRADE"),
+
+  STAKE("STAKE");
 
   private final String value;
 

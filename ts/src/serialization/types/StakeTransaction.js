@@ -36,25 +36,12 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OneOfTransactionSubTypes = void 0;
+exports.StakeTransaction = void 0;
 const core = __importStar(require("../../core"));
-const DepositTransaction_1 = require("./DepositTransaction");
-const WithdrawalTransaction_1 = require("./WithdrawalTransaction");
-const TransferTransaction_1 = require("./TransferTransaction");
-const SellTransaction_1 = require("./SellTransaction");
-const BuyTransaction_1 = require("./BuyTransaction");
-const MintTransaction_1 = require("./MintTransaction");
-const TradeTransaction_1 = require("./TradeTransaction");
-const PaymentTransaction_1 = require("./PaymentTransaction");
-const StakeTransaction_1 = require("./StakeTransaction");
-exports.OneOfTransactionSubTypes = core.serialization.undiscriminatedUnion([
-    DepositTransaction_1.DepositTransaction,
-    WithdrawalTransaction_1.WithdrawalTransaction,
-    TransferTransaction_1.TransferTransaction,
-    SellTransaction_1.SellTransaction,
-    BuyTransaction_1.BuyTransaction,
-    MintTransaction_1.MintTransaction,
-    TradeTransaction_1.TradeTransaction,
-    PaymentTransaction_1.PaymentTransaction,
-    StakeTransaction_1.StakeTransaction,
-]);
+const WalletPaymentMethodWrapper_1 = require("./WalletPaymentMethodWrapper");
+const TransactionType_1 = require("./TransactionType");
+exports.StakeTransaction = core.serialization
+    .object({
+    sourceMethod: WalletPaymentMethodWrapper_1.WalletPaymentMethodWrapper.optional(),
+})
+    .extend(TransactionType_1.TransactionType);
