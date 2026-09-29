@@ -29,8 +29,6 @@ import org.jetbrains.annotations.NotNull;
 public final class CryptoPaymentInformation implements IExternalPaymentInformation {
   private final Optional<String> id;
 
-  private final ExternalPaymentInformationType type;
-
   private final String walletAddress;
 
   private final String currency;
@@ -45,12 +43,10 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
 
   private final Map<String, Object> additionalProperties;
 
-  private CryptoPaymentInformation(Optional<String> id, ExternalPaymentInformationType type,
-      String walletAddress, String currency, String network, Optional<Boolean> privateBlockchain,
-      Optional<Map<String, Object>> clientMeta, Optional<TravelRuleData> travelRuleData,
-      Map<String, Object> additionalProperties) {
+  private CryptoPaymentInformation(Optional<String> id, String walletAddress, String currency,
+      String network, Optional<Boolean> privateBlockchain, Optional<Map<String, Object>> clientMeta,
+      Optional<TravelRuleData> travelRuleData, Map<String, Object> additionalProperties) {
     this.id = id;
-    this.type = type;
     this.walletAddress = walletAddress;
     this.currency = currency;
     this.network = network;
@@ -67,11 +63,6 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   @java.lang.Override
   public Optional<String> getId() {
     return id;
-  }
-
-  @JsonProperty("type")
-  public ExternalPaymentInformationType getType() {
-    return type;
   }
 
   /**
@@ -131,12 +122,12 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   }
 
   private boolean equalTo(CryptoPaymentInformation other) {
-    return id.equals(other.id) && type.equals(other.type) && walletAddress.equals(other.walletAddress) && currency.equals(other.currency) && network.equals(other.network) && privateBlockchain.equals(other.privateBlockchain) && clientMeta.equals(other.clientMeta) && travelRuleData.equals(other.travelRuleData);
+    return id.equals(other.id) && walletAddress.equals(other.walletAddress) && currency.equals(other.currency) && network.equals(other.network) && privateBlockchain.equals(other.privateBlockchain) && clientMeta.equals(other.clientMeta) && travelRuleData.equals(other.travelRuleData);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.id, this.type, this.walletAddress, this.currency, this.network, this.privateBlockchain, this.clientMeta, this.travelRuleData);
+    return Objects.hash(this.id, this.walletAddress, this.currency, this.network, this.privateBlockchain, this.clientMeta, this.travelRuleData);
   }
 
   @java.lang.Override
@@ -144,18 +135,14 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     return ObjectMappers.stringify(this);
   }
 
-  public static TypeStage builder() {
+  public static WalletAddressStage builder() {
     return new Builder();
-  }
-
-  public interface TypeStage {
-    WalletAddressStage type(@NotNull ExternalPaymentInformationType type);
-
-    Builder from(CryptoPaymentInformation other);
   }
 
   public interface WalletAddressStage {
     CurrencyStage walletAddress(@NotNull String walletAddress);
+
+    Builder from(CryptoPaymentInformation other);
   }
 
   public interface CurrencyStage {
@@ -189,9 +176,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TypeStage, WalletAddressStage, CurrencyStage, NetworkStage, _FinalStage {
-    private ExternalPaymentInformationType type;
-
+  public static final class Builder implements WalletAddressStage, CurrencyStage, NetworkStage, _FinalStage {
     private String walletAddress;
 
     private String currency;
@@ -215,20 +200,12 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
     @java.lang.Override
     public Builder from(CryptoPaymentInformation other) {
       id(other.getId());
-      type(other.getType());
       walletAddress(other.getWalletAddress());
       currency(other.getCurrency());
       network(other.getNetwork());
       privateBlockchain(other.getPrivateBlockchain());
       clientMeta(other.getClientMeta());
       travelRuleData(other.getTravelRuleData());
-      return this;
-    }
-
-    @java.lang.Override
-    @JsonSetter("type")
-    public WalletAddressStage type(@NotNull ExternalPaymentInformationType type) {
-      this.type = Objects.requireNonNull(type, "type must not be null");
       return this;
     }
 
@@ -343,7 +320,7 @@ public final class CryptoPaymentInformation implements IExternalPaymentInformati
 
     @java.lang.Override
     public CryptoPaymentInformation build() {
-      return new CryptoPaymentInformation(id, type, walletAddress, currency, network, privateBlockchain, clientMeta, travelRuleData, additionalProperties);
+      return new CryptoPaymentInformation(id, walletAddress, currency, network, privateBlockchain, clientMeta, travelRuleData, additionalProperties);
     }
   }
 }

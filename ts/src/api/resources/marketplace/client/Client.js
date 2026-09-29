@@ -67,7 +67,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Marketplace {
-    constructor(_options) {
+    constructor(_options = {}) {
         this._options = _options;
     }
     /**
@@ -83,13 +83,7 @@ class Marketplace {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.searchClientWallets({
-     *         page: 1,
-     *         size: 1,
-     *         sortBy: "sortBy",
-     *         sortDirection: "sortDirection",
-     *         filters: "filters"
-     *     })
+     *     await client.marketplace.searchClientWallets()
      */
     searchClientWallets() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
@@ -187,7 +181,7 @@ class Marketplace {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -200,7 +194,6 @@ class Marketplace {
      *             digitalItemType: "NFT"
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentMethodType: "WALLET"
      *         },
      *         seller: {
@@ -313,7 +306,7 @@ class Marketplace {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -326,7 +319,6 @@ class Marketplace {
      *             digitalItemType: "NFT"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentMethodType: "WALLET"
      *         },
      *         buyer: {
@@ -577,11 +569,7 @@ class Marketplace {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.getDigitalItems("userId", {
-     *         page: 1,
-     *         size: 1,
-     *         sortBy: "sortBy"
-     *     })
+     *     await client.marketplace.getDigitalItems("userId")
      */
     getDigitalItems(userId_1) {
         return __awaiter(this, arguments, void 0, function* (userId, request = {}, requestOptions) {
@@ -746,7 +734,11 @@ class Marketplace {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
+            const bearer = yield core.Supplier.get(this._options.token);
+            if (bearer != null) {
+                return `Bearer ${bearer}`;
+            }
+            return undefined;
         });
     }
 }
