@@ -57,7 +57,7 @@ const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 const json_1 = require("../../../../core/json");
 class Users {
-    constructor(_options) {
+    constructor(_options = {}) {
         this._options = _options;
     }
     /**
@@ -73,11 +73,7 @@ class Users {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.users.getListOfUsers({
-     *         page: 1,
-     *         size: 1,
-     *         sortBy: "sortBy"
-     *     })
+     *     await client.users.getListOfUsers()
      */
     getListOfUsers() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
@@ -784,7 +780,11 @@ class Users {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
+            const bearer = yield core.Supplier.get(this._options.token);
+            if (bearer != null) {
+                return `Bearer ${bearer}`;
+            }
+            return undefined;
         });
     }
 }

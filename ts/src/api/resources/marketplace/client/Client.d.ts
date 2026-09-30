@@ -9,7 +9,7 @@ export declare namespace Marketplace {
         environment?: core.Supplier<environments.PTIEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the x-pti-client-id header */
         ptiClientId?: core.Supplier<PTI.UuidLikeStr | undefined>;
     }
@@ -28,7 +28,7 @@ export declare namespace Marketplace {
 }
 export declare class Marketplace {
     protected readonly _options: Marketplace.Options;
-    constructor(_options: Marketplace.Options);
+    constructor(_options?: Marketplace.Options);
     /**
      * Retrieves a paginated list of Wallets belonging to your users.
      * Supports filtering by balance, currency, network, and user ID.
@@ -42,13 +42,7 @@ export declare class Marketplace {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.searchClientWallets({
-     *         page: 1,
-     *         size: 1,
-     *         sortBy: "sortBy",
-     *         sortDirection: "sortDirection",
-     *         filters: "filters"
-     *     })
+     *     await client.marketplace.searchClientWallets()
      */
     searchClientWallets(request?: PTI.SearchClientWalletsRequest, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReferencePage>;
     /**
@@ -69,7 +63,7 @@ export declare class Marketplace {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -82,7 +76,6 @@ export declare class Marketplace {
      *             digitalItemType: "NFT"
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentMethodType: "WALLET"
      *         },
      *         seller: {
@@ -110,7 +103,7 @@ export declare class Marketplace {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 5,
      *         amount: 5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -123,7 +116,6 @@ export declare class Marketplace {
      *             digitalItemType: "NFT"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentMethodType: "WALLET"
      *         },
      *         buyer: {
@@ -174,11 +166,7 @@ export declare class Marketplace {
      * @throws {@link PTI.TooManyRequestsError}
      *
      * @example
-     *     await client.marketplace.getDigitalItems("userId", {
-     *         page: 1,
-     *         size: 1,
-     *         sortBy: "sortBy"
-     *     })
+     *     await client.marketplace.getDigitalItems("userId")
      */
     getDigitalItems(userId: string, request?: PTI.GetDigitalItemsRequest, requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReferencePage>;
     /**
@@ -208,5 +196,5 @@ export declare class Marketplace {
      *         }])
      */
     createDigitalItems(userId: string, request: PTI.DigitalItem[], requestOptions?: Marketplace.RequestOptions): Promise<PTI.ObjectReference[]>;
-    protected _getAuthorizationHeader(): Promise<string>;
+    protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

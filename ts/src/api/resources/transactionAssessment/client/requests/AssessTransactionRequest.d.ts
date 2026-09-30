@@ -24,7 +24,7 @@ import * as PTI from "../../../../index";
  *             },
  *             usdValue: 100,
  *             amount: 100,
- *             date: "date",
+ *             date: "2024-12-13T18:46:40.666+00:00",
  *             initiator: {
  *                 type: "PERSON",
  *                 id: "id"
@@ -34,7 +34,6 @@ import * as PTI from "../../../../index";
  *                 paymentMethodType: "CREDIT_CARD"
  *             },
  *             destinationMethod: {
- *                 paymentMethodType: "WALLET",
  *                 paymentMethodType: "WALLET"
  *             }
  *         }

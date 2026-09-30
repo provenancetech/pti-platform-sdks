@@ -4,12 +4,10 @@
 import * as serializers from "../index";
 import * as PTI from "../../api/index";
 import * as core from "../../core";
-import { PaymentMethodType } from "./PaymentMethodType";
 import { Wallet } from "./Wallet";
 export declare const WalletPaymentMethod: core.serialization.ObjectSchema<serializers.WalletPaymentMethod.Raw, PTI.WalletPaymentMethod>;
 export declare namespace WalletPaymentMethod {
     interface Raw {
-        paymentMethodType: PaymentMethodType.Raw;
         billingEmail?: string | null;
         paymentInformation?: Wallet.Raw | null;
     }

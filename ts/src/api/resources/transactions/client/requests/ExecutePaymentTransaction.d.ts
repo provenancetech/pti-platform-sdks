@@ -22,7 +22,7 @@ import * as PTI from "../../../../index";
  *         },
  *         usdValue: 6.99,
  *         amount: 6.99,
- *         date: "date",
+ *         date: "2024-12-13T18:46:40.666+00:00",
  *         initiator: {
  *             type: "PERSON",
  *             id: "id"
@@ -35,7 +35,6 @@ import * as PTI from "../../../../index";
  *             paymentMethodType: "CREDIT_CARD"
  *         },
  *         destinationMethod: {
- *             paymentMethodType: "WALLET",
  *             paymentInformation: {
  *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
  *                 label: "MyUSDWallet",
@@ -48,7 +47,8 @@ import * as PTI from "../../../../index";
  *                 },
  *                 createDateTime: "2021-09-28T12:00:00Z",
  *                 type: "WALLET"
- *             }
+ *             },
+ *             paymentMethodType: "WALLET"
  *         }
  *     }
  */

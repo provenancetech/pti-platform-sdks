@@ -67,7 +67,7 @@ const serializers = __importStar(require("../../../../serialization/index"));
 const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Transactions {
-    constructor(_options) {
+    constructor(_options = {}) {
         this._options = _options;
     }
     /**
@@ -103,14 +103,13 @@ class Transactions {
      *         },
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "DEPOSIT",
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
      *                 label: "MyUSDWallet",
@@ -126,7 +125,6 @@ class Transactions {
      *             }
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "CREDIT_CARD",
      *             billingEmail: "user@example.com",
      *             paymentInformation: {
      *                 id: "4b573a86-fd3f-475d-a90b-3658f2e79719",
@@ -224,7 +222,7 @@ class Transactions {
      *         transactionGroupId: "c8d8ed2a-33df-463b-95af-e59ff6e16414",
      *         usdValue: 100,
      *         amount: 100,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -234,7 +232,6 @@ class Transactions {
      *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "3f8d7e96-5d63-49b4-b4a8-42c70ef0cc82",
      *                 label: "MyUSDWallet",
@@ -247,7 +244,8 @@ class Transactions {
      *                 },
      *                 createDateTime: "2021-09-28T12:00:00Z",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -355,22 +353,21 @@ class Transactions {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 3999.54,
      *         amount: 1,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "WITHDRAWAL",
      *         destinationMethod: {
-     *             paymentMethodType: "CRYPTO",
      *             paymentMethodType: "CRYPTO"
      *         },
      *         sourceMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "a8e99100-f562-4e5b-b86f-9142dc2bc9f0",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -492,7 +489,7 @@ class Transactions {
      *         },
      *         usdValue: 6.99,
      *         amount: 6.99,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -505,7 +502,6 @@ class Transactions {
      *             paymentMethodType: "CREDIT_CARD"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "e13c3242-57d3-473f-b98c-eb2768e4549c",
      *                 label: "MyUSDWallet",
@@ -518,7 +514,8 @@ class Transactions {
      *                 },
      *                 createDateTime: "2021-09-28T12:00:00Z",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -626,25 +623,25 @@ class Transactions {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 200,
      *         amount: 200,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "TRANSFER",
      *         sourceTransferMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "dd2473b7-1afd-4f9c-a359-b4294587fef6",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destinationTransferMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "70cd9757-f288-41e5-8506-5c38b7c819e1",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destination: {
      *             type: "PERSON",
@@ -756,25 +753,25 @@ class Transactions {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 113,
      *         amount: 0.5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "TRADE",
      *         sourceMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "MySOLWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "MyUSDWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -882,7 +879,7 @@ class Transactions {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 200,
      *         amount: 0.55,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
@@ -893,11 +890,11 @@ class Transactions {
      *             id: "id"
      *         },
      *         destinationMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "MyBTCWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -1169,7 +1166,7 @@ class Transactions {
      *         providerName: "UNKNOWN",
      *         feedback: "SETTLED",
      *         transactionId: "UUID",
-     *         date: "date"
+     *         date: "2024-12-13T18:46:40.666+00:00"
      *     })
      */
     provideFeedback(requestId, request, requestOptions) {
@@ -1343,18 +1340,18 @@ class Transactions {
      *         ptiRequestId: "x-pti-request-id",
      *         usdValue: 113,
      *         amount: 0.5,
-     *         date: "date",
+     *         date: "2024-12-13T18:46:40.666+00:00",
      *         initiator: {
      *             type: "PERSON",
      *             id: "id"
      *         },
      *         type: "STAKE",
      *         sourceMethod: {
-     *             paymentMethodType: "WALLET",
      *             paymentInformation: {
      *                 id: "MySOLWallet",
      *                 type: "WALLET"
-     *             }
+     *             },
+     *             paymentMethodType: "WALLET"
      *         }
      *     })
      */
@@ -1446,7 +1443,11 @@ class Transactions {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `Bearer ${yield core.Supplier.get(this._options.token)}`;
+            const bearer = yield core.Supplier.get(this._options.token);
+            if (bearer != null) {
+                return `Bearer ${bearer}`;
+            }
+            return undefined;
         });
     }
 }
