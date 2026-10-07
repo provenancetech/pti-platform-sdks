@@ -7,3 +7,4 @@ export { ExecuteMintTransaction } from "./ExecuteMintTransaction";
 export { TransactionUpdate } from "./TransactionUpdate";
 export { TransactionAction } from "./TransactionAction";
 export { ExecuteStakeTransaction } from "./ExecuteStakeTransaction";
+export { ExecuteUnstakeTransaction } from "./ExecuteUnstakeTransaction";

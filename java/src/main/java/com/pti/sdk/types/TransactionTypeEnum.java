@@ -24,7 +24,9 @@ public enum TransactionTypeEnum {
 
   TRADE("TRADE"),
 
-  STAKE("STAKE");
+  STAKE("STAKE"),
+
+  UNSTAKE("UNSTAKE");
 
   private final String value;
 

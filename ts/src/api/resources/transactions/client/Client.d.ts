@@ -498,5 +498,39 @@ export declare class Transactions {
      *     await client.transactions.cancelStake("requestId")
      */
     cancelStake(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
+    /**
+     * This endpoint is used to execute an Unstake transaction to free up staked currency. The Transaction Assessment and User Information requirement are evaluated before the Transaction is executed.
+     *
+     * @param {PTI.ExecuteUnstakeTransaction} request
+     * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.ForbiddenError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.UnprocessableEntityError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactions.unstake({
+     *         ptiRequestId: "x-pti-request-id",
+     *         usdValue: 113,
+     *         amount: 0.5,
+     *         date: "2024-12-13T18:46:40.666+00:00",
+     *         initiator: {
+     *             type: "PERSON",
+     *             id: "id"
+     *         },
+     *         type: "UNSTAKE",
+     *         sourceMethod: {
+     *             paymentInformation: {
+     *                 id: "MySOLWallet",
+     *                 type: "WALLET"
+     *             },
+     *             paymentMethodType: "WALLET"
+     *         }
+     *     })
+     */
+    unstake(request: PTI.ExecuteUnstakeTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
     protected _getAuthorizationHeader(): Promise<string | undefined>;
 }
