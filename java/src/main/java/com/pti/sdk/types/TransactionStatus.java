@@ -38,7 +38,9 @@ public enum TransactionStatus {
 
   RETURNED("RETURNED"),
 
-  PENDING_SETTLEMENT("PENDING_SETTLEMENT");
+  PENDING_SETTLEMENT("PENDING_SETTLEMENT"),
+
+  PROCESSED("PROCESSED");
 
   private final String value;
 

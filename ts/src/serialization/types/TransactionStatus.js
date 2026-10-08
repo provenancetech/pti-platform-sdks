@@ -55,4 +55,5 @@ exports.TransactionStatus = core.serialization.enum_([
     "REFUNDED",
     "RETURNED",
     "PENDING_SETTLEMENT",
+    "PROCESSED",
 ]);
