@@ -10,6 +10,7 @@ export interface Wallet {
     availableBalance?: number;
     lockedBalance?: number;
     pendingBalance?: number;
+    stakedBalance?: number;
     totalBalance?: number;
     /** External reference to the Wallet(could be bank account number, or blockchain address) */
     depositInstruction?: Record<string, unknown>;

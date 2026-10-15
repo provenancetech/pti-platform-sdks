@@ -35,6 +35,8 @@ public final class WalletHistory {
 
   private final Optional<Double> lockedBalanceBefore;
 
+  private final Optional<Double> stakedBalanceBefore;
+
   private final Optional<String> createDateTime;
 
   private final Optional<Double> change;
@@ -47,13 +49,14 @@ public final class WalletHistory {
 
   private WalletHistory(String walletId, Optional<Double> pendingBalanceBefore,
       Optional<Double> totalBalanceBefore, Optional<Double> lockedBalanceBefore,
-      Optional<String> createDateTime, Optional<Double> change,
-      Optional<WalletHistoryOperationTarget> operationTarget, Optional<String> requestId,
-      Map<String, Object> additionalProperties) {
+      Optional<Double> stakedBalanceBefore, Optional<String> createDateTime,
+      Optional<Double> change, Optional<WalletHistoryOperationTarget> operationTarget,
+      Optional<String> requestId, Map<String, Object> additionalProperties) {
     this.walletId = walletId;
     this.pendingBalanceBefore = pendingBalanceBefore;
     this.totalBalanceBefore = totalBalanceBefore;
     this.lockedBalanceBefore = lockedBalanceBefore;
+    this.stakedBalanceBefore = stakedBalanceBefore;
     this.createDateTime = createDateTime;
     this.change = change;
     this.operationTarget = operationTarget;
@@ -79,6 +82,11 @@ public final class WalletHistory {
   @JsonProperty("lockedBalanceBefore")
   public Optional<Double> getLockedBalanceBefore() {
     return lockedBalanceBefore;
+  }
+
+  @JsonProperty("stakedBalanceBefore")
+  public Optional<Double> getStakedBalanceBefore() {
+    return stakedBalanceBefore;
   }
 
   @JsonProperty("createDateTime")
@@ -113,12 +121,12 @@ public final class WalletHistory {
   }
 
   private boolean equalTo(WalletHistory other) {
-    return walletId.equals(other.walletId) && pendingBalanceBefore.equals(other.pendingBalanceBefore) && totalBalanceBefore.equals(other.totalBalanceBefore) && lockedBalanceBefore.equals(other.lockedBalanceBefore) && createDateTime.equals(other.createDateTime) && change.equals(other.change) && operationTarget.equals(other.operationTarget) && requestId.equals(other.requestId);
+    return walletId.equals(other.walletId) && pendingBalanceBefore.equals(other.pendingBalanceBefore) && totalBalanceBefore.equals(other.totalBalanceBefore) && lockedBalanceBefore.equals(other.lockedBalanceBefore) && stakedBalanceBefore.equals(other.stakedBalanceBefore) && createDateTime.equals(other.createDateTime) && change.equals(other.change) && operationTarget.equals(other.operationTarget) && requestId.equals(other.requestId);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.walletId, this.pendingBalanceBefore, this.totalBalanceBefore, this.lockedBalanceBefore, this.createDateTime, this.change, this.operationTarget, this.requestId);
+    return Objects.hash(this.walletId, this.pendingBalanceBefore, this.totalBalanceBefore, this.lockedBalanceBefore, this.stakedBalanceBefore, this.createDateTime, this.change, this.operationTarget, this.requestId);
   }
 
   @java.lang.Override
@@ -151,6 +159,10 @@ public final class WalletHistory {
 
     _FinalStage lockedBalanceBefore(Double lockedBalanceBefore);
 
+    _FinalStage stakedBalanceBefore(Optional<Double> stakedBalanceBefore);
+
+    _FinalStage stakedBalanceBefore(Double stakedBalanceBefore);
+
     _FinalStage createDateTime(Optional<String> createDateTime);
 
     _FinalStage createDateTime(String createDateTime);
@@ -182,6 +194,8 @@ public final class WalletHistory {
 
     private Optional<String> createDateTime = Optional.empty();
 
+    private Optional<Double> stakedBalanceBefore = Optional.empty();
+
     private Optional<Double> lockedBalanceBefore = Optional.empty();
 
     private Optional<Double> totalBalanceBefore = Optional.empty();
@@ -200,6 +214,7 @@ public final class WalletHistory {
       pendingBalanceBefore(other.getPendingBalanceBefore());
       totalBalanceBefore(other.getTotalBalanceBefore());
       lockedBalanceBefore(other.getLockedBalanceBefore());
+      stakedBalanceBefore(other.getStakedBalanceBefore());
       createDateTime(other.getCreateDateTime());
       change(other.getChange());
       operationTarget(other.getOperationTarget());
@@ -279,6 +294,22 @@ public final class WalletHistory {
     }
 
     @java.lang.Override
+    public _FinalStage stakedBalanceBefore(Double stakedBalanceBefore) {
+      this.stakedBalanceBefore = Optional.ofNullable(stakedBalanceBefore);
+      return this;
+    }
+
+    @java.lang.Override
+    @JsonSetter(
+        value = "stakedBalanceBefore",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage stakedBalanceBefore(Optional<Double> stakedBalanceBefore) {
+      this.stakedBalanceBefore = stakedBalanceBefore;
+      return this;
+    }
+
+    @java.lang.Override
     public _FinalStage lockedBalanceBefore(Double lockedBalanceBefore) {
       this.lockedBalanceBefore = Optional.ofNullable(lockedBalanceBefore);
       return this;
@@ -328,7 +359,7 @@ public final class WalletHistory {
 
     @java.lang.Override
     public WalletHistory build() {
-      return new WalletHistory(walletId, pendingBalanceBefore, totalBalanceBefore, lockedBalanceBefore, createDateTime, change, operationTarget, requestId, additionalProperties);
+      return new WalletHistory(walletId, pendingBalanceBefore, totalBalanceBefore, lockedBalanceBefore, stakedBalanceBefore, createDateTime, change, operationTarget, requestId, additionalProperties);
     }
   }
 }

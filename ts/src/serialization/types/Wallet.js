@@ -48,6 +48,7 @@ exports.Wallet = core.serialization.object({
     availableBalance: core.serialization.number().optional(),
     lockedBalance: core.serialization.number().optional(),
     pendingBalance: core.serialization.number().optional(),
+    stakedBalance: core.serialization.number().optional(),
     totalBalance: core.serialization.number().optional(),
     depositInstruction: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     createDateTime: core.serialization.string().optional(),
