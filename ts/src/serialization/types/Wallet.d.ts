@@ -16,6 +16,7 @@ export declare namespace Wallet {
         availableBalance?: number | null;
         lockedBalance?: number | null;
         pendingBalance?: number | null;
+        stakedBalance?: number | null;
         totalBalance?: number | null;
         depositInstruction?: Record<string, unknown> | null;
         createDateTime?: string | null;

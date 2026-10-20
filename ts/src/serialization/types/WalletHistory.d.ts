@@ -13,6 +13,7 @@ export declare namespace WalletHistory {
         pendingBalanceBefore?: number | null;
         totalBalanceBefore?: number | null;
         lockedBalanceBefore?: number | null;
+        stakedBalanceBefore?: number | null;
         createDateTime?: string | null;
         change?: number | null;
         operationTarget?: WalletHistoryOperationTarget.Raw | null;

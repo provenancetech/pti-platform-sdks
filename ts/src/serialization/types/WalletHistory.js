@@ -45,6 +45,7 @@ exports.WalletHistory = core.serialization.object({
     pendingBalanceBefore: core.serialization.number().optional(),
     totalBalanceBefore: core.serialization.number().optional(),
     lockedBalanceBefore: core.serialization.number().optional(),
+    stakedBalanceBefore: core.serialization.number().optional(),
     createDateTime: core.serialization.string().optional(),
     change: core.serialization.number().optional(),
     operationTarget: WalletHistoryOperationTarget_1.WalletHistoryOperationTarget.optional(),
