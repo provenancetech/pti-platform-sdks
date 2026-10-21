@@ -41,6 +41,8 @@ public final class Wallet {
 
   private final Optional<Double> pendingBalance;
 
+  private final Optional<Double> stakedBalance;
+
   private final Optional<Double> totalBalance;
 
   private final Optional<Map<String, Object>> depositInstruction;
@@ -56,8 +58,9 @@ public final class Wallet {
   private Wallet(Optional<String> id, Optional<String> label, Optional<CurrencyEnum> currency,
       Optional<BlockChainEnum> network, Optional<Double> availableBalance,
       Optional<Double> lockedBalance, Optional<Double> pendingBalance,
-      Optional<Double> totalBalance, Optional<Map<String, Object>> depositInstruction,
-      Optional<String> createDateTime, Optional<Boolean> multiWalletAddress, Optional<String> type,
+      Optional<Double> stakedBalance, Optional<Double> totalBalance,
+      Optional<Map<String, Object>> depositInstruction, Optional<String> createDateTime,
+      Optional<Boolean> multiWalletAddress, Optional<String> type,
       Map<String, Object> additionalProperties) {
     this.id = id;
     this.label = label;
@@ -66,6 +69,7 @@ public final class Wallet {
     this.availableBalance = availableBalance;
     this.lockedBalance = lockedBalance;
     this.pendingBalance = pendingBalance;
+    this.stakedBalance = stakedBalance;
     this.totalBalance = totalBalance;
     this.depositInstruction = depositInstruction;
     this.createDateTime = createDateTime;
@@ -109,6 +113,11 @@ public final class Wallet {
     return pendingBalance;
   }
 
+  @JsonProperty("stakedBalance")
+  public Optional<Double> getStakedBalance() {
+    return stakedBalance;
+  }
+
   @JsonProperty("totalBalance")
   public Optional<Double> getTotalBalance() {
     return totalBalance;
@@ -149,12 +158,12 @@ public final class Wallet {
   }
 
   private boolean equalTo(Wallet other) {
-    return id.equals(other.id) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
+    return id.equals(other.id) && label.equals(other.label) && currency.equals(other.currency) && network.equals(other.network) && availableBalance.equals(other.availableBalance) && lockedBalance.equals(other.lockedBalance) && pendingBalance.equals(other.pendingBalance) && stakedBalance.equals(other.stakedBalance) && totalBalance.equals(other.totalBalance) && depositInstruction.equals(other.depositInstruction) && createDateTime.equals(other.createDateTime) && multiWalletAddress.equals(other.multiWalletAddress) && type.equals(other.type);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.id, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
+    return Objects.hash(this.id, this.label, this.currency, this.network, this.availableBalance, this.lockedBalance, this.pendingBalance, this.stakedBalance, this.totalBalance, this.depositInstruction, this.createDateTime, this.multiWalletAddress, this.type);
   }
 
   @java.lang.Override
@@ -184,6 +193,8 @@ public final class Wallet {
 
     private Optional<Double> pendingBalance = Optional.empty();
 
+    private Optional<Double> stakedBalance = Optional.empty();
+
     private Optional<Double> totalBalance = Optional.empty();
 
     private Optional<Map<String, Object>> depositInstruction = Optional.empty();
@@ -208,6 +219,7 @@ public final class Wallet {
       availableBalance(other.getAvailableBalance());
       lockedBalance(other.getLockedBalance());
       pendingBalance(other.getPendingBalance());
+      stakedBalance(other.getStakedBalance());
       totalBalance(other.getTotalBalance());
       depositInstruction(other.getDepositInstruction());
       createDateTime(other.getCreateDateTime());
@@ -315,6 +327,20 @@ public final class Wallet {
     }
 
     @JsonSetter(
+        value = "stakedBalance",
+        nulls = Nulls.SKIP
+    )
+    public Builder stakedBalance(Optional<Double> stakedBalance) {
+      this.stakedBalance = stakedBalance;
+      return this;
+    }
+
+    public Builder stakedBalance(Double stakedBalance) {
+      this.stakedBalance = Optional.ofNullable(stakedBalance);
+      return this;
+    }
+
+    @JsonSetter(
         value = "totalBalance",
         nulls = Nulls.SKIP
     )
@@ -385,7 +411,7 @@ public final class Wallet {
     }
 
     public Wallet build() {
-      return new Wallet(id, label, currency, network, availableBalance, lockedBalance, pendingBalance, totalBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
+      return new Wallet(id, label, currency, network, availableBalance, lockedBalance, pendingBalance, stakedBalance, totalBalance, depositInstruction, createDateTime, multiWalletAddress, type, additionalProperties);
     }
   }
 }

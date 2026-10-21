@@ -7,6 +7,7 @@ export interface WalletHistory {
     pendingBalanceBefore?: number;
     totalBalanceBefore?: number;
     lockedBalanceBefore?: number;
+    stakedBalanceBefore?: number;
     createDateTime?: string;
     change?: number;
     operationTarget?: PTI.WalletHistoryOperationTarget;
