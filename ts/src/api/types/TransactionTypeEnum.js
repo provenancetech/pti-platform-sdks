@@ -14,4 +14,5 @@ exports.TransactionTypeEnum = {
     Mint: "MINT",
     Trade: "TRADE",
     Stake: "STAKE",
+    Unstake: "UNSTAKE",
 };

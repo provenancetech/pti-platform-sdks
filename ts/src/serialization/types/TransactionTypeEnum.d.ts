@@ -6,5 +6,5 @@ import * as PTI from "../../api/index";
 import * as core from "../../core";
 export declare const TransactionTypeEnum: core.serialization.Schema<serializers.TransactionTypeEnum.Raw, PTI.TransactionTypeEnum>;
 export declare namespace TransactionTypeEnum {
-    type Raw = "DEPOSIT" | "WITHDRAWAL" | "PAYMENT" | "TRANSFER" | "SELL" | "BUY" | "MINT" | "TRADE" | "STAKE";
+    type Raw = "DEPOSIT" | "WITHDRAWAL" | "PAYMENT" | "TRANSFER" | "SELL" | "BUY" | "MINT" | "TRADE" | "STAKE" | "UNSTAKE";
 }

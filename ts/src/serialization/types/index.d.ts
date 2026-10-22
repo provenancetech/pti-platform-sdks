@@ -61,6 +61,7 @@ export * from "./PaymentTransaction";
 export * from "./MintTransaction";
 export * from "./StakeTransaction";
 export * from "./TradeTransaction";
+export * from "./UnstakeTransaction";
 export * from "./TransactionTypeEnum";
 export * from "./TransactionType";
 export * from "./UserStatusReason";

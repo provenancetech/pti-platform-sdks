@@ -47,6 +47,7 @@ const MintTransaction_1 = require("./MintTransaction");
 const TradeTransaction_1 = require("./TradeTransaction");
 const PaymentTransaction_1 = require("./PaymentTransaction");
 const StakeTransaction_1 = require("./StakeTransaction");
+const UnstakeTransaction_1 = require("./UnstakeTransaction");
 exports.OneOfTransactionSubTypes = core.serialization.undiscriminatedUnion([
     DepositTransaction_1.DepositTransaction,
     WithdrawalTransaction_1.WithdrawalTransaction,
@@ -57,4 +58,5 @@ exports.OneOfTransactionSubTypes = core.serialization.undiscriminatedUnion([
     TradeTransaction_1.TradeTransaction,
     PaymentTransaction_1.PaymentTransaction,
     StakeTransaction_1.StakeTransaction,
+    UnstakeTransaction_1.UnstakeTransaction,
 ]);
