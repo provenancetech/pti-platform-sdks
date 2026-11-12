@@ -1268,4 +1268,56 @@ public class TransactionsClient {
       throw new PTIClientException("Network error executing HTTP request", e);
     }
   }
+
+  /**
+   * This endpoint is used to attempt to cancel an initiated Unstake Transaction.
+   * If the call is successful, it means we were able to cancel the Unstake Transaction.
+   */
+  public void cancelUnstake(String requestId) {
+    cancelUnstake(requestId,null);
+  }
+
+  /**
+   * This endpoint is used to attempt to cancel an initiated Unstake Transaction.
+   * If the call is successful, it means we were able to cancel the Unstake Transaction.
+   */
+  public void cancelUnstake(String requestId, RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("stakes/unstake")
+      .addPathSegment(requestId)
+      .build();
+    Request okhttpRequest = new Request.Builder()
+      .url(httpUrl)
+      .method("DELETE", null)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Accept", "application/json")
+      .build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    try (Response response = client.newCall(okhttpRequest).execute()) {
+      ResponseBody responseBody = response.body();
+      if (response.isSuccessful()) {
+        return;
+      }
+      String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+      try {
+        switch (response.code()) {
+          case 400:throw new BadRequestError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, InvalidRequestError.class));
+          case 401:throw new UnauthorizedError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmanagedError.class));
+          case 404:throw new NotFoundError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+          case 429:throw new TooManyRequestsError(ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+        }
+      }
+      catch (JsonProcessingException ignored) {
+        // unable to map error response, throwing generic error
+      }
+      throw new PTIClientApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
+    }
+    catch (IOException e) {
+      throw new PTIClientException("Network error executing HTTP request", e);
+    }
+  }
 }
