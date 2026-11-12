@@ -532,5 +532,21 @@ export declare class Transactions {
      *     })
      */
     unstake(request: PTI.ExecuteUnstakeTransaction, requestOptions?: Transactions.RequestOptions): Promise<PTI.ObjectReference>;
+    /**
+     * This endpoint is used to attempt to cancel an initiated Unstake Transaction.
+     * If the call is successful, it means we were able to cancel the Unstake Transaction.
+     *
+     * @param {PTI.UuidLikeStr} requestId
+     * @param {Transactions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link PTI.BadRequestError}
+     * @throws {@link PTI.UnauthorizedError}
+     * @throws {@link PTI.NotFoundError}
+     * @throws {@link PTI.TooManyRequestsError}
+     *
+     * @example
+     *     await client.transactions.cancelUnstake("requestId")
+     */
+    cancelUnstake(requestId: PTI.UuidLikeStr, requestOptions?: Transactions.RequestOptions): Promise<void>;
     protected _getAuthorizationHeader(): Promise<string | undefined>;
 }
