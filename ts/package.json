@@ -25,5 +25,8 @@
     "qs": "^6.16.0",
     "readable-stream": "4.7.0",
     "url-join": "4.0.1"
+  },
+  "resolutions": {
+    "node-forge": "^1.4.3"
   }
 }
