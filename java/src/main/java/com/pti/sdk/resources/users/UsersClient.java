@@ -500,24 +500,30 @@ public class UsersClient {
     }
 
     /**
-     * Allows uploading a document for a specific User, such as a passport, driver’s
-     * license, or other identification. The request can include metadata about the
-     * document and any associated ID information.
-     * <p>Uploaded documents are used for KYC verification, compliance checks, and
-     * record-keeping purposes. The file must be sent as binary data and cannot
-     * exceed 5 MB in size.</p>
+     * Allows uploading a founding document for a specific User. The request can
+     * include metadata about the document.
+     * <p>Uploaded documents are used for compliance checks and record-keeping purposes.
+     * The file must be sent as binary data and cannot exceed 5 MB in size.</p>
+     * <p>Only founding documents (<code>FOUNDING_DOCUMENT</code>) can be uploaded through this
+     * endpoint. Any other document type, including ID documents (passport, ID card,
+     * driver’s license, residence permit) and selfies, is rejected with a <code>400</code> error.
+     * ID documents and selfies are collected during the User’s KYC identity
+     * verification.</p>
      */
     public void uploadDocument(String userId, Optional<File> document) {
       uploadDocument(userId,document,UploadDocumentRequest.builder().build());
     }
 
     /**
-     * Allows uploading a document for a specific User, such as a passport, driver’s
-     * license, or other identification. The request can include metadata about the
-     * document and any associated ID information.
-     * <p>Uploaded documents are used for KYC verification, compliance checks, and
-     * record-keeping purposes. The file must be sent as binary data and cannot
-     * exceed 5 MB in size.</p>
+     * Allows uploading a founding document for a specific User. The request can
+     * include metadata about the document.
+     * <p>Uploaded documents are used for compliance checks and record-keeping purposes.
+     * The file must be sent as binary data and cannot exceed 5 MB in size.</p>
+     * <p>Only founding documents (<code>FOUNDING_DOCUMENT</code>) can be uploaded through this
+     * endpoint. Any other document type, including ID documents (passport, ID card,
+     * driver’s license, residence permit) and selfies, is rejected with a <code>400</code> error.
+     * ID documents and selfies are collected during the User’s KYC identity
+     * verification.</p>
      */
     public void uploadDocument(String userId, Optional<File> document,
         UploadDocumentRequest request) {
@@ -525,12 +531,15 @@ public class UsersClient {
     }
 
     /**
-     * Allows uploading a document for a specific User, such as a passport, driver’s
-     * license, or other identification. The request can include metadata about the
-     * document and any associated ID information.
-     * <p>Uploaded documents are used for KYC verification, compliance checks, and
-     * record-keeping purposes. The file must be sent as binary data and cannot
-     * exceed 5 MB in size.</p>
+     * Allows uploading a founding document for a specific User. The request can
+     * include metadata about the document.
+     * <p>Uploaded documents are used for compliance checks and record-keeping purposes.
+     * The file must be sent as binary data and cannot exceed 5 MB in size.</p>
+     * <p>Only founding documents (<code>FOUNDING_DOCUMENT</code>) can be uploaded through this
+     * endpoint. Any other document type, including ID documents (passport, ID card,
+     * driver’s license, residence permit) and selfies, is rejected with a <code>400</code> error.
+     * ID documents and selfies are collected during the User’s KYC identity
+     * verification.</p>
      */
     public void uploadDocument(String userId, Optional<File> document,
         UploadDocumentRequest request, RequestOptions requestOptions) {

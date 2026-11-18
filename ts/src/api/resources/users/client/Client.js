@@ -679,13 +679,17 @@ class Users {
         });
     }
     /**
-     * Allows uploading a document for a specific User, such as a passport, driver’s
-     * license, or other identification. The request can include metadata about the
-     * document and any associated ID information.
+     * Allows uploading a founding document for a specific User. The request can
+     * include metadata about the document.
      *
-     * Uploaded documents are used for KYC verification, compliance checks, and
-     * record-keeping purposes. The file must be sent as binary data and cannot
-     * exceed 5 MB in size.
+     * Uploaded documents are used for compliance checks and record-keeping purposes.
+     * The file must be sent as binary data and cannot exceed 5 MB in size.
+     *
+     * Only founding documents (`FOUNDING_DOCUMENT`) can be uploaded through this
+     * endpoint. Any other document type, including ID documents (passport, ID card,
+     * driver’s license, residence permit) and selfies, is rejected with a `400` error.
+     * ID documents and selfies are collected during the User’s KYC identity
+     * verification.
      *
      * @param {File | fs.ReadStream | Blob | undefined} document
      * @param {string} userId
