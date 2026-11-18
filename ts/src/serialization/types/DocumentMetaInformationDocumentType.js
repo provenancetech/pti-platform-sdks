@@ -38,15 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DocumentMetaInformationDocumentType = void 0;
 const core = __importStar(require("../../core"));
-exports.DocumentMetaInformationDocumentType = core.serialization.enum_([
-    "PASSPORT",
-    "PASSPORT_BACK",
-    "ID_CARD",
-    "ID_CARD_BACK",
-    "DRIVER_LICENSE",
-    "DRIVER_LICENSE_BACK",
-    "RESIDENCE_PERMIT",
-    "RESIDENCE_PERMIT_BACK",
-    "SELFIE",
-    "FOUNDING_DOCUMENT",
-]);
+exports.DocumentMetaInformationDocumentType = core.serialization.enum_(["FOUNDING_DOCUMENT"]);
