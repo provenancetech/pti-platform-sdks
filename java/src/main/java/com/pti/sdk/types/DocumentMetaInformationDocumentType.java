@@ -8,24 +8,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 public enum DocumentMetaInformationDocumentType {
-  PASSPORT("PASSPORT"),
-
-  PASSPORT_BACK("PASSPORT_BACK"),
-
-  ID_CARD("ID_CARD"),
-
-  ID_CARD_BACK("ID_CARD_BACK"),
-
-  DRIVER_LICENSE("DRIVER_LICENSE"),
-
-  DRIVER_LICENSE_BACK("DRIVER_LICENSE_BACK"),
-
-  RESIDENCE_PERMIT("RESIDENCE_PERMIT"),
-
-  RESIDENCE_PERMIT_BACK("RESIDENCE_PERMIT_BACK"),
-
-  SELFIE("SELFIE"),
-
   FOUNDING_DOCUMENT("FOUNDING_DOCUMENT");
 
   private final String value;
